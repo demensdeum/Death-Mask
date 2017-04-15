@@ -10,15 +10,17 @@ set(CMAKE_EXECUTABLE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/${FSEGT_PROJECT_NAME})
 
 include_directories(.)
 
-add_definitions(-DOGG_MUSIC	)
+add_definitions(-DTHREE_SEPARATE_COMPILATION)
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -std=c++11 -Wall -I ../FlameSteelFramework")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -std=c++14 -Wall -I ../FlameSteelFramework -I ../threeCPP")
 
 file(GLOB_RECURSE SOURCE_FILES
     "../FlameSteelFramework/FlameSteelEngine/*.h"
     "../FlameSteelFramework/FlameSteelEngine/*.cpp"
     "../FlameSteelFramework/FlameSteelEngineGameToolkit/*.h"
     "../FlameSteelFramework/FlameSteelEngineGameToolkit/*.cpp"
+    "../FlameSteelFramework/FlameSteelEngineGameToolkit/*.cpp"
+    "../threeCPP/*.cpp"
     "DeathMask/*.h"
     "DeathMask/*.cpp"
 )
@@ -40,3 +42,11 @@ target_link_libraries(${FSEGT_PROJECT_NAME} ${SDL_TTF_LIBRARY})
 find_package (SDL_mixer REQUIRED)
 include_directories (${SDL_MIXER_INCLUDE_DIRS})
 target_link_libraries(${FSEGT_PROJECT_NAME} ${SDL_MIXER_LIBRARIES})
+
+find_package(GLEW REQUIRED)
+include_directories (${GLEW_INCLUDE_DIR})
+target_link_libraries(${FSEGT_PROJECT_NAME} ${GLEW_LIBRARIES})
+
+find_package(OpenGL REQUIRED)
+include_directories (${OPENGL_INCLUDE_DIRS})
+target_link_libraries(${FSEGT_PROJECT_NAME} ${OPENGL_LIBRARIES})
