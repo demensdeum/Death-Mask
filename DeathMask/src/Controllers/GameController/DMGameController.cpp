@@ -17,7 +17,10 @@
 #include <FlameSteelEngineGameToolkit/IOSystems/SDL/FSEGTIOGenericSystemParams.h>
 #include <FlameSteelEngine/FSEUtils.h>
 
+#include <DeathMask/src/Const/DMConstStates.h>
 #include <DeathMask/src/Const/DMConstIOSystem.h>
+
+#include <DeathMask/src/Controllers/CreditsController/DMCreditsController.h>
 
 DMGameController::DMGameController() {
     
@@ -30,6 +33,9 @@ DMGameController::DMGameController() {
     
     ioSystem = this->makeIOSystem();
     ioSystem->initialize();
+    
+    auto creditsController = std::make_shared<DMCreditsController>();
+    this->setControllerForState(creditsController, DMStateCredits);    
 }
 
 shared_ptr<FSEGTIOSystem> DMGameController::makeIOSystem() {
