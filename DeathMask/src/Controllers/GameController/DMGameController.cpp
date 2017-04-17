@@ -29,6 +29,7 @@ DMGameController::DMGameController() {
     ioSystemParams->height = DMConstIOSystemScreenHeight;
     
     ioSystem = this->makeIOSystem();
+    ioSystem->initialize();
 }
 
 shared_ptr<FSEGTIOSystem> DMGameController::makeIOSystem() {
