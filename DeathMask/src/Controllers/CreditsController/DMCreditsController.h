@@ -22,6 +22,7 @@ public:
     DMCreditsController(const DMCreditsController& orig);
     virtual ~DMCreditsController();
     
+    virtual void beforeStart();    
     virtual void step();
     
 private:
