@@ -26,7 +26,9 @@ void DMCreditsController::beforeStart() {
     
     auto demensdeumLogo = std::make_shared<FSEObject>();
     
-    auto model = FSEGTFactory::makeModelComponent(std::make_shared<string>("./data/graphics/models/cube/cube"), 1, 1, 1);
+    auto model = FSEGTFactory::makeModelComponent(std::make_shared<string>("./data/graphics/models/cube/cube.bam"), 1, 1, 1);
+    
+    demensdeumLogo->addComponent(model);
     
     this->gameData->getGameObjects()->addObject(demensdeumLogo);    
 }
