@@ -24,11 +24,21 @@ DMCreditsController::DMCreditsController(const DMCreditsController& orig) {
 
 void DMCreditsController::beforeStart() {
     
-    auto demensdeumLogo = std::make_shared<FSEObject>();
-    
-    auto model = FSEGTFactory::makeModelComponent(std::make_shared<string>("./data/graphics/models/cube/cube.bam"), 1, 1, 1);
-    
-    demensdeumLogo->addComponent(model);
+//    auto demensdeumLogo = std::make_shared<FSEObject>();
+//    
+//    auto model = FSEGTFactory::makeModelComponent(std::make_shared<string>("./data/graphics/models/cube/cube.bam"));
+//    
+//    demensdeumLogo->addComponent(model);
+  
+    auto demensdeumLogo = FSEGTFactory::makeOnSceneObject(
+            std::make_shared<string>("demensdeumLogo"),
+            std::make_shared<string>("demensdeumLogo"),
+            std::make_shared<string>(),
+            std::make_shared<string>("./data/graphics/models/cube/cube.bam"),
+            1, 1, 1,
+            -8, 42, 0,
+            0,
+            0);
     
     this->gameData->getGameObjects()->addObject(demensdeumLogo);    
 }
