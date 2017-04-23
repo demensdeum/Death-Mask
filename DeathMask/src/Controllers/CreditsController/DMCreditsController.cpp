@@ -28,10 +28,10 @@ void DMCreditsController::beforeStart() {
             std::make_shared<string>("demensdeumLogo"),
             std::make_shared<string>("demensdeumLogo"),
             std::make_shared<string>(),
-            std::make_shared<string>("./data/graphics/models/gnom/gnom"),
+            std::make_shared<string>("./data/graphics/models/demensdeumLogo/demensdeumLogo"),
             1, 1, 1,
-            -8, 42, 0,
-            0,
+            0, 4, 0,
+            0, 0, 0,
             0);
     
     this->gameData->getGameObjects()->addObject(demensdeumLogo);    
