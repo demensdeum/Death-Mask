@@ -34,7 +34,7 @@ void DMCreditsController::beforeStart() {
             std::make_shared<string>("demensdeumLogo"),
             std::make_shared<string>("demensdeumLogo"),
             std::make_shared<string>(),
-            std::make_shared<string>("./data/graphics/models/cube/cube.bam"),
+            std::make_shared<string>("./data/graphics/models/gnom/gnom.egg"),
             1, 1, 1,
             -8, 42, 0,
             0,
