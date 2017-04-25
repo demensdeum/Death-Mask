@@ -14,13 +14,13 @@
 #include "DMGameController.h"
 
 #include <FlameSteelEngineGameToolkitDesktop/IOSystems/Desktop/FSEGTIODesktopSystem.h>
-#include <FlameSteelEngineGameToolkit/IOSystems/SDL/FSEGTIOGenericSystemParams.h>
+#include <FlameSteelEngineGameToolkit/IO/IOSystems/SDL/FSEGTIOGenericSystemParams.h>
 #include <FlameSteelEngine/FSEUtils.h>
 
 #include <DeathMask/src/Const/DMConstStates.h>
 #include <DeathMask/src/Const/DMConstIOSystem.h>
 
-#include <DeathMask/src/Controllers/CreditsController/DMCreditsController.h>
+#include <DeathMask/src/Controllers/Subcontrollers/CreditsController/DMCreditsController.h>
 
 DMGameController::DMGameController() {
     
