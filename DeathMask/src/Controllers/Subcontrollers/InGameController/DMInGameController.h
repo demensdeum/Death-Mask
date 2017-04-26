@@ -5,14 +5,14 @@
  */
 
 /* 
- * File:   DMGameController.h
+ * File:   DMInGameController.h
  * Author: demensdeum
  *
- * Created on April 25, 2017, 8:40 AM
+ * Created on April 26, 2017, 8:42 AM
  */
 
-#ifndef DMGAMECONTROLLER_H
-#define DMGAMECONTROLLER_H
+#ifndef DMINGAMECONTROLLER_H
+#define DMINGAMECONTROLLER_H
 
 #include <FlameSteelEngineGameToolkit/Controllers/FSEGTSceneController.h>
 
@@ -23,11 +23,11 @@ public:
     virtual ~DMInGameController();
     
     virtual void beforeStart();    
-    virtual void step();
+    virtual void step();    
     
 private:
 
 };
 
-#endif /* DMGAMECONTROLLER_H */
+#endif /* DMINGAMECONTROLLER_H */
 

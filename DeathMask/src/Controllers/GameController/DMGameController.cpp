@@ -12,6 +12,7 @@
  */
 
 #include "DMGameController.h"
+#include "DeathMask/src/Controllers/Subcontrollers/InGameController/DMInGameController.h"
 
 #include <FlameSteelEngineGameToolkitDesktop/IOSystems/Desktop/FSEGTIODesktopSystem.h>
 #include <FlameSteelEngineGameToolkit/IO/IOSystems/SDL/FSEGTIOGenericSystemParams.h>
@@ -21,12 +22,17 @@
 #include <DeathMask/src/Const/DMConstIOSystem.h>
 
 #include <DeathMask/src/Controllers/Subcontrollers/CreditsController/DMCreditsController.h>
+#include <DeathMask/src/Controllers/Subcontrollers/InGameController/DMInGameController.h>
 
 DMGameController::DMGameController() {
     
+    // random seed
+    
+    srand (time(NULL));
+    
     // IO System
     
-    auto ioSystemParams = shared_ptr<FSEGTIOGenericSystemParams>(new FSEGTIOGenericSystemParams());
+    auto ioSystemParams = std::make_shared<FSEGTIOGenericSystemParams>();
     ioSystemParams->title = FSEUtils::localizedString(std::make_shared<string>("Bad Robots"));
     ioSystemParams->width = DMConstIOSystemScreenWidth;
     ioSystemParams->height = DMConstIOSystemScreenHeight;
@@ -35,14 +41,18 @@ DMGameController::DMGameController() {
     ioSystem->initialize();
     
     auto creditsController = std::make_shared<DMCreditsController>();
-    this->setControllerForState(creditsController, DMStateCredits);    
+    this->setControllerForState(creditsController, DMStateCredits);  
+    
+    auto inGameController = std::make_shared<DMInGameController>();
+    this->setControllerForState(inGameController, DMStateInGame);
+    
 }
 
 shared_ptr<FSEGTIOSystem> DMGameController::makeIOSystem() {
     
 #ifdef __EMSCRIPTEN__
 
-    auto ioSystem = shared_ptr<FSEGTIOWebSystem>(new FSEGTIOWebSystem());
+    auto ioSystem = std::make_shared<FSEGTIOWebSystem>();
     
 #else
     
