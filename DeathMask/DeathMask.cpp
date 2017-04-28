@@ -11,5 +11,5 @@ int main()
 	cout << "Welcome to Death Mask - roguelike game in cyberpunk setting" << endl;
         
         auto controller = std::make_shared<DMGameController>();
-        controller->startGameFromState(DMStateCredits);        
+        controller->startGameFromState(DMStateInGame);        
 }

@@ -48,7 +48,13 @@ shared_ptr<FSEGTGameMap> DMMapGenerator::generate(shared_ptr<DMMapGeneratorParam
     
     int cursorX = FSEUtils::FSERandomInt(gameMap->width);
     int cursorY = FSEUtils::FSERandomInt(gameMap->height);
+    
+    if (cursorX < 2) { cursorX = 2; };
+    if (cursorX > gameMap->width - 2) { cursorX = gameMap->width - 2; };
 
+    if (cursorY < 2) { cursorY = 2; };
+    if (cursorY > gameMap->height - 2) { cursorY = gameMap->height - 2; };    
+    
     for (auto x = 0; x < maxIterations; x++) {
 
         int cursorDirection = FSEUtils::FSERandomInt(FSEGTSimpleDirectionCount);
@@ -62,25 +68,25 @@ shared_ptr<FSEGTGameMap> DMMapGenerator::generate(shared_ptr<DMMapGeneratorParam
 
                 case FSEGTSimpleDirectionUp:
 
-                    if (cursorY > 0) { cursorY -= 1; }
+                    if (cursorY > 2) { cursorY -= 1; }
 
                     break;
 
                 case FSEGTSimpleDirectionDown:
 
-                    if (cursorY < gameMap->height - 1) { cursorY += 1; }
+                    if (cursorY < gameMap->height - 2) { cursorY += 1; }
 
                     break;
 
                 case FSEGTSimpleDirectionLeft:
 
-                    if (cursorX > 0) { cursorX -= 1; }
+                    if (cursorX > 2) { cursorX -= 1; }
 
                     break;
 
                 case FSEGTSimpleDirectionRight:
 
-                    if (cursorX < gameMap->width - 1) { cursorX += 1; }
+                    if (cursorX < gameMap->width - 2) { cursorX += 1; }
 
                     break;
             }
@@ -113,7 +119,7 @@ void DMMapGenerator::drawFreeTilesAtXY(shared_ptr<FSEGTGameMap> gameMap, int cur
             int putTileX = x + cursorX;
             int putTileY = y + cursorY;
             
-            if (putTileX < 0 || putTileY < 0 || putTileX > gameMap->width - 1 || putTileY > gameMap->height - 1) { continue; }
+            if (putTileX < 2 || putTileY < 2 || putTileX > gameMap->width - 2 || putTileY > gameMap->height - 2) { continue; }
             
             gameMap->setTileAtXY(freeTileIndex, putTileX, putTileY);
             
