@@ -42,7 +42,7 @@ DMGameController::DMGameController() {
     
     auto creditsController = std::make_shared<DMCreditsController>();
     this->setControllerForState(creditsController, DMStateCredits);  
-    
+        
     auto inGameController = std::make_shared<DMInGameController>();
     this->setControllerForState(inGameController, DMStateInGame);
     

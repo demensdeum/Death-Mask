@@ -35,6 +35,7 @@ void DMInGameController::beforeStart() {
     mapGeneratorParams->solidTileIndex = 1;
 
     mapGeneratorParams->maxIterations = 255;
+    mapGeneratorParams->minCursorSize = 2;
     mapGeneratorParams->maxCursorSize = 1 + FSEUtils::FSERandomInt(6);
     mapGeneratorParams->maxLineLength = 6 + FSEUtils::FSERandomInt(6);
 
@@ -51,8 +52,8 @@ void DMInGameController::beforeStart() {
             if (tileIndex == 0) {
                 
                 auto floor = FSEGTFactory::makeOnSceneObject(
-                        std::make_shared<string>("block"),
-                        std::make_shared<string>("block"),
+                        std::make_shared<string>("floor"),
+                        std::make_shared<string>("floor"),
                         std::make_shared<string>(),
                         std::make_shared<string>("./data/graphics/models/floor/floor"),
                         x, y, 1,
@@ -65,8 +66,8 @@ void DMInGameController::beforeStart() {
             else if (tileIndex == 1) {
 
                 auto wall = FSEGTFactory::makeOnSceneObject(
-                        std::make_shared<string>("block"),
-                        std::make_shared<string>("block"),
+                        std::make_shared<string>("wall"),
+                        std::make_shared<string>("wall"),
                         std::make_shared<string>(),
                         std::make_shared<string>("./data/graphics/models/wall/wall"),
                         x, y, 2,
@@ -78,6 +79,18 @@ void DMInGameController::beforeStart() {
             }
         }
     }
+    
+                auto revil = FSEGTFactory::makeOnSceneObject(
+                        std::make_shared<string>("revil"),
+                        std::make_shared<string>("revil"),
+                        std::make_shared<string>(),
+                        std::make_shared<string>("./data/graphics/models/revil/revil"),
+                        0, 0, 2,
+                        1, 1, 1,
+                        0, 0, 0,
+                        0);
+
+                this->gameData->getGameObjects()->addObject(revil);    
 }
 
 void DMInGameController::step() {

@@ -27,7 +27,7 @@ public:
     
 private:
 
-    void drawFreeTilesAtXY(shared_ptr<FSEGTGameMap> gameMap, int cursorX, int cursorY, int maxCursorSize, int freeTileIndex);
+    void drawFreeTilesAtXY(shared_ptr<FSEGTGameMap> gameMap, int cursorX, int cursorY, int minCursorSize, int maxCursorSize, int freeTileIndex);
 };
 
 #endif /* DMMAPGENERATOR_H */

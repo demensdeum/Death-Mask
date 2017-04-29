@@ -28,6 +28,7 @@ public:
     int maxIterations;
     int maxLineLength;
     
+    int minCursorSize;
     int maxCursorSize;
     
 private:

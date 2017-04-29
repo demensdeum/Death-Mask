@@ -35,6 +35,7 @@ shared_ptr<FSEGTGameMap> DMMapGenerator::generate(shared_ptr<DMMapGeneratorParam
     auto maxIterations = params->maxIterations;
     auto maxLineLength = params->maxLineLength;
     
+    auto minCursorSize = params->minCursorSize;
     auto maxCursorSize = params->maxCursorSize;
     
     for (int x = 0; x < gameMap->width; x++) {
@@ -62,7 +63,7 @@ shared_ptr<FSEGTGameMap> DMMapGenerator::generate(shared_ptr<DMMapGeneratorParam
         
         for (auto y = 0; y < cursorSteps; y++) {
 
-            this->drawFreeTilesAtXY(gameMap, cursorX, cursorY, maxCursorSize, freeTileIndex);
+            this->drawFreeTilesAtXY(gameMap, cursorX, cursorY, minCursorSize, maxCursorSize, freeTileIndex);
 
             switch (cursorDirection) {
 
@@ -108,9 +109,15 @@ shared_ptr<FSEGTGameMap> DMMapGenerator::generate(shared_ptr<DMMapGeneratorParam
     return gameMap;
 }
 
-void DMMapGenerator::drawFreeTilesAtXY(shared_ptr<FSEGTGameMap> gameMap, int cursorX, int cursorY, int maxCursorSize, int freeTileIndex) {
+void DMMapGenerator::drawFreeTilesAtXY(shared_ptr<FSEGTGameMap> gameMap, int cursorX, int cursorY, int minCursorSize, int maxCursorSize, int freeTileIndex) {
     
     int cursorSize = FSEUtils::FSERandomInt(maxCursorSize);
+    
+    if (cursorSize < minCursorSize) {
+        
+        cursorSize = minCursorSize;
+        
+    }
     
     for (int x = 0; x < cursorSize; x++) {
         
