@@ -31,6 +31,9 @@ public:
     int minCursorSize;
     int maxCursorSize;
     
+    int minFreeSpace;
+    int maxFreeSpace;
+    
 private:
 
 };

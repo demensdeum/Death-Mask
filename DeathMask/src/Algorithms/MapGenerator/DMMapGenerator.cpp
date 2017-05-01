@@ -13,6 +13,8 @@
 
 #include "DMMapGenerator.h"
 
+#include <FlameSteelEngineGameToolkit/Controllers/FSEGTObjectsContext.h>
+#include <FlameSteelEngineGameToolkit/Data/Components/FSEGTFactory.h>
 #include <FlameSteelEngineGameToolkit/Data/FSEGTSimpleDirection.h>
 #include <FlameSteelEngine/FSEUtils.h>
 #include <iostream>
@@ -25,18 +27,12 @@ DMMapGenerator::DMMapGenerator() {
 DMMapGenerator::DMMapGenerator(const DMMapGenerator& orig) {
 }
 
-shared_ptr<FSEGTGameMap> DMMapGenerator::generate(shared_ptr<DMMapGeneratorParams> params) {
+void DMMapGenerator::generate(shared_ptr<DMMapGeneratorParams> params, shared_ptr<FSEGTGameMap> gameMap, shared_ptr<FSEGTObjectsContext> objectsContext) {
 
-    auto gameMap = std::make_shared<FSEGTGameMap>();
-
-    auto freeTileIndex = params->freeTileIndex;
     auto solidTileIndex = params->solidTileIndex;
 
     auto maxIterations = params->maxIterations;
     auto maxLineLength = params->maxLineLength;
-    
-    auto minCursorSize = params->minCursorSize;
-    auto maxCursorSize = params->maxCursorSize;
     
     for (int x = 0; x < gameMap->width; x++) {
         
@@ -56,6 +52,22 @@ shared_ptr<FSEGTGameMap> DMMapGenerator::generate(shared_ptr<DMMapGeneratorParam
     if (cursorY < 2) { cursorY = 2; };
     if (cursorY > gameMap->height - 2) { cursorY = gameMap->height - 2; };    
     
+    objectsContext->removeAllObjects();
+    
+    auto revil = FSEGTFactory::makeOnSceneObject(
+            std::make_shared<string>("revil"),
+            std::make_shared<string>("revil"),
+            std::make_shared<string>(),
+            std::make_shared<string>("./data/graphics/models/revil/revil"),
+            cursorX, cursorY, 2,
+            1, 1, 1,
+            0, 0, 0,
+            0);
+
+    objectsContext->addObject(revil);    
+    
+    this->drawFreeTilesAtXY(gameMap, params, cursorX, cursorY);    
+    
     for (auto x = 0; x < maxIterations; x++) {
 
         int cursorDirection = FSEUtils::FSERandomInt(FSEGTSimpleDirectionCount);
@@ -63,7 +75,7 @@ shared_ptr<FSEGTGameMap> DMMapGenerator::generate(shared_ptr<DMMapGeneratorParam
         
         for (auto y = 0; y < cursorSteps; y++) {
 
-            this->drawFreeTilesAtXY(gameMap, cursorX, cursorY, minCursorSize, maxCursorSize, freeTileIndex);
+            this->drawFreeTilesAtXY(gameMap, params, cursorX, cursorY);
 
             switch (cursorDirection) {
 
@@ -105,11 +117,14 @@ shared_ptr<FSEGTGameMap> DMMapGenerator::generate(shared_ptr<DMMapGeneratorParam
         
         cout << endl;
     }    
-    
-    return gameMap;
 }
 
-void DMMapGenerator::drawFreeTilesAtXY(shared_ptr<FSEGTGameMap> gameMap, int cursorX, int cursorY, int minCursorSize, int maxCursorSize, int freeTileIndex) {
+void DMMapGenerator::drawFreeTilesAtXY(shared_ptr<FSEGTGameMap> gameMap, shared_ptr<DMMapGeneratorParams> params, int cursorX, int cursorY) {
+    
+    auto minCursorSize = params->minCursorSize;
+    auto maxCursorSize = params->maxCursorSize;
+    
+    auto freeTileIndex = params->freeTileIndex;
     
     int cursorSize = FSEUtils::FSERandomInt(maxCursorSize);
     

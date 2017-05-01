@@ -12,6 +12,7 @@
  */
 
 #include "DMInGameController.h"
+#include "FlameSteelEngineGameToolkit/IO/Input/FSEGTInputController.h"
 
 #include <FlameSteelEngine/FSEUtils.h>
 
@@ -19,6 +20,10 @@
 #include <DeathMask/src/Algorithms/MapGenerator/DMMapGeneratorParams.h>
 
 #include <FlameSteelEngineGameToolkit/Data/Components/FSEGTFactory.h>
+
+#include <iostream>
+
+using namespace std;
 
 DMInGameController::DMInGameController() {
 }
@@ -31,6 +36,7 @@ void DMInGameController::beforeStart() {
     auto mapGenerator = std::make_shared<DMMapGenerator>();
 
     auto mapGeneratorParams = std::make_shared<DMMapGeneratorParams>();
+    
     mapGeneratorParams->freeTileIndex = 0;
     mapGeneratorParams->solidTileIndex = 1;
 
@@ -39,10 +45,10 @@ void DMInGameController::beforeStart() {
     mapGeneratorParams->maxCursorSize = 1 + FSEUtils::FSERandomInt(6);
     mapGeneratorParams->maxLineLength = 6 + FSEUtils::FSERandomInt(6);
 
-    auto gameMap = mapGenerator->generate(mapGeneratorParams);
-
-    gameData->gameMap = gameMap;
+    gameData->gameMap = std::make_shared<FSEGTGameMap>();
     
+    mapGenerator->generate(mapGeneratorParams, gameData->gameMap, this->objectsContext);
+
     for (auto x = 0; x < gameData->gameMap->width; x++) {
 
         for (auto y = 0; y < gameData->gameMap->height; y++) {
@@ -50,7 +56,7 @@ void DMInGameController::beforeStart() {
             auto tileIndex = gameData->gameMap->getTileIndexAtXY(x, y);
 
             if (tileIndex == 0) {
-                
+
                 auto floor = FSEGTFactory::makeOnSceneObject(
                         std::make_shared<string>("floor"),
                         std::make_shared<string>("floor"),
@@ -61,8 +67,11 @@ void DMInGameController::beforeStart() {
                         0, 0, 0,
                         0);
 
-                this->gameData->getGameObjects()->addObject(floor);                
-            }
+                objectsContext->addObject(floor);
+                
+                //this->gameData->getGameObjects()->addObject(floor);
+                
+            } 
             else if (tileIndex == 1) {
 
                 auto wall = FSEGTFactory::makeOnSceneObject(
@@ -75,26 +84,23 @@ void DMInGameController::beforeStart() {
                         0, 0, 0,
                         0);
 
-                this->gameData->getGameObjects()->addObject(wall);
+                objectsContext->addObject(wall);
+                
+                //this->gameData->getGameObjects()->addObject(wall);
             }
         }
     }
-    
-                auto revil = FSEGTFactory::makeOnSceneObject(
-                        std::make_shared<string>("revil"),
-                        std::make_shared<string>("revil"),
-                        std::make_shared<string>(),
-                        std::make_shared<string>("./data/graphics/models/revil/revil"),
-                        0, 0, 2,
-                        1, 1, 1,
-                        0, 0, 0,
-                        0);
-
-                this->gameData->getGameObjects()->addObject(revil);    
 }
 
 void DMInGameController::step() {
 
+    if (ioSystem->inputController->isExitKeyPressed()) {
+        
+        cout << "Bye-Bye!" << endl;
+        
+        exit(0);
+    }
+    
     renderer->render(gameData);
 
 }

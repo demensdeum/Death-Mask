@@ -16,6 +16,7 @@
 
 #include <FlameSteelEngineGameToolkit/Algorithms/MapGenerator/FSEGTMapGenerator.h>
 #include <DeathMask/src/Algorithms/MapGenerator/DMMapGeneratorParams.h>
+#include <FlameSteelEngineGameToolkit/Controllers/FSEGTObjectsContext.h>
 
 class DMMapGenerator: FSEGTMapGenerator {
 public:
@@ -23,11 +24,11 @@ public:
     DMMapGenerator(const DMMapGenerator& orig);
     virtual ~DMMapGenerator();
     
-    virtual shared_ptr<FSEGTGameMap> generate(shared_ptr<DMMapGeneratorParams> params);
+    virtual void generate(shared_ptr<DMMapGeneratorParams> params, shared_ptr<FSEGTGameMap> gameMap, shared_ptr<FSEGTObjectsContext> objectsContext);
     
 private:
 
-    void drawFreeTilesAtXY(shared_ptr<FSEGTGameMap> gameMap, int cursorX, int cursorY, int minCursorSize, int maxCursorSize, int freeTileIndex);
+    void drawFreeTilesAtXY(shared_ptr<FSEGTGameMap> gameMap, shared_ptr<DMMapGeneratorParams> params, int cursorX, int cursorY);
 };
 
 #endif /* DMMAPGENERATOR_H */
