@@ -27,6 +27,9 @@ public:
     
 private:
 
+    shared_ptr<FSEObject> getRevil();
+    
+    shared_ptr<FSEObject> revil;
 };
 
 #endif /* DMINGAMECONTROLLER_H */

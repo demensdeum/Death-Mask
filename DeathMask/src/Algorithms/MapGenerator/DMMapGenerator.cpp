@@ -59,7 +59,7 @@ void DMMapGenerator::generate(shared_ptr<DMMapGeneratorParams> params, shared_pt
             std::make_shared<string>("revil"),
             std::make_shared<string>(),
             std::make_shared<string>("./data/graphics/models/revil/revil"),
-            cursorX, cursorY, 2,
+            -1, -1, 2,
             1, 1, 1,
             0, 0, 0,
             0);
@@ -106,9 +106,9 @@ void DMMapGenerator::generate(shared_ptr<DMMapGeneratorParams> params, shared_pt
         }
     }
 
-    for (int x = 0; x < gameMap->width; x++) {
+    for (int y = 0; y < gameMap->width; y++) {
         
-        for (int y = 0; y < gameMap->height; y++) {
+        for (int x = 0; x < gameMap->height; x++) {
             
             auto tileIndex = gameMap->getTileIndexAtXY(x, y);
             

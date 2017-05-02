@@ -16,6 +16,8 @@
 
 #include <FlameSteelEngine/FSEUtils.h>
 
+#include <FlameSteelEngineGameToolkit/Utils/FSEGTUtils.h>
+
 #include <DeathMask/src/Algorithms/MapGenerator/DMMapGenerator.h>
 #include <DeathMask/src/Algorithms/MapGenerator/DMMapGeneratorParams.h>
 
@@ -67,10 +69,7 @@ void DMInGameController::beforeStart() {
                         0, 0, 0,
                         0);
 
-                objectsContext->addObject(floor);
-                
-                //this->gameData->getGameObjects()->addObject(floor);
-                
+                objectsContext->addObject(floor);              
             } 
             else if (tileIndex == 1) {
 
@@ -85,11 +84,30 @@ void DMInGameController::beforeStart() {
                         0);
 
                 objectsContext->addObject(wall);
-                
-                //this->gameData->getGameObjects()->addObject(wall);
             }
         }
     }
+}
+
+shared_ptr<FSEObject> DMInGameController::getRevil() {
+    
+    auto gameObjects = this->getGameData()->getGameObjects();
+    
+    for (int i = 0; i < gameObjects->size(); i++) {
+        
+        auto gameObject = gameObjects->objectAtIndex(i);
+        
+        if (gameObject->getInstanceIdentifier().get()->compare("revil") == 0) {
+            
+            revil = gameObject;
+            
+            break;
+            
+        }
+        
+    }
+    
+    return revil;
 }
 
 void DMInGameController::step() {
@@ -100,6 +118,76 @@ void DMInGameController::step() {
         
         exit(0);
     }
+    
+    if (ioSystem->inputController->isDownKeyPressed()) {
+        
+        auto revilObject = getRevil();
+        
+        if (revilObject.get() == nullptr) {
+            
+            return;
+            
+        }
+        
+        auto position = FSEGTUtils::getObjectPosition(revilObject);
+        
+        position->y += 1;
+        
+        this->objectsContext->updateObject(revilObject);
+    }
+
+    if (ioSystem->inputController->isUpKeyPressed()) {
+        
+        auto revilObject = getRevil();
+        
+        if (revilObject.get() == nullptr) {
+            
+            return;
+            
+        }
+        
+        auto position = FSEGTUtils::getObjectPosition(revilObject);
+        
+        position->y -= 1;
+        
+        this->objectsContext->updateObject(revilObject);
+    }
+    
+    if (ioSystem->inputController->isLeftKeyPressed()) {
+        
+        auto revilObject = getRevil();
+        
+        if (revilObject.get() == nullptr) {
+            
+            return;
+            
+        }
+        
+        auto position = FSEGTUtils::getObjectPosition(revilObject);
+        
+        position->x -= 1;
+        
+        this->objectsContext->updateObject(revilObject);
+    }    
+    
+    if (ioSystem->inputController->isRightKeyPressed()) {
+        
+        auto revilObject = getRevil();
+        
+        if (revilObject.get() == nullptr) {
+            
+            return;
+            
+        }
+        
+        auto position = FSEGTUtils::getObjectPosition(revilObject);
+        
+        position->x += 1;
+        
+        this->objectsContext->updateObject(revilObject);
+    }    
+    
+    ioSystem->inputController->clearKeys();
     
     renderer->render(gameData);
 
