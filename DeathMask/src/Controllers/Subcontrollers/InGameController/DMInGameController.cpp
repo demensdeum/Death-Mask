@@ -14,6 +14,7 @@
 #include "DMInGameController.h"
 #include "FlameSteelEngineGameToolkit/IO/Input/FSEGTInputController.h"
 
+#include <FlameSteelEngine/FSEMessage.h>
 #include <FlameSteelEngine/FSEUtils.h>
 
 #include <FlameSteelEngineGameToolkit/Utils/FSEGTUtils.h>
@@ -35,10 +36,17 @@ DMInGameController::DMInGameController(const DMInGameController& orig) {
 
 void DMInGameController::beforeStart() {
 
+    this->generateMap();
+}
+
+void DMInGameController::generateMap() {
+
+    objectsContext->removeAllObjects();
+    
     auto mapGenerator = std::make_shared<DMMapGenerator>();
 
     auto mapGeneratorParams = std::make_shared<DMMapGeneratorParams>();
-    
+
     mapGeneratorParams->freeTileIndex = 0;
     mapGeneratorParams->solidTileIndex = 1;
 
@@ -48,7 +56,7 @@ void DMInGameController::beforeStart() {
     mapGeneratorParams->maxLineLength = 6 + FSEUtils::FSERandomInt(6);
 
     gameData->gameMap = std::make_shared<FSEGTGameMap>();
-    
+
     mapGenerator->generate(mapGeneratorParams, gameData->gameMap, this->objectsContext);
 
     for (auto x = 0; x < gameData->gameMap->width; x++) {
@@ -69,8 +77,8 @@ void DMInGameController::beforeStart() {
                         0, 0, 0,
                         0);
 
-                objectsContext->addObject(floor);              
-            } 
+                objectsContext->addObject(floor);
+            }
             else if (tileIndex == 1) {
 
                 auto wall = FSEGTFactory::makeOnSceneObject(
@@ -89,108 +97,153 @@ void DMInGameController::beforeStart() {
     }
 }
 
-shared_ptr<FSEObject> DMInGameController::getRevil() {
-    
+shared_ptr<FSEObject> DMInGameController::getExitObject() {
+
     auto gameObjects = this->getGameData()->getGameObjects();
-    
+
     for (int i = 0; i < gameObjects->size(); i++) {
-        
+
         auto gameObject = gameObjects->objectAtIndex(i);
-        
-        if (gameObject->getInstanceIdentifier().get()->compare("revil") == 0) {
-            
-            revil = gameObject;
-            
+
+        if (gameObject->getInstanceIdentifier().get()->compare("exit") == 0) {
+
+            exitObject = gameObject;
+
             break;
-            
         }
-        
     }
-    
-    return revil;
+
+    return exitObject;
+
+}
+
+shared_ptr<FSEObject> DMInGameController::getRevilObject() {
+
+    auto gameObjects = this->getGameData()->getGameObjects();
+
+    for (int i = 0; i < gameObjects->size(); i++) {
+
+        auto gameObject = gameObjects->objectAtIndex(i);
+
+        if (gameObject->getInstanceIdentifier().get()->compare("revil") == 0) {
+
+            revilObject = gameObject;
+
+            break;
+        }
+    }
+
+    return revilObject;
 }
 
 void DMInGameController::step() {
 
-    if (ioSystem->inputController->isExitKeyPressed()) {
-        
-        cout << "Bye-Bye!" << endl;
-        
-        exit(0);
-    }
-    
-    if (ioSystem->inputController->isDownKeyPressed()) {
-        
-        auto revilObject = getRevil();
-        
-        if (revilObject.get() == nullptr) {
-            
-            return;
-            
-        }
-        
-        auto position = FSEGTUtils::getObjectPosition(revilObject);
-        
-        position->y += 1;
-        
-        this->objectsContext->updateObject(revilObject);
-    }
+    // handle controller message
 
-    if (ioSystem->inputController->isUpKeyPressed()) {
-        
-        auto revilObject = getRevil();
-        
-        if (revilObject.get() == nullptr) {
-            
-            return;
-            
-        }
-        
-        auto position = FSEGTUtils::getObjectPosition(revilObject);
-        
-        position->y -= 1;
-        
-        this->objectsContext->updateObject(revilObject);
-    }
-    
-    if (ioSystem->inputController->isLeftKeyPressed()) {
-        
-        auto revilObject = getRevil();
-        
-        if (revilObject.get() == nullptr) {
-            
-            return;
-            
-        }
-        
-        auto position = FSEGTUtils::getObjectPosition(revilObject);
-        
-        position->x -= 1;
-        
-        this->objectsContext->updateObject(revilObject);
-    }    
-    
-    if (ioSystem->inputController->isRightKeyPressed()) {
-        
-        auto revilObject = getRevil();
-        
-        if (revilObject.get() == nullptr) {
-            
-            return;
-            
-        }
-        
-        auto position = FSEGTUtils::getObjectPosition(revilObject);
-        
-        position->x += 1;
-        
-        this->objectsContext->updateObject(revilObject);
-    }    
-    
-    ioSystem->inputController->clearKeys();
-    
-    renderer->render(gameData);
+    auto message = this->getControllerMessage();
 
+    if (message.get() != nullptr) {
+
+        this->generateMap();
+        
+        this->clearMessage();
+        
+    } 
+    else {
+
+        if (ioSystem->inputController->isExitKeyPressed()) {
+
+            cout << "Bye-Bye!" << endl;
+
+            exit(0);
+        }
+
+        if (ioSystem->inputController->isDownKeyPressed()) {
+
+            auto revilObject = getRevilObject();
+
+            if (revilObject.get() == nullptr) {
+
+                return;
+
+            }
+
+            auto position = FSEGTUtils::getObjectPosition(revilObject);
+
+            position->y += 1;
+
+            this->objectsContext->updateObject(revilObject);
+        }
+
+        if (ioSystem->inputController->isUpKeyPressed()) {
+
+            auto revilObject = getRevilObject();
+
+            if (revilObject.get() == nullptr) {
+
+                return;
+
+            }
+
+            auto position = FSEGTUtils::getObjectPosition(revilObject);
+
+            position->y -= 1;
+
+            this->objectsContext->updateObject(revilObject);
+        }
+
+        if (ioSystem->inputController->isLeftKeyPressed()) {
+
+            auto revilObject = getRevilObject();
+
+            if (revilObject.get() == nullptr) {
+
+                return;
+
+            }
+
+            auto position = FSEGTUtils::getObjectPosition(revilObject);
+
+            position->x -= 1;
+
+            this->objectsContext->updateObject(revilObject);
+        }
+
+        if (ioSystem->inputController->isRightKeyPressed()) {
+
+            auto revilObject = getRevilObject();
+
+            if (revilObject.get() == nullptr) {
+
+                return;
+
+            }
+
+            auto position = FSEGTUtils::getObjectPosition(revilObject);
+
+            position->x += 1;
+
+            this->objectsContext->updateObject(revilObject);
+        }
+
+        // check map exit case
+
+        auto revilObject = this->getRevilObject();
+        auto exitObject = this->getExitObject();
+
+        auto revilPosition = FSEGTUtils::getObjectPosition(revilObject);
+        auto exitPosition = FSEGTUtils::getObjectPosition(exitObject);
+
+        if (revilPosition->x == exitPosition->x &&
+                revilPosition->y == exitPosition->y) {
+
+            this->setControllerMessage(std::make_shared<FSEMessage>(std::make_shared<string>("Generate New Map"), shared_ptr<string>()));
+        }
+
+        ioSystem->inputController->clearKeys();
+
+        renderer->render(gameData);
+    }
 }
 
 DMInGameController::~DMInGameController() {

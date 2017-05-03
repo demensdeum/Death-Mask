@@ -59,7 +59,7 @@ void DMMapGenerator::generate(shared_ptr<DMMapGeneratorParams> params, shared_pt
             std::make_shared<string>("revil"),
             std::make_shared<string>(),
             std::make_shared<string>("./data/graphics/models/revil/revil"),
-            -1, -1, 2,
+            cursorX, cursorY, 2,
             1, 1, 1,
             0, 0, 0,
             0);
@@ -105,7 +105,23 @@ void DMMapGenerator::generate(shared_ptr<DMMapGeneratorParams> params, shared_pt
             }
         }
     }
+    
+    // put exit
+    
+    auto exit = FSEGTFactory::makeOnSceneObject(
+            std::make_shared<string>("exit"),
+            std::make_shared<string>("exit"),
+            std::make_shared<string>(),
+            std::make_shared<string>("./data/graphics/models/exit/exit"),
+            cursorX, cursorY, 2,
+            1, 1, 1,
+            0, 0, 0,
+            0);
 
+    objectsContext->addObject(exit);  
+
+    this->drawFreeTilesAtXY(gameMap, params, cursorX, cursorY); 
+    
     for (int y = 0; y < gameMap->width; y++) {
         
         for (int x = 0; x < gameMap->height; x++) {

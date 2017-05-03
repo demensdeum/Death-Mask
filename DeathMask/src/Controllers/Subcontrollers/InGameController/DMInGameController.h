@@ -27,9 +27,13 @@ public:
     
 private:
 
-    shared_ptr<FSEObject> getRevil();
+    shared_ptr<FSEObject> getRevilObject();
+    shared_ptr<FSEObject> getExitObject();
     
-    shared_ptr<FSEObject> revil;
+    shared_ptr<FSEObject> revilObject;
+    shared_ptr<FSEObject> exitObject;
+    
+    void generateMap();
 };
 
 #endif /* DMINGAMECONTROLLER_H */
