@@ -14,9 +14,9 @@
 #ifndef DMCREDITSCONTROLLER_H
 #define DMCREDITSCONTROLLER_H
 
-#include <FlameSteelEngineGameToolkit/Controllers/FSEGTGameController.h>
+#include <FlameSteelEngineGameToolkit/Controllers/FSEGTController.h>
 
-class DMCreditsController: public FSEGTGameController {
+class DMCreditsController: public FSEGTController {
 public:
     DMCreditsController();
     DMCreditsController(const DMCreditsController& orig);

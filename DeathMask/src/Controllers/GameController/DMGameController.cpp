@@ -14,7 +14,18 @@
 #include "DMGameController.h"
 #include "DeathMask/src/Controllers/Subcontrollers/InGameController/DMInGameController.h"
 
-#include <FlameSteelEngineGameToolkitDesktop/IOSystems/Desktop/FSEGTIODesktopSystem.h>
+#include <ctime>
+
+#ifdef __EMSCRIPTEN__
+
+#include <FlameSteelEngineGameToolkitWeb/IO/IOSystems/Web/FSEGTIOWebSystem.h>
+
+#else
+
+#include <FlameSteelEngineGameToolkitDesktop/IO/IOSystems/Desktop/FSEGTIODesktopSystem.h>
+
+#endif
+
 #include <FlameSteelEngineGameToolkit/IO/IOSystems/SDL/FSEGTIOGenericSystemParams.h>
 #include <FlameSteelEngine/FSEUtils.h>
 

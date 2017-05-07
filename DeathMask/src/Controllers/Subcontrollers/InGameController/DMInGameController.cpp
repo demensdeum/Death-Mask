@@ -247,5 +247,8 @@ void DMInGameController::step() {
 }
 
 DMInGameController::~DMInGameController() {
+    
+    cout << "DMInGameController Destroyed" << endl;
+    
 }
 
