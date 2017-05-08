@@ -26,8 +26,12 @@ public:
     
     virtual void generate(shared_ptr<DMMapGeneratorParams> params, shared_ptr<FSEGTGameMap> gameMap, shared_ptr<FSEGTObjectsContext> objectsContext);
     
+    
+    
 private:
 
+    void rollDiceAndOnSuccessPutGameplayObjectIntoXY(int tileX, int tileY, int chance, shared_ptr<FSEGTObjectsContext> objectsContext);
+    void putGameplayObjectIntoXY(int tileX, int tileY, shared_ptr<FSEGTObjectsContext> objectsContext);
     void drawFreeTilesAtXY(shared_ptr<FSEGTGameMap> gameMap, shared_ptr<DMMapGeneratorParams> params, int cursorX, int cursorY);
 };
 

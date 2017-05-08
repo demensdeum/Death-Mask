@@ -14,6 +14,22 @@
 #include "DMMapGeneratorParams.h"
 
 DMMapGeneratorParams::DMMapGeneratorParams() {
+    
+    freeTileIndex = 0;
+    solidTileIndex = 0;
+    
+    maxIterations = 0;
+    maxLineLength = 0;
+    
+    minCursorSize = 0;
+    maxCursorSize = 0;
+    
+    minFreeSpace = 0;
+    maxFreeSpace = 0;
+    
+    difficulty = 0;
+    gameplayObjectRespawnChance = 0;    
+    
 }
 
 DMMapGeneratorParams::DMMapGeneratorParams(const DMMapGeneratorParams& orig) {

@@ -55,6 +55,8 @@ void DMInGameController::generateMap() {
     mapGeneratorParams->maxCursorSize = 1 + FSEUtils::FSERandomInt(6);
     mapGeneratorParams->maxLineLength = 6 + FSEUtils::FSERandomInt(6);
 
+    mapGeneratorParams->gameplayObjectRespawnChance = 10;
+    
     gameData->gameMap = std::make_shared<FSEGTGameMap>();
 
     mapGenerator->generate(mapGeneratorParams, gameData->gameMap, this->objectsContext);

@@ -34,6 +34,9 @@ public:
     int minFreeSpace;
     int maxFreeSpace;
     
+    int difficulty;
+    int gameplayObjectRespawnChance;
+    
 private:
 
 };
