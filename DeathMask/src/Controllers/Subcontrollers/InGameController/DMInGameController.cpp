@@ -42,7 +42,7 @@ void DMInGameController::beforeStart() {
 void DMInGameController::generateMap() {
 
     objectsContext->removeAllObjects();
-    
+
     auto mapGenerator = std::make_shared<DMMapGenerator>();
 
     auto mapGeneratorParams = std::make_shared<DMMapGeneratorParams>();
@@ -56,7 +56,7 @@ void DMInGameController::generateMap() {
     mapGeneratorParams->maxLineLength = 6 + FSEUtils::FSERandomInt(6);
 
     mapGeneratorParams->gameplayObjectRespawnChance = 10;
-    
+
     gameData->gameMap = std::make_shared<FSEGTGameMap>();
 
     mapGenerator->generate(mapGeneratorParams, gameData->gameMap, this->objectsContext);
@@ -70,7 +70,7 @@ void DMInGameController::generateMap() {
             if (tileIndex == 0) {
 
                 auto floor = FSEGTFactory::makeOnSceneObject(
-                        std::make_shared<string>("floor"),
+                        std::make_shared<string>("scene object"),
                         std::make_shared<string>("floor"),
                         std::make_shared<string>(),
                         std::make_shared<string>("./data/graphics/models/floor/floor"),
@@ -80,11 +80,10 @@ void DMInGameController::generateMap() {
                         0);
 
                 objectsContext->addObject(floor);
-            }
-            else if (tileIndex == 1) {
+            } else if (tileIndex == 1) {
 
                 auto wall = FSEGTFactory::makeOnSceneObject(
-                        std::make_shared<string>("wall"),
+                        std::make_shared<string>("scene object"),
                         std::make_shared<string>("wall"),
                         std::make_shared<string>(),
                         std::make_shared<string>("./data/graphics/models/wall/wall"),
@@ -97,6 +96,20 @@ void DMInGameController::generateMap() {
             }
         }
     }
+    
+    auto inventoryPrint = FSEGTFactory::makeOnSceneObject(
+            std::make_shared<string>("ui"),
+            std::make_shared<string>("inventory print"),
+            std::make_shared<string>(),
+            std::make_shared<string>(),
+            0, 0, 0,
+            0.07, 1, 0.07,
+            0, 0, 0,
+            0);
+
+    inventoryPrint->addComponent(FSEGTFactory::makeTextComponent(shared_ptr<string>(), std::make_shared<string>("test")));
+    
+    objectsContext->addObject(inventoryPrint);    
 }
 
 shared_ptr<FSEObject> DMInGameController::getExitObject() {
@@ -147,10 +160,10 @@ void DMInGameController::step() {
     if (message.get() != nullptr) {
 
         this->generateMap();
-        
+
         this->clearMessage();
-        
-    } 
+
+    }
     else {
 
         if (ioSystem->inputController->isExitKeyPressed()) {
@@ -249,8 +262,8 @@ void DMInGameController::step() {
 }
 
 DMInGameController::~DMInGameController() {
-    
+
     cout << "DMInGameController Destroyed" << endl;
-    
+
 }
 

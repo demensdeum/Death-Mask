@@ -57,7 +57,7 @@ void DMMapGenerator::generate(shared_ptr<DMMapGeneratorParams> params, shared_pt
     objectsContext->removeAllObjects();
     
     auto revil = FSEGTFactory::makeOnSceneObject(
-            std::make_shared<string>("revil"),
+            std::make_shared<string>("scene object"),
             std::make_shared<string>("revil"),
             std::make_shared<string>(),
             std::make_shared<string>("./data/graphics/models/revil/revil"),
@@ -113,7 +113,7 @@ void DMMapGenerator::generate(shared_ptr<DMMapGeneratorParams> params, shared_pt
     // put exit
     
     auto exit = FSEGTFactory::makeOnSceneObject(
-            std::make_shared<string>("exit"),
+            std::make_shared<string>("scene object"),
             std::make_shared<string>("exit"),
             std::make_shared<string>(),
             std::make_shared<string>("./data/graphics/models/exit/exit"),
