@@ -33,6 +33,10 @@ private:
     shared_ptr<FSEObject> revilObject;
     shared_ptr<FSEObject> exitObject;
     
+    void objectPickAtXY(int x, int y);
+    
+    void pickRandomItem();
+    
     void generateMap();
 };
 

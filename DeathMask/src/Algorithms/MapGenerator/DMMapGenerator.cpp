@@ -12,6 +12,7 @@
  */
 
 #include "DMMapGenerator.h"
+#include "DeathMask/src/Data/GameMap/DMGameMap.h"
 
 #include <FlameSteelEngineGameToolkit/Controllers/FSEGTObjectsContext.h>
 #include <FlameSteelEngineGameToolkit/Data/Components/FSEGTFactory.h>
@@ -29,6 +30,8 @@ DMMapGenerator::DMMapGenerator(const DMMapGenerator& orig) {
 
 void DMMapGenerator::generate(shared_ptr<DMMapGeneratorParams> params, shared_ptr<FSEGTGameMap> gameMap, shared_ptr<FSEGTObjectsContext> objectsContext) {
 
+    auto castedGameMap = static_pointer_cast<DMGameMap>(gameMap);
+    
     auto solidTileIndex = params->solidTileIndex;
 
     auto maxIterations = params->maxIterations;
@@ -36,23 +39,24 @@ void DMMapGenerator::generate(shared_ptr<DMMapGeneratorParams> params, shared_pt
     
     auto gameplayObjectRespawnChance = params->gameplayObjectRespawnChance;    
     
-    for (int x = 0; x < gameMap->width; x++) {
+    for (int x = 0; x < castedGameMap->width; x++) {
         
-        for (int y = 0; y < gameMap->height; y++) {
+        for (int y = 0; y < castedGameMap->height; y++) {
             
-            gameMap->setTileAtXY(solidTileIndex, x, y);
+            castedGameMap->setTileAtXY(solidTileIndex, x, y);
+            castedGameMap->removeObjectIdAtXY(x, y);
             
         }
     }
     
-    int cursorX = FSEUtils::FSERandomInt(gameMap->width);
-    int cursorY = FSEUtils::FSERandomInt(gameMap->height);
+    int cursorX = FSEUtils::FSERandomInt(castedGameMap->width);
+    int cursorY = FSEUtils::FSERandomInt(castedGameMap->height);
     
     if (cursorX < 2) { cursorX = 2; };
-    if (cursorX > gameMap->width - 2) { cursorX = gameMap->width - 2; };
+    if (cursorX > castedGameMap->width - 2) { cursorX = castedGameMap->width - 2; };
 
     if (cursorY < 2) { cursorY = 2; };
-    if (cursorY > gameMap->height - 2) { cursorY = gameMap->height - 2; };    
+    if (cursorY > castedGameMap->height - 2) { cursorY = castedGameMap->height - 2; };    
     
     objectsContext->removeAllObjects();
     
@@ -68,7 +72,7 @@ void DMMapGenerator::generate(shared_ptr<DMMapGeneratorParams> params, shared_pt
 
     objectsContext->addObject(revil);    
     
-    this->drawFreeTilesAtXY(gameMap, params, cursorX, cursorY);    
+    this->drawFreeTilesAtXY(castedGameMap, params, cursorX, cursorY);    
     
     for (auto x = 0; x < maxIterations; x++) {
 
@@ -77,9 +81,9 @@ void DMMapGenerator::generate(shared_ptr<DMMapGeneratorParams> params, shared_pt
         
         for (auto y = 0; y < cursorSteps; y++) {
 
-            rollDiceAndOnSuccessPutGameplayObjectIntoXY(cursorX, cursorY, gameplayObjectRespawnChance, objectsContext);
+            rollDiceAndOnSuccessPutGameplayObjectIntoXY(cursorX, cursorY, gameplayObjectRespawnChance, objectsContext, castedGameMap);
             
-            this->drawFreeTilesAtXY(gameMap, params, cursorX, cursorY);
+            this->drawFreeTilesAtXY(castedGameMap, params, cursorX, cursorY);
 
             switch (cursorDirection) {
 
@@ -91,7 +95,7 @@ void DMMapGenerator::generate(shared_ptr<DMMapGeneratorParams> params, shared_pt
 
                 case FSEGTSimpleDirectionDown:
 
-                    if (cursorY < gameMap->height - 2) { cursorY += 1; }
+                    if (cursorY < castedGameMap->height - 2) { cursorY += 1; }
 
                     break;
 
@@ -103,7 +107,7 @@ void DMMapGenerator::generate(shared_ptr<DMMapGeneratorParams> params, shared_pt
 
                 case FSEGTSimpleDirectionRight:
 
-                    if (cursorX < gameMap->width - 2) { cursorX += 1; }
+                    if (cursorX < castedGameMap->width - 2) { cursorX += 1; }
 
                     break;
             }
@@ -124,13 +128,13 @@ void DMMapGenerator::generate(shared_ptr<DMMapGeneratorParams> params, shared_pt
 
     objectsContext->addObject(exit);  
 
-    this->drawFreeTilesAtXY(gameMap, params, cursorX, cursorY); 
+    this->drawFreeTilesAtXY(castedGameMap, params, cursorX, cursorY); 
     
-    for (int y = 0; y < gameMap->width; y++) {
+    for (int y = 0; y < castedGameMap->width; y++) {
         
-        for (int x = 0; x < gameMap->height; x++) {
+        for (int x = 0; x < castedGameMap->height; x++) {
             
-            auto tileIndex = gameMap->getTileIndexAtXY(x, y);
+            auto tileIndex = castedGameMap->getTileIndexAtXY(x, y);
             
             cout << tileIndex;
         }
@@ -165,8 +169,6 @@ void DMMapGenerator::drawFreeTilesAtXY(shared_ptr<FSEGTGameMap> gameMap, shared_
             
             gameMap->setTileAtXY(freeTileIndex, putTileX, putTileY);
             
-
-            
         }
         
     }
@@ -175,28 +177,30 @@ void DMMapGenerator::drawFreeTilesAtXY(shared_ptr<FSEGTGameMap> gameMap, shared_
     
 }
 
-void DMMapGenerator::rollDiceAndOnSuccessPutGameplayObjectIntoXY(int tileX, int tileY, int gameplayObjectRespawnChance, shared_ptr<FSEGTObjectsContext> objectsContext) {
+void DMMapGenerator::rollDiceAndOnSuccessPutGameplayObjectIntoXY(int tileX, int tileY, int gameplayObjectRespawnChance, shared_ptr<FSEGTObjectsContext> objectsContext, shared_ptr<DMGameMap> gameMap) {
     
     if (FSEUtils::FSERandomInt(gameplayObjectRespawnChance) == 0) {
      
-        this->putGameplayObjectIntoXY(tileX, tileY, objectsContext);
+        this->putGameplayObjectIntoXY(tileX, tileY, objectsContext, gameMap);
         
     }
 }
 
-void DMMapGenerator::putGameplayObjectIntoXY(int tileX, int tileY, shared_ptr<FSEGTObjectsContext> objectsContext) {
+void DMMapGenerator::putGameplayObjectIntoXY(int tileX, int tileY, shared_ptr<FSEGTObjectsContext> objectsContext, shared_ptr<DMGameMap> gameMap) {
     
-    auto exit = FSEGTFactory::makeOnSceneObject(
-            std::make_shared<string>("crate"),
+    auto crate = FSEGTFactory::makeOnSceneObject(
+            std::make_shared<string>("scene object"),
             std::make_shared<string>("crate"),
             std::make_shared<string>(),
             std::make_shared<string>("./data/graphics/models/crate/crate"),
             tileX, tileY, 2,
             1, 1, 1,
             0, 0, 0,
-            0);    
+            0);
     
-    objectsContext->addObject(exit);
+    gameMap->setObjectIdAtXY(crate->id, tileX, tileY);
+    
+    objectsContext->addObject(crate);
 }
 
 DMMapGenerator::~DMMapGenerator() {

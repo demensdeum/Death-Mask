@@ -22,6 +22,8 @@
 #include <DeathMask/src/Algorithms/MapGenerator/DMMapGenerator.h>
 #include <DeathMask/src/Algorithms/MapGenerator/DMMapGeneratorParams.h>
 
+#include <DeathMask/src/Data/GameMap/DMGameMap.h>
+
 #include <FlameSteelEngineGameToolkit/Data/Components/FSEGTFactory.h>
 
 #include <iostream>
@@ -57,7 +59,7 @@ void DMInGameController::generateMap() {
 
     mapGeneratorParams->gameplayObjectRespawnChance = 10;
 
-    gameData->gameMap = std::make_shared<FSEGTGameMap>();
+    gameData->gameMap = std::make_shared<DMGameMap>();
 
     mapGenerator->generate(mapGeneratorParams, gameData->gameMap, this->objectsContext);
 
@@ -107,7 +109,7 @@ void DMInGameController::generateMap() {
             0, 0, 0,
             0);
 
-    inventoryPrint->addComponent(FSEGTFactory::makeTextComponent(shared_ptr<string>(), std::make_shared<string>("test")));
+    FSEGTUtils::setText(std::make_shared<string>("test"), inventoryPrint);
     
     objectsContext->addObject(inventoryPrint);    
 }
@@ -129,7 +131,7 @@ shared_ptr<FSEObject> DMInGameController::getExitObject() {
     }
 
     return exitObject;
-
+    
 }
 
 shared_ptr<FSEObject> DMInGameController::getRevilObject() {
@@ -149,6 +151,7 @@ shared_ptr<FSEObject> DMInGameController::getRevilObject() {
     }
 
     return revilObject;
+
 }
 
 void DMInGameController::step() {
@@ -172,7 +175,7 @@ void DMInGameController::step() {
 
             exit(0);
         }
-
+        
         if (ioSystem->inputController->isDownKeyPressed()) {
 
             auto revilObject = getRevilObject();
@@ -187,6 +190,8 @@ void DMInGameController::step() {
 
             position->y += 1;
 
+            objectPickAtXY(position->x, position->y);
+            
             this->objectsContext->updateObject(revilObject);
         }
 
@@ -203,6 +208,8 @@ void DMInGameController::step() {
             auto position = FSEGTUtils::getObjectPosition(revilObject);
 
             position->y -= 1;
+            
+            objectPickAtXY(position->x, position->y);
 
             this->objectsContext->updateObject(revilObject);
         }
@@ -220,6 +227,8 @@ void DMInGameController::step() {
             auto position = FSEGTUtils::getObjectPosition(revilObject);
 
             position->x -= 1;
+            
+            objectPickAtXY(position->x, position->y);
 
             this->objectsContext->updateObject(revilObject);
         }
@@ -237,6 +246,8 @@ void DMInGameController::step() {
             auto position = FSEGTUtils::getObjectPosition(revilObject);
 
             position->x += 1;
+            
+            objectPickAtXY(position->x, position->y);
 
             this->objectsContext->updateObject(revilObject);
         }
@@ -259,6 +270,33 @@ void DMInGameController::step() {
 
         renderer->render(gameData);
     }
+}
+
+void DMInGameController::objectPickAtXY(int x, int y) {
+    
+    auto gameMap = std::static_pointer_cast<DMGameMap>(gameData->gameMap);    
+    
+    auto objectId = gameMap->objectIdAtXY(x, y);
+    
+    if (objectId != DMGameMapNoObjectId) {
+        
+        auto object = this->gameData->getGameObjects()->objectWithId(objectId);
+        
+        if (object.get() != nullptr) {
+            
+            auto instanceIdentifier = object->getInstanceIdentifier();
+            
+            if (instanceIdentifier->compare("crate") == 0) {
+                                
+                pickRandomItem();
+            }
+        }
+    }
+}
+
+void DMInGameController::pickRandomItem() {
+    
+    cout << "Got random item" << endl;
 }
 
 DMInGameController::~DMInGameController() {
