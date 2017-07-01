@@ -13,6 +13,7 @@
 
 #include "DMGameController.h"
 #include "DeathMask/src/Controllers/Subcontrollers/InGameController/DMInGameController.h"
+#include "DeathMask/src/Controllers/Subcontrollers/MenuController/DMMenuController.h"
 
 #include <ctime>
 
@@ -57,6 +58,8 @@ DMGameController::DMGameController() {
     auto inGameController = std::make_shared<DMInGameController>();
     this->setControllerForState(inGameController, DMStateInGame);
     
+    auto menuController = std::make_shared<DMMenuController>();
+    this->setControllerForState(menuController, DMStateMenu);
 }
 
 shared_ptr<FSEGTIOSystem> DMGameController::makeIOSystem() {
@@ -74,11 +77,25 @@ shared_ptr<FSEGTIOSystem> DMGameController::makeIOSystem() {
     return ioSystem;
 }
 
-DMGameController::DMGameController(const DMGameController& orig) {
-}
-
 void DMGameController::controllerDidFinish(FSEGTController *controller) {
     
+    switch (state) {
+     
+        case DMStateCredits:
+            
+            switchToState(DMStateMenu);
+            
+            break; 
+            
+        case DMStateMenu:
+            
+            switchToState(DMStateInGame);
+            
+            break;
+    }
+}
+
+DMGameController::DMGameController(const DMGameController& orig) {
 }
 
 DMGameController::~DMGameController() {

@@ -27,7 +27,8 @@ public:
     
 private:
 
-    shared_ptr<FSEObject> cameraObject;
+    int stepCounter;
+    
 };
 
 #endif /* DMCREDITSCONTROLLER_H */

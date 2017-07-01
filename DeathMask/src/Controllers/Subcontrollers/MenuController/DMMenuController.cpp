@@ -5,27 +5,27 @@
  */
 
 /* 
- * File:   DMCreditsController.cpp
+ * File:   DMMenuController.cpp
  * Author: demensdeum
  * 
- * Created on April 17, 2017, 11:46 PM
+ * Created on July 1, 2017, 8:18 AM
  */
 
-#include "DMCreditsController.h"
+#include "DMMenuController.h"
 
 #include <FlameSteelEngineGameToolkit/Data/Components/FSEGTFactory.h>
 
-DMCreditsController::DMCreditsController() {
+DMMenuController::DMMenuController() {
     
     stepCounter = 0;
     
 }
 
-DMCreditsController::DMCreditsController(const DMCreditsController& orig) {
+DMMenuController::DMMenuController(const DMMenuController& orig) {
 }
 
-void DMCreditsController::beforeStart() {
-  
+void DMMenuController::beforeStart() {
+    
     auto cameraObject = FSEGTFactory::makeOnSceneObject(
             std::make_shared<string>("camera"),
             std::make_shared<string>("game camera"),
@@ -34,26 +34,27 @@ void DMCreditsController::beforeStart() {
             0, 4, 0,
             1, 1, 1,
             0, 0, 0,
-            0);
+            0);    
     
-    auto demensdeumLogo = FSEGTFactory::makeOnSceneObject(
+    auto menu = FSEGTFactory::makeOnSceneObject(
             std::make_shared<string>("scene object"),
-            std::make_shared<string>("demensdeum logo"),
+            std::make_shared<string>("menu"),
             std::make_shared<string>(),
-            std::make_shared<string>("./data/graphics/models/demensdeumLogo/demensdeumLogo"),
+            std::make_shared<string>("./data/graphics/models/menu/menu"),
             0, 0, 0,
             1, 1, 1,
             0, 0, 0,
-            0);
+            0);    
     
-    objectsContext->addObject(cameraObject);    
-    objectsContext->addObject(demensdeumLogo);   
+    objectsContext->addObject(cameraObject);      
+    objectsContext->addObject(menu);
+    
 }
 
-void DMCreditsController::step() {
+void DMMenuController::step() {
     
     renderer->render(this->gameData);
- 
+    
     if (stepCounter < 100) {
         
         stepCounter++;
@@ -65,10 +66,9 @@ void DMCreditsController::step() {
         
         this->notifyListenerAboutControllerDidFinish(this);
         
-    }
-    
+    }    
 }
 
-DMCreditsController::~DMCreditsController() {
+DMMenuController::~DMMenuController() {
 }
 

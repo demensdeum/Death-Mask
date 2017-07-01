@@ -24,6 +24,7 @@ public:
     virtual void controllerDidFinish(FSEGTController *controller);  
     
     virtual ~DMGameController();
+    
 private:
 
     shared_ptr<FSEGTIOSystem> makeIOSystem();
