@@ -37,14 +37,14 @@ DMInGameController::DMInGameController(const DMInGameController& orig) {
 }
 
 void DMInGameController::beforeStart() { 
-    
+
     this->generateMap();
 }
 
 void DMInGameController::generateMap() {
 
-    objectsContext->removeAllObjects();
-
+    objectsContext->removeAllObjects();  
+    
     auto mapGenerator = std::make_shared<DMMapGenerator>();
 
     auto mapGeneratorParams = std::make_shared<DMMapGeneratorParams>();
@@ -82,6 +82,7 @@ void DMInGameController::generateMap() {
                         0);
 
                 objectsContext->addObject(floor);
+                
             } else if (tileIndex == 1) {
 
                 auto wall = FSEGTFactory::makeOnSceneObject(
@@ -104,14 +105,26 @@ void DMInGameController::generateMap() {
             std::make_shared<string>("inventory print"),
             std::make_shared<string>(),
             std::make_shared<string>(),
-            0, 0, 0,
+            0.5, 0.5, 0.8,
             0.07, 1, 0.07,
             0, 0, 0,
             0);
 
-    FSEGTUtils::setText(std::make_shared<string>("test"), inventoryPrint);
+    FSEGTUtils::setText(std::make_shared<string>("Death Mask - Prototype 1"), inventoryPrint);
     
     objectsContext->addObject(inventoryPrint);    
+    
+        auto cameraObject = FSEGTFactory::makeOnSceneObject(
+            std::make_shared<string>("camera"),
+            std::make_shared<string>("game camera"),
+            std::make_shared<string>(),
+            std::make_shared<string>(),
+            0, 0, 0,
+            1, 1, 1,
+            -30, -60, 0,
+            0);    
+    
+        objectsContext->addObject(cameraObject);      
 }
 
 shared_ptr<FSEObject> DMInGameController::getExitObject() {
@@ -124,14 +137,30 @@ shared_ptr<FSEObject> DMInGameController::getExitObject() {
 
         if (gameObject->getInstanceIdentifier().get()->compare("exit") == 0) {
 
-            exitObject = gameObject;
-
-            break;
+            return gameObject;
         }
     }
 
-    return exitObject;
+    return shared_ptr<FSEObject>();
     
+}
+
+shared_ptr<FSEObject> DMInGameController::getCameraObject() {
+
+    auto gameObjects = this->getGameData()->getGameObjects();
+
+    for (int i = 0; i < gameObjects->size(); i++) {
+
+        auto gameObject = gameObjects->objectAtIndex(i);
+
+        if (gameObject->getInstanceIdentifier().get()->compare("game camera") == 0) {
+
+            return gameObject;
+        }
+    }
+
+    return shared_ptr<FSEObject>();
+
 }
 
 shared_ptr<FSEObject> DMInGameController::getRevilObject() {
@@ -144,13 +173,13 @@ shared_ptr<FSEObject> DMInGameController::getRevilObject() {
 
         if (gameObject->getInstanceIdentifier().get()->compare("revil") == 0) {
 
-            revilObject = gameObject;
+            return gameObject;
 
             break;
         }
     }
 
-    return revilObject;
+    return shared_ptr<FSEObject>();
 
 }
 
@@ -251,7 +280,23 @@ void DMInGameController::step() {
 
             this->objectsContext->updateObject(revilObject);
         }
-
+        
+        // update camera position
+        
+        {
+            auto cameraObject = getCameraObject();
+            auto revilObject = getRevilObject();
+            
+            auto revilPosition = FSEGTUtils::getObjectPosition(revilObject);
+            auto cameraPosition = FSEGTUtils::getObjectPosition(cameraObject);
+           
+            cameraPosition->x = revilPosition->x - 4;
+            cameraPosition->y = revilPosition->y + 7;
+            cameraPosition->z = 15;
+            
+            this->objectsContext->updateObject(cameraObject);
+        }        
+        
         // check map exit case
 
         auto revilObject = this->getRevilObject();
