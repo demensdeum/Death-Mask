@@ -44,7 +44,7 @@ DMGameController::DMGameController() {
     // IO System
     
     auto ioSystemParams = std::make_shared<FSEGTIOGenericSystemParams>();
-    ioSystemParams->title = FSEUtils::localizedString(std::make_shared<string>("Bad Robots"));
+    ioSystemParams->title = FSEUtils::localizedString(std::make_shared<string>("Death Mask"));
     ioSystemParams->width = DMConstIOSystemScreenWidth;
     ioSystemParams->height = DMConstIOSystemScreenHeight;
     

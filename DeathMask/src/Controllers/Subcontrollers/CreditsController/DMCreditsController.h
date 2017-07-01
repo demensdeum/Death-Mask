@@ -27,6 +27,7 @@ public:
     
 private:
 
+    shared_ptr<FSEObject> cameraObject;
 };
 
 #endif /* DMCREDITSCONTROLLER_H */

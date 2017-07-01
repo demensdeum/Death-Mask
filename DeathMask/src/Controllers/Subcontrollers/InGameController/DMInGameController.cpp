@@ -38,6 +38,16 @@ DMInGameController::DMInGameController(const DMInGameController& orig) {
 
 void DMInGameController::beforeStart() {
 
+    auto cameraObject = FSEGTFactory::makeOnSceneObject(
+            std::make_shared<string>("camera"),
+            std::make_shared<string>("game camera"),
+            std::make_shared<string>(),
+            std::make_shared<string>(),
+            30, 0, 300,
+            1, 1, 1,
+            1, 1, 1,
+            0);    
+    
     this->generateMap();
 }
 

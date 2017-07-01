@@ -15,6 +15,8 @@
 
 #include <FlameSteelEngineGameToolkit/Data/Components/FSEGTFactory.h>
 
+#include <FlameSteelEngineGameToolkit/Utils/FSEGTUtils.h>
+
 DMCreditsController::DMCreditsController() {
     
 }
@@ -24,23 +26,34 @@ DMCreditsController::DMCreditsController(const DMCreditsController& orig) {
 
 void DMCreditsController::beforeStart() {
   
-    auto demensdeumLogo = FSEGTFactory::makeOnSceneObject(
-            std::make_shared<string>("demensdeumLogo"),
-            std::make_shared<string>("demensdeumLogo"),
+    cameraObject = FSEGTFactory::makeOnSceneObject(
+            std::make_shared<string>("camera"),
+            std::make_shared<string>("game camera"),
             std::make_shared<string>(),
-            std::make_shared<string>("./data/graphics/models/demensdeumLogo/demensdeumLogo"),
-            1, 1, 1,
+            std::make_shared<string>(),
             0, 4, 0,
+            1, 1, 1,
             0, 0, 0,
             0);
     
-    this->gameData->getGameObjects()->addObject(demensdeumLogo);    
+    auto demensdeumLogo = FSEGTFactory::makeOnSceneObject(
+            std::make_shared<string>("scene object"),
+            std::make_shared<string>("demensdeum logo"),
+            std::make_shared<string>(),
+            std::make_shared<string>("./data/graphics/models/demensdeumLogo/demensdeumLogo"),
+            0, 0, 0,
+            1, 1, 1,
+            0, 0, 0,
+            0);
+    
+    objectsContext->addObject(cameraObject);    
+    objectsContext->addObject(demensdeumLogo);   
 }
 
 void DMCreditsController::step() {
     
     renderer->render(this->gameData);
-    
+ 
 }
 
 DMCreditsController::~DMCreditsController() {
