@@ -27,9 +27,9 @@ public:
     
 private:
 
-    shared_ptr<FSEObject> getCameraObject();
-    shared_ptr<FSEObject> getRevilObject();
-    shared_ptr<FSEObject> getExitObject();
+    shared_ptr<FSCObject> getCameraObject();
+    shared_ptr<FSCObject> getRevilObject();
+    shared_ptr<FSCObject> getExitObject();
     
     void objectPickAtXY(int x, int y);
     

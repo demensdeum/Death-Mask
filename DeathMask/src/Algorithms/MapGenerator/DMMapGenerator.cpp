@@ -17,7 +17,7 @@
 #include <FlameSteelEngineGameToolkit/Controllers/FSEGTObjectsContext.h>
 #include <FlameSteelEngineGameToolkit/Data/Components/FSEGTFactory.h>
 #include <FlameSteelEngineGameToolkit/Data/FSEGTSimpleDirection.h>
-#include <FlameSteelEngine/FSEUtils.h>
+#include <FlameSteelCore/FSCUtils.h>
 #include <iostream>
 
 using namespace std;
@@ -49,8 +49,8 @@ void DMMapGenerator::generate(shared_ptr<DMMapGeneratorParams> params, shared_pt
         }
     }
     
-    int cursorX = FSEUtils::FSERandomInt(castedGameMap->width);
-    int cursorY = FSEUtils::FSERandomInt(castedGameMap->height);
+    int cursorX = FSCUtils::FSCRandomInt(castedGameMap->width);
+    int cursorY = FSCUtils::FSCRandomInt(castedGameMap->height);
     
     if (cursorX < 2) { cursorX = 2; };
     if (cursorX > castedGameMap->width - 2) { cursorX = castedGameMap->width - 2; };
@@ -76,7 +76,7 @@ void DMMapGenerator::generate(shared_ptr<DMMapGeneratorParams> params, shared_pt
     
     for (auto x = 0; x < maxIterations; x++) {
 
-        int cursorDirection = FSEUtils::FSERandomInt(FSEGTSimpleDirectionCount);
+        int cursorDirection = FSCUtils::FSCRandomInt(FSEGTSimpleDirectionCount);
         int cursorSteps = maxLineLength;        
         
         for (auto y = 0; y < cursorSteps; y++) {
@@ -150,7 +150,7 @@ void DMMapGenerator::drawFreeTilesAtXY(shared_ptr<FSEGTGameMap> gameMap, shared_
     
     auto freeTileIndex = params->freeTileIndex;
     
-    int cursorSize = FSEUtils::FSERandomInt(maxCursorSize);
+    int cursorSize = FSCUtils::FSCRandomInt(maxCursorSize);
     
     if (cursorSize < minCursorSize) {
         
@@ -179,7 +179,7 @@ void DMMapGenerator::drawFreeTilesAtXY(shared_ptr<FSEGTGameMap> gameMap, shared_
 
 void DMMapGenerator::rollDiceAndOnSuccessPutGameplayObjectIntoXY(int tileX, int tileY, int gameplayObjectRespawnChance, shared_ptr<FSEGTObjectsContext> objectsContext, shared_ptr<DMGameMap> gameMap) {
     
-    if (FSEUtils::FSERandomInt(gameplayObjectRespawnChance) == 0) {
+    if (FSCUtils::FSCRandomInt(gameplayObjectRespawnChance) == 0) {
      
         this->putGameplayObjectIntoXY(tileX, tileY, objectsContext, gameMap);
         

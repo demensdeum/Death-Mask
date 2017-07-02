@@ -14,11 +14,11 @@
 #ifndef DMGAMEPLAYPROPERTIES_H
 #define DMGAMEPLAYPROPERTIES_H
 
-#include <FlameSteelEngine/FSEObject.h>
+#include <FlameSteelCore/FSCObject.h>
 
 #include <vector>
 
-class DMGameplayProperties: public FSEObject {
+class DMGameplayProperties: public FSCObject {
 public:
     DMGameplayProperties();
     DMGameplayProperties(const DMGameplayProperties& orig);
@@ -32,8 +32,8 @@ public:
     
     void addExperience(int amount);
     
-    void addItem(shared_ptr<FSEObject> item);
-    void removeItem(shared_ptr<FSEObject> item);
+    void addItem(shared_ptr<FSCObject> item);
+    void removeItem(shared_ptr<FSCObject> item);
     
 private:
 
@@ -49,10 +49,10 @@ private:
     
     int level;
     
-    vector<shared_ptr<FSEObject> > items;
+    vector<shared_ptr<FSCObject> > items;
     
-    shared_ptr<FSEObject> weapon;
-    shared_ptr<FSEObject> gear;
+    shared_ptr<FSCObject> weapon;
+    shared_ptr<FSCObject> gear;
 };
 
 #endif /* DMGAMEPLAYPROPERTIES_H */

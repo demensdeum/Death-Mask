@@ -14,8 +14,8 @@
 #include "DMInGameController.h"
 #include "FlameSteelEngineGameToolkit/IO/Input/FSEGTInputController.h"
 
-#include <FlameSteelEngine/FSEMessage.h>
-#include <FlameSteelEngine/FSEUtils.h>
+#include <FlameSteelCore/FSCMessage.h>
+#include <FlameSteelCore/FSCUtils.h>
 
 #include <FlameSteelEngineGameToolkit/Utils/FSEGTUtils.h>
 
@@ -54,8 +54,8 @@ void DMInGameController::generateMap() {
 
     mapGeneratorParams->maxIterations = 255;
     mapGeneratorParams->minCursorSize = 2;
-    mapGeneratorParams->maxCursorSize = 1 + FSEUtils::FSERandomInt(6);
-    mapGeneratorParams->maxLineLength = 6 + FSEUtils::FSERandomInt(6);
+    mapGeneratorParams->maxCursorSize = 1 + FSCUtils::FSCRandomInt(6);
+    mapGeneratorParams->maxLineLength = 6 + FSCUtils::FSCRandomInt(6);
 
     mapGeneratorParams->gameplayObjectRespawnChance = 10;
 
@@ -127,7 +127,7 @@ void DMInGameController::generateMap() {
         objectsContext->addObject(cameraObject);      
 }
 
-shared_ptr<FSEObject> DMInGameController::getExitObject() {
+shared_ptr<FSCObject> DMInGameController::getExitObject() {
 
     auto gameObjects = this->getGameData()->getGameObjects();
 
@@ -141,11 +141,11 @@ shared_ptr<FSEObject> DMInGameController::getExitObject() {
         }
     }
 
-    return shared_ptr<FSEObject>();
+    return shared_ptr<FSCObject>();
     
 }
 
-shared_ptr<FSEObject> DMInGameController::getCameraObject() {
+shared_ptr<FSCObject> DMInGameController::getCameraObject() {
 
     auto gameObjects = this->getGameData()->getGameObjects();
 
@@ -159,11 +159,11 @@ shared_ptr<FSEObject> DMInGameController::getCameraObject() {
         }
     }
 
-    return shared_ptr<FSEObject>();
+    return shared_ptr<FSCObject>();
 
 }
 
-shared_ptr<FSEObject> DMInGameController::getRevilObject() {
+shared_ptr<FSCObject> DMInGameController::getRevilObject() {
 
     auto gameObjects = this->getGameData()->getGameObjects();
 
@@ -179,7 +179,7 @@ shared_ptr<FSEObject> DMInGameController::getRevilObject() {
         }
     }
 
-    return shared_ptr<FSEObject>();
+    return shared_ptr<FSCObject>();
 
 }
 
@@ -308,7 +308,7 @@ void DMInGameController::step() {
         if (revilPosition->x == exitPosition->x &&
                 revilPosition->y == exitPosition->y) {
 
-            this->setControllerMessage(std::make_shared<FSEMessage>(std::make_shared<string>("Generate New Map"), shared_ptr<string>()));
+            this->setControllerMessage(std::make_shared<FSCMessage>(std::make_shared<string>("Generate New Map"), shared_ptr<string>()));
         }
 
         ioSystem->inputController->clearKeys();

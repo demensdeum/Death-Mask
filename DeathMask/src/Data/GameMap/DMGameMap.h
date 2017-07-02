@@ -24,8 +24,8 @@ public:
     DMGameMap(const DMGameMap& orig);
     virtual ~DMGameMap();
     
-    shared_ptr<FSEObject> revilObject;
-    shared_ptr<FSEObject> exitObject;
+    shared_ptr<FSCObject> revilObject;
+    shared_ptr<FSCObject> exitObject;
     
     void setObjectIdAtXY(int objectId, int x, int y);    
     

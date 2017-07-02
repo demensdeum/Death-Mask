@@ -27,8 +27,9 @@
 
 #endif
 
-#include <FlameSteelEngineGameToolkit/IO/IOSystems/SDL/FSEGTIOGenericSystemParams.h>
-#include <FlameSteelEngine/FSEUtils.h>
+#include <FlameSteelEngineGameToolkit/IO/IOSystems/FSEGTIOGenericSystemParams.h>
+
+#include <FlameSteelCore/FSCUtils.h>
 
 #include <DeathMask/src/Const/DMConstStates.h>
 #include <DeathMask/src/Const/DMConstIOSystem.h>
@@ -45,7 +46,7 @@ DMGameController::DMGameController() {
     // IO System
     
     auto ioSystemParams = std::make_shared<FSEGTIOGenericSystemParams>();
-    ioSystemParams->title = FSEUtils::localizedString(std::make_shared<string>("Death Mask"));
+    ioSystemParams->title = FSCUtils::localizedString(std::make_shared<string>("Death Mask"));
     ioSystemParams->width = DMConstIOSystemScreenWidth;
     ioSystemParams->height = DMConstIOSystemScreenHeight;
     
