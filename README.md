@@ -1,8 +1,8 @@
 # Death Mask
 Roguelike game in cyberpunk setting
-
-Dependecies:
-FlameSteelCore
-FlameSteelEngineGameToolkit
-FlameSteelEngineGameToolkitDesktop
+<br>
+Dependecies:<br>
+FlameSteelCore<br>
+FlameSteelEngineGameToolkit<br>
+FlameSteelEngineGameToolkitDesktop<br>
 Panda3D
