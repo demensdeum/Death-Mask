@@ -27,20 +27,20 @@ DMMenuController::DMMenuController(const DMMenuController& orig) {
 void DMMenuController::beforeStart() {
     
     auto cameraObject = FSEGTFactory::makeOnSceneObject(
-            std::make_shared<string>("camera"),
-            std::make_shared<string>("game camera"),
-            std::make_shared<string>(),
-            std::make_shared<string>(),
+            make_shared<string>("camera"),
+            make_shared<string>("game camera"),
+            make_shared<string>(),
+            make_shared<string>(),
             0, 4, 0,
             1, 1, 1,
             0, 0, 0,
             0);    
     
     auto menu = FSEGTFactory::makeOnSceneObject(
-            std::make_shared<string>("scene object"),
-            std::make_shared<string>("menu"),
-            std::make_shared<string>(),
-            std::make_shared<string>("./data/graphics/models/menu/menu"),
+            make_shared<string>("scene object"),
+            make_shared<string>("menu"),
+            make_shared<string>(),
+            make_shared<string>("./data/graphics/models/menu/menu"),
             0, 0, 0,
             1, 1, 1,
             0, 0, 0,

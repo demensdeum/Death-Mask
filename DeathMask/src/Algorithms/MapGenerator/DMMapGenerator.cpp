@@ -61,10 +61,10 @@ void DMMapGenerator::generate(shared_ptr<DMMapGeneratorParams> params, shared_pt
     objectsContext->removeAllObjects();
     
     auto revil = FSEGTFactory::makeOnSceneObject(
-            std::make_shared<string>("scene object"),
-            std::make_shared<string>("revil"),
-            std::make_shared<string>(),
-            std::make_shared<string>("./data/graphics/models/revil/revil"),
+            make_shared<string>("scene object"),
+            make_shared<string>("revil"),
+            make_shared<string>(),
+            make_shared<string>("./data/graphics/models/revil/revil"),
             cursorX, cursorY, 2,
             1, 1, 1,
             0, 0, 0,
@@ -117,10 +117,10 @@ void DMMapGenerator::generate(shared_ptr<DMMapGeneratorParams> params, shared_pt
     // put exit
     
     auto exit = FSEGTFactory::makeOnSceneObject(
-            std::make_shared<string>("scene object"),
-            std::make_shared<string>("exit"),
-            std::make_shared<string>(),
-            std::make_shared<string>("./data/graphics/models/exit/exit"),
+            make_shared<string>("scene object"),
+            make_shared<string>("exit"),
+            make_shared<string>(),
+            make_shared<string>("./data/graphics/models/exit/exit"),
             cursorX, cursorY, 2,
             1, 1, 1,
             0, 0, 0,
@@ -189,10 +189,10 @@ void DMMapGenerator::rollDiceAndOnSuccessPutGameplayObjectIntoXY(int tileX, int 
 void DMMapGenerator::putGameplayObjectIntoXY(int tileX, int tileY, shared_ptr<FSEGTObjectsContext> objectsContext, shared_ptr<DMGameMap> gameMap) {
     
     auto crate = FSEGTFactory::makeOnSceneObject(
-            std::make_shared<string>("scene object"),
-            std::make_shared<string>("crate"),
-            std::make_shared<string>(),
-            std::make_shared<string>("./data/graphics/models/crate/crate"),
+            make_shared<string>("scene object"),
+            make_shared<string>("crate"),
+            make_shared<string>(),
+            make_shared<string>("./data/graphics/models/crate/crate"),
             tileX, tileY, 2,
             1, 1, 1,
             0, 0, 0,

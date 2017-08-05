@@ -45,9 +45,9 @@ void DMInGameController::generateMap() {
 
     objectsContext->removeAllObjects();  
     
-    auto mapGenerator = std::make_shared<DMMapGenerator>();
+    auto mapGenerator = make_shared<DMMapGenerator>();
 
-    auto mapGeneratorParams = std::make_shared<DMMapGeneratorParams>();
+    auto mapGeneratorParams = make_shared<DMMapGeneratorParams>();
 
     mapGeneratorParams->freeTileIndex = 0;
     mapGeneratorParams->solidTileIndex = 1;
@@ -59,7 +59,7 @@ void DMInGameController::generateMap() {
 
     mapGeneratorParams->gameplayObjectRespawnChance = 10;
 
-    gameData->gameMap = std::make_shared<DMGameMap>();
+    gameData->gameMap = make_shared<DMGameMap>();
 
     mapGenerator->generate(mapGeneratorParams, gameData->gameMap, this->objectsContext);
 
@@ -72,10 +72,10 @@ void DMInGameController::generateMap() {
             if (tileIndex == 0) {
 
                 auto floor = FSEGTFactory::makeOnSceneObject(
-                        std::make_shared<string>("scene object"),
-                        std::make_shared<string>("floor"),
-                        std::make_shared<string>(),
-                        std::make_shared<string>("./data/graphics/models/floor/floor"),
+                        make_shared<string>("scene object"),
+                        make_shared<string>("floor"),
+                        make_shared<string>(),
+                        make_shared<string>("./data/graphics/models/floor/floor"),
                         x, y, 1,
                         1, 1, 1,
                         0, 0, 0,
@@ -86,10 +86,10 @@ void DMInGameController::generateMap() {
             } else if (tileIndex == 1) {
 
                 auto wall = FSEGTFactory::makeOnSceneObject(
-                        std::make_shared<string>("scene object"),
-                        std::make_shared<string>("wall"),
-                        std::make_shared<string>(),
-                        std::make_shared<string>("./data/graphics/models/wall/wall"),
+                        make_shared<string>("scene object"),
+                        make_shared<string>("wall"),
+                        make_shared<string>(),
+                        make_shared<string>("./data/graphics/models/wall/wall"),
                         x, y, 2,
                         1, 1, 1,
                         0, 0, 0,
@@ -101,24 +101,24 @@ void DMInGameController::generateMap() {
     }
     
     auto inventoryPrint = FSEGTFactory::makeOnSceneObject(
-            std::make_shared<string>("ui"),
-            std::make_shared<string>("inventory print"),
-            std::make_shared<string>(),
-            std::make_shared<string>(),
+            make_shared<string>("ui"),
+            make_shared<string>("inventory print"),
+            make_shared<string>(),
+            make_shared<string>(),
             0.5, 0.5, 0.8,
             0.07, 1, 0.07,
             0, 0, 0,
             0);
 
-    FSEGTUtils::setText(std::make_shared<string>("Death Mask - Prototype 1"), inventoryPrint);
+    FSEGTUtils::setText(make_shared<string>("Death Mask - Prototype 1"), inventoryPrint);
     
     objectsContext->addObject(inventoryPrint);    
     
         auto cameraObject = FSEGTFactory::makeOnSceneObject(
-            std::make_shared<string>("camera"),
-            std::make_shared<string>("game camera"),
-            std::make_shared<string>(),
-            std::make_shared<string>(),
+            make_shared<string>("camera"),
+            make_shared<string>("game camera"),
+            make_shared<string>(),
+            make_shared<string>(),
             0, 0, 0,
             1, 1, 1,
             -30, -60, 0,
@@ -308,7 +308,7 @@ void DMInGameController::step() {
         if (revilPosition->x == exitPosition->x &&
                 revilPosition->y == exitPosition->y) {
 
-            this->setControllerMessage(std::make_shared<FSCMessage>(std::make_shared<string>("Generate New Map"), shared_ptr<string>()));
+            this->setControllerMessage(make_shared<FSCMessage>(make_shared<string>("Generate New Map"), shared_ptr<string>()));
         }
 
         ioSystem->inputController->clearKeys();

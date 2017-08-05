@@ -1,4 +1,4 @@
-# Blender MTL File: 'block.blend'
+# Blender MTL File: 'revil.blend'
 # Material Count: 1
 
 newmtl Material.001
@@ -9,5 +9,5 @@ Ks 0.500000 0.500000 0.500000
 Ke 0.000000 0.000000 0.000000
 Ni 1.000000
 d 1.000000
-illum 2
-map_Kd data/graphics/models/wall/texture.bmp
+illum 0
+map_Kd data/graphics/models/revil/texture.bmp

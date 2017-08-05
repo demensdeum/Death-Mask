@@ -27,20 +27,20 @@ DMCreditsController::DMCreditsController(const DMCreditsController& orig) {
 void DMCreditsController::beforeStart() {
   
     auto cameraObject = FSEGTFactory::makeOnSceneObject(
-            std::make_shared<string>("camera"),
-            std::make_shared<string>("game camera"),
-            std::make_shared<string>(),
-            std::make_shared<string>(),
+            make_shared<string>("camera"),
+            make_shared<string>("game camera"),
+            make_shared<string>(),
+            make_shared<string>(),
             0, 4, 0,
             1, 1, 1,
             0, 0, 0,
             0);
     
     auto demensdeumLogo = FSEGTFactory::makeOnSceneObject(
-            std::make_shared<string>("scene object"),
-            std::make_shared<string>("demensdeum logo"),
-            std::make_shared<string>(),
-            std::make_shared<string>("./data/graphics/models/demensdeumLogo/demensdeumLogo"),
+            make_shared<string>("scene object"),
+            make_shared<string>("demensdeum logo"),
+            make_shared<string>(),
+            make_shared<string>("./data/graphics/models/demensdeumLogo/demensdeumLogo"),
             0, 0, 0,
             1, 1, 1,
             0, 0, 0,
