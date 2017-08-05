@@ -33,9 +33,9 @@ void FSEGTIOFSGLSystemRenderer::initialize() {
 void FSEGTIOFSGLSystemRenderer::render(shared_ptr<FSEGTGameData> gameData) {
     
     controller->setCameraY(-4);
-    controller->setCameraZ(-4);
+    controller->setCameraZ(1);
     
-    //controller->setCameraZ(0.1);
+    controller->setCameraRotationY(2.3);
     
     controller->render();
     

@@ -100,6 +100,9 @@ FSGLCore::FSGLCore() {
 
 void FSGLCore::initialize() {
 
+    SDL_GL_SetAttribute(SDL_GL_MULTISAMPLEBUFFERS, 1);
+    SDL_GL_SetAttribute(SDL_GL_MULTISAMPLESAMPLES,16);
+    
     SDL_Init(SDL_INIT_VIDEO);
 
     window = SDL_CreateWindow(
@@ -127,7 +130,7 @@ void FSGLCore::initialize() {
     
     GLint projectionMatrixUniform;    
     
-    glm::mat4 projectionMatrix = glm::perspective(90.0f, float(float(FSGLCoreScreenWidth) / float(FSGLCoreScreenHeight)), 0.001f, 200.0f);
+    glm::mat4 projectionMatrix = glm::perspective(45.0f, float(float(FSGLCoreScreenWidth) / float(FSGLCoreScreenHeight)), 0.001f, 200.0f);
     projectionMatrixUniform = glGetUniformLocation(shader_program, "projectionMatrix");
     glUniformMatrix4fv(projectionMatrixUniform, 1, GL_FALSE, glm::value_ptr(projectionMatrix));    
  
