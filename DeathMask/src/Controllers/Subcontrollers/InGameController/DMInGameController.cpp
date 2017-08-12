@@ -121,7 +121,7 @@ void DMInGameController::generateMap() {
             make_shared<string>(),
             0, 0, 0,
             1, 1, 1,
-            -30, -60, 0,
+            0, 0, 0,
             0);    
     
         objectsContext->addObject(cameraObject);      
@@ -198,6 +198,8 @@ void DMInGameController::step() {
     }
     else {
 
+        ioSystem->inputController->pollKey();
+        
         if (ioSystem->inputController->isExitKeyPressed()) {
 
             cout << "Bye-Bye!" << endl;
@@ -288,11 +290,17 @@ void DMInGameController::step() {
             auto revilObject = getRevilObject();
             
             auto revilPosition = FSEGTUtils::getObjectPosition(revilObject);
+            
             auto cameraPosition = FSEGTUtils::getObjectPosition(cameraObject);
-           
-            cameraPosition->x = revilPosition->x - 4;
-            cameraPosition->y = revilPosition->y + 7;
-            cameraPosition->z = 15;
+            auto cameraRotation = FSEGTUtils::getObjectRotation(cameraObject);
+  
+            cameraPosition->x = revilPosition->x;
+            cameraPosition->y = 10.f;
+            cameraPosition->z = revilPosition->y + 3.f;
+            
+            cameraRotation->x = 5.f;
+            cameraRotation->y = 0;
+            cameraRotation->z = 0;
             
             this->objectsContext->updateObject(cameraObject);
         }        

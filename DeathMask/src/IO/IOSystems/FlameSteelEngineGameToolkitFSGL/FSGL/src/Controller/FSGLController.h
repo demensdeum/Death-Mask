@@ -35,6 +35,11 @@ public:
     void initialize();
     
     void addObject(shared_ptr<FSGLObject> object);
+
+    shared_ptr<FSGLObject> getObjectWithID(int id);
+    
+    void removeAllObjects();
+    
     void removeObject(shared_ptr<FSGLObject> object);
     
     void render();

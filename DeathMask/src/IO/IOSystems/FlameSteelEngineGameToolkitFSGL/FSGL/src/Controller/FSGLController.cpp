@@ -46,6 +46,18 @@ void FSGLController::stop() {
     
 }
 
+void FSGLController::removeAllObjects() {
+    
+    core->removeAllObjects();
+    
+}
+
+shared_ptr<FSGLObject> FSGLController::getObjectWithID(int id) {
+    
+    return core->getObjectWithID(id);
+    
+}
+
 void FSGLController::setCameraX(float x) {
     
     core->camera->positionVector->x = x;

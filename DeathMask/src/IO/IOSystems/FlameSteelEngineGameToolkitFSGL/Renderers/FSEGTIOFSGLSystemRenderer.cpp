@@ -14,6 +14,7 @@
 #include "FSEGTIOFSGLSystemRenderer.h"
 
 #include <iostream>
+#include <FlameSteelEngineGameToolkit/Utils/FSEGTUtils.h>
 
 #include "../Data/FSGTIOFSGLSystemFactory.h"
 
@@ -24,51 +25,86 @@ FSEGTIOFSGLSystemRenderer::FSEGTIOFSGLSystemRenderer(const FSEGTIOFSGLSystemRend
 }
 
 void FSEGTIOFSGLSystemRenderer::initialize() {
-    
+
     controller = make_shared<FSGLController>();
     controller->initialize();
-    
+
 }
 
 void FSEGTIOFSGLSystemRenderer::render(shared_ptr<FSEGTGameData> gameData) {
-    
-    controller->setCameraY(-4);
-    controller->setCameraZ(1);
-    
-    controller->setCameraRotationY(2.3);
-    
+
     controller->render();
-    
+
 }
 
 void FSEGTIOFSGLSystemRenderer::objectsContextObjectAdded(shared_ptr<FSEGTObjectsContext> context, shared_ptr<FSCObject> object) {
-    
+
     cout << "FSEGTIOFSGLSystemRenderer: object add - " << object->getInstanceIdentifier()->c_str() << endl;
-    
+
     if (object->getClassIdentifier()->compare("scene object") == 0) {
-        
+
         auto graphicsObject = FSGTIOFSGLSystemFactory::graphicsObjectFrom(object);
-        
+
         controller->addObject(graphicsObject);
-    
-    }
-    else if (object->getClassIdentifier()->compare("ui") == 0) {
-        
-    }
-    else if (object->getClassIdentifier()->compare("camera") == 0) {
-        
+
+    } else if (object->getClassIdentifier()->compare("ui") == 0) {
+
+    } else if (object->getClassIdentifier()->compare("camera") == 0) {
+
+        auto position = FSEGTUtils::getObjectPosition(object);
+        auto rotation = FSEGTUtils::getObjectRotation(object);
+
+        controller->setCameraX(position->x);
+        controller->setCameraY(position->y);
+        controller->setCameraZ(position->z);
+
+        controller->setCameraRotationX(rotation->x);
+        controller->setCameraRotationY(rotation->y);
+        controller->setCameraRotationZ(rotation->z);
+
     }
 }
 
 void FSEGTIOFSGLSystemRenderer::objectsContextObjectUpdate(shared_ptr<FSEGTObjectsContext> context, shared_ptr<FSCObject> object) {
-    
-    //cout << "FSEGTIOFSGLSystemRenderer: object update - " << object->getInstanceIdentifier()->c_str() << endl;
-    
+
+    if (object->getClassIdentifier()->compare("scene object") == 0) {
+
+        auto position = FSEGTUtils::getObjectPosition(object);
+        auto rotation = FSEGTUtils::getObjectRotation(object);
+        
+        auto id = object->id;
+        auto graphicsObject = controller->getObjectWithID(id);
+        
+        graphicsObject->positionVector->x = position->x;
+        graphicsObject->positionVector->y = position->z;
+        graphicsObject->positionVector->z = position->y;
+        
+        graphicsObject->rotationVector->x = rotation->x;
+        graphicsObject->rotationVector->y = rotation->y;
+        graphicsObject->rotationVector->z = rotation->z;
+
+    } else if (object->getClassIdentifier()->compare("camera") == 0) {
+
+        auto position = FSEGTUtils::getObjectPosition(object);
+        auto rotation = FSEGTUtils::getObjectRotation(object);
+
+        controller->setCameraX(position->x);
+        controller->setCameraY(position->y);
+        controller->setCameraZ(position->z);
+
+        controller->setCameraRotationX(rotation->x);
+        controller->setCameraRotationY(rotation->y);
+        controller->setCameraRotationZ(rotation->z);
+
+    }
+
 }
 
 void FSEGTIOFSGLSystemRenderer::objectsContextAllObjectsRemoved(shared_ptr<FSEGTObjectsContext> context) {
-    
+
     cout << "FSEGTIOFSGLSystemRenderer: all objects removed" << endl;
+
+    controller->removeAllObjects();
     
 }
 

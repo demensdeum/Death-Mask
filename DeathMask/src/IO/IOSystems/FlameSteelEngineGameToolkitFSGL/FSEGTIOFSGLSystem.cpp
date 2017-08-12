@@ -19,6 +19,8 @@
 
 #include <FlameSteelEngineGameToolkit/IO/Input/FSEGTInputController.h>
 
+#include "Input/FSEGTIOFSGLInputController.h"
+
 FSEGTIOFSGLSystem::FSEGTIOFSGLSystem() {
 }
 
@@ -29,7 +31,7 @@ void FSEGTIOFSGLSystem::initialize(shared_ptr<FSEGTIOSystemParams> params) {
     renderer = make_shared<FSEGTIOFSGLSystemRenderer>();
     renderer->initialize();
     
-    inputController = make_shared<FSEGTInputController>();
+    inputController = make_shared<FSEGTIOFSGLInputController>();
 }
 
 void FSEGTIOFSGLSystem::objectsContextObjectAdded(shared_ptr<FSEGTObjectsContext> context, shared_ptr<FSCObject> object) {

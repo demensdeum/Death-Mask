@@ -41,6 +41,8 @@ shared_ptr<FSGLObject> FSGTIOFSGLSystemFactory::graphicsObjectFrom(shared_ptr<FS
     
     auto position = FSEGTUtils::getObjectPosition(object);
     
+    graphicsObject->id = object->id;
+    
     graphicsObject->positionVector->x = position->x;
     graphicsObject->positionVector->y = position->z;
     graphicsObject->positionVector->z = position->y;

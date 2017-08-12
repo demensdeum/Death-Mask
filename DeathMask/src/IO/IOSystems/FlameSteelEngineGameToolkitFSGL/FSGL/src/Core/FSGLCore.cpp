@@ -98,6 +98,18 @@ FSGLCore::FSGLCore() {
     
 }
 
+void FSGLCore::removeAllObjects() {
+    
+    for (int i = 0; i < objects.size(); i++) {
+        
+        objects.pop_back();
+        
+        i--;
+        
+    }
+   
+}
+
 void FSGLCore::initialize() {
 
     SDL_GL_SetAttribute(SDL_GL_MULTISAMPLEBUFFERS, 1);
@@ -162,6 +174,23 @@ void FSGLCore::render() {
 
 void FSGLCore::stop() {
 
+}
+
+shared_ptr<FSGLObject> FSGLCore::getObjectWithID(int id) {
+    
+    for (int i = 0; i < objects.size(); i++) {
+        
+        auto object = objects[i];
+        
+        if (object->id == id) {
+            
+            return object;
+            
+        }
+        
+    }
+    
+    return shared_ptr<FSGLObject>();
 }
 
 void FSGLCore::renderObject(shared_ptr<FSGLObject> object) {

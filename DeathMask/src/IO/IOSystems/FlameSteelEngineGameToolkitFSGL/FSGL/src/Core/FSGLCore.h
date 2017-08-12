@@ -41,9 +41,15 @@ public:
     
     void addObject(shared_ptr<FSGLObject> object);
     
+    shared_ptr<FSGLObject> getObjectWithID(int id);
+    
+    void removeObject(shared_ptr<FSGLObject> object);
+    
     void render();
     
     void stop();
+    
+    void removeAllObjects();
     
     shared_ptr<FSGLCamera> camera;
     

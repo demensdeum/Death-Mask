@@ -21,6 +21,9 @@ public:
     FSGLCamera();
     FSGLCamera(const FSGLCamera& orig);
     virtual ~FSGLCamera();
+    
+    virtual glm::mat4 matrix();
+    
 private:
 
 };

@@ -38,7 +38,7 @@ public:
     shared_ptr<FSGLVector> rotationVector;
     shared_ptr<FSGLVector> positionVector;   
   
-    glm::mat4 matrix();
+    virtual glm::mat4 matrix();
 };
 
 #endif /* FSGLOBJECT_H */
