@@ -237,7 +237,7 @@ void FSGLCore::renderObject(shared_ptr<FSGLObject> object) {
         GLuint textureBinding;
         glGenTextures(1, &textureBinding);
         glBindTexture(GL_TEXTURE_2D, textureBinding);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
         glTexImage2D(GL_TEXTURE_2D, 0, palleteMode, surface->w, surface->h, 0, palleteMode, GL_UNSIGNED_BYTE, surface->pixels);
         glActiveTexture(GL_TEXTURE0);
 
