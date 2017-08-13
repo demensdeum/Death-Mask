@@ -12,9 +12,10 @@ set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/${FSEGT_PROJECT_NAME})
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/${FSEGT_PROJECT_NAME})
 set(CMAKE_EXECUTABLE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/${FSEGT_PROJECT_NAME})
 
-include_directories(.)
+include_directories(. FlameSteelFramework)
 
 file(GLOB_RECURSE SOURCE_FILES
+    "FlameSteelFramework/*.cpp"
     "DeathMask/*.cpp"
 )
 
@@ -22,4 +23,4 @@ set(EXECUTABLE_OUTPUT_PATH "DeathMask")
 
 add_executable(${FSEGT_PROJECT_NAME} ${SOURCE_FILES})
 
-target_link_libraries(${FSEGT_PROJECT_NAME} flamesteelcore flamesteelenginegametoolkit flamesteelenginegametoolkitdesktop SDL2 GLESv2 assimp)
+target_link_libraries(${FSEGT_PROJECT_NAME} SDL2 GLESv2 assimp)

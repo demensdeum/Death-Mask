@@ -21,7 +21,7 @@ FSGLMesh::FSGLMesh(const FSGLMesh& orig) {
 
 void FSGLMesh::updateGlData() {
 
-    glVertices = (GLfloat *) malloc(vertices.size() * sizeof (GLfloat));
+    glVertices = new GLfloat[vertices.size() * sizeof (GLfloat)];
 
     for (unsigned int i = 0; i < vertices.size(); i += glVertexCount) {
 
@@ -32,7 +32,7 @@ void FSGLMesh::updateGlData() {
         glVertices[i + 4] = vertices[i + 4];
     }
 
-    glIndices = (GLushort *) malloc(indices.size() * sizeof (GLushort));
+    glIndices = new GLushort[indices.size() * sizeof (GLushort)];
 
     for (unsigned int i = 0; i < indices.size(); i++) {
 
@@ -50,13 +50,13 @@ FSGLMesh::~FSGLMesh() {
 
     if (glIndices != NULL) {
 
-        free(glIndices);
+        delete glIndices;
 
     }
 
     if (glVertices != NULL) {
 
-        free(glVertices);
+        delete glVertices;
 
     }
 

@@ -14,6 +14,9 @@
 #include "DMCreditsController.h"
 
 #include <FlameSteelEngineGameToolkit/Data/Components/FSEGTFactory.h>
+#include <FlameSteelEngineGameToolkit/Utils/FSEGTUtils.h>
+
+static shared_ptr<FSCObject> cameraObject;
 
 DMCreditsController::DMCreditsController() {
     
@@ -26,12 +29,12 @@ DMCreditsController::DMCreditsController(const DMCreditsController& orig) {
 
 void DMCreditsController::beforeStart() {
   
-    auto cameraObject = FSEGTFactory::makeOnSceneObject(
+    cameraObject = FSEGTFactory::makeOnSceneObject(
             make_shared<string>("camera"),
             make_shared<string>("game camera"),
             make_shared<string>(),
             make_shared<string>(),
-            0, 4, 0,
+            0, 0, 3,
             1, 1, 1,
             0, 0, 0,
             0);
@@ -51,10 +54,15 @@ void DMCreditsController::beforeStart() {
 }
 
 void DMCreditsController::step() {
-    
-    renderer->render(this->gameData);
- 
+     
     if (stepCounter < 100) {
+    
+    auto cameraRotation = FSEGTUtils::getObjectRotation(cameraObject);
+    
+    cameraRotation->z += 0.4;
+    
+    renderer->render(gameData);
+        
         
         stepCounter++;
         
