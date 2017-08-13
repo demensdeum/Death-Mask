@@ -1,6 +1,10 @@
 # Death Mask
-Roguelike game in cyberpunk setting<br>
+Cyberpunk Adventure in endless Techno-Maze<br>
 <br>
+Compile & Run:<br><br>
+cmake .<br>
+make<br>
+DeathMask/DeathMask<br><br>
 Dependencies:<br><br>
-FlameSteelCore<br>
-FlameSteelEngineGameToolkit<br>
+Assimp<br>
+SDL2<br>
