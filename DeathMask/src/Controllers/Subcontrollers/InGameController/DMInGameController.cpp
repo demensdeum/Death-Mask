@@ -28,6 +28,8 @@
 
 #include <iostream>
 
+#include <FlameSteelSpiderToolkit/FSSTUDPSender.h>
+
 using namespace std;
 
 DMInGameController::DMInGameController() {
@@ -36,15 +38,15 @@ DMInGameController::DMInGameController() {
 DMInGameController::DMInGameController(const DMInGameController& orig) {
 }
 
-void DMInGameController::beforeStart() { 
+void DMInGameController::beforeStart() {
 
     this->generateMap();
 }
 
 void DMInGameController::generateMap() {
 
-    objectsContext->removeAllObjects();  
-    
+    objectsContext->removeAllObjects();
+
     auto mapGenerator = make_shared<DMMapGenerator>();
 
     auto mapGeneratorParams = make_shared<DMMapGeneratorParams>();
@@ -82,7 +84,7 @@ void DMInGameController::generateMap() {
                         0);
 
                 objectsContext->addObject(floor);
-                
+
             } else if (tileIndex == 1) {
 
                 auto wall = FSEGTFactory::makeOnSceneObject(
@@ -99,7 +101,7 @@ void DMInGameController::generateMap() {
             }
         }
     }
-    
+
     auto inventoryPrint = FSEGTFactory::makeOnSceneObject(
             make_shared<string>("ui"),
             make_shared<string>("inventory print"),
@@ -111,10 +113,10 @@ void DMInGameController::generateMap() {
             0);
 
     FSEGTUtils::setText(make_shared<string>("Death Mask - Prototype 1"), inventoryPrint);
-    
-    objectsContext->addObject(inventoryPrint);    
-    
-        auto cameraObject = FSEGTFactory::makeOnSceneObject(
+
+    objectsContext->addObject(inventoryPrint);
+
+    auto cameraObject = FSEGTFactory::makeOnSceneObject(
             make_shared<string>("camera"),
             make_shared<string>("game camera"),
             make_shared<string>(),
@@ -122,9 +124,9 @@ void DMInGameController::generateMap() {
             0, 0, 0,
             1, 1, 1,
             0, 0, 0,
-            0);    
-    
-        objectsContext->addObject(cameraObject);      
+            0);
+
+    objectsContext->addObject(cameraObject);
 }
 
 shared_ptr<FSCObject> DMInGameController::getExitObject() {
@@ -142,7 +144,7 @@ shared_ptr<FSCObject> DMInGameController::getExitObject() {
     }
 
     return shared_ptr<FSCObject>();
-    
+
 }
 
 shared_ptr<FSCObject> DMInGameController::getCameraObject() {
@@ -195,18 +197,19 @@ void DMInGameController::step() {
 
         this->clearMessage();
 
-    }
-    else {
+    } else {
 
         ioSystem->inputController->pollKey();
-        
+
         if (ioSystem->inputController->isExitKeyPressed()) {
 
             cout << "Bye-Bye!" << endl;
 
+            FSSTUDPSender::sendStringToDefault(make_shared<string>("Bye-Bye!"));
+
             exit(0);
         }
-        
+
         if (ioSystem->inputController->isDownKeyPressed()) {
 
             auto revilObject = getRevilObject();
@@ -222,7 +225,7 @@ void DMInGameController::step() {
             position->y += 1;
 
             objectPickAtXY(position->x, position->y);
-            
+
             this->objectsContext->updateObject(revilObject);
         }
 
@@ -239,7 +242,7 @@ void DMInGameController::step() {
             auto position = FSEGTUtils::getObjectPosition(revilObject);
 
             position->y -= 1;
-            
+
             objectPickAtXY(position->x, position->y);
 
             this->objectsContext->updateObject(revilObject);
@@ -258,7 +261,7 @@ void DMInGameController::step() {
             auto position = FSEGTUtils::getObjectPosition(revilObject);
 
             position->x -= 1;
-            
+
             objectPickAtXY(position->x, position->y);
 
             this->objectsContext->updateObject(revilObject);
@@ -277,34 +280,34 @@ void DMInGameController::step() {
             auto position = FSEGTUtils::getObjectPosition(revilObject);
 
             position->x += 1;
-            
+
             objectPickAtXY(position->x, position->y);
 
             this->objectsContext->updateObject(revilObject);
         }
-        
+
         // update camera position
-        
+
         {
             auto cameraObject = getCameraObject();
             auto revilObject = getRevilObject();
-            
+
             auto revilPosition = FSEGTUtils::getObjectPosition(revilObject);
-            
+
             auto cameraPosition = FSEGTUtils::getObjectPosition(cameraObject);
             auto cameraRotation = FSEGTUtils::getObjectRotation(cameraObject);
-  
+
             cameraPosition->x = revilPosition->x;
             cameraPosition->y = 10.f;
             cameraPosition->z = revilPosition->y + 3.f;
-            
+
             cameraRotation->x = 5.f;
             cameraRotation->y = 0;
             cameraRotation->z = 0;
-            
+
             this->objectsContext->updateObject(cameraObject);
-        }        
-        
+        }
+
         // check map exit case
 
         auto revilObject = this->getRevilObject();
@@ -326,29 +329,36 @@ void DMInGameController::step() {
 }
 
 void DMInGameController::objectPickAtXY(int x, int y) {
-    
-    auto gameMap = std::static_pointer_cast<DMGameMap>(gameData->gameMap);    
-    
+
+    auto gameMap = std::static_pointer_cast<DMGameMap>(gameData->gameMap);
+
     auto objectId = gameMap->objectIdAtXY(x, y);
-    
+
     if (objectId != DMGameMapNoObjectId) {
-        
+
         auto object = this->gameData->getGameObjects()->objectWithId(objectId);
-        
+
         if (object.get() != nullptr) {
-            
+
             auto instanceIdentifier = object->getInstanceIdentifier();
-            
+
             if (instanceIdentifier->compare("crate") == 0) {
-                                
+
                 pickRandomItem();
+
+            } else if (instanceIdentifier->compare("mask") == 0) {
+
+                cout << "You have found mask!" << endl;
+
+                FSSTUDPSender::sendStringToDefault(make_shared<string>("You have found mask!"));
+
             }
         }
     }
 }
 
 void DMInGameController::pickRandomItem() {
-    
+
     cout << "Got random item" << endl;
 }
 
