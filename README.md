@@ -1,5 +1,5 @@
 # Death Mask
-Flame Steel Framework dependencies integrated into DeathMask<br>
+Cyberpunk Adventure in endless Techno-Maze<br>
 <br>
 Compile & Run:<br><br>
 cmake .<br>
