@@ -24,6 +24,18 @@ DMGameplayProperties::DMGameplayProperties() {
     hunger = 0;
 }
 
+void DMGameplayProperties::incrementHunger() {
+    
+    hunger += 1;
+    
+}
+
+int DMGameplayProperties::getHunger() {
+    
+    return hunger;
+    
+}
+
 bool DMGameplayProperties::isDead() {
     
     if (hunger > 10) {

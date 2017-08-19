@@ -22,8 +22,12 @@ public:
     DMInGameUIController(const DMInGameUIController& orig);
     virtual ~DMInGameUIController();
     
+    virtual void step();
+    
 private:
 
+    void renderUI();
+    shared_ptr<FSCObject> getRevilObject();
 };
 
 #endif /* DMINGAMEUICONTROLLER_H */

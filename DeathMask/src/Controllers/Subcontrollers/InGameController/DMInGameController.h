@@ -16,6 +16,7 @@
 
 #include <FlameSteelEngineGameToolkit/Controllers/FSEGTController.h>
 
+#include <DeathMask/src/Controllers/Subcontrollers/InGameController/Subcontrollers/InGameUIController/DMInGameUIController.h>
 #include <DeathMask/src/Controllers/Subcontrollers/InGameController/Subcontrollers/InGameSceneController/DMInGameSceneController.h>
 #include <DeathMask/src/Controllers/Subcontrollers/InGameController/Subcontrollers/InGameObjectsController/DMInGameObjectsController.h>
 
@@ -30,8 +31,11 @@ public:
     
 private:
 
-    unique_ptr<DMInGameObjectsController> inGameObjectsController;
-    unique_ptr<DMInGameSceneController> inGameSceneController;
+    void initializeSubcontroller(shared_ptr<FSEGTController> subcontroller);
+    
+    shared_ptr<DMInGameObjectsController> inGameObjectsController;
+    shared_ptr<DMInGameSceneController> inGameSceneController;
+    shared_ptr<DMInGameUIController> inGameUIController;
 };
 
 #endif /* DMINGAMECONTROLLER_H */

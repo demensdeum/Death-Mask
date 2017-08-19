@@ -26,21 +26,25 @@ DMInGameController::DMInGameController() {
     
     inGameObjectsController = make_unique<DMInGameObjectsController>();
     inGameSceneController = make_unique<DMInGameSceneController>();
-    
+    inGameUIController = make_unique<DMInGameUIController>();
 }
 
 DMInGameController::DMInGameController(const DMInGameController& orig) {
 }
 
+void DMInGameController::initializeSubcontroller(shared_ptr<FSEGTController> subcontroller) {
+    
+    subcontroller->setIOSystem(ioSystem);
+    subcontroller->setGameData(gameData);
+    subcontroller->objectsContext = objectsContext;    
+    
+}
+
 void DMInGameController::beforeStart() {
 
-    inGameObjectsController->setIOSystem(ioSystem);
-    inGameObjectsController->setGameData(gameData);
-    inGameObjectsController->objectsContext = objectsContext;
-    
-    inGameSceneController->setIOSystem(ioSystem);
-    inGameSceneController->setGameData(gameData);
-    inGameSceneController->objectsContext = objectsContext;
+    initializeSubcontroller(inGameObjectsController);
+    initializeSubcontroller(inGameSceneController);
+    initializeSubcontroller(inGameUIController);
     
     inGameSceneController->generateMap();
 }
@@ -71,6 +75,7 @@ void DMInGameController::step() {
         }
 
         inGameObjectsController->step();
+        inGameUIController->step();
         
         ioSystem->inputController->clearKeys();
 

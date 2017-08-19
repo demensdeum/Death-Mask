@@ -13,6 +13,7 @@
 
 #include "DMInGameObjectsController.h"
 
+#include <DeathMask/src/Utils/DMUtils.h>
 #include <DeathMask/src/Data/GameMap/DMGameMap.h>
 
 #include <FlameSteelEngineGameToolkit/IO/Input/FSEGTInputController.h>
@@ -22,6 +23,9 @@
 #include <FlameSteelSpiderToolkit/FSSTUDPSender.h>
 
 DMInGameObjectsController::DMInGameObjectsController() {
+
+    roundCounter = 0;
+
 }
 
 DMInGameObjectsController::DMInGameObjectsController(const DMInGameObjectsController& orig) {
@@ -33,120 +37,146 @@ void DMInGameObjectsController::pickRandomItem() {
 }
 
 void DMInGameObjectsController::step() {
+
+    roundCounter += 1;
+
+    if (roundCounter > 10) {
+        
+        allObjectsIncrementHunger();
+        
+        roundCounter = 0;
+    }
     
+    if (ioSystem->inputController->isDownKeyPressed()) {
 
-        if (ioSystem->inputController->isDownKeyPressed()) {
+        auto revilObject = getRevilObject();
 
-            auto revilObject = getRevilObject();
+        if (revilObject.get() == nullptr) {
 
-            if (revilObject.get() == nullptr) {
+            return;
 
-                return;
-
-            }
-
-            auto position = FSEGTUtils::getObjectPosition(revilObject);
-
-            position->y += 1;
-
-            objectPickAtXY(position->x, position->y);
-
-            this->objectsContext->updateObject(revilObject);
         }
 
-        if (ioSystem->inputController->isUpKeyPressed()) {
+        auto position = FSEGTUtils::getObjectPosition(revilObject);
 
-            auto revilObject = getRevilObject();
+        position->y += 1;
 
-            if (revilObject.get() == nullptr) {
+        objectPickAtXY(position->x, position->y);
 
-                return;
+        this->objectsContext->updateObject(revilObject);
+    }
 
-            }
+    if (ioSystem->inputController->isUpKeyPressed()) {
 
-            auto position = FSEGTUtils::getObjectPosition(revilObject);
+        auto revilObject = getRevilObject();
 
-            position->y -= 1;
+        if (revilObject.get() == nullptr) {
 
-            objectPickAtXY(position->x, position->y);
+            return;
 
-            this->objectsContext->updateObject(revilObject);
         }
 
-        if (ioSystem->inputController->isLeftKeyPressed()) {
+        auto position = FSEGTUtils::getObjectPosition(revilObject);
 
-            auto revilObject = getRevilObject();
+        position->y -= 1;
 
-            if (revilObject.get() == nullptr) {
+        objectPickAtXY(position->x, position->y);
 
-                return;
+        this->objectsContext->updateObject(revilObject);
+    }
 
-            }
+    if (ioSystem->inputController->isLeftKeyPressed()) {
 
-            auto position = FSEGTUtils::getObjectPosition(revilObject);
+        auto revilObject = getRevilObject();
 
-            position->x -= 1;
+        if (revilObject.get() == nullptr) {
 
-            objectPickAtXY(position->x, position->y);
+            return;
 
-            this->objectsContext->updateObject(revilObject);
         }
 
-        if (ioSystem->inputController->isRightKeyPressed()) {
+        auto position = FSEGTUtils::getObjectPosition(revilObject);
 
-            auto revilObject = getRevilObject();
+        position->x -= 1;
 
-            if (revilObject.get() == nullptr) {
+        objectPickAtXY(position->x, position->y);
 
-                return;
+        this->objectsContext->updateObject(revilObject);
+    }
 
-            }
+    if (ioSystem->inputController->isRightKeyPressed()) {
 
-            auto position = FSEGTUtils::getObjectPosition(revilObject);
+        auto revilObject = getRevilObject();
 
-            position->x += 1;
+        if (revilObject.get() == nullptr) {
 
-            objectPickAtXY(position->x, position->y);
+            return;
 
-            this->objectsContext->updateObject(revilObject);
         }
 
-        // update camera position
+        auto position = FSEGTUtils::getObjectPosition(revilObject);
 
-        {
-            auto cameraObject = getCameraObject();
-            auto revilObject = getRevilObject();
+        position->x += 1;
 
-            auto revilPosition = FSEGTUtils::getObjectPosition(revilObject);
+        objectPickAtXY(position->x, position->y);
 
-            auto cameraPosition = FSEGTUtils::getObjectPosition(cameraObject);
-            auto cameraRotation = FSEGTUtils::getObjectRotation(cameraObject);
+        this->objectsContext->updateObject(revilObject);
+    }
 
-            cameraPosition->x = revilPosition->x;
-            cameraPosition->y = 10.f;
-            cameraPosition->z = revilPosition->y + 3.f;
+    // update camera position
 
-            cameraRotation->x = 5.f;
-            cameraRotation->y = 0;
-            cameraRotation->z = 0;
-
-            this->objectsContext->updateObject(cameraObject);
-        }
-
-        // check map exit case
-
-        auto revilObject = this->getRevilObject();
-        auto exitObject = this->getExitObject();
+    {
+        auto cameraObject = getCameraObject();
+        auto revilObject = getRevilObject();
 
         auto revilPosition = FSEGTUtils::getObjectPosition(revilObject);
-        auto exitPosition = FSEGTUtils::getObjectPosition(exitObject);
 
-        if (revilPosition->x == exitPosition->x &&
-                revilPosition->y == exitPosition->y) {
+        auto cameraPosition = FSEGTUtils::getObjectPosition(cameraObject);
+        auto cameraRotation = FSEGTUtils::getObjectRotation(cameraObject);
 
-            this->setControllerMessage(make_shared<FSCMessage>(make_shared<string>("Generate New Map"), shared_ptr<string>()));
-        }
+        cameraPosition->x = revilPosition->x;
+        cameraPosition->y = 10.f;
+        cameraPosition->z = revilPosition->y + 3.f;
+
+        cameraRotation->x = 5.f;
+        cameraRotation->y = 0;
+        cameraRotation->z = 0;
+
+        this->objectsContext->updateObject(cameraObject);
+    }
+
+    // check map exit case
+
+    auto revilObject = this->getRevilObject();
+    auto exitObject = this->getExitObject();
+
+    auto revilPosition = FSEGTUtils::getObjectPosition(revilObject);
+    auto exitPosition = FSEGTUtils::getObjectPosition(exitObject);
+
+    if (revilPosition->x == exitPosition->x &&
+            revilPosition->y == exitPosition->y) {
+
+        this->setControllerMessage(make_shared<FSCMessage>(make_shared<string>("Generate New Map"), shared_ptr<string>()));
+    }
+
+}
+
+void DMInGameObjectsController::allObjectsIncrementHunger() {
+    
+    auto gameObjects = gameData->getGameObjects();
+    
+    if (gameObjects.get() == nullptr) {
         
+        return;
+        
+    }
+    
+    for (auto i = 0; i < gameObjects->size(); i++) {
+        
+        auto object = gameObjects->objectAtIndex(i);
+        
+        DMUtils::incrementHungerForObject(object);
+    }
 }
 
 void DMInGameObjectsController::objectPickAtXY(int x, int y) {

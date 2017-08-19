@@ -34,6 +34,10 @@ private:
     
     void pickRandomItem();    
 
+    int roundCounter;
+    
+    void allObjectsIncrementHunger();
+    
 };
 
 #endif /* INGAMEOBJECTSCONTROLLER_H */
