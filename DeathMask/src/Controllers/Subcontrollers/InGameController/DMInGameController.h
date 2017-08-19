@@ -14,9 +14,12 @@
 #ifndef DMINGAMECONTROLLER_H
 #define DMINGAMECONTROLLER_H
 
-#include <FlameSteelEngineGameToolkit/Controllers/FSEGTSceneController.h>
+#include <FlameSteelEngineGameToolkit/Controllers/FSEGTController.h>
 
-class DMInGameController: public FSEGTSceneController {
+#include <DeathMask/src/Controllers/Subcontrollers/InGameController/Subcontrollers/InGameSceneController/DMInGameSceneController.h>
+#include <DeathMask/src/Controllers/Subcontrollers/InGameController/Subcontrollers/InGameObjectsController/DMInGameObjectsController.h>
+
+class DMInGameController: public FSEGTController {
 public:
     DMInGameController();
     DMInGameController(const DMInGameController& orig);
@@ -27,15 +30,8 @@ public:
     
 private:
 
-    shared_ptr<FSCObject> getCameraObject();
-    shared_ptr<FSCObject> getRevilObject();
-    shared_ptr<FSCObject> getExitObject();
-    
-    void objectPickAtXY(int x, int y);
-    
-    void pickRandomItem();
-    
-    void generateMap();
+    unique_ptr<DMInGameObjectsController> inGameObjectsController;
+    unique_ptr<DMInGameSceneController> inGameSceneController;
 };
 
 #endif /* DMINGAMECONTROLLER_H */

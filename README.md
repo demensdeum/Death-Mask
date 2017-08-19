@@ -8,3 +8,4 @@ DeathMask/DeathMask<br><br>
 Dependencies:<br><br>
 Assimp<br>
 SDL2<br>
+Boost

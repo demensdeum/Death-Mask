@@ -13,17 +13,32 @@
 
 #include "DMGameplayProperties.h"
 
+static const auto DMGamePlayPropertiesMaxHealth = 3;
+
 DMGameplayProperties::DMGameplayProperties() {
     
     name = shared_ptr<string>();
     
-    gameplayType = string("None");
-    
     health = 0;
-    healthMax = 0;
     
-    experience = 0;
-    experienceMax = 0;
+    hunger = 0;
+}
+
+bool DMGameplayProperties::isDead() {
+    
+    if (hunger > 10) {
+        
+        return true;
+                
+    }
+    
+    if (health < 1) {
+        
+        return true;
+        
+    }
+    
+    return false;
 }
 
 DMGameplayProperties::DMGameplayProperties(const DMGameplayProperties& orig) {

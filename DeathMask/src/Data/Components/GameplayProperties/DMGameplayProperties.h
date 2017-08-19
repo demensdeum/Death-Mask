@@ -24,30 +24,31 @@ public:
     DMGameplayProperties(const DMGameplayProperties& orig);
     virtual ~DMGameplayProperties();
     
-    void rename(shared_ptr<string> name);
-    
     void heal(int amount);
-    void damage(int amount);
     void healFull();
     
-    void addExperience(int amount);
+    void damage(int amount);
+    
+    int getAttack();
+    int getArmor();
+    int getHunger();
+    
+    void useItem(shared_ptr<FSCObject> item);
+    
+    void incrementHunger();
     
     void addItem(shared_ptr<FSCObject> item);
     void removeItem(shared_ptr<FSCObject> item);
     
-private:
-
-    shared_ptr<string> name;
+    shared_ptr<string> name;    
     
-    string gameplayType;
+    bool isDead();
+    
+private:
     
     int health;
-    int healthMax;
     
-    int experience;
-    int experienceMax;
-    
-    int level;
+    int hunger;
     
     vector<shared_ptr<FSCObject> > items;
     

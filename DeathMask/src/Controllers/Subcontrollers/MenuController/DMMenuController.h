@@ -14,9 +14,9 @@
 #ifndef DMMENUCONTROLLER_H
 #define DMMENUCONTROLLER_H
 
-#include <FlameSteelEngineGameToolkit/Controllers/FSEGTSceneController.h>
+#include <FlameSteelEngineGameToolkit/Controllers/FSEGTController.h>
 
-class DMMenuController: public FSEGTSceneController {
+class DMMenuController: public FSEGTController {
 public:
     DMMenuController();
     DMMenuController(const DMMenuController& orig);
