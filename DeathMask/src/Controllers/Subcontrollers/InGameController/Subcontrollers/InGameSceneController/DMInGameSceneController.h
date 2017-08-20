@@ -25,6 +25,8 @@ public:
     void generateMap();
     
 private:
+    
+    shared_ptr<FSCObject> getRevilObject();
 
 };
 

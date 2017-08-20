@@ -13,6 +13,7 @@
 
 #include "DMMapGenerator.h"
 #include "DeathMask/src/Data/GameMap/DMGameMap.h"
+#include <DeathMask/src/Data/Components/GameplayProperties/DMGameplayProperties.h>
 
 #include <FlameSteelEngineGameToolkit/Controllers/FSEGTObjectsContext.h>
 #include <FlameSteelEngineGameToolkit/Data/Components/FSEGTFactory.h>
@@ -80,6 +81,13 @@ void DMMapGenerator::generate(shared_ptr<DMMapGeneratorParams> params, shared_pt
             0, 0, 0,
             0);
 
+    auto gameplayProperties = make_shared<DMGameplayProperties>();
+    
+    gameplayProperties->setClassIdentifier(make_shared<string>("death mask gameplay properties"));
+    gameplayProperties->setInstanceIdentifier(make_shared<string>("death mask gameplay properties"));
+    
+    revil->addComponent(gameplayProperties);
+    
     objectsContext->addObject(revil);
 
     this->drawFreeTilesAtXY(castedGameMap, params, cursorX, cursorY);

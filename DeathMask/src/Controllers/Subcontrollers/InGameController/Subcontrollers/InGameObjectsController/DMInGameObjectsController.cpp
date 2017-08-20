@@ -25,7 +25,10 @@
 DMInGameObjectsController::DMInGameObjectsController() {
 
     roundCounter = 0;
-
+    
+    auto thisSharedPointer = shared_from_this();
+    
+    objectControlsDelegate = static_pointer_cast<DMObjectControlsDelegate>(thisSharedPointer);
 }
 
 DMInGameObjectsController::DMInGameObjectsController(const DMInGameObjectsController& orig) {
@@ -45,82 +48,17 @@ void DMInGameObjectsController::step() {
         allObjectsIncrementHunger();
         
         roundCounter = 0;
+        
     }
     
-    if (ioSystem->inputController->isDownKeyPressed()) {
-
-        auto revilObject = getRevilObject();
-
-        if (revilObject.get() == nullptr) {
-
-            return;
-
-        }
-
-        auto position = FSEGTUtils::getObjectPosition(revilObject);
-
-        position->y += 1;
-
-        objectPickAtXY(position->x, position->y);
-
-        this->objectsContext->updateObject(revilObject);
-    }
-
-    if (ioSystem->inputController->isUpKeyPressed()) {
-
-        auto revilObject = getRevilObject();
-
-        if (revilObject.get() == nullptr) {
-
-            return;
-
-        }
-
-        auto position = FSEGTUtils::getObjectPosition(revilObject);
-
-        position->y -= 1;
-
-        objectPickAtXY(position->x, position->y);
-
-        this->objectsContext->updateObject(revilObject);
-    }
-
-    if (ioSystem->inputController->isLeftKeyPressed()) {
-
-        auto revilObject = getRevilObject();
-
-        if (revilObject.get() == nullptr) {
-
-            return;
-
-        }
-
-        auto position = FSEGTUtils::getObjectPosition(revilObject);
-
-        position->x -= 1;
-
-        objectPickAtXY(position->x, position->y);
-
-        this->objectsContext->updateObject(revilObject);
-    }
-
-    if (ioSystem->inputController->isRightKeyPressed()) {
-
-        auto revilObject = getRevilObject();
-
-        if (revilObject.get() == nullptr) {
-
-            return;
-
-        }
-
-        auto position = FSEGTUtils::getObjectPosition(revilObject);
-
-        position->x += 1;
-
-        objectPickAtXY(position->x, position->y);
-
-        this->objectsContext->updateObject(revilObject);
+    auto gameObjects = gameData->getGameObjects();
+    
+    for (int i = 0; i < gameObjects->size(); i++) {
+        
+        auto object = gameObjects->objectAtIndex(i);
+        
+        DMUtils::step(object, objectControlsDelegate);
+        
     }
 
     // update camera position
@@ -157,8 +95,15 @@ void DMInGameObjectsController::step() {
             revilPosition->y == exitPosition->y) {
 
         this->setControllerMessage(make_shared<FSCMessage>(make_shared<string>("Generate New Map"), shared_ptr<string>()));
+        
     }
 
+}
+
+void DMInGameObjectsController::objectsControlsDelegateObjectDidUpdate(shared_ptr<FSCObject> object) {
+    
+    objectsContext->updateObject(object);
+    
 }
 
 void DMInGameObjectsController::allObjectsIncrementHunger() {

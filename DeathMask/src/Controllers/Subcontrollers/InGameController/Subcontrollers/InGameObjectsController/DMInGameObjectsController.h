@@ -15,8 +15,9 @@
 #define INGAMEOBJECTSCONTROLLER_H
 
 #include <FlameSteelEngineGameToolkit/Controllers/FSEGTController.h>
+#include <DeathMask/src/Data/Components/Controls/DMObjectControlsDelegate.h>
 
-class DMInGameObjectsController: public FSEGTController {
+class DMInGameObjectsController: public FSEGTController, public DMObjectControlsDelegate, public enable_shared_from_this<DMInGameObjectsController> {
 public:
     DMInGameObjectsController();
     DMInGameObjectsController(const DMInGameObjectsController& orig);
@@ -25,6 +26,8 @@ public:
     virtual void step();
     
 private:
+    
+    shared_ptr<DMObjectControlsDelegate> objectControlsDelegate;
     
     shared_ptr<FSCObject> getCameraObject();
     shared_ptr<FSCObject> getRevilObject();
@@ -38,6 +41,7 @@ private:
     
     void allObjectsIncrementHunger();
     
+    virtual void objectsControlsDelegateObjectDidUpdate(shared_ptr<FSCObject> object);
 };
 
 #endif /* INGAMEOBJECTSCONTROLLER_H */

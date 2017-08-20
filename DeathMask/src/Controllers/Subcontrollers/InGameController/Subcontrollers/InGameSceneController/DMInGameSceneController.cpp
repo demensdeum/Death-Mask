@@ -23,6 +23,8 @@
 
 #include <DeathMask/src/Data/GameMap/DMGameMap.h>
 
+#include <DeathMask/src/Data/Components/Controls/PlayerControls/DMPlayerObjectControls.h>
+
 DMInGameSceneController::DMInGameSceneController() {
 }
 
@@ -113,6 +115,38 @@ void DMInGameSceneController::generateMap() {
             0);
 
     objectsContext->addObject(cameraObject);
+    
+    // insert player controls
+    
+    auto revil = getRevilObject();
+    
+    auto playerObjectControls = make_shared<DMPlayerObjectControls>(revil, ioSystem->inputController);
+    
+    playerObjectControls->setClassIdentifier(make_shared<string>("object controls"));
+    playerObjectControls->setInstanceIdentifier(make_shared<string>("object controls"));
+    
+    revil->addComponent(playerObjectControls);
+    
+}
+
+shared_ptr<FSCObject> DMInGameSceneController::getRevilObject() {
+
+    auto gameObjects = this->getGameData()->getGameObjects();
+
+    for (int i = 0; i < gameObjects->size(); i++) {
+
+        auto gameObject = gameObjects->objectAtIndex(i);
+
+        if (gameObject->getInstanceIdentifier().get()->compare("revil") == 0) {
+
+            return gameObject;
+
+            break;
+        }
+    }
+
+    return shared_ptr<FSCObject>();
+
 }
 
 DMInGameSceneController::~DMInGameSceneController() {
