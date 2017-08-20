@@ -25,6 +25,8 @@ public:
     
     virtual void step();
     
+    virtual void beforeStart();
+    
 private:
     
     shared_ptr<DMObjectControlsDelegate> objectControlsDelegate;

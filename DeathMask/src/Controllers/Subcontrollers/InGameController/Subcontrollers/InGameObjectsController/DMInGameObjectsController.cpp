@@ -26,9 +26,6 @@ DMInGameObjectsController::DMInGameObjectsController() {
 
     roundCounter = 0;
     
-    auto thisSharedPointer = shared_from_this();
-    
-    objectControlsDelegate = static_pointer_cast<DMObjectControlsDelegate>(thisSharedPointer);
 }
 
 DMInGameObjectsController::DMInGameObjectsController(const DMInGameObjectsController& orig) {
@@ -98,6 +95,14 @@ void DMInGameObjectsController::step() {
         
     }
 
+}
+
+void DMInGameObjectsController::beforeStart() {
+    
+    auto thisSharedPointer = shared_from_this();
+    
+    objectControlsDelegate = static_pointer_cast<DMObjectControlsDelegate>(thisSharedPointer);    
+    
 }
 
 void DMInGameObjectsController::objectsControlsDelegateObjectDidUpdate(shared_ptr<FSCObject> object) {

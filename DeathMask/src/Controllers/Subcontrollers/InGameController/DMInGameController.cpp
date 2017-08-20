@@ -24,9 +24,9 @@ using namespace std;
 
 DMInGameController::DMInGameController() {
     
-    inGameObjectsController = make_unique<DMInGameObjectsController>();
-    inGameSceneController = make_unique<DMInGameSceneController>();
-    inGameUIController = make_unique<DMInGameUIController>();
+    inGameObjectsController = make_shared<DMInGameObjectsController>();
+    inGameSceneController = make_shared<DMInGameSceneController>();
+    inGameUIController = make_shared<DMInGameUIController>();
 }
 
 DMInGameController::DMInGameController(const DMInGameController& orig) {
@@ -38,6 +38,7 @@ void DMInGameController::initializeSubcontroller(shared_ptr<FSEGTController> sub
     subcontroller->setGameData(gameData);
     subcontroller->objectsContext = objectsContext;    
     
+    subcontroller->beforeStart();
 }
 
 void DMInGameController::beforeStart() {
