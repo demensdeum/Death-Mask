@@ -33,9 +33,14 @@ public:
     int getArmor();
     int getHunger();
     
+    int getHealth();
+    
+    void setMaxHealth(int maxHealth);
+    
     void useItem(shared_ptr<FSCObject> item);
     
     void incrementHunger();
+    void decrementHealth();
     
     void addItem(shared_ptr<FSCObject> item);
     void removeItem(shared_ptr<FSCObject> item);
@@ -47,6 +52,7 @@ public:
 private:
     
     int health;
+    int maxHealth;
     
     int hunger;
     

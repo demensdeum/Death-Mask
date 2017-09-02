@@ -42,7 +42,7 @@ void DMInGameObjectsController::step() {
 
     if (roundCounter > 10) {
         
-        allObjectsIncrementHunger();
+        performGameRulesForAllObjects();
         
         roundCounter = 0;
         
@@ -111,7 +111,7 @@ void DMInGameObjectsController::objectsControlsDelegateObjectDidUpdate(shared_pt
     
 }
 
-void DMInGameObjectsController::allObjectsIncrementHunger() {
+void DMInGameObjectsController::performGameRulesForAllObjects() {
     
     auto gameObjects = gameData->getGameObjects();
     
@@ -126,6 +126,7 @@ void DMInGameObjectsController::allObjectsIncrementHunger() {
         auto object = gameObjects->objectAtIndex(i);
         
         DMUtils::incrementHungerForObject(object);
+        DMUtils::decrementHealthIfNeeded(object);
     }
 }
 

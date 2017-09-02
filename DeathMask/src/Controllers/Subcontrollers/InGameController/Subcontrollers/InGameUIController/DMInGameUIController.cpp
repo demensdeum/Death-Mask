@@ -50,7 +50,14 @@ void DMInGameUIController::renderUI() {
     
     ostringstream uiString;
         
-    uiString << endl << "---Stats---" << endl << "Hunger: " << gameplayProperties->getHunger() << endl;
+    uiString << endl << "---Stats---" << endl;
+    uiString << "Hunger: " << gameplayProperties->getHunger() << endl;
+    uiString << "Health: " << gameplayProperties->getHealth() << endl;
+    
+    if (gameplayProperties->isDead()) {
+        
+        uiString << "[Dead]" << endl;
+    }
     
     FSSTUDPSender::sendStringToDefault(make_shared<string>(uiString.str().c_str()));
     

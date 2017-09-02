@@ -36,6 +36,8 @@ public:
     
     static void step(shared_ptr<FSCObject> object, shared_ptr<DMObjectControlsDelegate> delegate);
     
+    static void decrementHealthIfNeeded(shared_ptr<FSCObject> object);
+    
 private:
 
 };

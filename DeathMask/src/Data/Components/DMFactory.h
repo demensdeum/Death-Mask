@@ -14,11 +14,19 @@
 #ifndef DMFACTORY_H
 #define DMFACTORY_H
 
+#include <FlameSteelCore/FSCObject.h>
+
 class DMFactory {
 public:
     DMFactory();
     DMFactory(const DMFactory& orig);
     virtual ~DMFactory();
+    
+    static shared_ptr<FSCObject> makeRevilObject();
+    static shared_ptr<FSCObject> makeAdventurerObject();
+    static shared_ptr<FSCObject> makeMaskObject();
+    static shared_ptr<FSCObject> makeExitObject();
+    static shared_ptr<FSCObject> makeCrate();
     
 private:
 

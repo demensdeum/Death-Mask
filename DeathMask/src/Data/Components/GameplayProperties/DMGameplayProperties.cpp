@@ -36,13 +36,28 @@ int DMGameplayProperties::getHunger() {
     
 }
 
-bool DMGameplayProperties::isDead() {
+int DMGameplayProperties::getHealth() {
     
-    if (hunger > 10) {
-        
-        return true;
-                
-    }
+    return health;
+}
+
+void DMGameplayProperties::decrementHealth() {
+    
+    health -= 1;
+    
+}
+
+void DMGameplayProperties::healFull() {
+    
+    health = maxHealth;
+}
+
+void DMGameplayProperties::setMaxHealth(int maxHealth) {
+    
+    this->maxHealth = maxHealth;
+}
+
+bool DMGameplayProperties::isDead() {
     
     if (health < 1) {
         

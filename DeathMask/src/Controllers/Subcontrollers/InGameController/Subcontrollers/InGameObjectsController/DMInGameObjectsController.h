@@ -41,7 +41,7 @@ private:
 
     int roundCounter;
     
-    void allObjectsIncrementHunger();
+    void performGameRulesForAllObjects();
     
     virtual void objectsControlsDelegateObjectDidUpdate(shared_ptr<FSCObject> object);
 };

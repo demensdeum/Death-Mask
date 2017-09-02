@@ -13,6 +13,7 @@
 
 #include "DMMapGenerator.h"
 #include "DeathMask/src/Data/GameMap/DMGameMap.h"
+#include "FlameSteelEngineGameToolkit/Utils/FSEGTUtils.h"
 #include <DeathMask/src/Data/Components/GameplayProperties/DMGameplayProperties.h>
 
 #include <FlameSteelEngineGameToolkit/Controllers/FSEGTObjectsContext.h>
@@ -20,6 +21,9 @@
 #include <FlameSteelEngineGameToolkit/Data/FSEGTSimpleDirection.h>
 #include <FlameSteelCore/FSCUtils.h>
 #include <iostream>
+
+#include <DeathMask/src/Data/Components/DMFactory.h>
+#include <DeathMask/src/Data/Components/GameplayProperties/DMGameplayProperties.h>
 
 using namespace std;
 
@@ -71,23 +75,13 @@ void DMMapGenerator::generate(shared_ptr<DMMapGeneratorParams> params, shared_pt
 
     objectsContext->removeAllObjects();
 
-    auto revil = FSEGTFactory::makeOnSceneObject(
-            make_shared<string>("scene object"),
-            make_shared<string>("revil"),
-            make_shared<string>(),
-            make_shared<string>("./data/graphics/models/revil/revil"),
-            cursorX, cursorY, 2,
-            1, 1, 1,
-            0, 0, 0,
-            0);
+    auto revil = DMFactory::makeRevilObject();
 
-    auto gameplayProperties = make_shared<DMGameplayProperties>();
-    
-    gameplayProperties->setClassIdentifier(make_shared<string>("death mask gameplay properties"));
-    gameplayProperties->setInstanceIdentifier(make_shared<string>("death mask gameplay properties"));
-    
-    revil->addComponent(gameplayProperties);
-    
+    auto revilPosition = FSEGTUtils::getObjectPosition(revil);
+    revilPosition->x = cursorX;
+    revilPosition->y = cursorY;
+    revilPosition->z = 2;
+
     objectsContext->addObject(revil);
 
     this->drawFreeTilesAtXY(castedGameMap, params, cursorX, cursorY);
@@ -109,20 +103,17 @@ void DMMapGenerator::generate(shared_ptr<DMMapGeneratorParams> params, shared_pt
 
                     isMaskOnMap = true;
 
-                    auto mask = FSEGTFactory::makeOnSceneObject(
-                            make_shared<string>("scene object"),
-                            make_shared<string>("mask"),
-                            make_shared<string>(),
-                            make_shared<string>("./data/graphics/models/mask/mask"),
-                            cursorX, cursorY, 2,
-                            1, 1, 1,
-                            0, 0, 0,
-                            0);
+                    auto mask = DMFactory::makeMaskObject();
+
+                    auto maskPosition = FSEGTUtils::getObjectPosition(mask);
+                    maskPosition->x = cursorX;
+                    maskPosition->y = cursorY;
+                    maskPosition->z = 2;
 
                     objectsContext->addObject(mask);
 
                     castedGameMap->setObjectIdAtXY(mask->id, cursorX, cursorY);
-                    
+
                 }
 
             }
@@ -166,15 +157,12 @@ void DMMapGenerator::generate(shared_ptr<DMMapGeneratorParams> params, shared_pt
 
     // put exit
 
-    auto exit = FSEGTFactory::makeOnSceneObject(
-            make_shared<string>("scene object"),
-            make_shared<string>("exit"),
-            make_shared<string>(),
-            make_shared<string>("./data/graphics/models/exit/exit"),
-            cursorX, cursorY, 2,
-            1, 1, 1,
-            0, 0, 0,
-            0);
+    auto exit = DMFactory::makeExitObject();
+    
+    auto exitPosition = FSEGTUtils::getObjectPosition(exit);
+    exitPosition->x = cursorX;
+    exitPosition->y = cursorY;
+    exitPosition->z = 2;
 
     objectsContext->addObject(exit);
 
@@ -240,15 +228,13 @@ void DMMapGenerator::rollDiceAndOnSuccessPutGameplayObjectIntoXY(int tileX, int 
 
 void DMMapGenerator::putGameplayObjectIntoXY(int tileX, int tileY, shared_ptr<FSEGTObjectsContext> objectsContext, shared_ptr<DMGameMap> gameMap) {
 
-    auto crate = FSEGTFactory::makeOnSceneObject(
-            make_shared<string>("scene object"),
-            make_shared<string>("crate"),
-            make_shared<string>(),
-            make_shared<string>("./data/graphics/models/crate/crate"),
-            tileX, tileY, 2,
-            1, 1, 1,
-            0, 0, 0,
-            0);
+    //auto crate = DMFactory::makeCrate();
+    auto crate = DMFactory::makeAdventurerObject();
+    
+    auto cratePosition = FSEGTUtils::getObjectPosition(crate);
+    cratePosition->x = tileX;
+    cratePosition->y = tileY;
+    cratePosition->z = 2;    
 
     gameMap->setObjectIdAtXY(crate->id, tileX, tileY);
 
