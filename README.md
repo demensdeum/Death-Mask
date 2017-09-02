@@ -1,5 +1,5 @@
 # Death Mask
-Cyberpunk Adventure in endless Techno-Maze<br>
+Cyberfantasy Adventure in endless Techno-Maze<br>
 <br>
 Compile & Run:<br><br>
 cmake .<br>
