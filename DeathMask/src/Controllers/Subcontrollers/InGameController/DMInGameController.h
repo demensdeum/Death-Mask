@@ -19,6 +19,7 @@
 #include <DeathMask/src/Controllers/Subcontrollers/InGameController/Subcontrollers/InGameUIController/DMInGameUIController.h>
 #include <DeathMask/src/Controllers/Subcontrollers/InGameController/Subcontrollers/InGameSceneController/DMInGameSceneController.h>
 #include <DeathMask/src/Controllers/Subcontrollers/InGameController/Subcontrollers/InGameObjectsController/DMInGameObjectsController.h>
+#include <DeathMask/src/Controllers/Subcontrollers/InGameController/Subcontrollers/InGameOptimizedRenderingController/DMInGameOptimizedRenderingController.h>
 
 class DMInGameController: public FSEGTController {
 public:
@@ -29,13 +30,18 @@ public:
     virtual void beforeStart();    
     virtual void step();    
     
+    void render();
+    
 private:
 
     void initializeSubcontroller(shared_ptr<FSEGTController> subcontroller);
     
+    shared_ptr<DMInGameOptimizedRenderingController> inGameOptimizedRenderingController;
     shared_ptr<DMInGameObjectsController> inGameObjectsController;
     shared_ptr<DMInGameSceneController> inGameSceneController;
     shared_ptr<DMInGameUIController> inGameUIController;
+    
+    int revilObjectID;
 };
 
 #endif /* DMINGAMECONTROLLER_H */

@@ -23,21 +23,22 @@
 using namespace std;
 
 DMInGameController::DMInGameController() {
-    
+
     inGameObjectsController = make_shared<DMInGameObjectsController>();
     inGameSceneController = make_shared<DMInGameSceneController>();
     inGameUIController = make_shared<DMInGameUIController>();
+    inGameOptimizedRenderingController = make_shared<DMInGameOptimizedRenderingController>();
 }
 
 DMInGameController::DMInGameController(const DMInGameController& orig) {
 }
 
 void DMInGameController::initializeSubcontroller(shared_ptr<FSEGTController> subcontroller) {
-    
+
     subcontroller->setIOSystem(ioSystem);
     subcontroller->setGameData(gameData);
-    subcontroller->objectsContext = objectsContext;    
-    
+    subcontroller->objectsContext = objectsContext;
+
     subcontroller->beforeStart();
 }
 
@@ -46,12 +47,13 @@ void DMInGameController::beforeStart() {
     initializeSubcontroller(inGameObjectsController);
     initializeSubcontroller(inGameSceneController);
     initializeSubcontroller(inGameUIController);
-    
+    initializeSubcontroller(inGameOptimizedRenderingController);
+
     inGameSceneController->generateMap();
 }
 
 void DMInGameController::step() {
-    
+
     // handle controller message
 
     auto message = inGameObjectsController->getControllerMessage();
@@ -77,11 +79,27 @@ void DMInGameController::step() {
 
         inGameObjectsController->step();
         inGameUIController->step();
-        
+
         ioSystem->inputController->clearKeys();
 
-        renderer->render(gameData);
+        render();
     }
+}
+
+void DMInGameController::render() {
+
+    auto renderingIDs = inGameOptimizedRenderingController->renderingIDs();
+    
+    renderer->cleanRenderIDs();
+    
+    for (auto id : renderingIDs) {
+    
+        renderer->addRenderID(id);
+        
+    }
+
+    renderer->render(gameData);
+
 }
 
 DMInGameController::~DMInGameController() {

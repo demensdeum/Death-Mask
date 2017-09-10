@@ -22,6 +22,7 @@
 
 #include <fstream>
 #include <iostream>
+#include <set>
 
 using namespace std;
 
@@ -165,11 +166,29 @@ void FSGLCore::render() {
 
         auto object = objects[i];
 
-        this->renderObject(object);
+        auto objectID = object->id;
+        
+        if (renderIDs.size() < 1 || renderIDs.find(objectID) != renderIDs.end()) {
+        
+            this->renderObject(object);
+            
+        }
 
     }
 
     SDL_GL_SwapWindow(window);
+}
+
+void FSGLCore::addRenderID(int id) {
+    
+    renderIDs.insert(id);
+    
+}
+
+void FSGLCore::cleanRenderIDs() {
+    
+    renderIDs.clear();
+    
 }
 
 void FSGLCore::stop() {

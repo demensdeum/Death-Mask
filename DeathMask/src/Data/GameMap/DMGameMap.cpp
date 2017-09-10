@@ -17,21 +17,45 @@ DMGameMap::DMGameMap() {
     
 }
 
-void DMGameMap::setObjectIdAtXY(int objectIndex, int x, int y) {
+void DMGameMap::setObjectIdAtXY(int objectIndex, int x, int y, int layer) {
     
-    objectsMap[x][y] = objectIndex;
-    
-}
-
-int DMGameMap::objectIdAtXY(int x, int y) {
-    
-    return objectsMap[x][y];
+    objectsMap[x][y][layer] = objectIndex;
     
 }
 
-void DMGameMap::removeObjectIdAtXY(int x, int y) {
+int DMGameMap::objectIdAtXY(int x, int y, int layer) {
     
-    objectsMap[x][y] = DMGameMapNoObjectId;
+    if (x < 0) {
+        
+        return DMGameMapNoObjectId;
+        
+    }
+    
+    if (y < 0) {
+        
+        return DMGameMapNoObjectId;
+        
+    }
+    
+    if (x >= this->width) {
+        
+        return DMGameMapNoObjectId;
+                
+    }
+    
+    if (y >= this->height) {
+        
+        return DMGameMapNoObjectId;
+        
+    }
+    
+    return objectsMap[x][y][layer];
+    
+}
+
+void DMGameMap::removeObjectIdAtXY(int x, int y, int layer) {
+    
+    objectsMap[x][y][layer] = DMGameMapNoObjectId;
 }
 
 DMGameMap::DMGameMap(const DMGameMap& orig) {

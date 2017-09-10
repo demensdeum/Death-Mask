@@ -8,7 +8,7 @@ using namespace std;
 
 int main()
 {
-	cout << "Welcome to Death Mask - roguelike game in cyberpunk setting" << endl;
+	cout << "Death Mask - Cyber Fantasy Adventure in endless Techno-Maze" << endl;
         
         auto controller = make_shared<DMGameController>();
         controller->startGameFromState(DMStateInGame);        

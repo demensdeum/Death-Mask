@@ -100,6 +100,18 @@ void FSEGTIOFSGLSystemRenderer::objectsContextObjectUpdate(shared_ptr<FSEGTObjec
 
 }
 
+void FSEGTIOFSGLSystemRenderer::addRenderID(int id) {
+    
+    controller->addRenderID(id);
+    
+}
+
+void FSEGTIOFSGLSystemRenderer::cleanRenderIDs() {
+    
+    controller->cleanRenderIDs();
+    
+}
+
 void FSEGTIOFSGLSystemRenderer::objectsContextAllObjectsRemoved(shared_ptr<FSEGTObjectsContext> context) {
 
     cout << "FSEGTIOFSGLSystemRenderer: all objects removed" << endl;

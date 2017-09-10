@@ -134,7 +134,7 @@ void DMInGameObjectsController::objectPickAtXY(int x, int y) {
 
     auto gameMap = std::static_pointer_cast<DMGameMap>(gameData->gameMap);
 
-    auto objectId = gameMap->objectIdAtXY(x, y);
+    auto objectId = gameMap->objectIdAtXY(x, y, DMGameObjectsLayer);
 
     if (objectId != DMGameMapNoObjectId) {
 

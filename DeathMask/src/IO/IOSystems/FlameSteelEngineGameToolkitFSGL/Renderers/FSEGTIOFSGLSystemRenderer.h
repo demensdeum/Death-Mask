@@ -32,6 +32,9 @@ public:
     virtual void objectsContextObjectUpdate(shared_ptr<FSEGTObjectsContext> context, shared_ptr<FSCObject> object);
     virtual void objectsContextAllObjectsRemoved(shared_ptr<FSEGTObjectsContext> context);
     
+    virtual void addRenderID(int id);
+    virtual void cleanRenderIDs();    
+    
 private:
 
     shared_ptr<FSGLController> controller;

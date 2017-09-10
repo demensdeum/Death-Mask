@@ -44,6 +44,9 @@ public:
     
     void render();
     
+    void addRenderID(int id);
+    void cleanRenderIDs();    
+    
     void stop();
     
     void setCameraX(float x);

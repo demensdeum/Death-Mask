@@ -29,6 +29,8 @@
 
 #include "../Data/Camera/FSGLCamera.h"
 
+#include <set>
+
 using namespace std;
 
 class FSGLCore {
@@ -53,6 +55,9 @@ public:
     
     shared_ptr<FSGLCamera> camera;
     
+    void addRenderID(int id);
+    void cleanRenderIDs();
+    
 private:
     
     void renderObject(shared_ptr<FSGLObject> object);
@@ -66,8 +71,9 @@ private:
    
     SDL_Window *window;
     
-    vector<shared_ptr<FSGLObject>> objects;    
-
+    vector<shared_ptr<FSGLObject>> objects;
+    
+    set<int> renderIDs;
 };
 
 #endif /* FSEOGLCORE_H */

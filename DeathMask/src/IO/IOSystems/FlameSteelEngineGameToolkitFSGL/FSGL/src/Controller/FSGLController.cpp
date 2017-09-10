@@ -40,6 +40,18 @@ void FSGLController::render() {
     
 }
 
+void FSGLController::addRenderID(int id) {
+    
+    core->addRenderID(id);
+    
+}
+
+void FSGLController::cleanRenderIDs() {
+    
+    core->cleanRenderIDs();
+    
+}
+
 void FSGLController::stop() {
     
     core->stop();

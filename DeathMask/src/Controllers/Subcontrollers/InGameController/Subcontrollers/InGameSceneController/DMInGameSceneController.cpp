@@ -51,6 +51,8 @@ void DMInGameSceneController::generateMap() {
 
     gameData->gameMap = make_shared<DMGameMap>();
 
+    auto castedGameMap = static_pointer_cast<DMGameMap>(gameData->gameMap);
+    
     mapGenerator->generate(mapGeneratorParams, gameData->gameMap, this->objectsContext);
 
     for (auto x = 0; x < gameData->gameMap->width; x++) {
@@ -59,7 +61,7 @@ void DMInGameSceneController::generateMap() {
 
             auto tileIndex = gameData->gameMap->getTileIndexAtXY(x, y);
 
-            if (tileIndex == 0) {
+            if (tileIndex == mapGeneratorParams->freeTileIndex) {
 
                 auto floor = FSEGTFactory::makeOnSceneObject(
                         make_shared<string>("scene object"),
@@ -72,8 +74,9 @@ void DMInGameSceneController::generateMap() {
                         0);
 
                 objectsContext->addObject(floor);
+                castedGameMap->setObjectIdAtXY(floor->id, x, y, DMFloorLayer);
 
-            } else if (tileIndex == 1) {
+            } else if (tileIndex == mapGeneratorParams->solidTileIndex) {
 
                 auto wall = FSEGTFactory::makeOnSceneObject(
                         make_shared<string>("scene object"),
@@ -86,6 +89,7 @@ void DMInGameSceneController::generateMap() {
                         0);
 
                 objectsContext->addObject(wall);
+                castedGameMap->setObjectIdAtXY(wall->id, x, y, DMGameObjectsLayer);
             }
         }
     }

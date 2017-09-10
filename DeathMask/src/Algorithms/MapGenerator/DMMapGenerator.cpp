@@ -50,9 +50,12 @@ void DMMapGenerator::generate(shared_ptr<DMMapGeneratorParams> params, shared_pt
 
         for (int y = 0; y < castedGameMap->height; y++) {
 
-            castedGameMap->setTileAtXY(solidTileIndex, x, y);
-            castedGameMap->removeObjectIdAtXY(x, y);
-
+            for (auto layer = 0; layer < DMGameMapMaxLayers; layer++) {
+                
+                castedGameMap->setTileAtXY(solidTileIndex, x, y);
+                castedGameMap->removeObjectIdAtXY(x, y, layer);
+                
+            }
         }
     }
 
@@ -61,17 +64,19 @@ void DMMapGenerator::generate(shared_ptr<DMMapGeneratorParams> params, shared_pt
 
     if (cursorX < 2) {
         cursorX = 2;
-    };
+    }
+    
     if (cursorX > castedGameMap->width - 2) {
         cursorX = castedGameMap->width - 2;
-    };
+    }
 
     if (cursorY < 2) {
         cursorY = 2;
-    };
+    }
+    
     if (cursorY > castedGameMap->height - 2) {
         cursorY = castedGameMap->height - 2;
-    };
+    }
 
     objectsContext->removeAllObjects();
 
@@ -112,7 +117,7 @@ void DMMapGenerator::generate(shared_ptr<DMMapGeneratorParams> params, shared_pt
 
                     objectsContext->addObject(mask);
 
-                    castedGameMap->setObjectIdAtXY(mask->id, cursorX, cursorY);
+                    castedGameMap->setObjectIdAtXY(mask->id, cursorX, cursorY, DMGameObjectsLayer);
 
                 }
 
@@ -165,6 +170,7 @@ void DMMapGenerator::generate(shared_ptr<DMMapGeneratorParams> params, shared_pt
     exitPosition->z = 2;
 
     objectsContext->addObject(exit);
+    castedGameMap->setObjectIdAtXY(exit->id, cursorX, cursorY, DMGameObjectsLayer);
 
     this->drawFreeTilesAtXY(castedGameMap, params, cursorX, cursorY);
 
@@ -236,7 +242,7 @@ void DMMapGenerator::putGameplayObjectIntoXY(int tileX, int tileY, shared_ptr<FS
     cratePosition->y = tileY;
     cratePosition->z = 2;    
 
-    gameMap->setObjectIdAtXY(crate->id, tileX, tileY);
+    gameMap->setObjectIdAtXY(crate->id, tileX, tileY, DMGameObjectsLayer);
 
     objectsContext->addObject(crate);
 }
