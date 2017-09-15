@@ -47,6 +47,12 @@ shared_ptr<FSGLObject> FSGTIOFSGLSystemFactory::graphicsObjectFrom(shared_ptr<FS
     graphicsObject->positionVector->y = position->z;
     graphicsObject->positionVector->z = position->y;
     
+    auto scale = FSEGTUtils::getObjectScale(object);
+    
+    graphicsObject->scaleVector->x = scale->x;
+    graphicsObject->scaleVector->y = scale->y;
+    graphicsObject->scaleVector->z = scale->z;
+    
     return graphicsObject;
 }
 

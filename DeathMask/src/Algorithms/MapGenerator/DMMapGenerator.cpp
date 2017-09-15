@@ -225,6 +225,8 @@ void DMMapGenerator::drawFreeTilesAtXY(shared_ptr<FSEGTGameMap> gameMap, shared_
 
 void DMMapGenerator::rollDiceAndOnSuccessPutGameplayObjectIntoXY(int tileX, int tileY, int gameplayObjectRespawnChance, shared_ptr<FSEGTObjectsContext> objectsContext, shared_ptr<DMGameMap> gameMap) {
 
+    return;
+    
     if (FSCUtils::FSCRandomInt(gameplayObjectRespawnChance) == 0) {
 
         this->putGameplayObjectIntoXY(tileX, tileY, objectsContext, gameMap);

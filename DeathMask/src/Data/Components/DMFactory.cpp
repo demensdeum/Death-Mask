@@ -28,7 +28,7 @@ shared_ptr<FSCObject> DMFactory::makeRevilObject() {
             make_shared<string>("scene object"),
             make_shared<string>("revil"),
             make_shared<string>(),
-            make_shared<string>("./data/graphics/models/revil/revil"),
+            make_shared<string>("./data/graphics/models/revilPR/H25_humanoid_robot"),
             0, 0, 0,
             1, 1, 1,
             0, 0, 0,
