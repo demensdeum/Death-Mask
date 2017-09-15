@@ -23,4 +23,4 @@ set(EXECUTABLE_OUTPUT_PATH "DeathMask")
 
 add_executable(${FSEGT_PROJECT_NAME} ${SOURCE_FILES})
 
-target_link_libraries(${FSEGT_PROJECT_NAME} /usr/lib/x86_64-linux-gnu/libboost_system.so.1.58.0 SDL2 GLESv2 assimp)
+target_link_libraries(${FSEGT_PROJECT_NAME} SDL2 GLESv2 assimp)

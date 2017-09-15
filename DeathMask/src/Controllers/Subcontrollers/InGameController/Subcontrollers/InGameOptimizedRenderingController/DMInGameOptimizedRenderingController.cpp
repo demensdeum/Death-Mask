@@ -37,12 +37,12 @@ set<int> DMInGameOptimizedRenderingController::renderingIDs() {
 
     // walls
 
-    auto startPointX = centerPosition->x - 4;
+    auto startPointX = centerPosition->x - 5;
     auto startPointY = centerPosition->y - 4;
 
     for (auto y = 0; y < 9; y++) {
 
-        for (auto x = 0; x < 9; x++) {
+        for (auto x = 0; x < 11; x++) {
 
             for (auto layer = 0; layer < DMGameMapMaxLayers; layer++) {
 

@@ -70,12 +70,12 @@ void DMInGameObjectsController::step() {
         auto cameraRotation = FSEGTUtils::getObjectRotation(cameraObject);
 
         cameraPosition->x = revilPosition->x;
-        cameraPosition->y = 10.f;
-        cameraPosition->z = revilPosition->y + 3.f;
+        cameraPosition->y = 6.f;
+        cameraPosition->z = revilPosition->y + 1.6f;
 
         cameraRotation->x = 5.f;
-        cameraRotation->y = 0;
-        cameraRotation->z = 0;
+        cameraRotation->y = 0.f;
+        cameraRotation->z = 0.f;
 
         this->objectsContext->updateObject(cameraObject);
     }

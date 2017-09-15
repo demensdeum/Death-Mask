@@ -14,8 +14,8 @@
 #ifndef DMCONSTIOSYSTEM_H
 #define DMCONSTIOSYSTEM_H
 
-const int DMConstIOSystemScreenWidth = 1600;
-const int DMConstIOSystemScreenHeight = 900;
+const int DMConstIOSystemScreenWidth = 1024;
+const int DMConstIOSystemScreenHeight = 576;
 
 const string DMConstIOSystemWindowTitle = "Death Mask";
 

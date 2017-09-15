@@ -13,9 +13,13 @@
 
 #include "FSSTUDPSender.h"
 
+#ifdef DEATH_MASK_BOOST_ENABLED
+
 #include "boost/asio.hpp"
 
 using namespace boost::asio;
+
+#endif
 
 FSSTUDPSender::FSSTUDPSender() {
 }
@@ -25,6 +29,7 @@ FSSTUDPSender::FSSTUDPSender(const FSSTUDPSender& orig) {
 
 void FSSTUDPSender::sendStringTo(shared_ptr<string> dataString, shared_ptr<string> address, int port) {
 
+    #ifdef DEATH_MASK_BOOST_ENABLED
     io_service io_service;
     ip::udp::socket socket(io_service);
     ip::udp::endpoint remote_endpoint;
@@ -39,7 +44,7 @@ void FSSTUDPSender::sendStringTo(shared_ptr<string> dataString, shared_ptr<strin
     socket.send_to(buffer(bufferString, strlen(bufferString)+1), remote_endpoint, 0, err);
 
     socket.close();
-
+#endif
 }
 
 void FSSTUDPSender::sendStringToDefault(shared_ptr<string> dataString) {

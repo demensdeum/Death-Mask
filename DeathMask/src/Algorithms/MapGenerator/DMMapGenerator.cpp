@@ -102,26 +102,26 @@ void DMMapGenerator::generate(shared_ptr<DMMapGeneratorParams> params, shared_pt
 
             this->drawFreeTilesAtXY(castedGameMap, params, cursorX, cursorY);
 
-            if (isMaskOnMap == false) {
-
-                if (FSCUtils::FSCRandomInt(10) == 4) {
-
-                    isMaskOnMap = true;
-
-                    auto mask = DMFactory::makeMaskObject();
-
-                    auto maskPosition = FSEGTUtils::getObjectPosition(mask);
-                    maskPosition->x = cursorX;
-                    maskPosition->y = cursorY;
-                    maskPosition->z = 2;
-
-                    objectsContext->addObject(mask);
-
-                    castedGameMap->setObjectIdAtXY(mask->id, cursorX, cursorY, DMGameObjectsLayer);
-
-                }
-
-            }
+//            if (isMaskOnMap == false) {
+//
+//                if (FSCUtils::FSCRandomInt(10) == 4) {
+//
+//                    isMaskOnMap = true;
+//
+//                    auto mask = DMFactory::makeMaskObject();
+//
+//                    auto maskPosition = FSEGTUtils::getObjectPosition(mask);
+//                    maskPosition->x = cursorX;
+//                    maskPosition->y = cursorY;
+//                    maskPosition->z = 2;
+//
+//                    objectsContext->addObject(mask);
+//
+//                    castedGameMap->setObjectIdAtXY(mask->id, cursorX, cursorY, DMGameObjectsLayer);
+//
+//                }
+//
+//            }
 
             switch (cursorDirection) {
 
@@ -234,8 +234,7 @@ void DMMapGenerator::rollDiceAndOnSuccessPutGameplayObjectIntoXY(int tileX, int 
 
 void DMMapGenerator::putGameplayObjectIntoXY(int tileX, int tileY, shared_ptr<FSEGTObjectsContext> objectsContext, shared_ptr<DMGameMap> gameMap) {
 
-    //auto crate = DMFactory::makeCrate();
-    auto crate = DMFactory::makeAdventurerObject();
+    auto crate = DMFactory::makeCrate();
     
     auto cratePosition = FSEGTUtils::getObjectPosition(crate);
     cratePosition->x = tileX;

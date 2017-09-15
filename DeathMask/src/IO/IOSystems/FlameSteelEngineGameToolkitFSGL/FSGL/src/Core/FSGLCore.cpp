@@ -26,8 +26,8 @@
 
 using namespace std;
 
-static const auto FSGLCoreScreenWidth = 1600;
-static const auto FSGLCoreScreenHeight = 900;
+static const auto FSGLCoreScreenWidth = 1024;
+static const auto FSGLCoreScreenHeight = 576;
 
 static const GLchar* vertexShaderSource =
         "#version 100\n"
@@ -119,7 +119,7 @@ void FSGLCore::initialize() {
     SDL_Init(SDL_INIT_VIDEO);
 
     window = SDL_CreateWindow(
-            "FSGL - OGLES",
+            "Death Mask - Prototype",
             SDL_WINDOWPOS_UNDEFINED,
             SDL_WINDOWPOS_UNDEFINED,
             FSGLCoreScreenWidth,
