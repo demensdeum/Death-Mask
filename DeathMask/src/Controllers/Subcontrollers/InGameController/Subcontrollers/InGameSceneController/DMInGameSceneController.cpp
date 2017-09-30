@@ -39,9 +39,18 @@ void DMInGameSceneController::generateMap() {
 
     auto mapGeneratorParams = make_shared<DMMapGeneratorParams>();
 
+    shared_ptr<FSEGTGameMapTile> freeTile = std::make_shared<FSEGTGameMapTile>();
+    freeTile->isSolid = false;
+    
+    shared_ptr<FSEGTGameMapTile> solidTile = std::make_shared<FSEGTGameMapTile>();
+    solidTile->isSolid = true;
+    
     mapGeneratorParams->freeTileIndex = 0;
     mapGeneratorParams->solidTileIndex = 1;
 
+    mapGeneratorParams->tiles.push_back(freeTile);
+    mapGeneratorParams->tiles.push_back(solidTile);
+    
     mapGeneratorParams->maxIterations = 255;
     mapGeneratorParams->minCursorSize = 2;
     mapGeneratorParams->maxCursorSize = 1 + FSCUtils::FSCRandomInt(6);
@@ -124,7 +133,7 @@ void DMInGameSceneController::generateMap() {
     
     auto revil = getRevilObject();
     
-    auto playerObjectControls = make_shared<DMPlayerObjectControls>(revil, ioSystem->inputController);
+    auto playerObjectControls = make_shared<DMPlayerObjectControls>(revil, ioSystem->inputController, castedGameMap);
     
     playerObjectControls->setClassIdentifier(make_shared<string>("object controls"));
     playerObjectControls->setInstanceIdentifier(make_shared<string>("object controls"));

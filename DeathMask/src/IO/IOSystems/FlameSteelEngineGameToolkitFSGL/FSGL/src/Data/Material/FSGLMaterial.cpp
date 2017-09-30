@@ -25,7 +25,11 @@ FSGLMaterial::FSGLMaterial(const FSGLMaterial& orig) {
 
 FSGLMaterial::~FSGLMaterial() {
     
-    SDL_FreeSurface(surface);
+    if (surface != NULL) {
+    
+        SDL_FreeSurface(surface);
+    
+    }
     
 }
 

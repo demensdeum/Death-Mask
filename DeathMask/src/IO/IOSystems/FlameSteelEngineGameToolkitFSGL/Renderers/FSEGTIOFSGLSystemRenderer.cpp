@@ -39,7 +39,7 @@ void FSEGTIOFSGLSystemRenderer::render(shared_ptr<FSEGTGameData> gameData) {
 
 void FSEGTIOFSGLSystemRenderer::objectsContextObjectAdded(shared_ptr<FSEGTObjectsContext> context, shared_ptr<FSCObject> object) {
 
-    cout << "FSEGTIOFSGLSystemRenderer: object add - " << object->getInstanceIdentifier()->c_str() << endl;
+    //cout << "FSEGTIOFSGLSystemRenderer: object add - " << object->getInstanceIdentifier()->c_str() << endl;
 
     if (object->getClassIdentifier()->compare("scene object") == 0) {
 
@@ -114,7 +114,7 @@ void FSEGTIOFSGLSystemRenderer::cleanRenderIDs() {
 
 void FSEGTIOFSGLSystemRenderer::objectsContextAllObjectsRemoved(shared_ptr<FSEGTObjectsContext> context) {
 
-    cout << "FSEGTIOFSGLSystemRenderer: all objects removed" << endl;
+    //cout << "FSEGTIOFSGLSystemRenderer: all objects removed" << endl;
 
     controller->removeAllObjects();
     

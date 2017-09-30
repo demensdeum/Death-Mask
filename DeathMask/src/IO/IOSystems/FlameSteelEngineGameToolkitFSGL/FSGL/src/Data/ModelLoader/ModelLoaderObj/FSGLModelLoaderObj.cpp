@@ -18,7 +18,6 @@
 #include <regex>
 
 #include <string>
-
 #include <assimp/Importer.hpp>
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>
@@ -131,7 +130,7 @@ shared_ptr<FSGLModel> FSGLModelLoaderObj::loadModel(shared_ptr<string> modelPath
 
                 material->GetTexture(aiTextureType_DIFFUSE, textureIndex, &texturePath);
 
-                cout << texturePath.data << endl;
+                //cout << texturePath.data << endl;
 
                 auto convertedTexturePath = make_shared<string>(texturePath.data);
 
@@ -184,7 +183,7 @@ shared_ptr<FSGLModel> FSGLModelLoaderObj::loadModel(shared_ptr<string> modelPath
         }
 
     }
-
+    
     return model;
 }
 

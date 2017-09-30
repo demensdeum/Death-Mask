@@ -15,6 +15,11 @@
 #define DMMAPGENERATORPARAMS_H
 
 #include <FlameSteelEngineGameToolkit/Algorithms/MapGenerator/FSEGTMapGeneratorParams.h>
+#include <FlameSteelFramework/FlameSteelEngineGameToolkit/Data/GameMap/FSEGTGameMapTile.h>
+
+#include <vector>
+
+using namespace std;
 
 class DMMapGeneratorParams: FSEGTMapGeneratorParams {
 public:
@@ -24,6 +29,8 @@ public:
     
     int freeTileIndex;
     int solidTileIndex;
+    
+    vector<shared_ptr<FSEGTGameMapTile> > tiles;
     
     int maxIterations;
     int maxLineLength;

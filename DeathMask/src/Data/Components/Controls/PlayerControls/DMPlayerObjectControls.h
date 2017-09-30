@@ -20,20 +20,24 @@
 
 #include <FlameSteelEngineGameToolkit/Data/Components/Vector/FSEGTVector.h>
 
+#include <FlameSteelFramework/FlameSteelEngineGameToolkit/Data/GameMap/FSEGTGameMap.h>
+
 #include <memory>
 
 using namespace std;
 
 class DMPlayerObjectControls : public DMObjectControls {
 public:
-    DMPlayerObjectControls(shared_ptr<FSCObject> object, shared_ptr<FSEGTInputController> inputController) : DMObjectControls(object) {
+    DMPlayerObjectControls(shared_ptr<FSCObject> object, shared_ptr<FSEGTInputController> inputController, shared_ptr<FSEGTGameMap> gameMap) : DMObjectControls(object) {
     
         this->inputController = inputController;
-    
+        this->gameMap = gameMap;
+        
     };
     virtual ~DMPlayerObjectControls();
     
     shared_ptr<FSEGTInputController> inputController;
+    shared_ptr<FSEGTGameMap> gameMap;
     
     virtual void step(shared_ptr<DMObjectControlsDelegate> delegate);
     

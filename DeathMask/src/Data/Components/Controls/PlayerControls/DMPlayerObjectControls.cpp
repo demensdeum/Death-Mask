@@ -53,6 +53,18 @@ void DMPlayerObjectControls::step(shared_ptr<DMObjectControlsDelegate> delegate)
 
 void DMPlayerObjectControls::handleTargetAt(int x, int y, shared_ptr<FSEGTVector> position) {
     
+    if (gameMap.get() == nullptr) {
+        
+        return;
+        
+    }
+    
+    if (gameMap->isTileAtXYSolid(x,y)) {
+        
+        return;
+        
+    }
+    
     position->x = x;
     position->y = y;
     

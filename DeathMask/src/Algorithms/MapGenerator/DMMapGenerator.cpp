@@ -46,6 +46,12 @@ void DMMapGenerator::generate(shared_ptr<DMMapGeneratorParams> params, shared_pt
 
     auto gameplayObjectRespawnChance = params->gameplayObjectRespawnChance;
 
+    for (auto tile : params->tiles) {
+        
+        castedGameMap->addTile(tile);
+        
+    }
+    
     for (int x = 0; x < castedGameMap->width; x++) {
 
         for (int y = 0; y < castedGameMap->height; y++) {
@@ -174,17 +180,17 @@ void DMMapGenerator::generate(shared_ptr<DMMapGeneratorParams> params, shared_pt
 
     this->drawFreeTilesAtXY(castedGameMap, params, cursorX, cursorY);
 
-    for (int y = 0; y < castedGameMap->width; y++) {
-
-        for (int x = 0; x < castedGameMap->height; x++) {
-
-            auto tileIndex = castedGameMap->getTileIndexAtXY(x, y);
-
-            cout << tileIndex;
-        }
-
-        cout << endl;
-    }
+//    for (int y = 0; y < castedGameMap->width; y++) {
+//
+//        for (int x = 0; x < castedGameMap->height; x++) {
+//
+//            auto tileIndex = castedGameMap->getTileIndexAtXY(x, y);
+//
+//            cout << tileIndex;
+//        }
+//
+//        cout << endl;
+//    }
 }
 
 void DMMapGenerator::drawFreeTilesAtXY(shared_ptr<FSEGTGameMap> gameMap, shared_ptr<DMMapGeneratorParams> params, int cursorX, int cursorY) {

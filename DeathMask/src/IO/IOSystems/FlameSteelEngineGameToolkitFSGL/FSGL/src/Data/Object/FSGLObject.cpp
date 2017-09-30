@@ -15,6 +15,10 @@
 
 #include <glm/gtc/matrix_transform.hpp>
 
+#include <iostream>
+
+using namespace std;
+
 FSGLObject::FSGLObject(shared_ptr<FSGLModel> model) {
     
     scaleVector = make_shared<FSGLVector>(1.f, 1.f, 1.f);
@@ -44,5 +48,8 @@ glm::mat4 FSGLObject::matrix() {
 }
 
 FSGLObject::~FSGLObject() {
+    
+    cout << "FSGLObject destructed" << endl;
+    
 }
 
