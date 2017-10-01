@@ -7,4 +7,5 @@ make<br>
 DeathMask/DeathMask<br><br>
 Dependencies:<br><br>
 Assimp<br>
-SDL2
+SDL2<br>
+OGLES2 or compatible library
