@@ -8,4 +8,4 @@ DeathMask/DeathMask<br><br>
 Dependencies:<br><br>
 Assimp<br>
 SDL2<br>
-OGLES2 or compatible library
+GLES3 or compatible library
