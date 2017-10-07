@@ -21,6 +21,7 @@ DMObjectControlsDelegate::DMObjectControlsDelegate(const DMObjectControlsDelegat
 
 shared_ptr<FSCObject> DMObjectControlsDelegate::objectsControlsDelegateObjectAt(int x, int y) {
     
+	return shared_ptr<FSCObject>();
 }
     
 void DMObjectControlsDelegate::objectsControlsDelegateDidPickObject(shared_ptr<FSCObject> object) {

@@ -16,6 +16,7 @@
 
 #include "../Resource/FSGLResource.h"
 
+#include <string>
 #include <memory>
 
 using namespace std;

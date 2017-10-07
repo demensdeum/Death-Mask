@@ -14,8 +14,6 @@
 #include "FSGLResourceLoader.h"
 #include "../ModelLoader/ModelLoaderObj/FSGLModelLoaderObj.h"
 
-#include <string>
-
 FSGLResourceLoader::FSGLResourceLoader() {
 }
 
