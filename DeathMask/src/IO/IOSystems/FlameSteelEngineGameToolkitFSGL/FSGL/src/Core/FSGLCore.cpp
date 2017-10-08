@@ -127,7 +127,15 @@ void FSGLCore::initialize() {
             SDL_WINDOW_OPENGL
             );
 
+	if (window == NULL) {
+		// In the case that the window could not be made...
+		printf("Could not create window: %s\n", SDL_GetError());
+		exit(1);
+	}
+
     context = SDL_GL_CreateContext(window);
+
+	printf("SDL_Init failed: %s\n", SDL_GetError());
 
     glEnable(GL_CULL_FACE);
     glEnable(GL_DEPTH_TEST);

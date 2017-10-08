@@ -15,6 +15,7 @@
 #define FSGLMATERIAL_H
 
 #include <memory>
+#include <string>
 
 #include <SDL2/SDL.h>
 
