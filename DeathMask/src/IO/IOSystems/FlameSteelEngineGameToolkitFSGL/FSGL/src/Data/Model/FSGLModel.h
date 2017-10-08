@@ -20,7 +20,7 @@
 #include "../Material/FSGLMaterial.h"
 #include "../Mesh/FSGLMesh.h"
 
-#include <GLES3/gl3.h>
+#include <GL/glew.h>
 
 #include <vector>
 

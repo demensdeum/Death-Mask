@@ -16,7 +16,7 @@
 
 #include <vector>
 
-#include <GLES3/gl3.h>
+#include <GL/glew.h>
 
 #include "../Material/FSGLMaterial.h"
 

@@ -135,7 +135,14 @@ void FSGLCore::initialize() {
 
     context = SDL_GL_CreateContext(window);
 
-	printf("SDL_Init failed: %s\n", SDL_GetError());
+	GLenum err = glewInit();
+
+	if (GLEW_OK != err)
+	{
+		fprintf(stderr, "Error: %s\n", glewGetErrorString(err));
+	}
+
+	SDL_GL_MakeCurrent(window, context);
 
     glEnable(GL_CULL_FACE);
     glEnable(GL_DEPTH_TEST);
