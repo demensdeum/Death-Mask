@@ -12,3 +12,7 @@ SDL2<br>
 GLES3 or compatible library
 
 --- For Visual Studio use msvs branch
+
+Windows dependecies:
+Glew
+OpenGL32.lib (native)
