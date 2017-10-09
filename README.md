@@ -14,8 +14,8 @@ GLES3 or compatible library<br>
 --- For Visual Studio use msvs branch<br>
 <br>
 Windows dependencies:<br><br>
-Glew<br>
+GLEW<br>
 OpenGL32.lib (native)<br>
 <br>
 Video:<br>
-https://www.youtube.com/embed/5aoRcW-4mRw
+https://www.youtube.com/watch?v=5aoRcW-4mRw
