@@ -9,4 +9,13 @@ Dependencies:<br><br>
 GLM<br>
 Assimp<br>
 SDL2<br>
-GLES3 or compatible library
+GLES3 or compatible library<br>
+<br>
+--- For Visual Studio use msvs branch<br>
+<br>
+Windows dependencies:<br><br>
+GLEW<br>
+OpenGL32.lib (native)<br>
+<br>
+Video:<br>
+https://www.youtube.com/watch?v=5aoRcW-4mRw
