@@ -55,9 +55,8 @@ void FSEGTCamera::reset() {
         plane->y = 0.66;    
 }
 
-FSEGTCamera::FSEGTCamera(const FSEGTCamera& orig) {
+FSEGTCamera::FSEGTCamera(const FSEGTCamera& ) {
 }
 
 FSEGTCamera::~FSEGTCamera() {
 }
-

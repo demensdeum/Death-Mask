@@ -21,7 +21,7 @@ DMMenuController::DMMenuController() {
     
 }
 
-DMMenuController::DMMenuController(const DMMenuController& orig) {
+DMMenuController::DMMenuController(const DMMenuController& ) {
 }
 
 void DMMenuController::beforeStart() {
@@ -71,4 +71,3 @@ void DMMenuController::step() {
 
 DMMenuController::~DMMenuController() {
 }
-

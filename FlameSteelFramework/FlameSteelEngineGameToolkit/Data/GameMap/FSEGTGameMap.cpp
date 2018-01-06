@@ -20,7 +20,7 @@ FSEGTGameMap::FSEGTGameMap() {
     
 }
 
-FSEGTGameMap::FSEGTGameMap(const FSEGTGameMap& orig) {
+FSEGTGameMap::FSEGTGameMap(const FSEGTGameMap& ) {
 }
 
 shared_ptr<FSEGTGameMapTile> FSEGTGameMap::getTileAtXY(int tileX, int tileY) {
@@ -59,4 +59,3 @@ void FSEGTGameMap::addTile(shared_ptr<FSEGTGameMapTile> tile) {
 
 FSEGTGameMap::~FSEGTGameMap() {
 }
-

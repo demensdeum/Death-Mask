@@ -21,7 +21,7 @@ FSGLController::FSGLController() {
     
 }
 
-FSGLController::FSGLController(const FSGLController& orig) {
+FSGLController::FSGLController(const FSGLController& ) {
 }
 
 void FSGLController::initialize() {
@@ -107,4 +107,3 @@ void FSGLController::setCameraRotationZ(float z) {
 
 FSGLController::~FSGLController() {
 }
-

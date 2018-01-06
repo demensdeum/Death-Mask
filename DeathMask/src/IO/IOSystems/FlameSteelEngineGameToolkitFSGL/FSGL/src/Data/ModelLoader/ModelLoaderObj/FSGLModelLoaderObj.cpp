@@ -27,9 +27,6 @@ using namespace std;
 FSGLModelLoaderObj::FSGLModelLoaderObj() {
 }
 
-FSGLModelLoaderObj::FSGLModelLoaderObj(const FSGLModelLoaderObj& orig) {
-}
-
 shared_ptr<FSGLModel> FSGLModelLoaderObj::loadModel(shared_ptr<string> modelPath) {
 
     auto modelPathString = modelPath->c_str();

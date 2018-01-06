@@ -20,7 +20,7 @@ FSGLMaterial::FSGLMaterial(shared_ptr<string> texturePath) {
     surface = NULL;
 }
 
-FSGLMaterial::FSGLMaterial(const FSGLMaterial& orig) {
+FSGLMaterial::FSGLMaterial(const FSGLMaterial& ) {
 }
 
 FSGLMaterial::~FSGLMaterial() {
@@ -32,4 +32,3 @@ FSGLMaterial::~FSGLMaterial() {
     }
     
 }
-

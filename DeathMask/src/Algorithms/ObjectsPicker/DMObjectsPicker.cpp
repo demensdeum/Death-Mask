@@ -16,9 +16,8 @@
 DMObjectsPicker::DMObjectsPicker() {
 }
 
-DMObjectsPicker::DMObjectsPicker(const DMObjectsPicker& orig) {
+DMObjectsPicker::DMObjectsPicker(const DMObjectsPicker& ) {
 }
 
 DMObjectsPicker::~DMObjectsPicker() {
 }
-

@@ -62,7 +62,7 @@ shared_ptr<FSEGTIOSystem> DMGameController::makeIOSystem() {
     return ioSystem;
 }
 
-void DMGameController::controllerDidFinish(FSEGTController *controller) {
+void DMGameController::controllerDidFinish(FSEGTController *) {
     
     switch (state) {
      
@@ -80,9 +80,8 @@ void DMGameController::controllerDidFinish(FSEGTController *controller) {
     }
 }
 
-DMGameController::DMGameController(const DMGameController& orig) {
+DMGameController::DMGameController(const DMGameController& ) {
 }
 
 DMGameController::~DMGameController() {
 }
-

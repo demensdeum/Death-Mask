@@ -24,7 +24,6 @@ using namespace std;
 class FSEGTObjectsContext : public std::enable_shared_from_this<FSEGTObjectsContext> {
 public:
     FSEGTObjectsContext();
-    FSEGTObjectsContext(const FSEGTObjectsContext& orig);
     virtual ~FSEGTObjectsContext();
     
     shared_ptr<FSCObjects> objects;

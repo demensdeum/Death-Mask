@@ -48,15 +48,15 @@ void FSEGTController::beforeStop() {
 
 }
 
-void FSEGTController::receivedActionFromSender(int action, FSCObject *sender) {
+void FSEGTController::receivedActionFromSender(int, FSCObject *) {
 
 }
 
-void FSEGTController::controllerDidFinish(FSEGTController *controller) {
+void FSEGTController::controllerDidFinish(FSEGTController *) {
 	printf("unhandled empty controller did finish notify\n");
 }
 
-void FSEGTController::notifyListenerAboutControllerDidFinish(FSEGTController *controller) {
+void FSEGTController::notifyListenerAboutControllerDidFinish(FSEGTController *) {
 	if (listener)
 	{
 		this->listener->controllerDidFinish(this);

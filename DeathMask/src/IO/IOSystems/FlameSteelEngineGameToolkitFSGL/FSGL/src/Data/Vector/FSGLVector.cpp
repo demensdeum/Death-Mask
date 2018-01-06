@@ -21,9 +21,8 @@ FSGLVector::FSGLVector(float x, float y, float z) {
     
 }
 
-FSGLVector::FSGLVector(const FSGLVector& orig) {
+FSGLVector::FSGLVector(const FSGLVector& ) {
 }
 
 FSGLVector::~FSGLVector() {
 }
-

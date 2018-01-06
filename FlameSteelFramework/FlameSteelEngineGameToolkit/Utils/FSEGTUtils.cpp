@@ -279,7 +279,7 @@ void FSEGTUtils::setSpeedForObject(int speed, shared_ptr<FSCObject> object) {
     speedVector->x = speed;
 }
 
-void FSEGTUtils::setAttackActionComponentForObject(shared_ptr<FSCObject> object) {
+void FSEGTUtils::setAttackActionComponentForObject(shared_ptr<FSCObject> ) {
 
 }
 
@@ -300,4 +300,3 @@ shared_ptr<string> FSEGTUtils::getSpritePath(shared_ptr<FSCObject> object) {
 FSEGTUtils::~FSEGTUtils() {
     // TODO Auto-generated destructor stub
 }
-

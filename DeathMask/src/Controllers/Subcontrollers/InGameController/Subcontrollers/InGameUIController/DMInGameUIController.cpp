@@ -21,7 +21,7 @@
 DMInGameUIController::DMInGameUIController() {
 }
 
-DMInGameUIController::DMInGameUIController(const DMInGameUIController& orig) {
+DMInGameUIController::DMInGameUIController(const DMInGameUIController& ) {
 }
 
 void DMInGameUIController::step() {
@@ -85,4 +85,3 @@ shared_ptr<FSCObject> DMInGameUIController::getRevilObject() {
 
 DMInGameUIController::~DMInGameUIController() {
 }
-

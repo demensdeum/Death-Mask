@@ -16,9 +16,6 @@
 FSEGTObjectsContext::FSEGTObjectsContext() {
 }
 
-FSEGTObjectsContext::FSEGTObjectsContext(const FSEGTObjectsContext& orig) {
-}
-
 void FSEGTObjectsContext::removeAllObjects() {  
     
     objects->removeAllObjects();
@@ -50,7 +47,7 @@ void FSEGTObjectsContext::updateObject(shared_ptr<FSCObject> object) {
     }    
 }
 
-void FSEGTObjectsContext::removeObject(shared_ptr<FSCObject> object) {
+void FSEGTObjectsContext::removeObject(shared_ptr<FSCObject> ) {
     
 }
 
@@ -62,7 +59,7 @@ void FSEGTObjectsContext::subscribe(shared_ptr<FSEGTObjectContextDelegate> deleg
 
 void FSEGTObjectsContext::ubsubscribe(shared_ptr<FSEGTObjectContextDelegate> delegate) {
     
-    for (auto i = 0; i < subscribers.size(); i++) {
+    for (uint i = 0; i < subscribers.size(); i++) {
         
         auto subscriber = subscribers.at(i);
         
@@ -76,4 +73,3 @@ void FSEGTObjectsContext::ubsubscribe(shared_ptr<FSEGTObjectContextDelegate> del
 
 FSEGTObjectsContext::~FSEGTObjectsContext() {
 }
-

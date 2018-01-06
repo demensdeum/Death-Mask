@@ -19,10 +19,10 @@ DMObjectControls::DMObjectControls(shared_ptr<FSCObject> object) {
     
 }
 
-DMObjectControls::DMObjectControls(const DMObjectControls& orig) {
+DMObjectControls::DMObjectControls(const DMObjectControls& ) {
 }
 
-void DMObjectControls::step(shared_ptr<DMObjectControlsDelegate> delegate) {
+void DMObjectControls::step(shared_ptr<DMObjectControlsDelegate> ) {
     
     
     
@@ -30,4 +30,3 @@ void DMObjectControls::step(shared_ptr<DMObjectControlsDelegate> delegate) {
 
 DMObjectControls::~DMObjectControls() {
 }
-

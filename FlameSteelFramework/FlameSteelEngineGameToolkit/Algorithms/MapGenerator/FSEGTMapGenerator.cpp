@@ -16,13 +16,12 @@
 FSEGTMapGenerator::FSEGTMapGenerator() {
 }
 
-FSEGTMapGenerator::FSEGTMapGenerator(const FSEGTMapGenerator& orig) {
+FSEGTMapGenerator::FSEGTMapGenerator(const FSEGTMapGenerator& ) {
 }
 
-void FSEGTMapGenerator::generate(shared_ptr<FSEGTMapGeneratorParams> params, shared_ptr<FSEGTGameMap> gameMap, shared_ptr<FSCObjects> gameObjects) {
+void FSEGTMapGenerator::generate(shared_ptr<FSEGTMapGeneratorParams> , shared_ptr<FSEGTGameMap> , shared_ptr<FSCObjects> ) {
     
 }
 
 FSEGTMapGenerator::~FSEGTMapGenerator() {
 }
-

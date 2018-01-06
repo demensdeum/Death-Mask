@@ -22,7 +22,7 @@
 FSGTIOFSGLSystemFactory::FSGTIOFSGLSystemFactory() {
 }
 
-FSGTIOFSGLSystemFactory::FSGTIOFSGLSystemFactory(const FSGTIOFSGLSystemFactory& orig) {
+FSGTIOFSGLSystemFactory::FSGTIOFSGLSystemFactory(const FSGTIOFSGLSystemFactory& ) {
 }
 
 shared_ptr<FSGLObject> FSGTIOFSGLSystemFactory::graphicsObjectFrom(shared_ptr<FSCObject> object) {
@@ -58,4 +58,3 @@ shared_ptr<FSGLObject> FSGTIOFSGLSystemFactory::graphicsObjectFrom(shared_ptr<FS
 
 FSGTIOFSGLSystemFactory::~FSGTIOFSGLSystemFactory() {
 }
-

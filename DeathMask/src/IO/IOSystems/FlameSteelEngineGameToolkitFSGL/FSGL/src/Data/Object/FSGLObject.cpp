@@ -29,7 +29,7 @@ FSGLObject::FSGLObject(shared_ptr<FSGLModel> model) {
 
 }
 
-FSGLObject::FSGLObject(const FSGLObject& orig) {
+FSGLObject::FSGLObject(const FSGLObject& ) {
 }
 
 glm::mat4 FSGLObject::matrix() {
@@ -52,4 +52,3 @@ FSGLObject::~FSGLObject() {
     cout << "FSGLObject destructed" << endl;
     
 }
-

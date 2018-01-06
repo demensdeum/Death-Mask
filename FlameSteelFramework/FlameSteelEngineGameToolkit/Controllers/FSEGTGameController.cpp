@@ -189,7 +189,7 @@ void FSEGTGameController::setIsRunning(bool isRunning) {
     this->isRunning = isRunning;
 }
 
-void FSEGTGameController::handleGameControllerMessage(shared_ptr<FSCMessage> message) {
+void FSEGTGameController::handleGameControllerMessage(shared_ptr<FSCMessage> ) {
 
 }
 

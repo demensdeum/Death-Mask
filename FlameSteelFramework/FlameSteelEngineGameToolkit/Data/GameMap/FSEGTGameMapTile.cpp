@@ -16,9 +16,8 @@
 FSEGTGameMapTile::FSEGTGameMapTile() {
 }
 
-FSEGTGameMapTile::FSEGTGameMapTile(const FSEGTGameMapTile& orig) {
+FSEGTGameMapTile::FSEGTGameMapTile(const FSEGTGameMapTile& ) {
 }
 
 FSEGTGameMapTile::~FSEGTGameMapTile() {
 }
-

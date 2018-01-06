@@ -22,10 +22,6 @@ FSGLModel::FSGLModel() {
     
 }
 
-FSGLModel::FSGLModel(const FSGLModel& orig) {
-}
-
 FSGLModel::~FSGLModel() {
 
 }
-

@@ -163,7 +163,7 @@ bool FSEGTPathFinder::aStar(shared_ptr<FSEGTGameData> gameData, int tileX, int t
 
 	sort(steps.begin(), steps.end(), scoreCompare);
 
-	for (int i = 0; i < steps.size(); i++)
+	for (uint i = 0; i < steps.size(); i++)
 	{
 		FSEGTPathFinderStep step = steps[i];
 

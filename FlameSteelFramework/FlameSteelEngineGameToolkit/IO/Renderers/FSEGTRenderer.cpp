@@ -17,7 +17,7 @@ void FSEGTRenderer::initialize() {
 
 }
 
-void FSEGTRenderer::render(shared_ptr<FSEGTGameData> gameData) {
+void FSEGTRenderer::render(shared_ptr<FSEGTGameData> ) {
 
 }
 
@@ -33,11 +33,11 @@ void FSEGTRenderer::updateScreen() {
 
 }
 
-void FSEGTRenderer::objectsContextObjectAdded(shared_ptr<FSEGTObjectsContext> context, shared_ptr<FSCObject> object) {
+void FSEGTRenderer::objectsContextObjectAdded(shared_ptr<FSEGTObjectsContext> , shared_ptr<FSCObject> ) {
 
 }
 
-void FSEGTRenderer::addRenderID(int id) {
+void FSEGTRenderer::addRenderID(int ) {
     
     
     

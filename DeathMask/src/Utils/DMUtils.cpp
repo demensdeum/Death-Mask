@@ -16,7 +16,7 @@
 DMUtils::DMUtils() {
 }
 
-DMUtils::DMUtils(const DMUtils& orig) {
+DMUtils::DMUtils(const DMUtils& ) {
 }
 
 void DMUtils::incrementHungerForObject(shared_ptr<FSCObject> object) {
@@ -86,4 +86,3 @@ void DMUtils::step(shared_ptr<FSCObject> object, shared_ptr<DMObjectControlsDele
 
 DMUtils::~DMUtils() {
 }
-

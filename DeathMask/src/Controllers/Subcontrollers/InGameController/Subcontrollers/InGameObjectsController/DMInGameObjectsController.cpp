@@ -28,9 +28,6 @@ DMInGameObjectsController::DMInGameObjectsController() {
     
 }
 
-DMInGameObjectsController::DMInGameObjectsController(const DMInGameObjectsController& orig) {
-}
-
 void DMInGameObjectsController::pickRandomItem() {
 
     cout << "Got random item" << endl;
@@ -217,4 +214,3 @@ shared_ptr<FSCObject> DMInGameObjectsController::getRevilObject() {
 
 DMInGameObjectsController::~DMInGameObjectsController() {
 }
-

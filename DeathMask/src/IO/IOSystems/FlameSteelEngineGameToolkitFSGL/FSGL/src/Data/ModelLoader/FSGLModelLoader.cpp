@@ -16,14 +16,13 @@
 FSGLModelLoader::FSGLModelLoader() {
 }
 
-FSGLModelLoader::FSGLModelLoader(const FSGLModelLoader& orig) {
+FSGLModelLoader::FSGLModelLoader(const FSGLModelLoader& ) {
 }
 
-shared_ptr<FSGLModel> FSGLModelLoader::loadModel(shared_ptr<string> modelPath) {
+shared_ptr<FSGLModel> FSGLModelLoader::loadModel(shared_ptr<string> ) {
     
     return shared_ptr<FSGLModel>();
 }
 
 FSGLModelLoader::~FSGLModelLoader() {
 }
-

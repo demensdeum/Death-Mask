@@ -19,7 +19,7 @@
 DMFactory::DMFactory() {
 }
 
-DMFactory::DMFactory(const DMFactory& orig) {
+DMFactory::DMFactory(const DMFactory& ) {
 }
 
 shared_ptr<FSCObject> DMFactory::makeRevilObject() {
@@ -119,4 +119,3 @@ shared_ptr<FSCObject> DMFactory::makeCrate() {
 
 DMFactory::~DMFactory() {
 }
-

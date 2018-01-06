@@ -20,7 +20,6 @@
 class DMInGameObjectsController: public FSEGTController, public DMObjectControlsDelegate, public enable_shared_from_this<DMInGameObjectsController> {
 public:
     DMInGameObjectsController();
-    DMInGameObjectsController(const DMInGameObjectsController& orig);
     virtual ~DMInGameObjectsController();
     
     virtual void step();

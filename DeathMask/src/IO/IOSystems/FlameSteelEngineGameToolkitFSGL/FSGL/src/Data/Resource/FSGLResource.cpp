@@ -16,9 +16,8 @@
 FSGLResource::FSGLResource() {
 }
 
-FSGLResource::FSGLResource(const FSGLResource& orig) {
+FSGLResource::FSGLResource(const FSGLResource& ) {
 }
 
 FSGLResource::~FSGLResource() {
 }
-

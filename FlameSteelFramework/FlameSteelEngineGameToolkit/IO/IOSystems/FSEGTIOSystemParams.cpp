@@ -16,9 +16,8 @@
 FSEGTIOSystemParams::FSEGTIOSystemParams() {
 }
 
-FSEGTIOSystemParams::FSEGTIOSystemParams(const FSEGTIOSystemParams& orig) {
+FSEGTIOSystemParams::FSEGTIOSystemParams(const FSEGTIOSystemParams& ) {
 }
 
 FSEGTIOSystemParams::~FSEGTIOSystemParams() {
 }
-

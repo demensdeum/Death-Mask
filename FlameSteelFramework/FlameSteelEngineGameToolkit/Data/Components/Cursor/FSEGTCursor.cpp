@@ -16,9 +16,8 @@
 FSEGTCursor::FSEGTCursor() {
 }
 
-FSEGTCursor::FSEGTCursor(const FSEGTCursor& orig) {
+FSEGTCursor::FSEGTCursor(const FSEGTCursor& ) {
 }
 
 FSEGTCursor::~FSEGTCursor() {
 }
-

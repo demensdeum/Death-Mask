@@ -16,9 +16,8 @@
 FSEGTSceneRenderer::FSEGTSceneRenderer() {
 }
 
-FSEGTSceneRenderer::FSEGTSceneRenderer(const FSEGTSceneRenderer& orig) {
+FSEGTSceneRenderer::FSEGTSceneRenderer(const FSEGTSceneRenderer& ) {
 }
 
 FSEGTSceneRenderer::~FSEGTSceneRenderer() {
 }
-

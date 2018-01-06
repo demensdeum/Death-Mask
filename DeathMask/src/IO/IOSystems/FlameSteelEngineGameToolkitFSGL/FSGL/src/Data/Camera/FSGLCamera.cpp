@@ -18,9 +18,6 @@
 FSGLCamera::FSGLCamera() {
 }
 
-FSGLCamera::FSGLCamera(const FSGLCamera& orig) {
-}
-
 glm::mat4 FSGLCamera::matrix() {
     
     auto matrix = FSGLObject::matrix();
@@ -30,4 +27,3 @@ glm::mat4 FSGLCamera::matrix() {
 
 FSGLCamera::~FSGLCamera() {
 }
-

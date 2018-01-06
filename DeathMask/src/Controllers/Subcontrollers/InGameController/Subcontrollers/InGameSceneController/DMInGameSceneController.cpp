@@ -28,7 +28,7 @@
 DMInGameSceneController::DMInGameSceneController() {
 }
 
-DMInGameSceneController::DMInGameSceneController(const DMInGameSceneController& orig) {
+DMInGameSceneController::DMInGameSceneController(const DMInGameSceneController& ) {
 }
 
 void DMInGameSceneController::generateMap() {
@@ -164,4 +164,3 @@ shared_ptr<FSCObject> DMInGameSceneController::getRevilObject() {
 
 DMInGameSceneController::~DMInGameSceneController() {
 }
-

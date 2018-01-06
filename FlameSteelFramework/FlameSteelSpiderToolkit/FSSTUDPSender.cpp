@@ -24,10 +24,10 @@ using namespace boost::asio;
 FSSTUDPSender::FSSTUDPSender() {
 }
 
-FSSTUDPSender::FSSTUDPSender(const FSSTUDPSender& orig) {
+FSSTUDPSender::FSSTUDPSender(const FSSTUDPSender& ) {
 }
 
-void FSSTUDPSender::sendStringTo(shared_ptr<string> dataString, shared_ptr<string> address, int port) {
+void FSSTUDPSender::sendStringTo(shared_ptr<string> , shared_ptr<string> , int ) {
 
     #ifdef DEATH_MASK_BOOST_ENABLED
     io_service io_service;
@@ -55,4 +55,3 @@ void FSSTUDPSender::sendStringToDefault(shared_ptr<string> dataString) {
 
 FSSTUDPSender::~FSSTUDPSender() {
 }
-

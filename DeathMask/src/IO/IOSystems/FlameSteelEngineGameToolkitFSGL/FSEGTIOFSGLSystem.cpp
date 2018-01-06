@@ -24,7 +24,7 @@
 FSEGTIOFSGLSystem::FSEGTIOFSGLSystem() {
 }
 
-void FSEGTIOFSGLSystem::initialize(shared_ptr<FSEGTIOSystemParams> params) {
+void FSEGTIOFSGLSystem::initialize(shared_ptr<FSEGTIOSystemParams> ) {
     
     cout << "FSGL Desktop Initialize" << endl;
     
@@ -51,9 +51,8 @@ void FSEGTIOFSGLSystem::objectsContextAllObjectsRemoved(shared_ptr<FSEGTObjectsC
     renderer->objectsContextAllObjectsRemoved(context);
 }
 
-FSEGTIOFSGLSystem::FSEGTIOFSGLSystem(const FSEGTIOFSGLSystem& orig) {
+FSEGTIOFSGLSystem::FSEGTIOFSGLSystem(const FSEGTIOFSGLSystem& ) {
 }
 
 FSEGTIOFSGLSystem::~FSEGTIOFSGLSystem() {
 }
-

@@ -32,9 +32,5 @@ DMMapGeneratorParams::DMMapGeneratorParams() {
     
 }
 
-DMMapGeneratorParams::DMMapGeneratorParams(const DMMapGeneratorParams& orig) {
-}
-
 DMMapGeneratorParams::~DMMapGeneratorParams() {
 }
-

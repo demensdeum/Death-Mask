@@ -30,12 +30,9 @@ using namespace std;
 DMMapGenerator::DMMapGenerator() {
 }
 
-DMMapGenerator::DMMapGenerator(const DMMapGenerator& orig) {
-}
-
 void DMMapGenerator::generate(shared_ptr<DMMapGeneratorParams> params, shared_ptr<FSEGTGameMap> gameMap, shared_ptr<FSEGTObjectsContext> objectsContext) {
 
-    auto isMaskOnMap = false;
+ //   auto isMaskOnMap = false;
 
     auto castedGameMap = static_pointer_cast<DMGameMap>(gameMap);
 
@@ -256,4 +253,3 @@ void DMMapGenerator::putGameplayObjectIntoXY(int tileX, int tileY, shared_ptr<FS
 
 DMMapGenerator::~DMMapGenerator() {
 }
-

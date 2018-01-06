@@ -16,10 +16,10 @@
 FSEGTAudioPlayer::FSEGTAudioPlayer() {
 }
 
-FSEGTAudioPlayer::FSEGTAudioPlayer(const FSEGTAudioPlayer& orig) {
+FSEGTAudioPlayer::FSEGTAudioPlayer(const FSEGTAudioPlayer& ) {
 }
 
-void FSEGTAudioPlayer::play(shared_ptr<string> audioName) {
+void FSEGTAudioPlayer::play(shared_ptr<string> ) {
     
     
     
@@ -27,4 +27,3 @@ void FSEGTAudioPlayer::play(shared_ptr<string> audioName) {
 
 FSEGTAudioPlayer::~FSEGTAudioPlayer() {
 }
-

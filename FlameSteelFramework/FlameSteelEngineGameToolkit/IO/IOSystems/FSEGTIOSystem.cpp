@@ -16,11 +16,10 @@ void FSEGTIOSystem::clearCache() {
 	resourcesManager->clear();
 }
 
-void FSEGTIOSystem::initialize(shared_ptr<FSEGTIOSystemParams> params) {
+void FSEGTIOSystem::initialize(shared_ptr<FSEGTIOSystemParams> ) {
 
 }
 
 FSEGTIOSystem::~FSEGTIOSystem() {
 	// TODO Auto-generated destructor stub
 }
-

@@ -13,7 +13,7 @@ FSEGTColliderDelegate::FSEGTColliderDelegate() {
 
 }
 
-void FSEGTColliderDelegate::colliderCollidesObjectWithObject(shared_ptr<FSCObject> object, shared_ptr<FSCObject> objectToCollide) {
+void FSEGTColliderDelegate::colliderCollidesObjectWithObject(shared_ptr<FSCObject> , shared_ptr<FSCObject> ) {
 	printf("You need to override delegate method for FSEGTColliderDelegate");
 	abort();
 }
@@ -21,4 +21,3 @@ void FSEGTColliderDelegate::colliderCollidesObjectWithObject(shared_ptr<FSCObjec
 FSEGTColliderDelegate::~FSEGTColliderDelegate() {
 	// TODO Auto-generated destructor stub
 }
-

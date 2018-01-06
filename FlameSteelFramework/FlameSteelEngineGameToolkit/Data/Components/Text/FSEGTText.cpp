@@ -16,9 +16,8 @@
 FSEGTText::FSEGTText() {
 }
 
-FSEGTText::FSEGTText(const FSEGTText& orig) {
+FSEGTText::FSEGTText(const FSEGTText& ) {
 }
 
 FSEGTText::~FSEGTText() {
 }
-

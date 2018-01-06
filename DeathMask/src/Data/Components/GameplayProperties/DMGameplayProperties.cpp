@@ -68,9 +68,8 @@ bool DMGameplayProperties::isDead() {
     return false;
 }
 
-DMGameplayProperties::DMGameplayProperties(const DMGameplayProperties& orig) {
+DMGameplayProperties::DMGameplayProperties(const DMGameplayProperties& ) {
 }
 
 DMGameplayProperties::~DMGameplayProperties() {
 }
-

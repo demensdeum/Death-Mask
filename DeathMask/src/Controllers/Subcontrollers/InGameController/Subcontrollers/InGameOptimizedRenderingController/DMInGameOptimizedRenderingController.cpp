@@ -18,7 +18,7 @@
 DMInGameOptimizedRenderingController::DMInGameOptimizedRenderingController() {
 }
 
-DMInGameOptimizedRenderingController::DMInGameOptimizedRenderingController(const DMInGameOptimizedRenderingController& orig) {
+DMInGameOptimizedRenderingController::DMInGameOptimizedRenderingController(const DMInGameOptimizedRenderingController& ) {
 }
 
 set<int> DMInGameOptimizedRenderingController::renderingIDs() {
@@ -83,4 +83,3 @@ shared_ptr<FSCObject> DMInGameOptimizedRenderingController::getRevilObject() {
 
 DMInGameOptimizedRenderingController::~DMInGameOptimizedRenderingController() {
 }
-

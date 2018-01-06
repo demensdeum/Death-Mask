@@ -30,7 +30,7 @@ DMInGameController::DMInGameController() {
     inGameOptimizedRenderingController = make_shared<DMInGameOptimizedRenderingController>();
 }
 
-DMInGameController::DMInGameController(const DMInGameController& orig) {
+DMInGameController::DMInGameController(const DMInGameController& ) {
 }
 
 void DMInGameController::initializeSubcontroller(shared_ptr<FSEGTController> subcontroller) {
@@ -107,4 +107,3 @@ DMInGameController::~DMInGameController() {
     cout << "DMInGameController Destroyed" << endl;
 
 }
-

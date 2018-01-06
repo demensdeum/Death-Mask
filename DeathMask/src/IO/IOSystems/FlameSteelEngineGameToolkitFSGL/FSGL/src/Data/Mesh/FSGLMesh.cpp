@@ -16,7 +16,7 @@
 FSGLMesh::FSGLMesh() {
 }
 
-FSGLMesh::FSGLMesh(const FSGLMesh& orig) {
+FSGLMesh::FSGLMesh(const FSGLMesh& ) {
 }
 
 void FSGLMesh::updateGlData() {
@@ -61,4 +61,3 @@ FSGLMesh::~FSGLMesh() {
     }
 
 }
-

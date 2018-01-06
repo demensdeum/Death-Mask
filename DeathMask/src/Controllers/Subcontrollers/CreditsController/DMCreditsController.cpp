@@ -24,7 +24,7 @@ DMCreditsController::DMCreditsController() {
     
 }
 
-DMCreditsController::DMCreditsController(const DMCreditsController& orig) {
+DMCreditsController::DMCreditsController(const DMCreditsController& ) {
 }
 
 void DMCreditsController::beforeStart() {
@@ -79,4 +79,3 @@ void DMCreditsController::step() {
 
 DMCreditsController::~DMCreditsController() {
 }
-

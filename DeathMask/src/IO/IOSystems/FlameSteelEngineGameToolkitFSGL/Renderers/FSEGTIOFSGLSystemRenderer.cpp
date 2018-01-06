@@ -21,7 +21,7 @@
 FSEGTIOFSGLSystemRenderer::FSEGTIOFSGLSystemRenderer() {
 }
 
-FSEGTIOFSGLSystemRenderer::FSEGTIOFSGLSystemRenderer(const FSEGTIOFSGLSystemRenderer& orig) {
+FSEGTIOFSGLSystemRenderer::FSEGTIOFSGLSystemRenderer(const FSEGTIOFSGLSystemRenderer& ) {
 }
 
 void FSEGTIOFSGLSystemRenderer::initialize() {
@@ -31,13 +31,13 @@ void FSEGTIOFSGLSystemRenderer::initialize() {
 
 }
 
-void FSEGTIOFSGLSystemRenderer::render(shared_ptr<FSEGTGameData> gameData) {
+void FSEGTIOFSGLSystemRenderer::render(shared_ptr<FSEGTGameData> ) {
 
     controller->render();
 
 }
 
-void FSEGTIOFSGLSystemRenderer::objectsContextObjectAdded(shared_ptr<FSEGTObjectsContext> context, shared_ptr<FSCObject> object) {
+void FSEGTIOFSGLSystemRenderer::objectsContextObjectAdded(shared_ptr<FSEGTObjectsContext> , shared_ptr<FSCObject> object) {
 
     //cout << "FSEGTIOFSGLSystemRenderer: object add - " << object->getInstanceIdentifier()->c_str() << endl;
 
@@ -65,7 +65,7 @@ void FSEGTIOFSGLSystemRenderer::objectsContextObjectAdded(shared_ptr<FSEGTObject
     }
 }
 
-void FSEGTIOFSGLSystemRenderer::objectsContextObjectUpdate(shared_ptr<FSEGTObjectsContext> context, shared_ptr<FSCObject> object) {
+void FSEGTIOFSGLSystemRenderer::objectsContextObjectUpdate(shared_ptr<FSEGTObjectsContext> , shared_ptr<FSCObject> object) {
 
     if (object->getClassIdentifier()->compare("scene object") == 0) {
 
@@ -112,7 +112,7 @@ void FSEGTIOFSGLSystemRenderer::cleanRenderIDs() {
     
 }
 
-void FSEGTIOFSGLSystemRenderer::objectsContextAllObjectsRemoved(shared_ptr<FSEGTObjectsContext> context) {
+void FSEGTIOFSGLSystemRenderer::objectsContextAllObjectsRemoved(shared_ptr<FSEGTObjectsContext> ) {
 
     //cout << "FSEGTIOFSGLSystemRenderer: all objects removed" << endl;
 
@@ -122,4 +122,3 @@ void FSEGTIOFSGLSystemRenderer::objectsContextAllObjectsRemoved(shared_ptr<FSEGT
 
 FSEGTIOFSGLSystemRenderer::~FSEGTIOFSGLSystemRenderer() {
 }
-

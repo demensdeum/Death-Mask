@@ -22,7 +22,6 @@
 class DMMapGenerator: FSEGTMapGenerator {
 public:
     DMMapGenerator();
-    DMMapGenerator(const DMMapGenerator& orig);
     virtual ~DMMapGenerator();
     
     virtual void generate(shared_ptr<DMMapGeneratorParams> params, shared_ptr<FSEGTGameMap> gameMap, shared_ptr<FSEGTObjectsContext> objectsContext);

@@ -19,10 +19,10 @@ using namespace std;
 FSCResourcesLoader::FSCResourcesLoader() {
 }
 
-FSCResourcesLoader::FSCResourcesLoader(const FSCResourcesLoader& orig) {
+FSCResourcesLoader::FSCResourcesLoader(const FSCResourcesLoader& ) {
 }
 
-void FSCResourcesLoader::loadURL(shared_ptr<string> url, shared_ptr<FSCResourcesManager> resourcesManager){
+void FSCResourcesLoader::loadURL(shared_ptr<string> , shared_ptr<FSCResourcesManager> ){
     
     cout << "FSCResourcesLoader: loadURL must be overridden." << endl;
     
@@ -31,4 +31,3 @@ void FSCResourcesLoader::loadURL(shared_ptr<string> url, shared_ptr<FSCResources
 
 FSCResourcesLoader::~FSCResourcesLoader() {
 }
-

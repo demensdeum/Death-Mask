@@ -26,7 +26,6 @@ static const int DMGameObjectsLayer = 1;
 class DMGameMap: public FSEGTGameMap {
 public:
     DMGameMap();
-    DMGameMap(const DMGameMap& orig);
     virtual ~DMGameMap();
     
     shared_ptr<FSCObject> revilObject;

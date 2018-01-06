@@ -18,9 +18,8 @@ FSEGTModel::FSEGTModel(shared_ptr<string> modelFilePath) {
     this->modelFilePath = modelFilePath;
 }
 
-FSEGTModel::FSEGTModel(const FSEGTModel& orig) {
+FSEGTModel::FSEGTModel(const FSEGTModel& ) {
 }
 
 FSEGTModel::~FSEGTModel() {
 }
-

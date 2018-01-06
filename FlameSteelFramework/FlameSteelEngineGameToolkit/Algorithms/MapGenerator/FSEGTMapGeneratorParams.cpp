@@ -16,9 +16,8 @@
 FSEGTMapGeneratorParams::FSEGTMapGeneratorParams() {
 }
 
-FSEGTMapGeneratorParams::FSEGTMapGeneratorParams(const FSEGTMapGeneratorParams& orig) {
+FSEGTMapGeneratorParams::FSEGTMapGeneratorParams(const FSEGTMapGeneratorParams& ) {
 }
 
 FSEGTMapGeneratorParams::~FSEGTMapGeneratorParams() {
 }
-

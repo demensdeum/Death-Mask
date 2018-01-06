@@ -17,7 +17,7 @@
 FSGLResourceLoader::FSGLResourceLoader() {
 }
 
-FSGLResourceLoader::FSGLResourceLoader(const FSGLResourceLoader& orig) {
+FSGLResourceLoader::FSGLResourceLoader(const FSGLResourceLoader& ) {
 }
 
 shared_ptr<FSGLResource> FSGLResourceLoader::loadResource(shared_ptr<string> resourcePath) {
@@ -32,4 +32,3 @@ shared_ptr<FSGLResource> FSGLResourceLoader::loadResource(shared_ptr<string> res
 
 FSGLResourceLoader::~FSGLResourceLoader() {
 }
-

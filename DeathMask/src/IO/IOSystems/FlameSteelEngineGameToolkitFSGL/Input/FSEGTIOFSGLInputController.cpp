@@ -21,7 +21,7 @@ FSEGTIOFSGLInputController::FSEGTIOFSGLInputController() {
     
 }
 
-FSEGTIOFSGLInputController::FSEGTIOFSGLInputController(const FSEGTIOFSGLInputController& orig) {
+FSEGTIOFSGLInputController::FSEGTIOFSGLInputController(const FSEGTIOFSGLInputController& ) {
 }
 
 void FSEGTIOFSGLInputController::pollKey() {
@@ -103,4 +103,3 @@ void FSEGTIOFSGLInputController::pollKey() {
 
 FSEGTIOFSGLInputController::~FSEGTIOFSGLInputController() {
 }
-

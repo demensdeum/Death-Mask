@@ -16,9 +16,8 @@
 FSCSerializable::FSCSerializable() {
 }
 
-FSCSerializable::FSCSerializable(const FSCSerializable& orig) {
+FSCSerializable::FSCSerializable(const FSCSerializable& ) {
 }
 
 FSCSerializable::~FSCSerializable() {
 }
-

@@ -16,21 +16,20 @@
 FSEGTObjectContextDelegate::FSEGTObjectContextDelegate() {
 }
 
-FSEGTObjectContextDelegate::FSEGTObjectContextDelegate(const FSEGTObjectContextDelegate& orig) {
+FSEGTObjectContextDelegate::FSEGTObjectContextDelegate(const FSEGTObjectContextDelegate& ) {
 }
 
-void FSEGTObjectContextDelegate::objectsContextObjectAdded(shared_ptr<FSEGTObjectsContext> context, shared_ptr<FSCObject> object) {
+void FSEGTObjectContextDelegate::objectsContextObjectAdded(shared_ptr<FSEGTObjectsContext> , shared_ptr<FSCObject> ) {
     
 }
 
-void FSEGTObjectContextDelegate::objectsContextObjectUpdate(shared_ptr<FSEGTObjectsContext> context, shared_ptr<FSCObject> object) {
+void FSEGTObjectContextDelegate::objectsContextObjectUpdate(shared_ptr<FSEGTObjectsContext> , shared_ptr<FSCObject> ) {
     
 }
 
-void FSEGTObjectContextDelegate::objectsContextAllObjectsRemoved(shared_ptr<FSEGTObjectsContext> context) {
+void FSEGTObjectContextDelegate::objectsContextAllObjectsRemoved(shared_ptr<FSEGTObjectsContext> ) {
     
 }
 
 FSEGTObjectContextDelegate::~FSEGTObjectContextDelegate() {
 }
-

@@ -58,9 +58,5 @@ void DMGameMap::removeObjectIdAtXY(int x, int y, int layer) {
     objectsMap[x][y][layer] = DMGameMapNoObjectId;
 }
 
-DMGameMap::DMGameMap(const DMGameMap& orig) {
-}
-
 DMGameMap::~DMGameMap() {
 }
-
