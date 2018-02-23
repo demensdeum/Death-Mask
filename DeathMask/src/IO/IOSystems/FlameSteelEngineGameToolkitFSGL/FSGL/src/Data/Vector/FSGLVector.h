@@ -14,16 +14,24 @@
 #ifndef FSGLVECTOR_H
 #define FSGLVECTOR_H
 
-class FSGLVector {
+#include "../Serializable/FSGLSerializable.h"
+
+class FSGLVector: public FSGLSerializable {
 public:
+    FSGLVector();
     FSGLVector(float x, float y, float z);
     FSGLVector(const FSGLVector& orig);
     virtual ~FSGLVector();
+    
+    shared_ptr<FSGLVector> copy();
     
     float x;
     float y;
     float z;
         
+    virtual shared_ptr<string> serializeIntoString();
+    virtual shared_ptr<FSGLSerializable> deserializeFromString(shared_ptr<string> serializedData);     
+    
 private:
 
 };

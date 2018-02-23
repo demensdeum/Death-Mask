@@ -20,7 +20,15 @@
 
 #include "../Data/Model/FSGLModel.h"
 
+#if MSVC
+
+#include <GL/glew.h>
+
+#else
+
 #include <GLES3/gl3.h>
+
+#endif
 
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
@@ -50,7 +58,6 @@ public:
     void render();
     
     void stop();
-    
     void removeAllObjects();
     
     shared_ptr<FSGLCamera> camera;

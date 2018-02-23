@@ -27,6 +27,8 @@ public:
     static shared_ptr<FSCObject> makeMaskObject();
     static shared_ptr<FSCObject> makeExitObject();
     static shared_ptr<FSCObject> makeCrate();
+
+	static shared_ptr<FSCObject> makeCorruptedCityObject();
     
 private:
 

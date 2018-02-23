@@ -26,6 +26,7 @@
 
 #include <DeathMask/src/Controllers/Subcontrollers/CreditsController/DMCreditsController.h>
 #include <DeathMask/src/Controllers/Subcontrollers/InGameController/DMInGameController.h>
+#include <DeathMask/src/Controllers/Subcontrollers/CorruptedCityController/DMCorruptedCityController.h>
 
 #include <DeathMask/src/IO/IOSystems/FlameSteelEngineGameToolkitFSGL/FSEGTIOFSGLSystem.h>
 
@@ -53,6 +54,9 @@ DMGameController::DMGameController() {
     
     auto menuController = make_shared<DMMenuController>();
     this->setControllerForState(menuController, DMStateMenu);
+
+	auto corruptedCityController = make_shared<DMCorruptedCityController>();
+	this->setControllerForState(corruptedCityController, DMStateCorruptedCityController);
 }
 
 shared_ptr<FSEGTIOSystem> DMGameController::makeIOSystem() {

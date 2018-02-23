@@ -34,11 +34,20 @@ static const GLchar* vertexShaderSource =
         "uniform mat4 projectionMatrix;\n"
         "uniform mat4 viewMatrix;\n"
         "uniform mat4 modelMatrix;\n"
+
         "attribute vec4 vertex;\n"
         "attribute vec2 uvIn;\n"
+
+        "attribute vec4 animationTransformRowOne;\n"
+        "attribute vec4 animationTransformRowTwo;\n"
+        "attribute vec4 animationTransformRowThree;\n"
+        "attribute vec4 animationTransformRowFour;\n"
+
         "varying vec2 uvOut;\n"
         "void main() {\n"
-        "   gl_Position = projectionMatrix * viewMatrix * modelMatrix * vertex;\n"
+        "   mat4 animationTransform = mat4(animationTransformRowOne, animationTransformRowTwo,animationTransformRowThree, animationTransformRowFour);\n"
+        "   vec4 vertexPosition = vertex * animationTransform;\n"
+        "   gl_Position = projectionMatrix * viewMatrix * modelMatrix * vertexPosition;\n"
         "   uvOut = uvIn;\n"
         "}\n";
 
@@ -99,9 +108,22 @@ FSGLCore::FSGLCore() {
     
 }
 
+void FSGLCore::removeObject(shared_ptr<FSGLObject> object) {
+
+	    for (int i = 0; i < objects.size(); i++) {
+	
+		if (object.get() == objects[i].get()) {
+
+			objects.erase(objects.begin() + i);
+
+			return;
+		}
+		}
+}
+
 void FSGLCore::removeAllObjects() {
     
-    for (uint i = 0; i < objects.size(); i++) {
+    for (int i = 0; i < objects.size(); i++) {
         
         objects.pop_back();
         
@@ -127,16 +149,35 @@ void FSGLCore::initialize() {
             SDL_WINDOW_OPENGL
             );
 
-	if (window == NULL) {
-		// In the case that the window could not be made...
-		printf("Could not create window: %s\n", SDL_GetError());
-		exit(1);
-	}
+    if (window == NULL) {
+
+	printf("Could not create window: %s\n", SDL_GetError());
+	exit(1);
+        
+    }
 
     context = SDL_GL_CreateContext(window);
 
-	printf("SDL_Init failed: %s\n", SDL_GetError());
+#if MSVS
+    
+    if (context == NULL) {
+     
+        printf("SDL_Init failed: %s\n", SDL_GetError());
+        
+    }
+    
+    GLenum err = glewInit();
+    
+    if (GLEW_OK != err) {
+        
+        fprintf(stderr, "Error: %s\n", glewGetErrorString(err));
+        
+    }
+    
+    SDL_GL_MakeCurrent(window, context);
 
+#endif
+    
     glEnable(GL_CULL_FACE);
     glEnable(GL_DEPTH_TEST);
 
@@ -170,6 +211,8 @@ void FSGLCore::render() {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glClearDepthf(1.0f);
 
+	cout << "Objects to render count:" << objects.size() << endl;
+
     for (unsigned int i = 0; i < objects.size(); i++) {
 
         auto object = objects[i];
@@ -178,7 +221,7 @@ void FSGLCore::render() {
         
         if (renderIDs.size() < 1 || renderIDs.find(objectID) != renderIDs.end()) {
         
-            this->renderObject(object);
+            renderObject(object);
             
         }
 
@@ -205,7 +248,7 @@ void FSGLCore::stop() {
 
 shared_ptr<FSGLObject> FSGLCore::getObjectWithID(int id) {
     
-    for (uint i = 0; i < objects.size(); i++) {
+    for (int i = 0; i < objects.size(); i++) {
         
         auto object = objects[i];
         
@@ -221,19 +264,21 @@ shared_ptr<FSGLObject> FSGLCore::getObjectWithID(int id) {
 }
 
 void FSGLCore::renderObject(shared_ptr<FSGLObject> object) {
-
+    
     auto model = object->model;
 
     for (unsigned int meshIndex = 0; meshIndex < model->meshes.size(); meshIndex++) {
 
         auto mesh = model->meshes[meshIndex];
 
+        mesh->updateGlAnimationTransformation();
+        
         auto vertices = mesh->glVertices;
         auto indices = mesh->glIndices;
 
         GLsizeiptr verticesBufferSize = mesh->glVerticesBufferSize;
         GLsizeiptr indicesBufferSize = mesh->glIndicesBufferSize;
-        GLsizei indicesCount = mesh->glIndicesCount;
+        GLsizei    indicesCount = mesh->glIndicesCount;
 
         GLint vertexSlot = glGetAttribLocation(shader_program, "vertex");
 
@@ -249,6 +294,13 @@ void FSGLCore::renderObject(shared_ptr<FSGLObject> object) {
         glEnableVertexAttribArray(vertexSlot);
 
         auto material = mesh->material;
+
+	if (material == NULL) {
+
+            cout << "FSGLCore: cannot load material " << endl;
+
+            exit(1);
+	}
 
         auto surface = material->surface;
 
@@ -274,7 +326,23 @@ void FSGLCore::renderObject(shared_ptr<FSGLObject> object) {
         GLint uvSlot = glGetAttribLocation(shader_program, "uvIn");
         glVertexAttribPointer(uvSlot, 2, GL_FLOAT, GL_FALSE, FSGLMesh::glVertexSize, (GLvoid*) (sizeof (GLfloat) * 3));
         glEnableVertexAttribArray(uvSlot);
-
+        
+        GLint animationTransformRowOneSlot = glGetAttribLocation(shader_program, "animationTransformRowOne");
+        glVertexAttribPointer(animationTransformRowOneSlot, 4, GL_FLOAT, GL_FALSE, FSGLMesh::glVertexSize, (GLvoid*) (sizeof (GLfloat) * 5));
+        glEnableVertexAttribArray(animationTransformRowOneSlot);
+        
+        GLint animationTransformRowTwoSlot = glGetAttribLocation(shader_program, "animationTransformRowTwo");
+        glVertexAttribPointer(animationTransformRowTwoSlot, 4, GL_FLOAT, GL_FALSE, FSGLMesh::glVertexSize, (GLvoid*) (sizeof (GLfloat) * 9));
+        glEnableVertexAttribArray(animationTransformRowTwoSlot);
+        
+        GLint animationTransformRowThreeSlot = glGetAttribLocation(shader_program, "animationTransformRowThree");
+        glVertexAttribPointer(animationTransformRowThreeSlot, 4, GL_FLOAT, GL_FALSE, FSGLMesh::glVertexSize, (GLvoid*) (sizeof (GLfloat) * 13));
+        glEnableVertexAttribArray(animationTransformRowThreeSlot);        
+        
+        GLint animationTransformRowFourSlot = glGetAttribLocation(shader_program, "animationTransformRowFour");
+        glVertexAttribPointer(animationTransformRowFourSlot, 4, GL_FLOAT, GL_FALSE, FSGLMesh::glVertexSize, (GLvoid*) (sizeof (GLfloat) * 17));
+        glEnableVertexAttribArray(animationTransformRowFourSlot);        
+        
         GLint modelMatrixUniform;
         GLint viewMatrixUniform;
 
@@ -295,12 +363,14 @@ void FSGLCore::renderObject(shared_ptr<FSGLObject> object) {
         glDeleteBuffers(1, &vbo);
         glDeleteBuffers(1, &indexBuffer);
 
+        object->postRenderUpdate();
     }
 
 }
 
-FSGLCore::FSGLCore(const FSGLCore& ) {
+FSGLCore::FSGLCore(const FSGLCore& orig) {
 }
 
 FSGLCore::~FSGLCore() {
 }
+

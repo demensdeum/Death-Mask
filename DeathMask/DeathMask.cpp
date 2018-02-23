@@ -8,8 +8,8 @@ using namespace std;
 
 int main()
 {
-	cout << "Death Mask - Cyber Fantasy Adventure in endless Techno-Maze" << endl;
+	cout << "Death Mask - Cyber Fantasy Adventure in Endless Techno-Maze" << endl;
         
         auto controller = make_shared<DMGameController>();
-        controller->startGameFromState(DMStateInGame);        
+        controller->startGameFromState(DMStateCorruptedCityController);        
 }

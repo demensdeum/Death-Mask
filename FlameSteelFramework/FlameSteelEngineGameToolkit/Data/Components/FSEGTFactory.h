@@ -42,6 +42,10 @@ public:
                                         int speed                 
                                       );
         
+	// wide used objects
+
+	static shared_ptr<FSCObject> makeFog(int color);
+
         // components
         
 	static shared_ptr <FSEGTVector> makePositionComponent(float x = 0, float y = 0, float z = 0);

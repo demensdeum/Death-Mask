@@ -13,6 +13,7 @@
 
 #include "FSGLController.h"
 
+#include <iostream>
 #include "../Data/ResourcesLoader/FSGLResourceLoader.h"
 
 FSGLController::FSGLController() {
@@ -31,10 +32,20 @@ void FSGLController::initialize() {
 
 void FSGLController::addObject(shared_ptr<FSGLObject> object) {
     
+	cout << "core add object" << endl;
+
     core->addObject(object);
 }
 
+void FSGLController::removeObject(shared_ptr<FSGLObject> object) {
+
+	core->removeObject(object);
+
+}
+
 void FSGLController::render() {
+
+	cout << "core render" << endl;
 
     core->render();
     

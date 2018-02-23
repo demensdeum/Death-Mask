@@ -18,7 +18,8 @@ enum DMState {
 
     DMStateCredits,
     DMStateMenu,
-    DMStateInGame
+    DMStateInGame,
+    DMStateCorruptedCityController
     
 };
 

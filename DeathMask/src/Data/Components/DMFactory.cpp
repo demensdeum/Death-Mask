@@ -22,6 +22,22 @@ DMFactory::DMFactory() {
 DMFactory::DMFactory(const DMFactory& ) {
 }
 
+shared_ptr<FSCObject> DMFactory::makeCorruptedCityObject() {
+
+    auto corruptedCity = FSEGTFactory::makeOnSceneObject(
+            make_shared<string>("scene object"),
+            make_shared<string>("corrupted city"),
+            make_shared<string>(),
+            make_shared<string>("./data/graphics/maps/corruptedCity"),
+            0, 0, 0,
+            1, 1, 1,
+            0, 0, 0,
+            0);
+
+	return corruptedCity;
+
+}
+
 shared_ptr<FSCObject> DMFactory::makeRevilObject() {
 
     auto revil = FSEGTFactory::makeOnSceneObject(
