@@ -211,8 +211,6 @@ void FSGLCore::render() {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glClearDepthf(1.0f);
 
-	cout << "Objects to render count:" << objects.size() << endl;
-
     for (unsigned int i = 0; i < objects.size(); i++) {
 
         auto object = objects[i];
@@ -316,8 +314,10 @@ void FSGLCore::renderObject(shared_ptr<FSGLObject> object) {
         GLuint textureBinding;
         glGenTextures(1, &textureBinding);
         glBindTexture(GL_TEXTURE_2D, textureBinding);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_NEAREST);
+	  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
         glTexImage2D(GL_TEXTURE_2D, 0, palleteMode, surface->w, surface->h, 0, palleteMode, GL_UNSIGNED_BYTE, surface->pixels);
+	  glGenerateMipmap(GL_TEXTURE_2D);
         glActiveTexture(GL_TEXTURE0);
 
         GLint textureSlot = glGetUniformLocation(shader_program, "texture");

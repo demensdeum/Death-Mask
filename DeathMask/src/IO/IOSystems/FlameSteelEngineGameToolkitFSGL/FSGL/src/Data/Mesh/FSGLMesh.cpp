@@ -21,7 +21,9 @@
 #include <glm/gtc/quaternion.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 
-#define SKINNING_ENABLED 1
+#define SKINNING_ENABLED 0
+
+static float translationX = 0;
 
 FSGLMesh::FSGLMesh() {
 }
@@ -134,10 +136,19 @@ else
 
 #else
 
+
+
         glVertices[i + 5] = 1;
         glVertices[i + 6] = 0;
         glVertices[i + 7] = 0;
+
+	if (vertexObject->position->z > -5) {
+        glVertices[i + 8] = translationX;
+}
+	else
+{
         glVertices[i + 8] = 0;
+}
 
         glVertices[i + 9] = 0;
         glVertices[i + 10] = 1;
@@ -153,6 +164,17 @@ else
         glVertices[i + 18] = 0;
         glVertices[i + 19] = 0;
         glVertices[i + 20] = 1;
+
+	if (translationX < 6.4) {
+	translationX += 0.000001;
+	//translationX += 0.0001;
+	}
+	else {
+
+		translationX =0.8;
+
+	}
+
 
 #endif
 

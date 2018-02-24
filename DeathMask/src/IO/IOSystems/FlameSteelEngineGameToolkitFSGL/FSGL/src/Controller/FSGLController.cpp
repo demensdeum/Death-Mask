@@ -45,8 +45,6 @@ void FSGLController::removeObject(shared_ptr<FSGLObject> object) {
 
 void FSGLController::render() {
 
-	cout << "core render" << endl;
-
     core->render();
     
 }
