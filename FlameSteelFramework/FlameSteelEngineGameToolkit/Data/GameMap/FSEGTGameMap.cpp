@@ -23,7 +23,7 @@ FSEGTGameMap::FSEGTGameMap() {
 FSEGTGameMap::FSEGTGameMap(const FSEGTGameMap& ) {
 }
 
-shared_ptr<FSEGTGameMapTile> FSEGTGameMap::getTileAtXY(int tileX, int tileY) {
+shared_ptr<FSCObject> FSEGTGameMap::getTileAtXY(int tileX, int tileY) {
 
     auto tileIndex = this->getTileIndexAtXY(tileX, tileY);
     
@@ -43,15 +43,7 @@ int FSEGTGameMap::getTileIndexAtXY(int tileX, int tileY) {
     
 }
 
-bool FSEGTGameMap::isTileAtXYSolid(int tileX, int tileY) {
-    
-    auto tile = this->getTileAtXY(tileX, tileY);
-    
-    return tile->isSolid;
-    
-}
-
-void FSEGTGameMap::addTile(shared_ptr<FSEGTGameMapTile> tile) {
+void FSEGTGameMap::addTile(shared_ptr<FSCObject> tile) {
     
     tiles.push_back(tile);
     

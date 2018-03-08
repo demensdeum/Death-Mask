@@ -23,7 +23,7 @@ public:
     DMMapGenerator();
     virtual ~DMMapGenerator();
     
-    virtual void generate(shared_ptr<DMMapGeneratorParams> params, shared_ptr<FSEGTGameMap> gameMap, shared_ptr<FSEGTObjectsContext> objectsContext);
+    shared_ptr<FSEGTGameMap> generate(shared_ptr<DMMapGeneratorParams> params, shared_ptr<FSEGTObjectsContext> objectsContext);
 
 private:
 

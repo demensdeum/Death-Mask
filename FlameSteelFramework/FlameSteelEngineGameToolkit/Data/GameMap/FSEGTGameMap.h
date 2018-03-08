@@ -19,7 +19,8 @@
 
 #include <FlameSteelCore/FSCObject.h>
 
-#include <FlameSteelEngineGameToolkit/Data/GameMap/FSEGTGameMapTile.h>
+
+#include <FlameSteelCore/FSCObject.h>
 
 using namespace std;
 
@@ -35,20 +36,18 @@ public:
     int width;
     int height;
     
-    shared_ptr<FSEGTGameMapTile> getTileAtXY(int tileX, int tileY);
+    shared_ptr<FSCObject> getTileAtXY(int tileX, int tileY);
     void setTileAtXY(int tileIndex, int tileX, int tileY);
     
-    void addTile(shared_ptr<FSEGTGameMapTile> tile);
+    void addTile(shared_ptr<FSCObject> tile);
     
     int getTileIndexAtXY(int tileX, int tileY);
-    
-    bool isTileAtXYSolid(int tileX, int tileY);
     
 private:
 
     int map[FSEGTGameMapWidth][FSEGTGameMapHeight];
     
-    vector<shared_ptr<FSEGTGameMapTile> > tiles;
+    vector<shared_ptr<FSCObject> > tiles;
     
 };
 

@@ -59,11 +59,11 @@ void DMPlayerObjectControls::handleTargetAt(int x, int y, shared_ptr<FSEGTVector
         
     }
     
-    if (gameMap->isTileAtXYSolid(x,y)) {
+    //if (gameMap->isTileAtXYSolid(x,y)) {
         
-        return;
+        //return;
         
-    }
+    //}
     
     position->x = x;
     position->y = y;

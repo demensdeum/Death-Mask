@@ -14,9 +14,10 @@
 #ifndef DMMAPGENERATORPARAMS_H
 #define DMMAPGENERATORPARAMS_H
 
-#include <FlameSteelFramework/FlameSteelEngineGameToolkit/Data/GameMap/FSEGTGameMapTile.h>
-
 #include <vector>
+#include <memory>
+
+#include <FlameSteelCore/FSCObject.h>
 
 using namespace std;
 
@@ -29,7 +30,7 @@ public:
     int freeTileIndex;
     int solidTileIndex;
     
-    vector<shared_ptr<FSEGTGameMapTile> > tiles;
+    vector<shared_ptr<FSCObject> > tiles;
     
     int maxIterations;
     int maxLineLength;
