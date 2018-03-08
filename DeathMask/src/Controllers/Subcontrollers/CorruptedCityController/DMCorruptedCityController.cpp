@@ -1,3 +1,4 @@
+#include "/home/demensdeum/Sources/Death-Mask/FlameSteelFramework/FlameSteelEngineGameToolkit/IO/Input/FSEGTInputController.h"
 #include "DMCorruptedCityController.h" 
 
 #include <iostream>
@@ -35,10 +36,19 @@ void DMCorruptedCityController::beforeStart() {
 
 void DMCorruptedCityController::step() {
 
-	for(auto i = 0; i < 1000; i++)
+	for(auto i = 0; i < 6000; i++)
 	{
 		renderer->render(this->gameData);
 		std::this_thread::sleep_for(0.01s);
+
+        ioSystem->inputController->pollKey();
+
+        if (ioSystem->inputController->isExitKeyPressed()) {
+
+		cout << "Bye-Bye!" << endl;
+		exit(0);
+
+		}
       }
   
 	cout << "Corrupted City Ended" << endl;

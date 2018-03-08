@@ -31,7 +31,6 @@ class FSGLObject: public FSGLSerializable {
 public:
     FSGLObject(shared_ptr<FSGLModel> model);
     FSGLObject() : FSGLObject(shared_ptr<FSGLModel>()) {};
-    FSGLObject(const FSGLObject& orig);
     virtual ~FSGLObject();
     
     int id;

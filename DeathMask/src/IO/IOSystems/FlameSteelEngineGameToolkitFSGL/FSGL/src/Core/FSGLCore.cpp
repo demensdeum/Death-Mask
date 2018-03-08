@@ -110,7 +110,7 @@ FSGLCore::FSGLCore() {
 
 void FSGLCore::removeObject(shared_ptr<FSGLObject> object) {
 
-	    for (int i = 0; i < objects.size(); i++) {
+	    for (size_t i = 0; i < objects.size(); i++) {
 	
 		if (object.get() == objects[i].get()) {
 
@@ -123,7 +123,7 @@ void FSGLCore::removeObject(shared_ptr<FSGLObject> object) {
 
 void FSGLCore::removeAllObjects() {
     
-    for (int i = 0; i < objects.size(); i++) {
+    for (size_t i = 0; i < objects.size(); i++) {
         
         objects.pop_back();
         
@@ -246,7 +246,7 @@ void FSGLCore::stop() {
 
 shared_ptr<FSGLObject> FSGLCore::getObjectWithID(int id) {
     
-    for (int i = 0; i < objects.size(); i++) {
+    for (size_t i = 0; i < objects.size(); i++) {
         
         auto object = objects[i];
         
@@ -366,9 +366,6 @@ void FSGLCore::renderObject(shared_ptr<FSGLObject> object) {
         object->postRenderUpdate();
     }
 
-}
-
-FSGLCore::FSGLCore(const FSGLCore& orig) {
 }
 
 FSGLCore::~FSGLCore() {

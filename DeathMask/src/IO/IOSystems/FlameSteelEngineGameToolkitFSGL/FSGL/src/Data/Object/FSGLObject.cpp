@@ -42,9 +42,6 @@ FSGLObject::FSGLObject(shared_ptr<FSGLModel> model) {
 
 }
 
-FSGLObject::FSGLObject(const FSGLObject& ) {
-}
-
 glm::mat4 FSGLObject::matrix() {
 
     glm::mat4 matrix;

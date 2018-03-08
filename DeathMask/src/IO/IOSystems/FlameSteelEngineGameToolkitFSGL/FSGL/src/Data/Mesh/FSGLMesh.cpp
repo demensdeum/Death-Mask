@@ -23,12 +23,7 @@
 
 #define SKINNING_ENABLED 0
 
-static float translationX = 0;
-
 FSGLMesh::FSGLMesh() {
-}
-
-FSGLMesh::FSGLMesh(const FSGLMesh& ) {
 }
 
 shared_ptr<FSGLVertex> FSGLMesh::vertexWithID(int index) {
@@ -136,19 +131,10 @@ else
 
 #else
 
-
-
         glVertices[i + 5] = 1;
         glVertices[i + 6] = 0;
         glVertices[i + 7] = 0;
-
-	if (vertexObject->position->z > -5) {
-        glVertices[i + 8] = translationX;
-}
-	else
-{
         glVertices[i + 8] = 0;
-}
 
         glVertices[i + 9] = 0;
         glVertices[i + 10] = 1;
@@ -165,17 +151,6 @@ else
         glVertices[i + 19] = 0;
         glVertices[i + 20] = 1;
 
-	if (translationX < 6.4) {
-	translationX += 0.000001;
-	//translationX += 0.0001;
-	}
-	else {
-
-		translationX =0.8;
-
-	}
-
-
 #endif
 
 }
@@ -189,7 +164,6 @@ void FSGLMesh::updateGlData() {
     for (unsigned int i = 0; i < vertices.size(); i += glVertexCount) {
 
 	auto vertexObject = verticesObjects[i / glVertexCount];
-
 
         glVertices[i] = vertexObject->position->x;
         glVertices[i + 1] = vertexObject->position->y;

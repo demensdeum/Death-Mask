@@ -41,7 +41,6 @@ class FSGLModel: public FSGLResource, public FSGLSerializable {
     
 public:
     FSGLModel();
-    FSGLModel(const FSGLModel& orig);
     virtual ~FSGLModel();
   
     shared_ptr<string> path;

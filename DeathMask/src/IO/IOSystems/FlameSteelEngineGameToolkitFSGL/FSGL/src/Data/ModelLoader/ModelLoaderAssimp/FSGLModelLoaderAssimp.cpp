@@ -28,9 +28,6 @@ using namespace std;
 FSGLModelLoaderAssimp::FSGLModelLoaderAssimp() {
 }
 
-FSGLModelLoaderAssimp::FSGLModelLoaderAssimp(const FSGLModelLoaderAssimp& ) {
-}
-
 shared_ptr<FSGLModel> FSGLModelLoaderAssimp::loadModel(shared_ptr<string> modelPath) {
 
     auto modelPathString = modelPath->c_str();
@@ -155,7 +152,7 @@ shared_ptr<FSGLModel> FSGLModelLoaderAssimp::loadModel(shared_ptr<string> modelP
 
                     convertedBone->mesh = convertedMesh;
                     
-                    for (int boneIndex = 0; boneIndex < bone->mNumWeights; boneIndex++) {
+                    for (unsigned int boneIndex = 0; boneIndex < bone->mNumWeights; boneIndex++) {
 
                         auto weight = bone->mWeights[boneIndex];
 
@@ -280,7 +277,7 @@ shared_ptr<FSGLModel> FSGLModelLoaderAssimp::loadModel(shared_ptr<string> modelP
 
 		cout << "convertedAnimation duration:" << convertedAnimation->duration << endl;
 
-            for (auto nodeAnimationIndex = 0; nodeAnimationIndex < animation->mNumChannels; nodeAnimationIndex++) {
+            for (unsigned int nodeAnimationIndex = 0; nodeAnimationIndex < animation->mNumChannels; nodeAnimationIndex++) {
 
                 auto nodeAnimation = animation->mChannels[nodeAnimationIndex];
 
@@ -292,7 +289,7 @@ shared_ptr<FSGLModel> FSGLModelLoaderAssimp::loadModel(shared_ptr<string> modelP
                 
                 convertedNodeAnimation->node = convertedRootNode->findNode(convertedNodeAnimation->name);
 
-                for (auto positionKeyframeIndex = 0; positionKeyframeIndex < nodeAnimation->mNumPositionKeys; positionKeyframeIndex++) {
+                for (unsigned int positionKeyframeIndex = 0; positionKeyframeIndex < nodeAnimation->mNumPositionKeys; positionKeyframeIndex++) {
 
                     auto positionKeyframe = nodeAnimation->mPositionKeys[positionKeyframeIndex];
 
@@ -315,7 +312,7 @@ shared_ptr<FSGLModel> FSGLModelLoaderAssimp::loadModel(shared_ptr<string> modelP
                     convertedNodeAnimation->positions.push_back(convertedPositionKeyframe);
                 }
                 
-                for (auto rotationKeyframeIndex = 0; rotationKeyframeIndex < nodeAnimation->mNumRotationKeys; rotationKeyframeIndex++) {
+                for (unsigned int rotationKeyframeIndex = 0; rotationKeyframeIndex < nodeAnimation->mNumRotationKeys; rotationKeyframeIndex++) {
                     
                     auto rotationKeyframe = nodeAnimation->mRotationKeys[rotationKeyframeIndex];
                     
@@ -337,7 +334,7 @@ shared_ptr<FSGLModel> FSGLModelLoaderAssimp::loadModel(shared_ptr<string> modelP
                     convertedNodeAnimation->rotations.push_back(convertedRotationKeyframe);
                 }
 
-                for (auto scalingKeyframeIndex = 0; scalingKeyframeIndex < nodeAnimation->mNumScalingKeys; scalingKeyframeIndex++) {
+                for (unsigned int scalingKeyframeIndex = 0; scalingKeyframeIndex < nodeAnimation->mNumScalingKeys; scalingKeyframeIndex++) {
                     
                     auto scalingKeyframe = nodeAnimation->mScalingKeys[scalingKeyframeIndex];
                     
@@ -383,7 +380,7 @@ shared_ptr<FSGLNode> FSGLModelLoaderAssimp::convertNode(aiNode* node, shared_ptr
     
     convertedNode->bone = model->findBone(convertedNode->name);
 
-    for (auto meshIndex = 0; meshIndex < node->mNumMeshes; meshIndex++) {
+    for (unsigned int meshIndex = 0; meshIndex < node->mNumMeshes; meshIndex++) {
         
         auto meshSceneIndex = node->mMeshes[meshIndex];
         
@@ -393,7 +390,7 @@ shared_ptr<FSGLNode> FSGLModelLoaderAssimp::convertNode(aiNode* node, shared_ptr
         
     }
     
-    for (auto childNodeIndex = 0; childNodeIndex < node->mNumChildren; childNodeIndex++) {
+    for (unsigned int childNodeIndex = 0; childNodeIndex < node->mNumChildren; childNodeIndex++) {
 
         auto childNode = node->mChildren[childNodeIndex];
 

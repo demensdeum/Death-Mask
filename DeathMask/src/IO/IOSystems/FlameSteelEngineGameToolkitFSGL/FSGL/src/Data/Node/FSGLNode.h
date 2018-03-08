@@ -32,7 +32,6 @@ using namespace std;
 class FSGLNode: public enable_shared_from_this<FSGLNode> {
 public:
     FSGLNode();
-    FSGLNode(const FSGLNode& orig);
     virtual ~FSGLNode();
     
     shared_ptr<string> name;

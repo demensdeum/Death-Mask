@@ -29,7 +29,6 @@ using namespace std;
 class FSGLModelLoaderAssimp: public FSGLModelLoader {
 public:
     FSGLModelLoaderAssimp();
-    FSGLModelLoaderAssimp(const FSGLModelLoaderAssimp& orig);
     virtual ~FSGLModelLoaderAssimp();
     
     static shared_ptr<FSGLModel> loadModel(shared_ptr<string> modelPath);   

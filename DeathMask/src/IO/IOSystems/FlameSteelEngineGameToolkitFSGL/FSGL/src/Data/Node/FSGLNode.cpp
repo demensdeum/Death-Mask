@@ -18,9 +18,6 @@
 FSGLNode::FSGLNode() {
 }
 
-FSGLNode::FSGLNode(const FSGLNode& ) {
-}
-
 void FSGLNode::applyTransformationMatrix(shared_ptr<FSGLMatrix> transformationMatrix) {
     
     cout << "FSGLNode::applyTransformationMatrix - for node: " << name->c_str() << endl;

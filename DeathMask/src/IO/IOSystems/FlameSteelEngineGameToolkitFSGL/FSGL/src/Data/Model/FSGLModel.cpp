@@ -24,9 +24,6 @@ using namespace std;
 FSGLModel::FSGLModel() {
     
 }
-
-FSGLModel::FSGLModel(const FSGLModel& ) {
-}
    
 shared_ptr<string> FSGLModel::serializeIntoString() {
     

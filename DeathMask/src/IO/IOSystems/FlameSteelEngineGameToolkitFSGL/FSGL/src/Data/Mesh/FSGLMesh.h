@@ -44,7 +44,6 @@ using namespace std;
 class FSGLMesh: public std::enable_shared_from_this<FSGLMesh> {
 public:
     FSGLMesh();
-    FSGLMesh(const FSGLMesh& orig);
     virtual ~FSGLMesh();
     
 	vector<shared_ptr<FSGLVertex> > verticesObjects;

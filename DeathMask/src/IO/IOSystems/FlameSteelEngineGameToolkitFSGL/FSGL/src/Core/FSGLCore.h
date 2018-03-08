@@ -44,7 +44,6 @@ using namespace std;
 class FSGLCore {
 public:
     FSGLCore();
-    FSGLCore(const FSGLCore& orig);
     virtual ~FSGLCore();
     
     void initialize();
