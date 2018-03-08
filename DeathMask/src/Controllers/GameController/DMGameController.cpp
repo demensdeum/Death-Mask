@@ -12,8 +12,6 @@
  */
 
 #include "DMGameController.h"
-#include "DeathMask/src/Controllers/Subcontrollers/InGameController/DMInGameController.h"
-#include "DeathMask/src/Controllers/Subcontrollers/MenuController/DMMenuController.h"
 
 #include <ctime>
 
@@ -24,9 +22,8 @@
 #include <DeathMask/src/Const/DMConstStates.h>
 #include <DeathMask/src/Const/DMConstIOSystem.h>
 
-#include <DeathMask/src/Controllers/Subcontrollers/CreditsController/DMCreditsController.h>
 #include <DeathMask/src/Controllers/Subcontrollers/InGameController/DMInGameController.h>
-#include <DeathMask/src/Controllers/Subcontrollers/CorruptedCityController/DMCorruptedCityController.h>
+#include <DeathMask/src/Controllers/Subcontrollers/MenuController/DMMenuController.h>
 
 #include <DeathMask/src/IO/IOSystems/FlameSteelEngineGameToolkitFSGL/FSEGTIOFSGLSystem.h>
 
@@ -45,18 +42,12 @@ DMGameController::DMGameController() {
     
     ioSystem = this->makeIOSystem();
     ioSystem->initialize();
-    
-    auto creditsController = make_shared<DMCreditsController>();
-    this->setControllerForState(creditsController, DMStateCredits);  
         
     auto inGameController = make_shared<DMInGameController>();
     this->setControllerForState(inGameController, DMStateInGame);
     
     auto menuController = make_shared<DMMenuController>();
     this->setControllerForState(menuController, DMStateMenu);
-
-	auto corruptedCityController = make_shared<DMCorruptedCityController>();
-	this->setControllerForState(corruptedCityController, DMStateCorruptedCityController);
 }
 
 shared_ptr<FSEGTIOSystem> DMGameController::makeIOSystem() {
@@ -70,17 +61,12 @@ void DMGameController::controllerDidFinish(FSEGTController *) {
     
     switch (state) {
      
-        case DMStateCredits:
-            
-            switchToState(DMStateMenu);
-            
-            break; 
-            
         case DMStateMenu:
             
             switchToState(DMStateInGame);
             
-            break;
+            break; 
+           
     }
 }
 

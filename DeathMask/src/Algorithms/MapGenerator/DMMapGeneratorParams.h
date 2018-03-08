@@ -14,14 +14,13 @@
 #ifndef DMMAPGENERATORPARAMS_H
 #define DMMAPGENERATORPARAMS_H
 
-#include <FlameSteelEngineGameToolkit/Algorithms/MapGenerator/FSEGTMapGeneratorParams.h>
 #include <FlameSteelFramework/FlameSteelEngineGameToolkit/Data/GameMap/FSEGTGameMapTile.h>
 
 #include <vector>
 
 using namespace std;
 
-class DMMapGeneratorParams: FSEGTMapGeneratorParams {
+class DMMapGeneratorParams {
 public:
     DMMapGeneratorParams();
     DMMapGeneratorParams(const DMMapGeneratorParams& orig);

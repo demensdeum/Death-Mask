@@ -11,5 +11,5 @@ int main()
 	cout << "Death Mask - Cyber Fantasy Adventure in Endless Techno-Maze" << endl;
         
         auto controller = make_shared<DMGameController>();
-        controller->startGameFromState(DMStateCorruptedCityController);        
+        controller->startGameFromState(DMStateInGame);        
 }

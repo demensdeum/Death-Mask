@@ -1,73 +1,57 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+#include "/home/demensdeum/Sources/Death-Mask/FlameSteelFramework/FlameSteelEngineGameToolkit/IO/Input/FSEGTInputController.h"
+#include "DMMenuController.h" 
 
-/* 
- * File:   DMMenuController.cpp
- * Author: demensdeum
- * 
- * Created on July 1, 2017, 8:18 AM
- */
-
-#include "DMMenuController.h"
-
+#include <iostream>
+#include <chrono>
+#include <thread>
 #include <FlameSteelEngineGameToolkit/Data/Components/FSEGTFactory.h>
-
-DMMenuController::DMMenuController() {
-    
-    stepCounter = 0;
-    
-}
-
-DMMenuController::DMMenuController(const DMMenuController& ) {
-}
+#include <FlameSteelEngineGameToolkit/Utils/FSEGTUtils.h>
 
 void DMMenuController::beforeStart() {
-    
-    auto cameraObject = FSEGTFactory::makeOnSceneObject(
+
+	    auto cameraObject = FSEGTFactory::makeOnSceneObject(
             make_shared<string>("camera"),
-            make_shared<string>("game camera"),
+            make_shared<string>("camera"),
             make_shared<string>(),
             make_shared<string>(),
-            0, 4, 0,
+            0, 0, 0,
             1, 1, 1,
             0, 0, 0,
             0);    
     
-    auto menu = FSEGTFactory::makeOnSceneObject(
+    	      city = FSEGTFactory::makeOnSceneObject(
             make_shared<string>("scene object"),
-            make_shared<string>("menu"),
+            make_shared<string>("revil"),
             make_shared<string>(),
-            make_shared<string>("./data/graphics/models/menu/menu"),
-            0, 0, 0,
+            make_shared<string>("./data/graphics/models/maps/corruptedCity/corruptedCity"),
+		0,0,0,
             1, 1, 1,
-            0, 0, 0,
+		0,0,0,
             0);    
     
     objectsContext->addObject(cameraObject);      
-    objectsContext->addObject(menu);
-    
+    objectsContext->addObject(city);
+
 }
 
 void DMMenuController::step() {
-    
-    renderer->render(this->gameData);
-    
-    if (stepCounter < 100) {
-        
-        stepCounter++;
-        
-    }
-    else {
-        
-        objectsContext->removeAllObjects();
-        
-        this->notifyListenerAboutControllerDidFinish(this);
-        
-    }    
-}
 
-DMMenuController::~DMMenuController() {
+	for(auto i = 0; i < 6000; i++)
+	{
+		renderer->render(this->gameData);
+		std::this_thread::sleep_for(0.01s);
+
+        ioSystem->inputController->pollKey();
+
+        if (ioSystem->inputController->isExitKeyPressed()) {
+
+		cout << "Bye-Bye!" << endl;
+		exit(0);
+
+		}
+      }
+  
+	cout << "Corrupted City Ended" << endl;
+
+	exit(0);
 }

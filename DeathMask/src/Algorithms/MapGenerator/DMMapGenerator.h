@@ -14,12 +14,11 @@
 #ifndef DMMAPGENERATOR_H
 #define DMMAPGENERATOR_H
 
-#include <FlameSteelEngineGameToolkit/Algorithms/MapGenerator/FSEGTMapGenerator.h>
-#include <DeathMask/src/Algorithms/MapGenerator/DMMapGeneratorParams.h>
+#include "DMMapGeneratorParams.h"
 #include <FlameSteelEngineGameToolkit/Controllers/FSEGTObjectsContext.h>
 #include <DeathMask/src/Data/GameMap/DMGameMap.h>
 
-class DMMapGenerator: FSEGTMapGenerator {
+class DMMapGenerator {
 public:
     DMMapGenerator();
     virtual ~DMMapGenerator();
