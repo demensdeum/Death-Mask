@@ -8,7 +8,10 @@ class DMInGameController: public FSEGTController {
 public:
 	DMInGameController();
 
+    virtual void beforeStart();    
 	virtual void step();
 
+private:
+	shared_ptr<FSCObject> dungeon;
 };
 #endif

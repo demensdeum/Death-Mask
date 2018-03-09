@@ -23,13 +23,13 @@ public:
     DMMapGenerator();
     virtual ~DMMapGenerator();
     
-    shared_ptr<FSEGTGameMap> generate(shared_ptr<DMMapGeneratorParams> params, shared_ptr<FSEGTObjectsContext> objectsContext);
+    static shared_ptr<FSEGTGameMap> generate(shared_ptr<DMMapGeneratorParams> params, shared_ptr<FSEGTObjectsContext> objectsContext);
 
 private:
 
-    void rollDiceAndOnSuccessPutGameplayObjectIntoXY(int tileX, int tileY, int chance, shared_ptr<FSEGTObjectsContext> objectsContext, shared_ptr<DMGameMap> gameMap);
-    void putGameplayObjectIntoXY(int tileX, int tileY, shared_ptr<FSEGTObjectsContext> objectsContext, shared_ptr<DMGameMap> gameMap);
-    void drawFreeTilesAtXY(shared_ptr<FSEGTGameMap> gameMap, shared_ptr<DMMapGeneratorParams> params, int cursorX, int cursorY);
+    static void rollDiceAndOnSuccessPutGameplayObjectIntoXY(int tileX, int tileY, int chance, shared_ptr<FSEGTObjectsContext> objectsContext, shared_ptr<DMGameMap> gameMap);
+    static void putGameplayObjectIntoXY(int tileX, int tileY, shared_ptr<FSEGTObjectsContext> objectsContext, shared_ptr<DMGameMap> gameMap);
+    static void drawFreeTilesAtXY(shared_ptr<FSEGTGameMap> gameMap, shared_ptr<DMMapGeneratorParams> params, int cursorX, int cursorY);
 };
 
 #endif /* DMMAPGENERATOR_H */

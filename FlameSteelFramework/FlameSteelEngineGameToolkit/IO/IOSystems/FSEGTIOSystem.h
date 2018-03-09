@@ -12,6 +12,7 @@
 
 #include <FlameSteelCore/FSCResourcesManager.h>
 #include <FlameSteelEngineGameToolkit/IO/IOSystems/FSEGTIOSystemParams.h>
+#include <FlameSteelEngineGameToolkit/IO/Input/FSEGTInputController.h>
 
 #include <memory>
 

@@ -9,7 +9,7 @@
 #define FSEGTINPUTCONTROLLER_H_
 
 #include <FlameSteelCore/FSCObject.h>
-#include <FlameSteelEngineGameToolkit/IO/IOSystems/FSEGTIOSystem.h>
+class FSEGTIOSystem;
 
 class FSEGTInputController: public FSCObject {
 public:

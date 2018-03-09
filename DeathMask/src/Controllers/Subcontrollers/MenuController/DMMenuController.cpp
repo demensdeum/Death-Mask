@@ -1,4 +1,4 @@
-#include "/home/demensdeum/Sources/Death-Mask/FlameSteelFramework/FlameSteelEngineGameToolkit/IO/Input/FSEGTInputController.h"
+#include <FlameSteelEngineGameToolkit/IO/Input/FSEGTInputController.h>
 #include "DMMenuController.h" 
 
 #include <iostream>

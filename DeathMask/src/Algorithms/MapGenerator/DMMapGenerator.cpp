@@ -32,6 +32,20 @@ DMMapGenerator::DMMapGenerator() {
 
 shared_ptr<FSEGTGameMap> DMMapGenerator::generate(shared_ptr<DMMapGeneratorParams> params, shared_ptr<FSEGTObjectsContext> objectsContext) {
 
+	if (params.get() == nullptr) {
+
+		cout << "DMMapGenerator: cannot generate map - params are nullptr" << endl;
+
+		exit(1);
+	}
+
+	if (objectsContext.get() == nullptr) {
+
+		cout << "DMMapGenerator: cannot generate map - objectsContext are nullptr" << endl;
+
+		exit(1);
+	}
+
 	auto gameMap = make_shared<DMGameMap>();
 
     auto solidTileIndex = params->solidTileIndex;
@@ -90,7 +104,7 @@ shared_ptr<FSEGTGameMap> DMMapGenerator::generate(shared_ptr<DMMapGeneratorParam
 
     objectsContext->addObject(revil);
 
-    this->drawFreeTilesAtXY(gameMap, params, cursorX, cursorY);
+    DMMapGenerator::drawFreeTilesAtXY(gameMap, params, cursorX, cursorY);
 
     for (auto x = 0; x < maxIterations; x++) {
 
@@ -101,7 +115,7 @@ shared_ptr<FSEGTGameMap> DMMapGenerator::generate(shared_ptr<DMMapGeneratorParam
 
             rollDiceAndOnSuccessPutGameplayObjectIntoXY(cursorX, cursorY, gameplayObjectRespawnChance, objectsContext, gameMap);
 
-            this->drawFreeTilesAtXY(gameMap, params, cursorX, cursorY);
+            DMMapGenerator::drawFreeTilesAtXY(gameMap, params, cursorX, cursorY);
 
 //            if (isMaskOnMap == false) {
 //
@@ -173,19 +187,19 @@ shared_ptr<FSEGTGameMap> DMMapGenerator::generate(shared_ptr<DMMapGeneratorParam
     objectsContext->addObject(exit);
     gameMap->setObjectIdAtXY(exit->id, cursorX, cursorY, DMGameObjectsLayer);
 
-    this->drawFreeTilesAtXY(gameMap, params, cursorX, cursorY);
+    DMMapGenerator::drawFreeTilesAtXY(gameMap, params, cursorX, cursorY);
 
-//    for (int y = 0; y < gameMap->width; y++) {
-//
-//        for (int x = 0; x < gameMap->height; x++) {
-//
-//            auto tileIndex = gameMap->getTileIndexAtXY(x, y);
-//
-//            cout << tileIndex;
-//        }
-//
-//        cout << endl;
-//    }
+    for (int y = 0; y < gameMap->width; y++) {
+
+       for (int x = 0; x < gameMap->height; x++) {
+
+            auto tileIndex = gameMap->getTileIndexAtXY(x, y);
+
+           cout << tileIndex;
+        }
+
+       cout << endl;
+    }
 
 	return gameMap;
 }
@@ -232,7 +246,7 @@ void DMMapGenerator::rollDiceAndOnSuccessPutGameplayObjectIntoXY(int tileX, int 
     
     if (FSCUtils::FSCRandomInt(gameplayObjectRespawnChance) == 0) {
 
-        this->putGameplayObjectIntoXY(tileX, tileY, objectsContext, gameMap);
+        DMMapGenerator::putGameplayObjectIntoXY(tileX, tileY, objectsContext, gameMap);
 
     }
 }
