@@ -24,6 +24,7 @@
 #include <FlameSteelEngineGameToolkit/Data/Components/Vector/FSEGTVector.h>
 #include <FlameSteelEngineGameToolkit/Data/Components/Sprite/FSEGTSprite.h>
 #include <FlameSteelEngineGameToolkit/Data/Components/Model/FSEGTModel.h>
+#include <FlameSteelEngineGameToolkit/Data/Components/SerializedModel/FSEGTSerializedModel.h>
 
 using namespace std;
 
@@ -69,6 +70,14 @@ shared_ptr<string> FSEGTUtils::getFont(shared_ptr<FSCObject> object) {
     auto fontResourceIdentifier = textComponent->fontResourceIdentifier;
 
     return fontResourceIdentifier;
+}
+
+shared_ptr<FSEGTSerializedModel> FSEGTUtils::getSerializedModel(shared_ptr<FSCObject> object) {
+
+	    auto serializedModelComponent = object->getComponent(make_shared<string>(FSEGTConstComponentsSerializedModel));
+
+    return static_pointer_cast<FSEGTSerializedModel>(serializedModelComponent);
+
 }
 
 void FSEGTUtils::updateObjectAnimationTick(shared_ptr<FSCObject> object) {

@@ -12,6 +12,8 @@
 #include <FlameSteelEngineGameToolkit/Data/Components/Vector/FSEGTVector.h>
 #include <string.h>
 
+class FSEGTSerializedModel;
+
 class FSEGTUtils: public FSCObject {
 public:
 	FSEGTUtils();
@@ -42,6 +44,8 @@ public:
 
         static shared_ptr<string> platformPath(const char *relativePath);
         
+	static shared_ptr<FSEGTSerializedModel> getSerializedModel(shared_ptr<FSCObject> object);
+
 	virtual ~FSEGTUtils();
 };
 

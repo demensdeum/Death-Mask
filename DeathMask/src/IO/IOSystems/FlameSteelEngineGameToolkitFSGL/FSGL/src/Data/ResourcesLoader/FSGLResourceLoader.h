@@ -21,6 +21,9 @@
 
 using namespace std;
 
+class FSEGTSerializedModel;
+class FSGLModel;
+
 class FSGLResourceLoader {
     
 public:
@@ -29,6 +32,7 @@ public:
     virtual ~FSGLResourceLoader();
     
     static shared_ptr<FSGLResource> loadResource(shared_ptr<string> resourcePath);
+    static shared_ptr<FSGLModel> deserializeModel(shared_ptr<FSEGTSerializedModel> serializedModel);
     
 private:
 

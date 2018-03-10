@@ -24,6 +24,12 @@ FSGLResourceLoader::FSGLResourceLoader() {
 FSGLResourceLoader::FSGLResourceLoader(const FSGLResourceLoader& ) {
 }
 
+shared_ptr<FSGLModel> FSGLResourceLoader::deserializeModel(shared_ptr<FSEGTSerializedModel> serializedModel) {
+
+	return shared_ptr<FSGLModel>();
+
+}
+
 shared_ptr<FSGLResource> FSGLResourceLoader::loadResource(shared_ptr<string> resourcePath) {
     
     cout << "FSGLResourceLoader: " << resourcePath->c_str() << endl;

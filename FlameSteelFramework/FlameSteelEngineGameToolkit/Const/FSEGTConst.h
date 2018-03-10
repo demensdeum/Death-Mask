@@ -27,5 +27,6 @@ static const string FSEGTConstComponentsSpeed = "Speed";
 static const string FSEGTConstComponentsDeleted = "Deleted";
 static const string FSEGTConstComponentsText = "Text";
 static const string FSEGTConstComponentsModel = "3D Model";
+static const string FSEGTConstComponentsSerializedModel = "3D Serialized Model";
 
 #endif
