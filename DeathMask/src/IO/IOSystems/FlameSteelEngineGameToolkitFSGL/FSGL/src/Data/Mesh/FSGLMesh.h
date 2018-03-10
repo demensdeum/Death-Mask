@@ -48,7 +48,6 @@ public:
     
 	vector<shared_ptr<FSGLVertex> > verticesObjects;
 
-    vector<GLfloat> vertices;
     vector<GLushort> indices;
     
     GLushort* glIndices = NULL;
@@ -76,7 +75,7 @@ public:
     
     shared_ptr<FSGLBone> findBone(shared_ptr<string> boneName);
     
-	shared_ptr<FSGLVertex> vertexWithID(int index);
+    shared_ptr<FSGLVertex> vertexWithID(int index);
     
 };
 

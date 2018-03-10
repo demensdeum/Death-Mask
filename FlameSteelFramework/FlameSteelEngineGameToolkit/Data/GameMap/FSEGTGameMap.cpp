@@ -13,6 +13,8 @@
 
 #include "FSEGTGameMap.h"
 
+static const int FSEGTGameMapNoMapTile = -1;
+
 FSEGTGameMap::FSEGTGameMap() {
     
     width = FSEGTGameMapWidth;
@@ -27,6 +29,20 @@ shared_ptr<FSCObject> FSEGTGameMap::getTileAtXY(int tileX, int tileY) {
 
     auto tileIndex = this->getTileIndexAtXY(tileX, tileY);
     
+	if (tileIndex == FSEGTGameMapNoMapTile) {
+
+		return shared_ptr<FSCObject>();
+
+	}
+
+	unsigned int unsignedTileIndex = tileIndex;
+
+	if (unsignedTileIndex >= tiles.size()) {
+
+		return shared_ptr<FSCObject>();
+
+	}
+
     return tiles[tileIndex];
 
 }
@@ -39,6 +55,30 @@ void FSEGTGameMap::setTileAtXY(int tileIndex, int tileX, int tileY) {
 
 int FSEGTGameMap::getTileIndexAtXY(int tileX, int tileY) {
     
+	if (tileX < 0) {
+
+		return FSEGTGameMapNoMapTile;
+
+	}
+
+	if (tileX >= width) {
+
+		return FSEGTGameMapNoMapTile;
+
+	}
+
+	if (tileY < 0) {
+
+		return FSEGTGameMapNoMapTile;
+
+	}
+
+	if (tileY >= height) {
+
+		return FSEGTGameMapNoMapTile;
+
+	}
+
     return map[tileX][tileY];
     
 }

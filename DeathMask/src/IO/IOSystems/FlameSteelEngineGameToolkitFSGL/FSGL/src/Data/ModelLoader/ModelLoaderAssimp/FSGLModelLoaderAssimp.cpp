@@ -74,37 +74,7 @@ shared_ptr<FSGLModel> FSGLModelLoaderAssimp::loadModel(shared_ptr<string> modelP
                 }
 
 		auto convertedVertex = make_shared<FSGLVertex>(x, y, z, u, v);
-
 		convertedMesh->verticesObjects.push_back(convertedVertex);
-
-                convertedMesh->vertices.push_back(x);
-                convertedMesh->vertices.push_back(y);
-                convertedMesh->vertices.push_back(z);
-
-                convertedMesh->vertices.push_back(u);
-                convertedMesh->vertices.push_back(v);
-                
-                // unit matrix
-                
-                convertedMesh->vertices.push_back(1);
-                convertedMesh->vertices.push_back(0);
-                convertedMesh->vertices.push_back(0);
-                convertedMesh->vertices.push_back(0);
-                
-                convertedMesh->vertices.push_back(0);
-                convertedMesh->vertices.push_back(1);
-                convertedMesh->vertices.push_back(0);
-                convertedMesh->vertices.push_back(0);
-                
-                convertedMesh->vertices.push_back(0);
-                convertedMesh->vertices.push_back(0);
-                convertedMesh->vertices.push_back(1);
-                convertedMesh->vertices.push_back(0);
-                
-                convertedMesh->vertices.push_back(0);
-                convertedMesh->vertices.push_back(0);
-                convertedMesh->vertices.push_back(0);
-                convertedMesh->vertices.push_back(1);
 
             }
             

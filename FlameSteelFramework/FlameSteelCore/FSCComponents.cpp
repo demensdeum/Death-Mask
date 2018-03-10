@@ -22,7 +22,7 @@ void FSCComponents::addComponent(shared_ptr<FSCObject> component) {
         
         if (classIdentifier.get() == nullptr) {
             
-            cout << "FSCComponents: cannot add component - component instance identifier is nullptr. Quit.";
+            cout << "FSCComponents: cannot add component - component class identifier is nullptr. Quit.";
             
             exit(1);
         }

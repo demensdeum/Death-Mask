@@ -48,7 +48,7 @@ shared_ptr<FSGLSerializable> FSGLSerializable::deserializeFromFile(shared_ptr<st
     
 shared_ptr<string> FSGLSerializable::serializeIntoString() {
     
-	return make_shared<string>();
+	return shared_ptr<string>();
 
 }
 

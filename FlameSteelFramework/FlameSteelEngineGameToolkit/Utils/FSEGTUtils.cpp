@@ -91,12 +91,12 @@ shared_ptr<string> FSEGTUtils::getModelFilePathForObject(shared_ptr<FSCObject> o
 
     if (modelComponentSharedPointer == nullptr) {
 
-        return make_shared<string>();
+        return shared_ptr<string>();
     }
 
     if (modelComponent == nullptr) {
 
-        return make_shared<string>();
+        return shared_ptr<string>();
     }
 
     return modelComponent->modelFilePath;

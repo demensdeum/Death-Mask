@@ -60,7 +60,7 @@ shared_ptr<FSGLBone> FSGLMesh::findBone(shared_ptr<string> boneName) {
 
 void FSGLMesh::updateGlAnimationTransformation() {
 
-    for (unsigned int i = 0; i < vertices.size(); i += glVertexCount) {
+    for (unsigned int i = 0; i < verticesObjects.size() * glVertexCount; i += glVertexCount) {
 
 	auto vertexObject = verticesObjects[i / glVertexCount];
 
@@ -159,9 +159,11 @@ else
 
 void FSGLMesh::updateGlData() {
 
-    glVertices = new GLfloat[vertices.size() * glVertexCount];
+    glVertices = new GLfloat[verticesObjects.size() * glVertexCount];
 
-    for (unsigned int i = 0; i < vertices.size(); i += glVertexCount) {
+	cout << "verticesObjects.size() " << verticesObjects.size() << endl;
+
+    for (unsigned int i = 0; i < verticesObjects.size() * glVertexCount; i += glVertexCount) {
 
 	auto vertexObject = verticesObjects[i / glVertexCount];
 
@@ -204,7 +206,7 @@ void FSGLMesh::updateGlData() {
 
     }
 
-    glVerticesBufferSize = vertices.size() * sizeof (GLfloat);
+    glVerticesBufferSize = verticesObjects.size() * glVertexCount * sizeof (GLfloat);
     glIndicesBufferSize = indices.size() * sizeof (GLushort);
     glIndicesCount = indices.size();
 

@@ -13,17 +13,19 @@
 
 #include "DMMapGenerator.h"
 #include "DeathMask/src/Data/GameMap/DMGameMap.h"
-#include "FlameSteelEngineGameToolkit/Utils/FSEGTUtils.h"
 #include <DeathMask/src/Data/Components/GameplayProperties/DMGameplayProperties.h>
+#include <DeathMask/src/Data/Components/TileProperties/DMTileProperties.h>
+#include <DeathMask/src/Const/DMConstTypes.h>
+#include <DeathMask/src/Utils/DMUtils.h>
 
 #include <FlameSteelEngineGameToolkit/Controllers/FSEGTObjectsContext.h>
 #include <FlameSteelEngineGameToolkit/Data/Components/FSEGTFactory.h>
 #include <FlameSteelEngineGameToolkit/Data/FSEGTSimpleDirection.h>
+#include "FlameSteelEngineGameToolkit/Utils/FSEGTUtils.h"
 #include <FlameSteelCore/FSCUtils.h>
 #include <iostream>
 
 #include <DeathMask/src/Data/Components/DMFactory.h>
-#include <DeathMask/src/Data/Components/GameplayProperties/DMGameplayProperties.h>
 
 using namespace std;
 
@@ -194,8 +196,33 @@ shared_ptr<FSEGTGameMap> DMMapGenerator::generate(shared_ptr<DMMapGeneratorParam
        for (int x = 0; x < gameMap->height; x++) {
 
             auto tileIndex = gameMap->getTileIndexAtXY(x, y);
+		auto tile = gameMap->getTileAtXY(x, y);
 
-           cout << tileIndex;
+		if (tile.get() == nullptr) {
+
+			continue;
+
+		}
+
+		auto tileProperties = make_shared<DMTileProperties>();
+		tile->addComponent(tileProperties);
+
+		switch (tileIndex) {
+
+			case 0:
+				tileProperties->isFree = true;
+				break;
+
+			case 1:
+				tileProperties->isFree = false;
+				break;
+
+			default:
+				break;
+
+		}
+
+           cout << std::to_string(tileIndex);
         }
 
        cout << endl;

@@ -37,13 +37,13 @@ int DMGameMap::objectIdAtXY(int x, int y, int layer) {
         
     }
     
-    if (x >= this->width) {
+    if (x >= width) {
         
         return DMGameMapNoObjectId;
                 
     }
     
-    if (y >= this->height) {
+    if (y >= height) {
         
         return DMGameMapNoObjectId;
         

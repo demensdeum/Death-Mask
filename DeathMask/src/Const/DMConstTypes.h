@@ -1,0 +1,1 @@
+const string DMConstTypesTileProperties = "Death Mask Tile Properties";
