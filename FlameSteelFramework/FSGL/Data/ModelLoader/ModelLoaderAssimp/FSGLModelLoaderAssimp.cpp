@@ -34,8 +34,6 @@ shared_ptr<FSGLModel> FSGLModelLoaderAssimp::loadModel(shared_ptr<string> modelP
 
     auto model = make_shared<FSGLModel>();
 
-    model->path = modelPath;
-
     Assimp::Importer importer;
     auto scene = importer.ReadFile(modelPathString, aiProcessPreset_TargetRealtime_Fast);
 

@@ -6,10 +6,19 @@
 
 using namespace std;
 
+#define VERTEX_DEBUGGING 1
+
 FSGLVertex::FSGLVertex(float x, float y, float z, float u, float v) {
 
 	position = make_shared<FSGLVector>(x, y, z);
 	uvTextureCoordinates = make_shared<FSGLUVTextureCoordinates>(u , v);
+
+#if VERTEX_DEBUGGING
+
+	cout << "x = " << x << "; y = " << y << "; z = " << z << ";" << endl;  
+	cout << "u = " << u << "; v = " << v << ";" << endl;  
+
+#endif
 
 }
 

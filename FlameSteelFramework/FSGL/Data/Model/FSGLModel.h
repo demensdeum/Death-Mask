@@ -42,8 +42,6 @@ class FSGLModel: public FSGLResource, public FSGLSerializable {
 public:
     FSGLModel();
     virtual ~FSGLModel();
-  
-    shared_ptr<string> path;
     
     vector< shared_ptr<FSGLAnimation> > animations;
     vector< shared_ptr<FSGLMesh> > meshes;  

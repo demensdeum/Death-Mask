@@ -29,8 +29,6 @@ shared_ptr<string> FSGLModel::serializeIntoString() {
     
     stringstream serializedData;
     
-    serializedData << this->path->c_str();
-    
     auto stringContainer = make_shared<string>(serializedData.str());    
     
     return stringContainer;    

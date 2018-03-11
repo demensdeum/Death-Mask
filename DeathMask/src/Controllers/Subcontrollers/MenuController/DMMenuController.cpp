@@ -23,7 +23,7 @@ void DMMenuController::beforeStart() {
             make_shared<string>("scene object"),
             make_shared<string>("revil"),
             make_shared<string>(),
-            make_shared<string>("./data/graphics/models/maps/corruptedCity/corruptedCity"),
+            make_shared<string>("./data/graphics/models/maps/corruptedCity/corruptedCity2"),
 		0,0,0,
             1, 1, 1,
 		0,0,0,
