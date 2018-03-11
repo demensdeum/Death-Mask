@@ -136,7 +136,7 @@ shared_ptr<string> FSEGTUtils::platformPath(const char *relativePath) {
 
     if (getcwd(currentPath, sizeof (currentPath)) != nullptr) {
 
-        //printf("FSEGTUtils: Current path %s\n", currentPath);
+        printf("FSEGTUtils: Current path %s\n", currentPath);
 
     }
 
@@ -147,7 +147,7 @@ shared_ptr<string> FSEGTUtils::platformPath(const char *relativePath) {
 
     if (!realpath(relativePathBuffer, absolutePath)) {
 
-        cout << "FSEGTUtils: Cannot resolve path \"" << relativePath << "\" to realpath: " << strerror(errno) << endl;
+        cout << "FSEGTUtils: Cannot resolve path \"" << relativePathBuffer << "\" to realpath: " << strerror(errno) << endl;
 
         exit(1);
     }

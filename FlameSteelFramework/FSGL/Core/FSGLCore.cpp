@@ -215,6 +215,14 @@ void FSGLCore::render() {
 
         auto object = objects[i];
 
+	if (object.get() == nullptr) {
+
+		cout << "FSGLCore cannot render empty object" << endl;
+
+		exit(1);
+
+	}
+
         auto objectID = object->id;
         
         if (renderIDs.size() < 1 || renderIDs.find(objectID) != renderIDs.end()) {
@@ -295,7 +303,7 @@ void FSGLCore::renderObject(shared_ptr<FSGLObject> object) {
 
 	if (material == NULL) {
 
-            cout << "FSGLCore: cannot load material " << endl;
+            cout << "FSGLCore: cannot load material" << endl;
 
             exit(1);
 	}

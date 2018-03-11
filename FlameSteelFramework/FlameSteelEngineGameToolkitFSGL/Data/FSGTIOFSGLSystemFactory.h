@@ -16,7 +16,7 @@
 
 #include <memory>
 
-#include "../FSGL/src/Data/Object/FSGLObject.h"
+#include <FSGL/Data/Object/FSGLObject.h>
 
 #include <FlameSteelCore/FSCObject.h>
 

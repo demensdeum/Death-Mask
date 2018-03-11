@@ -13,7 +13,7 @@
 
 #include "FSGTIOFSGLSystemFactory.h"
 
-#include "../FSGL/src/Data/ResourcesLoader/FSGLResourceLoader.h"
+#include <FSGL/Data/ResourcesLoader/FSGLResourceLoader.h>
 
 #include <FlameSteelEngineGameToolkit/Utils/FSEGTUtils.h>
 #include <FlameSteelEngineGameToolkit/Data/Components/SerializedModel/FSEGTSerializedModel.h>

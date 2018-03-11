@@ -16,7 +16,7 @@ set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/${FSEGT_PROJECT_NAME})
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/${FSEGT_PROJECT_NAME})
 set(CMAKE_EXECUTABLE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/${FSEGT_PROJECT_NAME})
 
-include_directories(. FlameSteelFramework DeathMask/src/IO/IOSystems/FlameSteelEngineGameToolkitFSGL/3rdParty)
+include_directories(. FlameSteelFramework)
 
 file(GLOB_RECURSE SOURCE_FILES
     "FlameSteelFramework/*.cpp"

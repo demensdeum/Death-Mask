@@ -16,7 +16,7 @@
 
 #include <FlameSteelEngineGameToolkit/IO/Renderers/FSEGTRenderer.h>
 
-#include "../FSGL/src/Controller/FSGLController.h"
+#include <FSGL/Controller/FSGLController.h>
 
 class FSEGTIOFSGLSystemRenderer: public FSEGTRenderer {
 public:

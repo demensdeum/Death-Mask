@@ -25,7 +25,7 @@
 #include <DeathMask/src/Controllers/Subcontrollers/InGameController/DMInGameController.h>
 #include <DeathMask/src/Controllers/Subcontrollers/MenuController/DMMenuController.h>
 
-#include <DeathMask/src/IO/IOSystems/FlameSteelEngineGameToolkitFSGL/FSEGTIOFSGLSystem.h>
+#include <FlameSteelEngineGameToolkitFSGL/FSEGTIOFSGLSystem.h>
 
 DMGameController::DMGameController() {
     
