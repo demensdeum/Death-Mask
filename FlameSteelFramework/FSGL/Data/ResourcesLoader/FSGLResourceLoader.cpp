@@ -15,6 +15,7 @@
 
 #include "FSGLResourceLoader.h"
 #include "../ModelLoader/ModelLoaderAssimp/FSGLModelLoaderAssimp.h"
+#include "../ModelLoader/ModelLoaderFSGL/FSGLModelLoaderFSGL.h"
 
 #include "../../Utils/FSGLUtils.h"
 
@@ -51,6 +52,11 @@ shared_ptr<FSGLResource> FSGLResourceLoader::loadResource(shared_ptr<string> res
         return FSGLModelLoaderAssimp::loadModel(resourcePath);
         
     }
+	else if (extension->compare("fsglmodel") == 0) {
+
+		return FSGLModelLoaderFSGL::loadModel(resourcePath);
+
+	}
     else {
         
         cout << "FSGLResourceLoader: Could not load file: " << resourcePath->c_str() << endl;

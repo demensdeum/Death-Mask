@@ -6,6 +6,7 @@
 #include <thread>
 #include <FlameSteelEngineGameToolkit/Data/Components/FSEGTFactory.h>
 #include <FlameSteelEngineGameToolkit/Utils/FSEGTUtils.h>
+#include <FlameSteelEngineGameToolkitFSGL/Data/FSGTIOFSGLSystemFactory.h>
 
 void DMMenuController::beforeStart() {
 
@@ -23,7 +24,7 @@ void DMMenuController::beforeStart() {
             make_shared<string>("scene object"),
             make_shared<string>("revil"),
             make_shared<string>(),
-            make_shared<string>("./data/graphics/models/maps/corruptedCity/corruptedCity2"),
+            make_shared<string>("./data/graphics/models/maps/corruptedCity/corruptedCity2.fsglmodel"),
 		0,0,0,
             1, 1, 1,
 		0,0,0,
@@ -31,6 +32,10 @@ void DMMenuController::beforeStart() {
     
     objectsContext->addObject(cameraObject);      
     objectsContext->addObject(city);
+
+
+		//auto cityGraphicsObject = FSGTIOFSGLSystemFactory::graphicsObjectFrom(city);
+		//cout << cityGraphicsObject->model->serializeIntoString()->c_str() << endl;
 
 }
 

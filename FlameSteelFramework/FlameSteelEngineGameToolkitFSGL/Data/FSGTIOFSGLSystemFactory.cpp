@@ -37,7 +37,7 @@ shared_ptr<FSGLObject> FSGTIOFSGLSystemFactory::graphicsObjectFrom(shared_ptr<FS
 
 	    stringstream stream;
     
-	    stream << modelFilePath->c_str() << string(".obj");
+	    stream << modelFilePath->c_str();
     
 	    auto preparedModelFilePath = FSEGTUtils::platformPath(stream.str().c_str());
 
