@@ -46,9 +46,13 @@ shared_ptr<string> FSGLModel::serializeIntoString() {
 
 		}
 
-		for (auto index : mesh->indices) {
+		for (unsigned int i = 0; i < mesh->indices.size(); i += 3) {
 	
-			serializedData << "Index = " << index << endl;
+			auto indexA = mesh->indices[i + 0];
+			auto indexB = mesh->indices[i + 1];
+			auto indexC = mesh->indices[i + 2];
+
+			serializedData << "Index = " << indexA << ", " << indexB << ", " << indexC << endl;
 
 		}
 
@@ -111,7 +115,7 @@ std::istringstream f(serializedData->c_str());
 	}
 	else if (line.find("Index = ") != std::string::npos) {
 
-	    std::regex r("Index = (.*)");
+	    std::regex r("Index = (.*), (.*), (.*)");
 	    std::smatch m;
 	    std::regex_search(line, m, r);
 
@@ -121,9 +125,10 @@ std::istringstream f(serializedData->c_str());
 			exit(1);
 		}
 
-		auto index = stoi(m[1].str());
-		mesh->indices.push_back(index);
-
+		for (unsigned int i =1; i < 4; i++) {
+			auto index = stoi(m[i].str());
+			mesh->indices.push_back(index);
+		}
 	}
 	else if (line.find("Material - Texture path = ") != std::string::npos) {
 

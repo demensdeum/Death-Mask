@@ -104,7 +104,7 @@ shared_ptr<FSEGTGameMap> DMMapGenerator::generate(shared_ptr<DMMapGeneratorParam
     revilPosition->y = cursorY;
     revilPosition->z = 2;
 
-    objectsContext->addObject(revil);
+    //objectsContext->addObject(revil);
 
     DMMapGenerator::drawFreeTilesAtXY(gameMap, params, cursorX, cursorY);
 
@@ -186,7 +186,7 @@ shared_ptr<FSEGTGameMap> DMMapGenerator::generate(shared_ptr<DMMapGeneratorParam
     exitPosition->y = cursorY;
     exitPosition->z = 2;
 
-    objectsContext->addObject(exit);
+    //objectsContext->addObject(exit);
     gameMap->setObjectIdAtXY(exit->id, cursorX, cursorY, DMGameObjectsLayer);
 
     DMMapGenerator::drawFreeTilesAtXY(gameMap, params, cursorX, cursorY);

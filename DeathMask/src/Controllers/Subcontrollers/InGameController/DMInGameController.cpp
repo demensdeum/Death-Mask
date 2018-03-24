@@ -7,6 +7,8 @@
 #include <FlameSteelEngineGameToolkit/Utils/FSEGTUtils.h>
 #include <DeathMask/src/Algorithms/MapGenerator/DMMapGenerator.h>
 #include <FlameSteelFramework/FlameSteelCore/FSCUtils.h>
+#include <DeathMask/src/Algorithms/MazeObjectGenerator/DMMazeObjectGenerator.h>
+#include <DeathMask/src/Data/GameMap/DMGameMap.h>
 
 DMInGameController::DMInGameController() {
 
@@ -40,10 +42,28 @@ void DMInGameController::beforeStart() {
     mapGeneratorParams->maxCursorSize = 1 + FSCUtils::FSCRandomInt(6);
     mapGeneratorParams->maxLineLength = 6 + FSCUtils::FSCRandomInt(6);
 
-    gameData->gameMap = DMMapGenerator::generate(mapGeneratorParams, objectsContext);
+	auto gameMap = DMMapGenerator::generate(mapGeneratorParams, objectsContext);
+
+    gameData->gameMap = gameMap;
     
     objectsContext->addObject(cameraObject);      
     //objectsContext->addObject(city);
+
+    	      auto city = FSEGTFactory::makeOnSceneObject(
+            make_shared<string>("scene object"),
+            make_shared<string>("revil"),
+            make_shared<string>(),
+            make_shared<string>("./data/graphics/models/maps/corruptedCity/corruptedCity2.fsglmodel"),
+		0,0,0,
+            1, 1, 1,
+		0,0,0,
+            0);    
+
+		objectsContext->addObject(city);
+
+		auto castedGameMap = static_pointer_cast<DMGameMap>(gameMap);
+
+		DMMazeObjectGenerator::generate(castedGameMap);
 
 }
 

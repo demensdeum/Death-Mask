@@ -34,8 +34,8 @@ void DMMenuController::beforeStart() {
     objectsContext->addObject(city);
 
 
-		//auto cityGraphicsObject = FSGTIOFSGLSystemFactory::graphicsObjectFrom(city);
-		//cout << cityGraphicsObject->model->serializeIntoString()->c_str() << endl;
+		auto cityGraphicsObject = FSGTIOFSGLSystemFactory::graphicsObjectFrom(city);
+		cout << cityGraphicsObject->model->serializeIntoString()->c_str() << endl;
 
 }
 
