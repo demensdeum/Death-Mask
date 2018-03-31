@@ -22,6 +22,7 @@ void DMInGameController::beforeStart() {
             make_shared<string>("camera"),
             make_shared<string>(),
             make_shared<string>(),
+		make_shared<string>(),
             0, 0, 0,
             1, 1, 1,
             0, 0, 0,
@@ -46,11 +47,10 @@ void DMInGameController::beforeStart() {
 	auto gameMap = DMMapGenerator::generate(mapGeneratorParams, objectsContext);
 
     gameData->gameMap = gameMap;
-    
-    objectsContext->addObject(camera);      
+      
     //objectsContext->addObject(city);
 
-    	      auto city = FSEGTFactory::makeOnSceneObject(
+    	      /*auto city = FSEGTFactory::makeOnSceneObject(
             make_shared<string>("scene object"),
             make_shared<string>("revil"),
             make_shared<string>(),
@@ -58,17 +58,16 @@ void DMInGameController::beforeStart() {
 		0,0,0,
             1, 1, 1,
 		0,0,0,
-            0);    
-
-		objectsContext->addObject(city);
+            0);*/
 
 		auto castedGameMap = static_pointer_cast<DMGameMap>(gameMap);
+		auto city = DMMazeObjectGenerator::generate(castedGameMap);
 
-		DMMazeObjectGenerator::generate(castedGameMap);
+		objectsContext->addObject(camera);    
+		objectsContext->addObject(city);
 
 		freeCameraController = make_shared<FSEGTFreeCameraController>(ioSystem->inputController, camera);
 		freeCameraController->delegate = shared_from_this();
-
 }
 
 void DMInGameController::step() {

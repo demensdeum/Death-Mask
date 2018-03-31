@@ -8,16 +8,17 @@
 #include <FlameSteelEngineGameToolkit/Const/FSEGTConst.h>
 #include <FlameSteelEngineGameToolkit/Data/Components/FSEGTFactory.h>
 #include <FlameSteelEngineGameToolkit/Data/Components/Sprite/FSEGTSprite.h>
+#include <FlameSteelEngineGameToolkit/Data/Components/SerializedModel/FSEGTSerializedModel.h>
 
 FSEGTFactory::FSEGTFactory() {
     // TODO Auto-generated constructor stub
 
 }
 
-shared_ptr <FSEGTModel> FSEGTFactory::makeModelComponent(shared_ptr<string> modelFilePath) {
+shared_ptr <FSEGTModelReference> FSEGTFactory::makeModelReferenceComponent(shared_ptr<string> modelFilePath) {
 
 
-    auto component = make_shared<FSEGTModel>(modelFilePath);
+    auto component = make_shared<FSEGTModelReference>(modelFilePath);
 
     component->setClassIdentifier(make_shared<string>(FSEGTConstComponentsModel));
     component->setInstanceIdentifier(make_shared<string>(FSEGTConstComponentsModel));
@@ -30,6 +31,7 @@ shared_ptr <FSCObject> FSEGTFactory::makeOnSceneObject(
         shared_ptr<string> instanceIdentifier,
         shared_ptr<string> spriteFilePath,
         shared_ptr<string> modelFilePath,
+	  shared_ptr<string> serializedModel,
         float x, float y, float z,
         float width, float height, float depth,
         float rotationX, float rotationY, float rotationZ,
@@ -54,10 +56,17 @@ shared_ptr <FSCObject> FSEGTFactory::makeOnSceneObject(
     
     if (modelFilePath.get() != nullptr) {
         
-        auto modelComponent = FSEGTFactory::makeModelComponent(modelFilePath);
+        auto modelComponent = FSEGTFactory::makeModelReferenceComponent(modelFilePath);
         
         onSceneObject->addComponent(modelComponent);
     }
+
+   if (serializedModel.get() != nullptr) {
+
+		auto serializedModelComponent = FSEGTFactory::makeSerializedModelComponent(serializedModel);
+	    onSceneObject->addComponent(serializedModelComponent);
+
+	}
 
     onSceneObject->addComponent(FSEGTFactory::makePositionComponent(x, y, z));
     onSceneObject->addComponent(FSEGTFactory::makeScaleComponent(width, height, depth));
@@ -65,6 +74,13 @@ shared_ptr <FSCObject> FSEGTFactory::makeOnSceneObject(
     onSceneObject->addComponent(FSEGTFactory::makeRotationComponent(rotationX, rotationY, rotationZ));
 
     return onSceneObject;
+}
+
+shared_ptr<FSEGTSerializedModel> FSEGTFactory::makeSerializedModelComponent(shared_ptr<string> serializedModel) {
+
+	auto serializedModelComponent = make_shared<FSEGTSerializedModel>(serializedModel);
+	
+	return serializedModelComponent;
 }
 
 shared_ptr <FSEGTText> FSEGTFactory::makeTextComponent(shared_ptr<string> fontResourceIdentifier, shared_ptr<string> text) {

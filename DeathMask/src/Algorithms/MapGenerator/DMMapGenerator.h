@@ -26,9 +26,6 @@ public:
     static shared_ptr<FSEGTGameMap> generate(shared_ptr<DMMapGeneratorParams> params, shared_ptr<FSEGTObjectsContext> objectsContext);
 
 private:
-
-    static void rollDiceAndOnSuccessPutGameplayObjectIntoXY(int tileX, int tileY, int chance, shared_ptr<FSEGTObjectsContext> objectsContext, shared_ptr<DMGameMap> gameMap);
-    static void putGameplayObjectIntoXY(int tileX, int tileY, shared_ptr<FSEGTObjectsContext> objectsContext, shared_ptr<DMGameMap> gameMap);
     static void drawFreeTilesAtXY(shared_ptr<FSEGTGameMap> gameMap, shared_ptr<DMMapGeneratorParams> params, int cursorX, int cursorY);
 };
 

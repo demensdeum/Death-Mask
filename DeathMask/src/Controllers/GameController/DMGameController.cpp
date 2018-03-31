@@ -23,7 +23,6 @@
 #include <DeathMask/src/Const/DMConstIOSystem.h>
 
 #include <DeathMask/src/Controllers/Subcontrollers/InGameController/DMInGameController.h>
-#include <DeathMask/src/Controllers/Subcontrollers/MenuController/DMMenuController.h>
 
 #include <FlameSteelEngineGameToolkitFSGL/FSEGTIOFSGLSystem.h>
 
@@ -45,9 +44,6 @@ DMGameController::DMGameController() {
         
     auto inGameController = make_shared<DMInGameController>();
     this->setControllerForState(inGameController, DMStateInGame);
-    
-    auto menuController = make_shared<DMMenuController>();
-    this->setControllerForState(menuController, DMStateMenu);
 }
 
 shared_ptr<FSEGTIOSystem> DMGameController::makeIOSystem() {

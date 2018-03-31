@@ -8,7 +8,7 @@ class FSEGTSerializedModel: public FSCObject {
 
 public:
 
-	FSEGTSerializedModel();
+	FSEGTSerializedModel(shared_ptr<string> serializedModel);
 
 	shared_ptr<string> serializedModel;
 

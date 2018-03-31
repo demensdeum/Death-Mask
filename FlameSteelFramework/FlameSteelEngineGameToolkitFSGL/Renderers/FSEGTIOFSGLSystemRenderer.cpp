@@ -41,6 +41,14 @@ void FSEGTIOFSGLSystemRenderer::objectsContextObjectAdded(shared_ptr<FSEGTObject
 
     //cout << "FSEGTIOFSGLSystemRenderer: object add - " << object->getInstanceIdentifier()->c_str() << endl;
 
+	if (object->getClassIdentifier().get() == nullptr) {
+
+		cout << "FSEGTIOFSGLSystemRenderer: empty name for added object - exit" << endl;
+
+		exit(1);
+	
+	}
+
     if (object->getClassIdentifier()->compare("scene object") == 0) {
 
         auto graphicsObject = FSGTIOFSGLSystemFactory::graphicsObjectFrom(object);

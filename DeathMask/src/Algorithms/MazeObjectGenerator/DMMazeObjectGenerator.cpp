@@ -25,8 +25,6 @@ shared_ptr<FSCObject> DMMazeObjectGenerator::generate(shared_ptr<DMGameMap> game
 		cout << endl;
 	}
 
-	auto model = make_shared<FSEGTSerializedModel>();
-
 	return object;
 
 }

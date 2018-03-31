@@ -18,11 +18,11 @@
 
 #include <string>
 
-class FSEGTModel: public FSCObject {
+class FSEGTModelReference: public FSCObject {
 public:
-    FSEGTModel(shared_ptr<string> modelFilePath);
-    FSEGTModel(const FSEGTModel& orig);
-    virtual ~FSEGTModel();
+    FSEGTModelReference(shared_ptr<string> modelFilePath);
+    FSEGTModelReference(const FSEGTModelReference& orig);
+    virtual ~FSEGTModelReference();
     
     shared_ptr<string> modelFilePath; 
     

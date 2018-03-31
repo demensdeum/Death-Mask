@@ -19,13 +19,10 @@
 #include <DeathMask/src/Utils/DMUtils.h>
 
 #include <FlameSteelEngineGameToolkit/Controllers/FSEGTObjectsContext.h>
-#include <FlameSteelEngineGameToolkit/Data/Components/FSEGTFactory.h>
 #include <FlameSteelEngineGameToolkit/Data/FSEGTSimpleDirection.h>
 #include "FlameSteelEngineGameToolkit/Utils/FSEGTUtils.h"
 #include <FlameSteelCore/FSCUtils.h>
 #include <iostream>
-
-#include <DeathMask/src/Data/Components/DMFactory.h>
 
 using namespace std;
 
@@ -97,15 +94,6 @@ shared_ptr<FSEGTGameMap> DMMapGenerator::generate(shared_ptr<DMMapGeneratorParam
 
     objectsContext->removeAllObjects();
 
-    auto revil = DMFactory::makeRevilObject();
-
-    auto revilPosition = FSEGTUtils::getObjectPosition(revil);
-    revilPosition->x = cursorX;
-    revilPosition->y = cursorY;
-    revilPosition->z = 2;
-
-    //objectsContext->addObject(revil);
-
     DMMapGenerator::drawFreeTilesAtXY(gameMap, params, cursorX, cursorY);
 
     for (auto x = 0; x < maxIterations; x++) {
@@ -115,30 +103,7 @@ shared_ptr<FSEGTGameMap> DMMapGenerator::generate(shared_ptr<DMMapGeneratorParam
 
         for (auto y = 0; y < cursorSteps; y++) {
 
-            rollDiceAndOnSuccessPutGameplayObjectIntoXY(cursorX, cursorY, gameplayObjectRespawnChance, objectsContext, gameMap);
-
             DMMapGenerator::drawFreeTilesAtXY(gameMap, params, cursorX, cursorY);
-
-//            if (isMaskOnMap == false) {
-//
-//                if (FSCUtils::FSCRandomInt(10) == 4) {
-//
-//                    isMaskOnMap = true;
-//
-//                    auto mask = DMFactory::makeMaskObject();
-//
-//                    auto maskPosition = FSEGTUtils::getObjectPosition(mask);
-//                    maskPosition->x = cursorX;
-//                    maskPosition->y = cursorY;
-//                    maskPosition->z = 2;
-//
-//                    objectsContext->addObject(mask);
-//
-//                    gameMap->setObjectIdAtXY(mask->id, cursorX, cursorY, DMGameObjectsLayer);
-//
-//                }
-//
-//            }
 
             switch (cursorDirection) {
 
@@ -176,18 +141,6 @@ shared_ptr<FSEGTGameMap> DMMapGenerator::generate(shared_ptr<DMMapGeneratorParam
             }
         }
     }
-
-    // put exit
-
-    auto exit = DMFactory::makeExitObject();
-    
-    auto exitPosition = FSEGTUtils::getObjectPosition(exit);
-    exitPosition->x = cursorX;
-    exitPosition->y = cursorY;
-    exitPosition->z = 2;
-
-    //objectsContext->addObject(exit);
-    gameMap->setObjectIdAtXY(exit->id, cursorX, cursorY, DMGameObjectsLayer);
 
     DMMapGenerator::drawFreeTilesAtXY(gameMap, params, cursorX, cursorY);
 
@@ -265,31 +218,6 @@ void DMMapGenerator::drawFreeTilesAtXY(shared_ptr<FSEGTGameMap> gameMap, shared_
 
     gameMap->setTileAtXY(freeTileIndex, cursorX, cursorY);
 
-}
-
-void DMMapGenerator::rollDiceAndOnSuccessPutGameplayObjectIntoXY(int tileX, int tileY, int gameplayObjectRespawnChance, shared_ptr<FSEGTObjectsContext> objectsContext, shared_ptr<DMGameMap> gameMap) {
-
-    return;
-    
-    if (FSCUtils::FSCRandomInt(gameplayObjectRespawnChance) == 0) {
-
-        DMMapGenerator::putGameplayObjectIntoXY(tileX, tileY, objectsContext, gameMap);
-
-    }
-}
-
-void DMMapGenerator::putGameplayObjectIntoXY(int tileX, int tileY, shared_ptr<FSEGTObjectsContext> objectsContext, shared_ptr<DMGameMap> gameMap) {
-
-    auto crate = DMFactory::makeCrate();
-    
-    auto cratePosition = FSEGTUtils::getObjectPosition(crate);
-    cratePosition->x = tileX;
-    cratePosition->y = tileY;
-    cratePosition->z = 2;    
-
-    gameMap->setObjectIdAtXY(crate->id, tileX, tileY, DMGameObjectsLayer);
-
-    objectsContext->addObject(crate);
 }
 
 DMMapGenerator::~DMMapGenerator() {

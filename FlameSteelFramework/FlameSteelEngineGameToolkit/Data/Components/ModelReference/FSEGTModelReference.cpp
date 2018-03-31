@@ -11,15 +11,15 @@
  * Created on April 19, 2017, 10:59 PM
  */
 
-#include "FSEGTModel.h"
+#include "FSEGTModelReference.h"
 
-FSEGTModel::FSEGTModel(shared_ptr<string> modelFilePath) {
+FSEGTModelReference::FSEGTModelReference(shared_ptr<string> modelFilePath) {
     
     this->modelFilePath = modelFilePath;
 }
 
-FSEGTModel::FSEGTModel(const FSEGTModel& ) {
+FSEGTModelReference::FSEGTModelReference(const FSEGTModelReference& ) {
 }
 
-FSEGTModel::~FSEGTModel() {
+FSEGTModelReference::~FSEGTModelReference() {
 }

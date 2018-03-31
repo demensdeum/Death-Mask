@@ -23,7 +23,7 @@
 #include <FlameSteelEngineGameToolkit/Data/Components/FSEGTFactory.h>
 #include <FlameSteelEngineGameToolkit/Data/Components/Vector/FSEGTVector.h>
 #include <FlameSteelEngineGameToolkit/Data/Components/Sprite/FSEGTSprite.h>
-#include <FlameSteelEngineGameToolkit/Data/Components/Model/FSEGTModel.h>
+#include <FlameSteelEngineGameToolkit/Data/Components/ModelReference/FSEGTModelReference.h>
 #include <FlameSteelEngineGameToolkit/Data/Components/SerializedModel/FSEGTSerializedModel.h>
 
 using namespace std;
@@ -96,7 +96,7 @@ shared_ptr<string> FSEGTUtils::getModelFilePathForObject(shared_ptr<FSCObject> o
 
     auto modelComponentSharedPointer = object->getComponent(make_shared<string>(FSEGTConstComponentsModel));
 
-    auto modelComponent = (FSEGTModel*) modelComponentSharedPointer.get();
+    auto modelComponent = (FSEGTModelReference*) modelComponentSharedPointer.get();
 
     if (modelComponentSharedPointer == nullptr) {
 
