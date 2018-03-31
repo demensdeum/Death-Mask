@@ -32,3 +32,5 @@ CMakeFiles/*
 CmakeCache.txt
 DeathMask/DeathMask
 Makefile
+/CMakeCache.txt
+/cmake_install.cmake

@@ -3,7 +3,11 @@
 
 #include <FlameSteelEngineGameToolkit/Controllers/FSEGTController.h>
 
-class DMInGameController: public FSEGTController {
+#include <FlameSteelEngineGameToolkit/Controllers/FreeCameraController/FSEGTFreeCameraControllerDelegate.h>
+
+class FSEGTFreeCameraController;
+
+class DMInGameController: public FSEGTController, public FSEGTFreeCameraControllerDelegate, public enable_shared_from_this<DMInGameController> {
 
 public:
 	DMInGameController();
@@ -11,7 +15,11 @@ public:
     virtual void beforeStart();    
 	virtual void step();
 
+	virtual void freeCameraControllerDidUpdateCamera(shared_ptr<FSEGTFreeCameraController> freeCameraController, shared_ptr<FSCObject> camera);
+
 private:
 	shared_ptr<FSCObject> dungeon;
+	shared_ptr<FSEGTFreeCameraController> freeCameraController;
+	shared_ptr<FSCObject> camera;
 };
 #endif

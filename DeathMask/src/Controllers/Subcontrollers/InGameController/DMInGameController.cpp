@@ -9,6 +9,7 @@
 #include <FlameSteelFramework/FlameSteelCore/FSCUtils.h>
 #include <DeathMask/src/Algorithms/MazeObjectGenerator/DMMazeObjectGenerator.h>
 #include <DeathMask/src/Data/GameMap/DMGameMap.h>
+#include <FlameSteelEngineGameToolkit/Controllers/FreeCameraController/FSEGTFreeCameraController.h>
 
 DMInGameController::DMInGameController() {
 
@@ -16,7 +17,7 @@ DMInGameController::DMInGameController() {
 
 void DMInGameController::beforeStart() {
 
-	    auto cameraObject = FSEGTFactory::makeOnSceneObject(
+	    camera = FSEGTFactory::makeOnSceneObject(
             make_shared<string>("camera"),
             make_shared<string>("camera"),
             make_shared<string>(),
@@ -46,7 +47,7 @@ void DMInGameController::beforeStart() {
 
     gameData->gameMap = gameMap;
     
-    objectsContext->addObject(cameraObject);      
+    objectsContext->addObject(camera);      
     //objectsContext->addObject(city);
 
     	      auto city = FSEGTFactory::makeOnSceneObject(
@@ -65,27 +66,35 @@ void DMInGameController::beforeStart() {
 
 		DMMazeObjectGenerator::generate(castedGameMap);
 
+		freeCameraController = make_shared<FSEGTFreeCameraController>(ioSystem->inputController, camera);
+		freeCameraController->delegate = shared_from_this();
+
 }
 
 void DMInGameController::step() {
 
-	for(auto i = 0; i < 100; i++)
-	{
-		renderer->render(this->gameData);
-		std::this_thread::sleep_for(0.01s);
+	auto inputController = ioSystem->inputController;
 
-        ioSystem->inputController->pollKey();
+	renderer->render(gameData);
+	std::this_thread::sleep_for(0.01s);
 
-        if (ioSystem->inputController->isExitKeyPressed()) {
+      	inputController->pollKey();
+
+	if (inputController->isExitKeyPressed()) {
 
 		cout << "Bye-Bye!" << endl;
 		exit(0);
 
-		}
-      }
-  
-	cout << "Corrupted City Ended" << endl;
+	}
+	else {
 
-	exit(0);
+		freeCameraController->step();
 
-};
+	}
+}
+
+void DMInGameController::freeCameraControllerDidUpdateCamera(shared_ptr<FSEGTFreeCameraController> freeCameraController, shared_ptr<FSCObject> camera) {
+
+	objectsContext->updateObject(camera);
+
+}
