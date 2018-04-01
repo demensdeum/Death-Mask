@@ -13,8 +13,6 @@ FSEGTFreeCameraController::FSEGTFreeCameraController(shared_ptr<FSEGTInputContro
 
 void FSEGTFreeCameraController::step() {
 
-	cout << "step" << endl;
-
 	auto cameraPosition = FSEGTUtils::getObjectPosition(camera);
 
 	auto step = 0.4;
