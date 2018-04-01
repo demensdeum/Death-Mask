@@ -10,11 +10,6 @@
 #include <FlameSteelEngineGameToolkit/Data/Components/Sprite/FSEGTSprite.h>
 #include <FlameSteelEngineGameToolkit/Data/Components/SerializedModel/FSEGTSerializedModel.h>
 
-FSEGTFactory::FSEGTFactory() {
-    // TODO Auto-generated constructor stub
-
-}
-
 shared_ptr <FSEGTModelReference> FSEGTFactory::makeModelReferenceComponent(shared_ptr<string> modelFilePath) {
 
 
@@ -154,8 +149,3 @@ shared_ptr <FSEGTSprite> FSEGTFactory::makeSpriteComponent(shared_ptr<string> sp
 
     return sprite;
 }
-
-FSEGTFactory::~FSEGTFactory() {
-    // TODO Auto-generated destructor stub
-}
-

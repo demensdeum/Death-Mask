@@ -23,7 +23,6 @@ using namespace std;
 
 class FSEGTFactory: public FSCObject {
 public:
-	FSEGTFactory();
 
         // object
         
@@ -44,10 +43,6 @@ public:
                                         float rotationZ,
                                         int speed                 
                                       );
-        
-	// wide used objects
-
-	static shared_ptr<FSCObject> makeFog(int color);
 
         // components
         
@@ -59,8 +54,6 @@ public:
         static shared_ptr <FSEGTModelReference>  makeModelReferenceComponent(shared_ptr<string> modelFilePath);
         static shared_ptr <FSEGTVector> makeScaleComponent(float width, float height, float depth);
 	static shared_ptr<FSEGTSerializedModel> makeSerializedModelComponent(shared_ptr<string> serializedModel);
-        
-	virtual ~FSEGTFactory();
 };
 
 #endif /* DATA_COMPONENTS_FSEGTCOMPONENTSGENERATOR_H_ */

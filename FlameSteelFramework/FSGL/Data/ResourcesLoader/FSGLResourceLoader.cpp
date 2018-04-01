@@ -16,6 +16,7 @@
 #include "FSGLResourceLoader.h"
 #include "../ModelLoader/ModelLoaderAssimp/FSGLModelLoaderAssimp.h"
 #include "../ModelLoader/ModelLoaderFSGL/FSGLModelLoaderFSGL.h"
+#include <FlameSteelEngineGameToolkit/Data/Components/SerializedModel/FSEGTSerializedModel.h>
 
 #include "../../Utils/FSGLUtils.h"
 
@@ -27,7 +28,9 @@ FSGLResourceLoader::FSGLResourceLoader(const FSGLResourceLoader& ) {
 
 shared_ptr<FSGLModel> FSGLResourceLoader::deserializeModel(shared_ptr<FSEGTSerializedModel> serializedModel) {
 
-	return shared_ptr<FSGLModel>();
+	auto model = make_shared<FSGLModel>()->deserializeFromString(serializedModel->serializedModel);
+
+	return static_pointer_cast<FSGLModel>(model);
 
 }
 

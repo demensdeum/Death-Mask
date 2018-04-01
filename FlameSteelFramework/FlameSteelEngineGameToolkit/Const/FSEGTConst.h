@@ -1,5 +1,5 @@
 #ifndef FSEGTConst_defined
-#define FSEGTConst_defined 1
+#define FSEGTConst_defined
 
 #include <string>
 using namespace std;

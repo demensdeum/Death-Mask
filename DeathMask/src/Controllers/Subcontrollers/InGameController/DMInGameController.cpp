@@ -47,14 +47,13 @@ void DMInGameController::beforeStart() {
 	auto gameMap = DMMapGenerator::generate(mapGeneratorParams, objectsContext);
 
     gameData->gameMap = gameMap;
-      
-    //objectsContext->addObject(city);
 
     	      /*auto city = FSEGTFactory::makeOnSceneObject(
             make_shared<string>("scene object"),
             make_shared<string>("revil"),
-            make_shared<string>(),
-            make_shared<string>("./data/graphics/models/maps/corruptedCity/corruptedCity2.fsglmodel"),
+            shared_ptr<string>(),
+            shared_ptr<string>(),
+		make_shared<string>("Flame Steel Graphics Library Model @ Demens Deum\nModel version = Happy Sasquatch (1.0)\nMesh\nVertex - x = 0, y = -0.2, z = 0, u = 0, v = 1\nVertex - x = 1, y = -0.2, z = 0, u = 1, v = 1\nVertex - x = 1, y = -0.2, z = -1, u = 1, v = 0\nVertex - x = 0, y = -0.2, z = -1, u = 0, v = 0\nIndex = 0, 1, 2\nIndex = 3, 0, 2\nMaterial - Texture path = /home/demensdeum/Sources/Death-Mask/DeathMask/data/graphics/models/maps/corruptedCity/skytexture.bmp"),
 		0,0,0,
             1, 1, 1,
 		0,0,0,

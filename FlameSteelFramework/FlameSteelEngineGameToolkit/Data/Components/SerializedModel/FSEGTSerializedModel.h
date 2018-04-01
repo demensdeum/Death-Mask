@@ -1,8 +1,7 @@
-#ifndef FSEGTSERIALIZEDMODEL
-#define FSEGTSERIALZEDMODEL
+#ifndef FSEGTSERIALIZEDMODELDEFINED
+#define FSEGTSERIALIZEDMODELDEFINED
 
 #include <FlameSteelCore/FSCObject.h>
-#include <DeathMask/src/Const/DMConstTypes.h>
 
 class FSEGTSerializedModel: public FSCObject {
 
