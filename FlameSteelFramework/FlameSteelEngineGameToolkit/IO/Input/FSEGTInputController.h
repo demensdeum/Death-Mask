@@ -21,6 +21,9 @@ public:
 	virtual bool isUpKeyPressed();
 	virtual bool isDownKeyPressed();
 
+	virtual bool isRotateLeftKeyPressed();
+	virtual bool isRotateRightKeyPressed();
+
 	virtual bool isShootKeyPressed();
 	virtual bool isExitKeyPressed();
 
@@ -54,8 +57,8 @@ public:
 
 	bool shootKeyPressed;
 
-	bool rotateLeftPressed;
-	bool rotateRightPressed;
+	bool rotateLeftKeyPressed;
+	bool rotateRightKeyPressed;
 
 	bool generateMapPressed;
 };

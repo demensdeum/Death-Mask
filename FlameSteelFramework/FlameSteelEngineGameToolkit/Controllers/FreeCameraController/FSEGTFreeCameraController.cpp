@@ -42,6 +42,18 @@ void FSEGTFreeCameraController::step() {
 		cameraPosition->y += 0.01;
 	}
 
+	auto cameraRotation = FSEGTUtils::getObjectRotation(camera);
+
+	if (inputController->isRotateLeftKeyPressed())
+	{
+		cameraRotation->y -= step;
+	}
+
+	if (inputController->isRotateRightKeyPressed())
+	{
+		cameraRotation->y += step;
+	}
+
 	auto delegateObject = delegate.lock();
 
 	if (delegateObject.get() != nullptr) {

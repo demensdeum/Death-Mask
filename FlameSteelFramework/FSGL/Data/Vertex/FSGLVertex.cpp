@@ -6,7 +6,7 @@
 
 using namespace std;
 
-#define VERTEX_DEBUGGING 1
+#define VERTEX_DEBUGGING 0
 
 FSGLVertex::FSGLVertex(float x, float y, float z, float u, float v) {
 

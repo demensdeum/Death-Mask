@@ -42,6 +42,15 @@ void FSEGTIOFSGLInputController::pollKey() {
 
             case SDL_KEYDOWN:
                 switch (event.key.keysym.sym) {
+
+			case SDLK_RSHIFT:
+				this->rotateRightKeyPressed = true;
+				break;
+
+			case SDLK_LSHIFT:
+				this->rotateLeftKeyPressed = true;
+				break;
+
                     case SDLK_LEFT:
                         this->leftKeyPressed = true;
                         break;
@@ -73,6 +82,15 @@ void FSEGTIOFSGLInputController::pollKey() {
 
             case SDL_KEYUP:
                 switch (event.key.keysym.sym) {
+
+			case SDLK_RSHIFT:
+				this->rotateRightKeyPressed = false;
+				break;
+
+			case SDLK_LSHIFT:
+				this->rotateLeftKeyPressed = false;
+				break;
+
                     case SDLK_LEFT:
                         this->leftKeyPressed = false;
                         break;
