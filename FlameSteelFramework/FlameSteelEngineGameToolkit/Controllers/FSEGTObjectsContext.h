@@ -35,7 +35,7 @@ public:
     void removeObject(shared_ptr<FSCObject> object);
     
     void subscribe(shared_ptr<FSEGTObjectContextDelegate> delegate);
-    void ubsubscribe(shared_ptr<FSEGTObjectContextDelegate> delegate);
+    void unsubscribe(shared_ptr<FSEGTObjectContextDelegate> delegate);
     
 private:
 

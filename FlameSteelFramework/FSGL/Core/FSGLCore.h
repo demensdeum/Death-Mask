@@ -65,7 +65,7 @@ public:
     void cleanRenderIDs();
     
 private:
-    
+
     void renderObject(shared_ptr<FSGLObject> object);
     
     GLint common_get_shader_program(const char *vertex_shader_source, const char *fragment_shader_source);

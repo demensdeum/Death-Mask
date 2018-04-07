@@ -52,8 +52,6 @@ shared_ptr<FSEGTGameMap> DMMapGenerator::generate(shared_ptr<DMMapGeneratorParam
     auto maxIterations = params->maxIterations;
     auto maxLineLength = params->maxLineLength;
 
-    auto gameplayObjectRespawnChance = params->gameplayObjectRespawnChance;
-
     for (auto tile : params->tiles) {
         
         gameMap->addTile(tile);

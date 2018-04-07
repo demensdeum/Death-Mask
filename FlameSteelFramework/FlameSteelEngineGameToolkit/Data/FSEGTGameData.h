@@ -24,9 +24,6 @@ public:
 
 	shared_ptr<FSCObjects> getGameObjects();
 
-	unsigned int getUIObjectsSize();
-	shared_ptr<FSCObject> getUIObjectAtIndex(unsigned int index);
-
         shared_ptr<FSEGTGameMap> gameMap;
         
 private:

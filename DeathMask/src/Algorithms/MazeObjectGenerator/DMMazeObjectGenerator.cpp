@@ -66,7 +66,7 @@ shared_ptr<FSCObject> DMMazeObjectGenerator::generate(shared_ptr<DMGameMap> game
 		cout << endl;
 	}
 
-	serializedMaze->append(string("\nMaterial - Texture path = /home/demensdeum/Sources/Death-Mask/DeathMask/data/graphics/models/maps/corruptedCity/blockTexture.bmp"));
+	serializedMaze->append(string("\nMaterial - Texture path = /home/demensdeum/Sources/Death-Mask/DeathMask/data/com.demensdeum.testenvironment.blocktextue.bmp"));
 
 auto maze = FSEGTFactory::makeOnSceneObject(
             make_shared<string>("scene object"),

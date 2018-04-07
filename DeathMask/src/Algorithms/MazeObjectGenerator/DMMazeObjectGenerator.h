@@ -1,3 +1,6 @@
+#ifndef DMMAZEOBJECTGENERATORDEFINED
+#define DMMAZEOBJECTGENERATORDEFINED
+
 #include <memory>
 
 using namespace std;
@@ -20,3 +23,5 @@ private:
 	static void putDotAtXYZ(shared_ptr<string> serializedMaze, int x, int y, int z, int u, int v);
 
 };
+
+#endif
