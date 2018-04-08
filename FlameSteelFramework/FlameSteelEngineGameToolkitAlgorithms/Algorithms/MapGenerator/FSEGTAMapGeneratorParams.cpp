@@ -11,9 +11,9 @@
  * Created on April 25, 2017, 10:34 AM
  */
 
-#include "DMMapGeneratorParams.h"
+#include "FSEGTAMapGeneratorParams.h"
 
-DMMapGeneratorParams::DMMapGeneratorParams() {
+FSEGTAMapGeneratorParams::FSEGTAMapGeneratorParams() {
     
     freeTileIndex = 0;
     solidTileIndex = 0;
@@ -25,12 +25,6 @@ DMMapGeneratorParams::DMMapGeneratorParams() {
     maxCursorSize = 0;
     
     minFreeSpace = 0;
-    maxFreeSpace = 0;
+    maxFreeSpace = 0; 
     
-    difficulty = 0;
-    gameplayObjectRespawnChance = 0;    
-    
-}
-
-DMMapGeneratorParams::~DMMapGeneratorParams() {
 }

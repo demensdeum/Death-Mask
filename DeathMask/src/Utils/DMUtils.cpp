@@ -35,21 +35,6 @@ void DMUtils::incrementHungerForObject(shared_ptr<FSCObject> object) {
     
 }
 
-shared_ptr<DMTileProperties> DMUtils::getTileProperties(shared_ptr<FSCObject> tile) {
-
-	if (tile.get() == nullptr) {
-
-		return shared_ptr<DMTileProperties>();
-
-	}
-
-	auto tileProperties = tile->getComponent(make_shared<string>(DMConstTypesTileProperties));
-
-	auto castedTileProperties = static_pointer_cast<DMTileProperties>(tileProperties);
-
-	return castedTileProperties;
-}
-
 void DMUtils::decrementHealthIfNeeded(shared_ptr<FSCObject> object) {
     
     auto gameplayProperties = DMUtils::getGameplayProperties(object);

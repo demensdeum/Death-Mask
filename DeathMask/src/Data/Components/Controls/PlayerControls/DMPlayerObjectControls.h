@@ -20,7 +20,7 @@
 
 #include <FlameSteelEngineGameToolkit/Data/Components/Vector/FSEGTVector.h>
 
-#include <FlameSteelFramework/FlameSteelEngineGameToolkit/Data/GameMap/FSEGTGameMap.h>
+#include <FlameSteelFramework/FlameSteelEngineGameToolkit/Data/Components/GameMap/FSEGTGameMap.h>
 
 #include <memory>
 

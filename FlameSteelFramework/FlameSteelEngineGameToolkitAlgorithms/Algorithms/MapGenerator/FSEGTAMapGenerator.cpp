@@ -11,25 +11,19 @@
  * Created on April 25, 2017, 10:33 AM
  */
 
-#include "DMMapGenerator.h"
-#include "DeathMask/src/Data/GameMap/DMGameMap.h"
-#include <DeathMask/src/Data/Components/GameplayProperties/DMGameplayProperties.h>
-#include <DeathMask/src/Data/Components/TileProperties/DMTileProperties.h>
-#include <DeathMask/src/Const/DMConstTypes.h>
-#include <DeathMask/src/Utils/DMUtils.h>
+#include "FSEGTAMapGenerator.h"
+#include "FSEGTAMapGeneratorParams.h"
 
 #include <FlameSteelEngineGameToolkit/Controllers/FSEGTObjectsContext.h>
 #include <FlameSteelEngineGameToolkit/Data/FSEGTSimpleDirection.h>
-#include "FlameSteelEngineGameToolkit/Utils/FSEGTUtils.h"
+#include <FlameSteelEngineGameToolkit/Data/Components/GameMap/FSEGTGameMap.h>
+#include <FlameSteelEngineGameToolkit/Utils/FSEGTUtils.h>
 #include <FlameSteelCore/FSCUtils.h>
 #include <iostream>
 
 using namespace std;
 
-DMMapGenerator::DMMapGenerator() {
-}
-
-shared_ptr<FSEGTGameMap> DMMapGenerator::generate(shared_ptr<DMMapGeneratorParams> params, shared_ptr<FSEGTObjectsContext> objectsContext) {
+shared_ptr<FSEGTGameMap> FSEGTAMapGenerator::generate(shared_ptr<FSEGTAMapGeneratorParams> params, shared_ptr<FSEGTObjectsContext> objectsContext) {
 
 	if (params.get() == nullptr) {
 
@@ -45,7 +39,7 @@ shared_ptr<FSEGTGameMap> DMMapGenerator::generate(shared_ptr<DMMapGeneratorParam
 		exit(1);
 	}
 
-	auto gameMap = make_shared<DMGameMap>();
+	auto gameMap = make_shared<FSEGTGameMap>();
 
     auto solidTileIndex = params->solidTileIndex;
 
@@ -62,12 +56,8 @@ shared_ptr<FSEGTGameMap> DMMapGenerator::generate(shared_ptr<DMMapGeneratorParam
 
         for (int y = 0; y < gameMap->height; y++) {
 
-            for (auto layer = 0; layer < DMGameMapMaxLayers; layer++) {
-                
                 gameMap->setTileAtXY(solidTileIndex, x, y);
-                gameMap->removeObjectIdAtXY(x, y, layer);
-                
-            }
+
         }
     }
 
@@ -92,7 +82,7 @@ shared_ptr<FSEGTGameMap> DMMapGenerator::generate(shared_ptr<DMMapGeneratorParam
 
     objectsContext->removeAllObjects();
 
-    DMMapGenerator::drawFreeTilesAtXY(gameMap, params, cursorX, cursorY);
+    FSEGTAMapGenerator::drawFreeTilesAtXY(gameMap, params, cursorX, cursorY);
 
     for (auto x = 0; x < maxIterations; x++) {
 
@@ -101,7 +91,7 @@ shared_ptr<FSEGTGameMap> DMMapGenerator::generate(shared_ptr<DMMapGeneratorParam
 
         for (auto y = 0; y < cursorSteps; y++) {
 
-            DMMapGenerator::drawFreeTilesAtXY(gameMap, params, cursorX, cursorY);
+            FSEGTAMapGenerator::drawFreeTilesAtXY(gameMap, params, cursorX, cursorY);
 
             switch (cursorDirection) {
 
@@ -140,7 +130,9 @@ shared_ptr<FSEGTGameMap> DMMapGenerator::generate(shared_ptr<DMMapGeneratorParam
         }
     }
 
-    DMMapGenerator::drawFreeTilesAtXY(gameMap, params, cursorX, cursorY);
+    FSEGTAMapGenerator::drawFreeTilesAtXY(gameMap, params, cursorX, cursorY);
+
+    // printout 
 
     for (int y = 0; y < gameMap->width; y++) {
 
@@ -155,24 +147,6 @@ shared_ptr<FSEGTGameMap> DMMapGenerator::generate(shared_ptr<DMMapGeneratorParam
 
 		}
 
-		auto tileProperties = make_shared<DMTileProperties>();
-		tile->addComponent(tileProperties);
-
-		switch (tileIndex) {
-
-			case 0:
-				tileProperties->isFree = true;
-				break;
-
-			case 1:
-				tileProperties->isFree = false;
-				break;
-
-			default:
-				break;
-
-		}
-
            cout << std::to_string(tileIndex);
         }
 
@@ -182,7 +156,7 @@ shared_ptr<FSEGTGameMap> DMMapGenerator::generate(shared_ptr<DMMapGeneratorParam
 	return gameMap;
 }
 
-void DMMapGenerator::drawFreeTilesAtXY(shared_ptr<FSEGTGameMap> gameMap, shared_ptr<DMMapGeneratorParams> params, int cursorX, int cursorY) {
+void FSEGTAMapGenerator::drawFreeTilesAtXY(shared_ptr<FSEGTGameMap> gameMap, shared_ptr<FSEGTAMapGeneratorParams> params, int cursorX, int cursorY) {
 
     auto minCursorSize = params->minCursorSize;
     auto maxCursorSize = params->maxCursorSize;
@@ -216,7 +190,4 @@ void DMMapGenerator::drawFreeTilesAtXY(shared_ptr<FSEGTGameMap> gameMap, shared_
 
     gameMap->setTileAtXY(freeTileIndex, cursorX, cursorY);
 
-}
-
-DMMapGenerator::~DMMapGenerator() {
 }

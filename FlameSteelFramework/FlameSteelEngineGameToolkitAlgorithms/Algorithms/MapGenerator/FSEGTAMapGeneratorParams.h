@@ -11,8 +11,8 @@
  * Created on April 25, 2017, 10:34 AM
  */
 
-#ifndef DMMAPGENERATORPARAMS_H
-#define DMMAPGENERATORPARAMS_H
+#ifndef FSEGTAMAPGENERATORPARAMS_H
+#define FSEGTAMAPGENERATORPARAMS_H
 
 #include <vector>
 #include <memory>
@@ -21,11 +21,9 @@
 
 using namespace std;
 
-class DMMapGeneratorParams {
+class FSEGTAMapGeneratorParams {
 public:
-    DMMapGeneratorParams();
-    DMMapGeneratorParams(const DMMapGeneratorParams& orig);
-    virtual ~DMMapGeneratorParams();
+    FSEGTAMapGeneratorParams();
     
     int freeTileIndex;
     int solidTileIndex;
@@ -48,5 +46,5 @@ private:
 
 };
 
-#endif /* DMMAPGENERATORPARAMS_H */
+#endif
 

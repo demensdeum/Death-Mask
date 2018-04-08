@@ -6,12 +6,12 @@
 using namespace std;
 
 class FSCObject;
-class DMGameMap;
+class FSEGTGameMap;
 
-class DMMazeObjectGenerator {
+class FSGTAMazeObjectGenerator {
 
 public:
-	static shared_ptr<FSCObject> generate(shared_ptr<DMGameMap> gameMap);
+	static shared_ptr<FSCObject> generate(shared_ptr<FSEGTGameMap> gameMap);
 
 private:
 	static void putFloorAtXY(shared_ptr<string> serializedMaze, int x, int y, int dotsCount);

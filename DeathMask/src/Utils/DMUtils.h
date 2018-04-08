@@ -16,7 +16,6 @@
 
 #include <DeathMask/src/Data/Components/GameplayProperties/DMGameplayProperties.h>
 #include <DeathMask/src/Data/Components/Controls/DMObjectControlsDelegate.h>
-#include <DeathMask/src/Data/Components/TileProperties/DMTileProperties.h>
 #include <DeathMask/src/Data/Components/Controls/DMObjectControls.h>
 
 #include <FlameSteelCore/FSCObject.h>
@@ -34,7 +33,6 @@ public:
     
     static shared_ptr<DMGameplayProperties> getGameplayProperties(shared_ptr<FSCObject> object);
     static shared_ptr<DMObjectControls> getObjectControls(shared_ptr<FSCObject> object);
-	static shared_ptr<DMTileProperties> getTileProperties(shared_ptr<FSCObject> tile);
     
     static void step(shared_ptr<FSCObject> object, shared_ptr<DMObjectControlsDelegate> delegate);
     

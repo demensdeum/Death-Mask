@@ -1,15 +1,15 @@
 #include "DMInGameController.h"
 
-#include <iostream>
 #include <chrono>
 #include <thread>
-#include <FlameSteelEngineGameToolkit/Data/Components/FSEGTFactory.h>
+#include <iostream>
 #include <FlameSteelEngineGameToolkit/Utils/FSEGTUtils.h>
-#include <DeathMask/src/Algorithms/MapGenerator/DMMapGenerator.h>
 #include <FlameSteelFramework/FlameSteelCore/FSCUtils.h>
-#include <DeathMask/src/Algorithms/MazeObjectGenerator/DMMazeObjectGenerator.h>
-#include <DeathMask/src/Data/GameMap/DMGameMap.h>
+#include <FlameSteelEngineGameToolkit/Data/Components/FSEGTFactory.h>
+#include <FlameSteelEngineGameToolkitAlgorithms/Algorithms/MapGenerator/FSEGTAMapGenerator.h>
+#include <FlameSteelEngineGameToolkitAlgorithms/Algorithms/MapGenerator/FSEGTAMapGeneratorParams.h>
 #include <FlameSteelEngineGameToolkit/Controllers/FreeCameraController/FSEGTFreeCameraController.h>
+#include <FlameSteelEngineGameToolkitAlgorithms/Algorithms/MazeObjectGenerator/FSGTAMazeObjectGenerator.h>
 
 DMInGameController::DMInGameController() {
 
@@ -28,7 +28,7 @@ void DMInGameController::beforeStart() {
             0, 0, 0,
             0);    
     
-    auto mapGeneratorParams = make_shared<DMMapGeneratorParams>();
+    auto mapGeneratorParams = make_shared<FSEGTAMapGeneratorParams>();
 
     shared_ptr<FSCObject> freeTile = std::make_shared<FSCObject>();
     shared_ptr<FSCObject> solidTile = std::make_shared<FSCObject>();
@@ -44,23 +44,11 @@ void DMInGameController::beforeStart() {
     mapGeneratorParams->maxCursorSize = 1 + FSCUtils::FSCRandomInt(6);
     mapGeneratorParams->maxLineLength = 6 + FSCUtils::FSCRandomInt(6);
 
-	auto gameMap = DMMapGenerator::generate(mapGeneratorParams, objectsContext);
+	auto gameMap = FSEGTAMapGenerator::generate(mapGeneratorParams, objectsContext);
 
     gameData->gameMap = gameMap;
 
-    	      /*auto city = FSEGTFactory::makeOnSceneObject(
-            make_shared<string>("scene object"),
-            make_shared<string>("revil"),
-            shared_ptr<string>(),
-            shared_ptr<string>(),
-		make_shared<string>("Flame Steel Graphics Library Model @ Demens Deum\nModel version = Happy Sasquatch (1.0)\nMesh\nVertex - x = 0, y = -0.2, z = 0, u = 0, v = 1\nVertex - x = 1, y = -0.2, z = 0, u = 1, v = 1\nVertex - x = 1, y = -0.2, z = -1, u = 1, v = 0\nVertex - x = 0, y = -0.2, z = -1, u = 0, v = 0\nIndex = 0, 1, 2\nIndex = 3, 0, 2\nMaterial - Texture path = /home/demensdeum/Sources/Death-Mask/DeathMask/data/graphics/models/maps/corruptedCity/skytexture.bmp"),
-		0,0,0,
-            1, 1, 1,
-		0,0,0,
-            0);*/
-
-		auto castedGameMap = static_pointer_cast<DMGameMap>(gameMap);
-		auto city = DMMazeObjectGenerator::generate(castedGameMap);
+		auto city = FSGTAMazeObjectGenerator::generate(gameMap);
 
 		objectsContext->addObject(camera);    
 		objectsContext->addObject(city);

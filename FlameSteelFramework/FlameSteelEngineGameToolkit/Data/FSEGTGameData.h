@@ -10,7 +10,7 @@
 
 #include <map>
 #include <FlameSteelCore/FSCObjects.h>
-#include <FlameSteelEngineGameToolkit/Data/GameMap/FSEGTGameMap.h>
+#include <FlameSteelEngineGameToolkit/Data/Components/GameMap/FSEGTGameMap.h>
 
 using namespace std;
 
