@@ -24,7 +24,14 @@
 
 #include <DeathMask/src/Controllers/Subcontrollers/InGameController/DMInGameController.h>
 
+
+#define DEATHMASK_IO_SYSTEM 1
+
+#if DEATHMASK_IO_SYSTEM == 0
 #include <FlameSteelEngineGameToolkitFSGL/FSEGTIOFSGLSystem.h>
+#elif DEATHMASK_IO_SYSTEM ==1
+#include <FlameSteelEngineGameToolkitNcurses/FSEGTIONcursesSystem.h>
+#endif
 
 DMGameController::DMGameController() {
     
@@ -47,9 +54,13 @@ DMGameController::DMGameController() {
 }
 
 shared_ptr<FSEGTIOSystem> DMGameController::makeIOSystem() {
-    
+
+#if DEATHMASK_IO_SYSTEM == 0
     auto ioSystem = make_shared<FSEGTIOFSGLSystem>();    
-    
+#elif DEATHMASK_IO_SYSTEM ==1
+    auto ioSystem = make_shared<FSEGTIONcursesSystem>();    
+#endif    
+
     return ioSystem;
 }
 
