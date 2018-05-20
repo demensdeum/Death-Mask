@@ -44,17 +44,17 @@ void DMInGameController::beforeStart() {
     mapGeneratorParams->maxCursorSize = 1 + FSCUtils::FSCRandomInt(6);
     mapGeneratorParams->maxLineLength = 6 + FSCUtils::FSCRandomInt(6);
 
-	auto gameMap = FSEGTAMapGenerator::generate(mapGeneratorParams, objectsContext);
+    auto gameMap = FSEGTAMapGenerator::generate(mapGeneratorParams, objectsContext);
 
     gameData->gameMap = gameMap;
 
-		auto city = FSGTAMazeObjectGenerator::generate(gameMap);
+	auto city = FSGTAMazeObjectGenerator::generate(gameMap);
 
-		objectsContext->addObject(camera);    
-		objectsContext->addObject(city);
+	objectsContext->addObject(camera);    
+	objectsContext->addObject(city);
 
-		freeCameraController = make_shared<FSEGTFreeCameraController>(ioSystem->inputController, camera);
-		freeCameraController->delegate = shared_from_this();
+	freeCameraController = make_shared<FSEGTFreeCameraController>(ioSystem->inputController, camera);
+	freeCameraController->delegate = shared_from_this();
 }
 
 void DMInGameController::step() {
