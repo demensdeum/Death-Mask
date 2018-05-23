@@ -18,7 +18,6 @@ public:
 	virtual void freeCameraControllerDidUpdateCamera(shared_ptr<FSEGTFreeCameraController> freeCameraController, shared_ptr<FSCObject> camera);
 
 private:
-	shared_ptr<FSCObject> dungeon;
 	shared_ptr<FSEGTFreeCameraController> freeCameraController;
 	shared_ptr<FSCObject> camera;
 };

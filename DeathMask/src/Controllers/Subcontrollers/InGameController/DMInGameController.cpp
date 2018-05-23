@@ -6,10 +6,12 @@
 #include <FlameSteelEngineGameToolkit/Utils/FSEGTUtils.h>
 #include <FlameSteelFramework/FlameSteelCore/FSCUtils.h>
 #include <FlameSteelEngineGameToolkit/Data/Components/FSEGTFactory.h>
-#include <FlameSteelEngineGameToolkitAlgorithms/Algorithms/MapGenerator/FSEGTAMapGenerator.h>
+#include <FlameSteelEngineGameToolkitAlgorithms/Algorithms/MapGenerator/MapGenerator.h>
 #include <FlameSteelEngineGameToolkitAlgorithms/Algorithms/MapGenerator/FSEGTAMapGeneratorParams.h>
 #include <FlameSteelEngineGameToolkit/Controllers/FreeCameraController/FSEGTFreeCameraController.h>
 #include <FlameSteelEngineGameToolkitAlgorithms/Algorithms/MazeObjectGenerator/FSGTAMazeObjectGenerator.h>
+
+using namespace FlameSteelEngine::GameToolkit::Algorithms;
 
 DMInGameController::DMInGameController() {
 
@@ -44,7 +46,7 @@ void DMInGameController::beforeStart() {
     mapGeneratorParams->maxCursorSize = 1 + FSCUtils::FSCRandomInt(6);
     mapGeneratorParams->maxLineLength = 6 + FSCUtils::FSCRandomInt(6);
 
-    auto gameMap = FSEGTAMapGenerator::generate(mapGeneratorParams, objectsContext);
+    auto gameMap = MapGenerator::generate(mapGeneratorParams, objectsContext);
 
     gameData->gameMap = gameMap;
 
