@@ -19,12 +19,12 @@ DMInGameController::DMInGameController() {
 
 void DMInGameController::beforeStart() {
 
-	    camera = FSEGTFactory::makeOnSceneObject(
+	    	camera = FSEGTFactory::makeOnSceneObject(
             make_shared<string>("camera"),
             make_shared<string>("camera"),
-            make_shared<string>(),
-            make_shared<string>(),
-		make_shared<string>(),
+            shared_ptr<string>(),
+            shared_ptr<string>(),
+		shared_ptr<string>(),
             0, 0, 0,
             1, 1, 1,
             0, 0, 0,
