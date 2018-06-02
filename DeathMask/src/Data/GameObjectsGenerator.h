@@ -15,6 +15,7 @@ namespace DeathMaskGame {
 		shared_ptr<FSCObject> generateEnemy(Difficulty enemyDifficulty);
 		shared_ptr<FSCObject> generateWeapon(Difficulty weaponDifficulty);
 		shared_ptr<FSCObject> generateSupplyItem(Difficulty supplyItemDifficulty);
+		shared_ptr<FSCObject> generateBioshellItem(Difficulty bioshellDifficulty);
 
 	};
 

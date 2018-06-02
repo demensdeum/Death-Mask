@@ -25,3 +25,9 @@ shared_ptr<FSCObject> GameObjectsGenerator::generateSupplyItem(Difficulty supply
 	return shared_ptr<FSCObject>();
 
 };
+
+shared_ptr<FSCObject> GameObjectsGenerator::generateBioshellItem(Difficulty bioshellItemDifficulty) {
+
+	return shared_ptr<FSCObject>();
+
+}
