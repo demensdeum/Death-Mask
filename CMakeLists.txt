@@ -20,7 +20,7 @@ include_directories(. FlameSteelFramework)
 
 file(GLOB_RECURSE SOURCE_FILES
     "FlameSteelFramework/*.cpp"
-    "DeathMask/*.cpp"
+    "DeathMask/src/*.cpp"
 )
 
 set(EXECUTABLE_OUTPUT_PATH "DeathMask")
