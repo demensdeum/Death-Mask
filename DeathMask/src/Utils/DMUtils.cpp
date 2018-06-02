@@ -13,8 +13,6 @@
 
 #include "DMUtils.h"
 
-#include <DeathMask/src/Const/DMConstTypes.h>
-
 DMUtils::DMUtils() {
 }
 

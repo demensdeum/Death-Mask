@@ -22,6 +22,9 @@ shared_ptr<FSCObject> GameObjectsGenerator::generateWeapon(Difficulty weaponDiff
 
 shared_ptr<FSCObject> GameObjectsGenerator::generateSupplyItem(Difficulty supplyItemDifficulty) {
 
+	auto item = make_shared<FSCObject>();
+	//item->addComponent();
+
 	return shared_ptr<FSCObject>();
 
 };

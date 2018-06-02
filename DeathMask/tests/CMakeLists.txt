@@ -21,10 +21,10 @@ include_directories(. DeathMask FlameSteelFramework)
 file(GLOB_RECURSE SOURCE_FILES
     "FlameSteelFramework/*.cpp"
     "Death-Mask-Src/*.cpp"
-    "src/DeathMaskTests.cpp"
+    "src/*.cpp"
 )
 
-set(EXECUTABLE_OUTPUT_PATH "DeathMask")
+set(EXECUTABLE_OUTPUT_PATH "DeathMaskTests")
 
 add_executable(${FSEGT_PROJECT_NAME} ${SOURCE_FILES})
 

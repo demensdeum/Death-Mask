@@ -3,15 +3,16 @@
 
 
 namespace DeathMaskGame {
-namespace Tests
+namespace Tests {
 
 class TestsPerformer {
 
-void perform();
+public:
+	void perform();
 
 };
 
 }
 }
 
-#endif DEATHMASKGAMETESTSPERFORMER
+#endif
