@@ -104,6 +104,8 @@ bool ObjectsGeneratorTest::testItemGenerator(ItemType type) {
 	cout << "Generated object maximalEffect " << to_string(itemProperties->getMaximalEffect()) << endl;
 	cout << "Generated object rangeEffect " << to_string(itemProperties->getRangeRandomEffect()) << endl;	
 
+	cout << "Test 7 passed" << endl;
+
 	return true;
 
 }

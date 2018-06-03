@@ -11,6 +11,7 @@ class ObjectsGeneratorTest {
 public:
 	bool perform();
 
+private:
 	bool testItemGenerator(ItemType type);
 
 };

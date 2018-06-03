@@ -37,9 +37,11 @@ void DMInGameController::generateMap() {
     mapGeneratorParams->maxCursorSize = 1 + FSCUtils::FSCRandomInt(6);
     mapGeneratorParams->maxLineLength = 6 + FSCUtils::FSCRandomInt(6);
 
-    auto gameMap = MapGenerator::generate(mapGeneratorParams, objectsContext);
+	auto objects = make_shared<FSCObjects>();
 
-    gameData->gameMap = gameMap;
+    auto gameMap = MapGenerator::generate(mapGeneratorParams, objectsContext, objects);
+
+	gameData->gameMap = gameMap;
 
 	auto startPoint = objectsContext->objectWithInstanceIdentifier(make_shared<string>(ConstMapEntityStartPoint));
 
