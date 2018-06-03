@@ -3,6 +3,7 @@
 
 #include <DeathMask/src/Const/Const.h>
 
+#include <vector>
 #include <memory>
 #include <FlameSteelCore/FSCObject.h>
 
@@ -17,6 +18,10 @@ public:
 	shared_ptr<FSCObject> generateWeapon(Difficulty weaponDifficulty);
 	shared_ptr<FSCObject> generateSupplyItem(Difficulty supplyItemDifficulty);
 	shared_ptr<FSCObject> generateBioshellItem(Difficulty bioshellDifficulty);
+
+private:
+	shared_ptr<FSCObject> generateObject(ItemType type, Difficulty itemDiffuclty, vector<string>firstNames, vector<string>secondNames);
+
 };
 
 };
