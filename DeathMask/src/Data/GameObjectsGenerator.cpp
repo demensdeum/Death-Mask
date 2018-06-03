@@ -7,6 +7,7 @@
 #include <DeathMask/src/Data/GameObjectsGenerator.h>
 #include <FlameSteelCore/FSCUtils.h>
 
+using namespace FlameSteelCore::Utils;
 using namespace DeathMaskGame;
 
 GameObjectsGenerator::GameObjectsGenerator() {
@@ -55,8 +56,8 @@ shared_ptr<FSCObject> GameObjectsGenerator::generateEnemy(Difficulty enemyDiffic
 
 shared_ptr<FSCObject> GameObjectsGenerator::generateWeapon(Difficulty weaponDifficulty) {
 
-	auto firstNames = vector<string>{"Laser", "Wave", "Electro-emitted-gravity"};
-	auto secondNames = vector<string>{"pistol", "shotgun", "machine-gun"};
+	auto firstNames = vector<string>{LocalizedString("Laser"), LocalizedString("Wave"), LocalizedString("Electro-emitted-gravity")};
+	auto secondNames = vector<string>{LocalizedString("pistol"), LocalizedString("shotgun"), LocalizedString("machine-gun")};
 	auto type = ItemType::weapon;
 
 	return generateObject(type, weaponDifficulty, firstNames, secondNames);
@@ -65,8 +66,8 @@ shared_ptr<FSCObject> GameObjectsGenerator::generateWeapon(Difficulty weaponDiff
 
 shared_ptr<FSCObject> GameObjectsGenerator::generateSupplyItem(Difficulty supplyItemDifficulty) {
 
-	auto firstNames = vector<string>{"VitaCom", "Human Compatible Nanobots", "Astra-Life"};
-	auto secondNames = vector<string>{"painkiller", "medkit", "first aid"};
+	auto firstNames = vector<string>{LocalizedString("VitaCom"), LocalizedString("Human Compatible Nanobots"), LocalizedString("Astra-Life")};
+	auto secondNames = vector<string>{LocalizedString("painkiller"), LocalizedString("medkit"), LocalizedString("first aid")};
 	auto type = ItemType::supply;
 
 	return generateObject(type, supplyItemDifficulty, firstNames, secondNames);
@@ -75,8 +76,8 @@ shared_ptr<FSCObject> GameObjectsGenerator::generateSupplyItem(Difficulty supply
 
 shared_ptr<FSCObject> GameObjectsGenerator::generateBioshellItem(Difficulty bioshellItemDifficulty) {
 
-	auto firstNames = vector<string>{"Advanced", "Enhanced", "Cyber"};
-	auto secondNames = vector<string>{"legs bioshell", "hand bioshell", "eye bioshell"};
+	auto firstNames = vector<string>{LocalizedString("Advanced"), LocalizedString("Enhanced"), LocalizedString("Cyber")};
+	auto secondNames = vector<string>{LocalizedString("legs bioshell"), LocalizedString("hand bioshell"), LocalizedString("eye bioshell")};
 	auto type = ItemType::bioshell;
 
 	return generateObject(type, bioshellItemDifficulty, firstNames, secondNames);
