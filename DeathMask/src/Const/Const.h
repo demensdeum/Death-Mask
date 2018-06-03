@@ -11,6 +11,14 @@ namespace DeathMaskGame {
 
 	};
 
+	enum ItemType {
+
+		supply,
+		weapon,
+		bioshell
+    
+	};
+
 };
 
 #endif

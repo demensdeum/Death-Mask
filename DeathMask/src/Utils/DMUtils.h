@@ -17,26 +17,30 @@
 #include <DeathMask/src/Data/Components/GameplayProperties/DMGameplayProperties.h>
 #include <DeathMask/src/Data/Components/Controls/DMObjectControlsDelegate.h>
 #include <DeathMask/src/Data/Components/Controls/DMObjectControls.h>
-
-#include <FlameSteelCore/FSCObject.h>
+#include <DeathMask/src/Data/Components/Item/ItemProperties.h>
 #include <memory>
 
 using namespace std;
+using namespace DeathMaskGame;
+
+class FSEGTText;
 
 class DMUtils {
 public:
-    DMUtils();
-    DMUtils(const DMUtils& orig);
-    virtual ~DMUtils();
+	DMUtils();
+	DMUtils(const DMUtils& orig);
+	virtual ~DMUtils();
     
-    static void incrementHungerForObject(shared_ptr<FSCObject> object);
+	static void incrementHungerForObject(shared_ptr<FSCObject> object);
     
-    static shared_ptr<DMGameplayProperties> getGameplayProperties(shared_ptr<FSCObject> object);
-    static shared_ptr<DMObjectControls> getObjectControls(shared_ptr<FSCObject> object);
+	static shared_ptr<DMGameplayProperties> getGameplayProperties(shared_ptr<FSCObject> object);
+	static shared_ptr<DMObjectControls> getObjectControls(shared_ptr<FSCObject> object);
+	static shared_ptr<ItemProperties> getObjectItemProperties(shared_ptr<FSCObject> object);
+	static shared_ptr<FSEGTText> getObjectLabel(shared_ptr<FSCObject> object);
     
-    static void step(shared_ptr<FSCObject> object, shared_ptr<DMObjectControlsDelegate> delegate);
+	static void step(shared_ptr<FSCObject> object, shared_ptr<DMObjectControlsDelegate> delegate);
     
-    static void decrementHealthIfNeeded(shared_ptr<FSCObject> object);
+	static void decrementHealthIfNeeded(shared_ptr<FSCObject> object);
     
 private:
 

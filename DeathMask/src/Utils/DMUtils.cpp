@@ -12,11 +12,35 @@
  */
 
 #include "DMUtils.h"
+#include <FlameSteelCore/FSCObject.h>
+#include <DeathMask/src/Const/DMConstClassIdentifiers.h>
+#include <DeathMask/src/Data/Components/Item/ItemProperties.h>
+#include <FlameSteelEngineGameToolkit/Data/Components/Text/FSEGTText.h>
 
 DMUtils::DMUtils() {
 }
 
 DMUtils::DMUtils(const DMUtils& ) {
+}
+
+shared_ptr<ItemProperties> DMUtils::getObjectItemProperties(shared_ptr<FSCObject> object) {
+
+    auto itemProperties = object->getComponent(make_shared<string>(DMConstClassIdentifierItemProperties.c_str()));
+    
+    auto castedItemProperties = static_pointer_cast<ItemProperties>(itemProperties);
+    
+    return castedItemProperties;	
+
+}
+
+shared_ptr<FSEGTText> DMUtils::getObjectLabel(shared_ptr<FSCObject> object) {
+
+	auto label = object->getComponent(make_shared<string>(DMConstClassIdentifierLabel));
+
+	auto castedText = static_pointer_cast<FSEGTText>(label);
+    
+	return castedText;
+
 }
 
 void DMUtils::incrementHungerForObject(shared_ptr<FSCObject> object) {

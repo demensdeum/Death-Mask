@@ -8,16 +8,16 @@
 
 namespace DeathMaskGame {
 
-	class GameObjectsGenerator {
+class GameObjectsGenerator {
 
-		GameObjectsGenerator();
+public:
+	GameObjectsGenerator();
 
-		shared_ptr<FSCObject> generateEnemy(Difficulty enemyDifficulty);
-		shared_ptr<FSCObject> generateWeapon(Difficulty weaponDifficulty);
-		shared_ptr<FSCObject> generateSupplyItem(Difficulty supplyItemDifficulty);
-		shared_ptr<FSCObject> generateBioshellItem(Difficulty bioshellDifficulty);
-
-	};
+	shared_ptr<FSCObject> generateEnemy(Difficulty enemyDifficulty);
+	shared_ptr<FSCObject> generateWeapon(Difficulty weaponDifficulty);
+	shared_ptr<FSCObject> generateSupplyItem(Difficulty supplyItemDifficulty);
+	shared_ptr<FSCObject> generateBioshellItem(Difficulty bioshellDifficulty);
+};
 
 };
 
