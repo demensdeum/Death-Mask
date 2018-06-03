@@ -1,5 +1,6 @@
 #include "GameObjectsGenerator.h"
 
+#include <FlameSteelEngineGameToolkit/Data/Components/FSEGTFactory.h>
 #include <FlameSteelEngineGameToolkit/Data/Components/Text/FSEGTText.h>
 #include <DeathMask/src/Const/DMConstClassIdentifiers.h>
 #include <DeathMask/src/Data/Components/Item/ItemProperties.h>
@@ -13,6 +14,17 @@ GameObjectsGenerator::GameObjectsGenerator() {
 
 shared_ptr<FSCObject> GameObjectsGenerator::generateObject(ItemType type, Difficulty itemDiffuclty, vector<string>firstNames, vector<string>secondNames) {
 
+      auto item = FSEGTFactory::makeOnSceneObject(
+													            make_shared<string>("dummy"),
+													            make_shared<string>("dummy"),
+													            shared_ptr<string>(),
+													            shared_ptr<string>(),
+															shared_ptr<string>(),
+													            0, 0, 0,
+													            1, 1, 1,
+													            0, 0, 0,
+													            0);   
+
 	auto firstRandom = FSCUtils::FSCRandomInt(firstNames.size());
 	auto secondRandom = FSCUtils::FSCRandomInt(secondNames.size());
 
@@ -20,7 +32,6 @@ shared_ptr<FSCObject> GameObjectsGenerator::generateObject(ItemType type, Diffic
 	label += " ";
 	label += secondNames[secondRandom];
 
-	auto item = make_shared<FSCObject>();
 	item->setClassIdentifier(make_shared<string>(DMConstClassIdentifierItem));
 	item->setInstanceIdentifier(make_shared<string>(item->uuid));
 
