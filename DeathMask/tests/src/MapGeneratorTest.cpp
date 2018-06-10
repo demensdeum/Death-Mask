@@ -4,6 +4,7 @@
 #include <iostream>
 #include <FlameSteelCore/FSCUtils.h>
 #include <FlameSteelCore/FSCObject.h>
+#include <DeathMask/src/Data/GameObjectsGenerator.h>
 #include <FlameSteelEngineGameToolkit/Utils/FSEGTUtils.h>
 #include <FlameSteelEngineGameToolkitAlgorithms/Const/Const.h>
 #include <FlameSteelEngineGameToolkit/Controllers/FSEGTObjectsContext.h>
@@ -34,9 +35,17 @@ bool MapGeneratorTest::perform() {
 	mapGeneratorParams->maxCursorSize = 1 + FSCUtils::FSCRandomInt(6);
 	mapGeneratorParams->maxLineLength = 6 + FSCUtils::FSCRandomInt(6);
 
+	auto objectsGenerator = make_shared<GameObjectsGenerator>();
 	auto objects = make_shared<FSCObjects>();
 
-	auto gameMap = MapGenerator::generate(mapGeneratorParams, objectsContext, objects);
+	for (auto i = 0; i < 20; i++)
+	{
+		objects->addObject(objectsGenerator->generateRandomItem(Difficulty::easy));
+	}
+
+	mapGeneratorParams->objects = objects;
+
+	auto gameMap = MapGenerator::generate(mapGeneratorParams, objectsContext);
 
 	auto startPoint = objectsContext->objectWithInstanceIdentifier(make_shared<string>(ConstMapEntityStartPoint));
 

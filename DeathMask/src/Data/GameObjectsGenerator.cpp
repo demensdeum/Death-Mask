@@ -13,6 +13,36 @@ using namespace DeathMaskGame;
 GameObjectsGenerator::GameObjectsGenerator() {
 }
 
+shared_ptr<FSCObject> GameObjectsGenerator::generateRandomItem(Difficulty itemDifficulty) {
+
+	auto randomItemType = FSCUtils::FSCRandomInt(ItemType::count - 1);
+
+	auto item = shared_ptr<FSCObject>();
+
+	switch (randomItemType)
+	{
+
+		case weapon:
+			item = generateWeapon(itemDifficulty);
+			break;
+
+		case supply:
+			item  = generateSupplyItem(itemDifficulty);
+			break;
+
+		case bioshell:
+			item = generateBioshellItem(itemDifficulty);
+			break;
+
+		case count:
+			throw logic_error("Can't generate item with incorrect type");
+
+	}
+
+	return item;
+
+}
+
 shared_ptr<FSCObject> GameObjectsGenerator::generateObject(ItemType type, Difficulty itemDiffuclty, vector<string>firstNames, vector<string>secondNames) {
 
       auto item = FSEGTFactory::makeOnSceneObject(
@@ -44,8 +74,6 @@ shared_ptr<FSCObject> GameObjectsGenerator::generateObject(ItemType type, Diffic
 	item->addComponent(itemProperties);
 
 	return item;
-	
-
 };
 
 shared_ptr<FSCObject> GameObjectsGenerator::generateEnemy(Difficulty enemyDifficulty) {

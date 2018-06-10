@@ -1,9 +1,9 @@
 mkdir FlameSteelFramework 
 cd FlameSteelFramework
-git clone https://github.com/demensdeum/FlameSteelCore.git
-git clone https://github.com/demensdeum/FlameSteelEngineGameToolkit.git
-git clone https://github.com/demensdeum/FlameSteelEngineGameToolkitAlgorithms.git
-#git clone https://github.com/demensdeum/FlameSteelEngineGameToolkitFSGL.git
-git clone https://github.com/demensdeum/FlameSteelSpiderToolkit.git
-#git clone https://github.com/demensdeum/FSGL.git
-git clone https://github.com/demensdeum/FlameSteelEngineGameToolkitNcurses.git
+git clone https://gitlab.com/demensdeum/FlameSteelCore.git
+git clone https://gitlab.com/demensdeum/FlameSteelEngineGameToolkit.git
+git clone https://gitlab.com/demensdeum/FlameSteelEngineGameToolkitAlgorithms.git
+#git clone https://gitlab.com/demensdeum/FlameSteelEngineGameToolkitFSGL.git
+git clone https://gitlab.com/demensdeum/FlameSteelSpiderToolkit.git
+#git clone https://gitlab.com/demensdeum/FSGL.git
+git clone https://gitlab.com/demensdeum/FlameSteelEngineGameToolkitNcurses.git

@@ -4,6 +4,7 @@
 #include <thread>
 #include <iostream>
 #include <FlameSteelCore/FSCMessage.h>
+#include <DeathMask/src/Data/GameObjectsGenerator.h>
 #include <FlameSteelEngineGameToolkit/Utils/FSEGTUtils.h>
 #include <FlameSteelFramework/FlameSteelCore/FSCUtils.h>
 #include <FlameSteelEngineGameToolkitAlgorithms/Const/Const.h>
@@ -13,6 +14,7 @@
 #include <FlameSteelEngineGameToolkit/Controllers/FreeCameraController/FSEGTFreeCameraController.h>
 #include <FlameSteelEngineGameToolkitAlgorithms/Algorithms/MazeObjectGenerator/FSGTAMazeObjectGenerator.h>
 
+using namespace DeathMaskGame;
 using namespace FlameSteelEngine::GameToolkit::Algorithms;
 
 DMInGameController::DMInGameController() {
@@ -20,6 +22,8 @@ DMInGameController::DMInGameController() {
 };
 
 void DMInGameController::generateMap() {
+
+	auto objects = make_shared<FSCObjects>();
 
    auto mapGeneratorParams = make_shared<FSEGTAMapGeneratorParams>();
 
@@ -36,10 +40,18 @@ void DMInGameController::generateMap() {
     mapGeneratorParams->minCursorSize = 2;
     mapGeneratorParams->maxCursorSize = 1 + FSCUtils::FSCRandomInt(6);
     mapGeneratorParams->maxLineLength = 6 + FSCUtils::FSCRandomInt(6);
+	mapGeneratorParams->gameplayObjectRespawnChance = 300;
 
-	auto objects = make_shared<FSCObjects>();
+	auto objectsGenerator = make_shared<GameObjectsGenerator>();
 
-    auto gameMap = MapGenerator::generate(mapGeneratorParams, objectsContext, objects);
+	for (auto i = 0; i < 20; i++)
+	{
+		objects->addObject(objectsGenerator->generateRandomItem(Difficulty::easy));
+	}
+
+	mapGeneratorParams->objects = objects;
+
+    auto gameMap = MapGenerator::generate(mapGeneratorParams, objectsContext);
 
 	gameData->gameMap = gameMap;
 
