@@ -20,6 +20,9 @@ class Damage;
 
 class DMGameplayProperties: public FSCObject {
 public:        
+
+	DMGameplayProperties();
+
 	void applyDamage(shared_ptr<Damage> damage);
     
 	int getAttack();
@@ -36,9 +39,11 @@ public:
     
 private:
     
-	int health;
-	int maxHealth;
-     
+	int health = 0;
+	int maxHealth = 0;
+	int attack = 0;
+	int maxAttack = 0;
+
 	shared_ptr<FSCObject> weapon;
 	shared_ptr<FSCObject> bioshell;
 	shared_ptr<FSCObject> questItem;

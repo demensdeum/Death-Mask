@@ -13,6 +13,13 @@
 
 #include "DMGameplayProperties.h"
 
+DMGameplayProperties::DMGameplayProperties() {
+
+	setClassIdentifier(make_shared<string>("gameplay properties"));
+	setInstanceIdentifier(make_shared<string>(uuid));
+
+}
+
 int DMGameplayProperties::getHealth() {
     
     return health;

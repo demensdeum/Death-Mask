@@ -23,8 +23,6 @@ DMInGameController::DMInGameController() {
 
 void DMInGameController::generateMap() {
 
-	auto objects = make_shared<FSCObjects>();
-
    auto mapGeneratorParams = make_shared<FSEGTAMapGeneratorParams>();
 
     shared_ptr<FSCObject> freeTile = std::make_shared<FSCObject>();
@@ -41,7 +39,9 @@ void DMInGameController::generateMap() {
     mapGeneratorParams->maxCursorSize = 1 + FSCUtils::FSCRandomInt(6);
     mapGeneratorParams->maxLineLength = 6 + FSCUtils::FSCRandomInt(6);
 	mapGeneratorParams->gameplayObjectRespawnChance = 300;
+	mapGeneratorParams->enemyRespawnChance = 300;
 
+	auto objects = make_shared<FSCObjects>();
 	auto objectsGenerator = make_shared<GameObjectsGenerator>();
 
 	for (auto i = 0; i < 20; i++)
@@ -50,6 +50,15 @@ void DMInGameController::generateMap() {
 	}
 
 	mapGeneratorParams->objects = objects;
+
+	auto enemies = make_shared<FSCObjects>();
+
+	for (auto i = 0; i < 20; i ++)
+	{
+		enemies->addObject(objectsGenerator->generateEnemy(Difficulty::easy));
+	}
+
+	mapGeneratorParams->enemies = enemies;
 
     auto gameMap = MapGenerator::generate(mapGeneratorParams, objectsContext);
 
