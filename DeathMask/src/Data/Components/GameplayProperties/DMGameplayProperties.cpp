@@ -13,43 +13,9 @@
 
 #include "DMGameplayProperties.h"
 
-static const auto DMGamePlayPropertiesMaxHealth = 3;
-
-DMGameplayProperties::DMGameplayProperties() {
-    
-    name = shared_ptr<string>();
-    
-    health = 0;
-    
-    hunger = 0;
-}
-
-void DMGameplayProperties::incrementHunger() {
-    
-    hunger += 1;
-    
-}
-
-int DMGameplayProperties::getHunger() {
-    
-    return hunger;
-    
-}
-
 int DMGameplayProperties::getHealth() {
     
     return health;
-}
-
-void DMGameplayProperties::decrementHealth() {
-    
-    health -= 1;
-    
-}
-
-void DMGameplayProperties::healFull() {
-    
-    health = maxHealth;
 }
 
 void DMGameplayProperties::setMaxHealth(int maxHealth) {
@@ -66,10 +32,4 @@ bool DMGameplayProperties::isDead() {
     }
     
     return false;
-}
-
-DMGameplayProperties::DMGameplayProperties(const DMGameplayProperties& ) {
-}
-
-DMGameplayProperties::~DMGameplayProperties() {
 }

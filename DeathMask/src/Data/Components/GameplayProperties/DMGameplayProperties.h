@@ -16,50 +16,33 @@
 
 #include <FlameSteelCore/FSCObject.h>
 
-#include <vector>
+class Damage;
 
 class DMGameplayProperties: public FSCObject {
-public:
-    DMGameplayProperties();
-    DMGameplayProperties(const DMGameplayProperties& orig);
-    virtual ~DMGameplayProperties();
+public:        
+	void applyDamage(shared_ptr<Damage> damage);
     
-    void heal(int amount);
-    void healFull();
+	int getAttack();
+	int getHealth();
     
-    void damage(int amount);
+ 	void setMaxHealth(int maxHealth);
     
-    int getAttack();
-    int getArmor();
-    int getHunger();
+	void applyItem(shared_ptr<FSCObject> item);
+	void removeItem(shared_ptr<FSCObject> item);
     
-    int getHealth();
+	shared_ptr<string> name;    
     
-    void setMaxHealth(int maxHealth);
-    
-    void useItem(shared_ptr<FSCObject> item);
-    
-    void incrementHunger();
-    void decrementHealth();
-    
-    void addItem(shared_ptr<FSCObject> item);
-    void removeItem(shared_ptr<FSCObject> item);
-    
-    shared_ptr<string> name;    
-    
-    bool isDead();
+	bool isDead();
     
 private:
     
-    int health;
-    int maxHealth;
-    
-    int hunger;
-    
-    vector<shared_ptr<FSCObject> > items;
-    
-    shared_ptr<FSCObject> weapon;
-    shared_ptr<FSCObject> gear;
+	int health;
+	int maxHealth;
+     
+	shared_ptr<FSCObject> weapon;
+	shared_ptr<FSCObject> bioshell;
+	shared_ptr<FSCObject> questItem;
+
 };
 
 #endif /* DMGAMEPLAYPROPERTIES_H */

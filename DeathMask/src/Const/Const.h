@@ -16,6 +16,7 @@ namespace DeathMaskGame {
 		supply,
 		weapon,
 		bioshell,
+		questItem,
 		count
     
 	};

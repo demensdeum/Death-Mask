@@ -6,6 +6,7 @@
 #include <DeathMask/src/Data/Components/Item/ItemProperties.h>
 #include <DeathMask/src/Data/GameObjectsGenerator.h>
 #include <FlameSteelCore/FSCUtils.h>
+#include <DeathMask/src/Data/Components/GameplayProperties/DMGameplayProperties.h>
 
 using namespace FlameSteelCore::Utils;
 using namespace DeathMaskGame;
@@ -78,7 +79,24 @@ shared_ptr<FSCObject> GameObjectsGenerator::generateObject(ItemType type, Diffic
 
 shared_ptr<FSCObject> GameObjectsGenerator::generateEnemy(Difficulty enemyDifficulty) {
 
-	return shared_ptr<FSCObject>();
+      auto object = FSEGTFactory::makeOnSceneObject(
+													            make_shared<string>("dummy"),
+													            make_shared<string>("dummy"),
+													            shared_ptr<string>(),
+													            shared_ptr<string>(),
+															shared_ptr<string>(),
+													            0, 0, 0,
+													            1, 1, 1,
+													            0, 0, 0,
+													            0);   
+
+	object->setClassIdentifier(make_shared<string>(DMConstClassIdentifierEnemy));
+	object->setInstanceIdentifier(make_shared<string>(object->uuid));
+	
+	auto gameplayProperties = make_shared<DMGameplayProperties>();
+	object->addComponent(gameplayProperties);
+
+	return object;
 
 };
 

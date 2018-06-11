@@ -43,39 +43,6 @@ shared_ptr<FSEGTText> DMUtils::getObjectLabel(shared_ptr<FSCObject> object) {
 
 }
 
-void DMUtils::incrementHungerForObject(shared_ptr<FSCObject> object) {
-    
-    auto gameplayProperties = DMUtils::getGameplayProperties(object);
-    
-    if (gameplayProperties.get() == nullptr) {
-        
-        return;
-        
-    }
-    
-    gameplayProperties->incrementHunger();
-    
-}
-
-void DMUtils::decrementHealthIfNeeded(shared_ptr<FSCObject> object) {
-    
-    auto gameplayProperties = DMUtils::getGameplayProperties(object);
-    
-    if (gameplayProperties.get() == nullptr) {
-        
-        return;
-        
-    }
-    
-    auto hunger = gameplayProperties->getHunger();
-    
-    if (hunger >= 10) {
-    
-        gameplayProperties->decrementHealth();  
-        
-    }
-}
-
 shared_ptr<DMGameplayProperties> DMUtils::getGameplayProperties(shared_ptr<FSCObject> object) {
     
     auto gameplayProperties = object->getComponent(make_shared<string>("death mask gameplay properties"));

@@ -1,3 +1,6 @@
+#ifndef DEATHMASKGAMEINGAMEUSERINTERFACECONTROLLERDEFINED
+#define DEATHMASKGAMEINGAMEUSERINTERFACECONTROLLERDEFINED
+
 #include <memory>
 #include <FlameSteelEngineGameToolkit/Data/Components/Text/FSEGTText.h>
 #include <DeathMask/src/Data/Components/GameplayProperties/DMGameplayProperties.h>
@@ -18,3 +21,5 @@ private:
 
 };
 };
+
+#endif
