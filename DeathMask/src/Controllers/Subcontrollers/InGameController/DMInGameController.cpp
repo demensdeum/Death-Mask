@@ -95,6 +95,10 @@ void DMInGameController::generateMap() {
 	freeCameraController = make_shared<FSEGTFreeCameraController>(ioSystem->inputController, camera);
 	freeCameraController->delegate = shared_from_this();
 
+	auto onScreenText = FSEGTFactory::makeOnScreenText(
+						  make_shared<string>("Death Mask"), 
+						  0, 0);
+	objectsContext->addObject(onScreenText);
 }
 
 void DMInGameController::beforeStart() {
