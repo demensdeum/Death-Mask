@@ -4,6 +4,7 @@
 #include <thread>
 #include <iostream>
 #include <FlameSteelCore/FSCMessage.h>
+#include <DeathMask/src/Utils/DMUtils.h>
 #include <DeathMask/src/Data/GameObjectsGenerator.h>
 #include <FlameSteelEngineGameToolkit/Utils/FSEGTUtils.h>
 #include <FlameSteelFramework/FlameSteelCore/FSCUtils.h>
@@ -91,6 +92,20 @@ void DMInGameController::generateMap() {
             0, 0, 0,
             0);   
 
+	mainCharacter = FSEGTFactory::makeOnSceneObject(
+            make_shared<string>("main character"),
+            make_shared<string>("main character"),
+            shared_ptr<string>(),
+            shared_ptr<string>(),
+		shared_ptr<string>(),
+            startPointPosition->x, startPointPosition->y, startPointPosition->z,
+            1, 1, 1,
+            0, 0, 0,
+            0);   
+
+	auto gameplayProperties = make_shared<DMGameplayProperties>();
+	mainCharacter->addComponent(gameplayProperties);
+
 	exitPoint =  objectsContext->objectWithInstanceIdentifier(make_shared<string>(ConstMapEntityEndPoint));
 
 	if (exitPoint.get() == nullptr)
@@ -104,11 +119,22 @@ void DMInGameController::generateMap() {
 	freeCameraController = make_shared<FSEGTFreeCameraController>(ioSystem->inputController, camera);
 	freeCameraController->delegate = shared_from_this();
 
-	auto onScreenText = FSEGTFactory::makeOnScreenText(
+	auto versionText = FSEGTFactory::makeOnScreenText(
 						  make_shared<string>("Death Mask"), 
-						  0.6, 0.8);
+						  0, 0);
 
-	objectsContext->addObject(onScreenText);
+	objectsContext->addObject(versionText);
+
+	auto userInterfaceText = FSEGTFactory::makeOnScreenText(
+						  make_shared<string>("User Interface"), 
+						  0, 0.8);
+
+	objectsContext->addObject(userInterfaceText);
+
+	auto userInterfaceTextComponent = FSEGTUtils::getText(userInterfaceText);
+	auto mainCharacterGameplayProperties = DMUtils::getObjectGameplayProperties(mainCharacter);
+
+	inGameUserInterfaceController = make_shared<DeathMaskGame::InGameUserInterfaceController>(userInterfaceTextComponent, mainCharacterGameplayProperties);
 }
 
 void DMInGameController::beforeStart() {
@@ -126,6 +152,8 @@ void DMInGameController::step() {
 void DMInGameController::frameStep() {
 
 auto inputController = ioSystem->inputController;
+
+	inGameUserInterfaceController->step();
 
 	renderer->render(gameData);
 	std::this_thread::sleep_for(0.01s);

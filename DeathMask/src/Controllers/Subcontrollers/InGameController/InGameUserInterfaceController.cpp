@@ -11,6 +11,9 @@ InGameUserInterfaceController::InGameUserInterfaceController(shared_ptr<FSEGTTex
 
 void InGameUserInterfaceController::step() {
 
-	
+	char buffer[1024];
+	sprintf(buffer, "Name: Revil\nHealth:%d\nAttack:%d\nHunger:%d", gameplayProperties->getHealth(), gameplayProperties->getAttack(), gameplayProperties->getHunger());
+
+	text->text = make_shared<string>(buffer);
 
 }

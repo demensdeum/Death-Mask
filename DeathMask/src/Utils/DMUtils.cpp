@@ -43,7 +43,7 @@ shared_ptr<FSEGTText> DMUtils::getObjectLabel(shared_ptr<FSCObject> object) {
 
 }
 
-shared_ptr<DMGameplayProperties> DMUtils::getGameplayProperties(shared_ptr<FSCObject> object) {
+shared_ptr<DMGameplayProperties> DMUtils::getObjectGameplayProperties(shared_ptr<FSCObject> object) {
     
     auto gameplayProperties = object->getComponent(make_shared<string>("death mask gameplay properties"));
     

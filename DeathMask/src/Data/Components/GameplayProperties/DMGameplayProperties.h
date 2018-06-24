@@ -24,10 +24,11 @@ public:
 	DMGameplayProperties();
 
 	void applyDamage(shared_ptr<Damage> damage);
-    
+
+	int getHealth();    
 	int getAttack();
-	int getHealth();
-    
+	int getHunger();    
+
  	void setMaxHealth(int maxHealth);
     
 	void applyItem(shared_ptr<FSCObject> item);
@@ -43,6 +44,8 @@ private:
 	int maxHealth = 0;
 	int attack = 0;
 	int maxAttack = 0;
+	int hunger = 0;
+	int maxHunger = 0;
 
 	shared_ptr<FSCObject> weapon;
 	shared_ptr<FSCObject> bioshell;

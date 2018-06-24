@@ -15,7 +15,7 @@
 
 DMGameplayProperties::DMGameplayProperties() {
 
-	setClassIdentifier(make_shared<string>("gameplay properties"));
+	setClassIdentifier(make_shared<string>("death mask gameplay properties"));
 	setInstanceIdentifier(make_shared<string>(uuid));
 
 }
@@ -28,6 +28,16 @@ int DMGameplayProperties::getHealth() {
 void DMGameplayProperties::setMaxHealth(int maxHealth) {
     
     this->maxHealth = maxHealth;
+}
+
+int DMGameplayProperties::getAttack() {
+    
+    return attack;
+}
+
+int DMGameplayProperties::getHunger() {
+    
+    return hunger;
 }
 
 bool DMGameplayProperties::isDead() {
