@@ -106,7 +106,8 @@ void DMInGameController::generateMap() {
 
 	auto onScreenText = FSEGTFactory::makeOnScreenText(
 						  make_shared<string>("Death Mask"), 
-						  0, 0);
+						  0.6, 0.8);
+
 	objectsContext->addObject(onScreenText);
 }
 
