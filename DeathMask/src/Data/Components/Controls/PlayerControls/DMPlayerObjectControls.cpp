@@ -17,57 +17,35 @@
 
 void DMPlayerObjectControls::step(shared_ptr<DMObjectControlsDelegate> delegate) {
 
+	auto step = 0.4;
+
     auto position = FSEGTUtils::getObjectPosition(object);
-    
-    auto x = position->x;
-    auto y = position->y;
-    
-    if (inputController->isDownKeyPressed()) {    
-
-        y += 1;
-        
-    }
-
-    if (inputController->isUpKeyPressed()) {
-
-        y -= 1;
-        
-    }
-
+      
     if (inputController->isLeftKeyPressed()) {
 
-        x -= 1;
+        position->x -= step;
         
     }
 
     if (inputController->isRightKeyPressed()) {
 
-        x += 1;
+        position->x += step;
+        
+    }
+  
+    if (inputController->isDownKeyPressed()) {    
+
+        position->z += step;
         
     }
 
-    handleTargetAt(x, y, position);
+    if (inputController->isUpKeyPressed()) {
+
+        position->z -= step;
+        
+    }
 
     delegate->objectsControlsDelegateObjectDidUpdate(object);
-}
-
-void DMPlayerObjectControls::handleTargetAt(int x, int y, shared_ptr<FSEGTVector> position) {
-    
-    if (gameMap.get() == nullptr) {
-        
-        return;
-        
-    }
-    
-    //if (gameMap->isTileAtXYSolid(x,y)) {
-        
-        //return;
-        
-    //}
-    
-    position->x = x;
-    position->y = y;
-    
 }
 
 DMPlayerObjectControls::~DMPlayerObjectControls() {

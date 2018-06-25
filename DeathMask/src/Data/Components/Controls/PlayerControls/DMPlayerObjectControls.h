@@ -40,11 +40,6 @@ public:
     shared_ptr<FSEGTGameMap> gameMap;
     
     virtual void step(shared_ptr<DMObjectControlsDelegate> delegate);
-    
-private:
-    
-    void handleTargetAt(int x, int y, shared_ptr<FSEGTVector> position);
-
 };
 
 #endif /* DMPLAYERCONTROLS_H */

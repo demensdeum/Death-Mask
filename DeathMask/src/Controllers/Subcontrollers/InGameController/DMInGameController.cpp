@@ -87,7 +87,7 @@ void DMInGameController::generateMap() {
             shared_ptr<string>(),
             shared_ptr<string>(),
 		shared_ptr<string>(),
-            startPointPosition->x, startPointPosition->y, startPointPosition->z,
+            startPointPosition->x, startPointPosition->y, startPointPosition->z + 2,
             1, 1, 1,
             0, 0, 0,
             0);   
@@ -103,6 +103,8 @@ void DMInGameController::generateMap() {
             0, 0, 0,
             0);   
 
+	playerObjectControls = make_shared<DMPlayerObjectControls>(mainCharacter, ioSystem->inputController, gameMap);
+
 	auto gameplayProperties = make_shared<DMGameplayProperties>();
 	mainCharacter->addComponent(gameplayProperties);
 
@@ -115,15 +117,10 @@ void DMInGameController::generateMap() {
 
 	objectsContext->addObject(camera);    
 	objectsContext->addObject(city);
+	objectsContext->addObject(mainCharacter);
 
 	freeCameraController = make_shared<FSEGTFreeCameraController>(ioSystem->inputController, camera);
 	freeCameraController->delegate = shared_from_this();
-
-	auto versionText = FSEGTFactory::makeOnScreenText(
-						  make_shared<string>("Death Mask"), 
-						  0, 0);
-
-	objectsContext->addObject(versionText);
 
 	auto userInterfaceText = FSEGTFactory::makeOnScreenText(
 						  make_shared<string>("User Interface"), 
@@ -133,6 +130,12 @@ void DMInGameController::generateMap() {
 
 	auto userInterfaceTextComponent = FSEGTUtils::getText(userInterfaceText);
 	auto mainCharacterGameplayProperties = DMUtils::getObjectGameplayProperties(mainCharacter);
+
+	auto versionText = FSEGTFactory::makeOnScreenText(
+						  make_shared<string>("Death Mask"), 
+						  0.7, 0.9);
+
+	objectsContext->addObject(versionText);
 
 	inGameUserInterfaceController = make_shared<DeathMaskGame::InGameUserInterfaceController>(userInterfaceTextComponent, mainCharacterGameplayProperties);
 }
@@ -153,6 +156,7 @@ void DMInGameController::frameStep() {
 
 auto inputController = ioSystem->inputController;
 
+	playerObjectControls->step(shared_from_this());
 	inGameUserInterfaceController->step();
 
 	renderer->render(gameData);
@@ -173,10 +177,10 @@ auto inputController = ioSystem->inputController;
 	}
 
 	{
-		auto cameraPosition = FSEGTUtils::getObjectPosition(camera);
+		auto mainCharacterPosition = FSEGTUtils::getObjectPosition(mainCharacter);
 		auto exitPosition = FSEGTUtils::getObjectPosition(exitPoint);
 
-		if (int(cameraPosition->x) == int(exitPosition->x) && int(cameraPosition->y) == int(exitPosition->y) && int(cameraPosition->z) ==int(exitPosition->z)) {
+		if (int(mainCharacterPosition->x) == int(exitPosition->x) && int(mainCharacterPosition->y) == int(exitPosition->y) && int(mainCharacterPosition->z) ==int(exitPosition->z)) {
 		
 			auto switchLevelMessage = make_shared<FSCMessage>(make_shared<string>("About gameplay process"), make_shared<string>("We need to switch level, because player step inside exit point."));
 			messages.push_back(switchLevelMessage);
@@ -193,6 +197,12 @@ void DMInGameController::handleMessages() {
 		generateMap();
 		messages.pop_back();
 	}
+}
+
+void DMInGameController::objectsControlsDelegateObjectDidUpdate(shared_ptr<FSCObject> object) {
+
+	objectsContext->updateObject(object);
+
 }
 
 void DMInGameController::freeCameraControllerDidUpdateCamera(shared_ptr<FSEGTFreeCameraController> freeCameraController, shared_ptr<FSCObject> camera) {
