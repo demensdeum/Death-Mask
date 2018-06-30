@@ -25,12 +25,26 @@ public:
 
 	void applyDamage(shared_ptr<Damage> damage);
 
-	int getHealth();    
-	int getAttack();
-	int getHunger();    
+	int getHealth();
+	int getHealthMax();
+	void setHealth(int health);
+ 	void setHealthMax(int healthMax);
 
- 	void setMaxHealth(int maxHealth);
+	int getAttack();
+	int getAttackMax();
+	void setAttack(int attack);
+	void setAttackMax(int attackMax);
+
+	int getHunger();
+	int getHungerMax();
+	void setHunger(int hunger);
+	void setHungerMax(int hungerMax);
     
+	int getOxygen();
+	int getOxygenMax();
+	void setOxygen(int oxygen);
+	void setOxygenMax(int oxygenMax);
+
 	void applyItem(shared_ptr<FSCObject> item);
 	void removeItem(shared_ptr<FSCObject> item);
     
@@ -41,11 +55,16 @@ public:
 private:
     
 	int health = 0;
-	int maxHealth = 0;
+	int healthMax = 0;
+
 	int attack = 0;
-	int maxAttack = 0;
+	int attackMax = 0;
+
 	int hunger = 0;
-	int maxHunger = 0;
+	int hungerMax = 0;
+
+	int oxygen = 0;
+	int oxygenMax = 0;
 
 	shared_ptr<FSCObject> weapon;
 	shared_ptr<FSCObject> bioshell;

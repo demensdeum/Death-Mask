@@ -7,6 +7,8 @@
 #include <DeathMask/src/Data/GameObjectsGenerator.h>
 #include <FlameSteelCore/FSCUtils.h>
 #include <DeathMask/src/Data/Components/GameplayProperties/DMGameplayProperties.h>
+#include <string>
+#include <iostream>
 
 using namespace FlameSteelCore::Utils;
 using namespace DeathMaskGame;
@@ -24,15 +26,45 @@ shared_ptr<FSCObject> GameObjectsGenerator::generateRandomItem(Difficulty itemDi
 	{
 
 		case weapon:
+
+			cout << "Generate weapon item" << endl;
+
 			item = generateWeapon(itemDifficulty);
 			break;
 
 		case supply:
+
+			cout << "Generate supply item" << endl;
+
 			item  = generateSupplyItem(itemDifficulty);
 			break;
 
 		case bioshell:
+
+			cout << "Generate bioshell item" << endl;
+
 			item = generateBioshellItem(itemDifficulty);
+			break;
+
+		case questItem:
+
+			cout << "Generate quest item" << endl;
+
+			item = generateQuestItem(itemDifficulty);
+			break;
+
+		case oxygenItem:
+
+			cout << "Generate oxygen item" << endl;
+
+			item = generateOxygenItem(itemDifficulty);
+			break;
+
+		case foodItem:
+
+			cout << "Generate food item" << endl;
+
+			item = generateFoodItem(itemDifficulty);
 			break;
 
 		case count:
@@ -41,6 +73,16 @@ shared_ptr<FSCObject> GameObjectsGenerator::generateRandomItem(Difficulty itemDi
 	}
 
 	return item;
+
+}
+
+shared_ptr<FSCObject> GameObjectsGenerator::generateQuestItem(Difficulty difficulty) {
+
+	auto firstNames = vector<string>{LocalizedString("Quest")};
+	auto secondNames = vector<string>{LocalizedString("Item")};
+	auto type = ItemType::questItem;
+
+	return generateObject(type, difficulty, firstNames, secondNames);
 
 }
 
@@ -99,6 +141,26 @@ shared_ptr<FSCObject> GameObjectsGenerator::generateEnemy(Difficulty enemyDiffic
 	return object;
 
 };
+
+shared_ptr<FSCObject> GameObjectsGenerator::generateOxygenItem(Difficulty oxygenDifficulty) {
+
+	auto firstNames = vector<string>{LocalizedString("Oxygen"), LocalizedString("Oxygen") };
+	auto secondNames = vector<string>{LocalizedString("tank"), LocalizedString("cassete"), LocalizedString("tablet")};
+	auto type = ItemType::oxygenItem;
+
+	return generateObject(type,  oxygenDifficulty, firstNames, secondNames);
+
+}
+
+shared_ptr<FSCObject> GameObjectsGenerator::generateFoodItem(Difficulty foodDifficulty) {
+
+	auto firstNames = vector<string>{LocalizedString("ForsightTech"), LocalizedString("VitaCom"), LocalizedString("Optimum")};
+	auto secondNames = vector<string>{LocalizedString("soyjar"), LocalizedString("grass-bar"), LocalizedString("protein pills")};
+	auto type = ItemType::foodItem;
+
+	return generateObject(type, foodDifficulty, firstNames, secondNames);
+
+}
 
 shared_ptr<FSCObject> GameObjectsGenerator::generateWeapon(Difficulty weaponDifficulty) {
 

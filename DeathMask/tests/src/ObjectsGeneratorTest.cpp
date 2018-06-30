@@ -14,8 +14,12 @@ bool ObjectsGeneratorTest::perform() {
 
 	srand (time(nullptr));
 
-	return testItemGenerator(ItemType::weapon) && testItemGenerator(ItemType::supply) && testItemGenerator(ItemType::bioshell);
-
+	return testItemGenerator(ItemType::weapon) && 
+				testItemGenerator(ItemType::supply) && 
+					testItemGenerator(ItemType::bioshell) &&
+						testItemGenerator(ItemType::questItem) &&
+							testItemGenerator(ItemType::oxygenItem) &&
+								testItemGenerator(ItemType::foodItem);
 }
 
 bool ObjectsGeneratorTest::testItemGenerator(ItemType type) {
@@ -39,6 +43,22 @@ bool ObjectsGeneratorTest::testItemGenerator(ItemType type) {
 		case ItemType::bioshell:
 
 			item = objectsGenerator->generateBioshellItem(Difficulty::easy);
+			break;
+
+		case ItemType::questItem:
+
+			item = objectsGenerator->generateQuestItem(Difficulty::easy);
+			break;
+
+		case ItemType::oxygenItem:
+
+			item = objectsGenerator->generateOxygenItem(Difficulty::easy);
+			break;
+
+
+		case ItemType::foodItem:
+
+			item = objectsGenerator->generateFoodItem(Difficulty::easy);
 			break;
 
 	}

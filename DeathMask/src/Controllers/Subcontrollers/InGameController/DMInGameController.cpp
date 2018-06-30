@@ -108,6 +108,13 @@ void DMInGameController::generateMap() {
 	auto gameplayProperties = make_shared<DMGameplayProperties>();
 	mainCharacter->addComponent(gameplayProperties);
 
+	gameplayProperties->setHealth(10);
+	gameplayProperties->setHealthMax(10);
+	gameplayProperties->setHunger(10);
+	gameplayProperties->setHungerMax(10);
+	gameplayProperties->setOxygen(10);
+	gameplayProperties->setOxygenMax(10);
+
 	exitPoint =  objectsContext->objectWithInstanceIdentifier(make_shared<string>(ConstMapEntityEndPoint));
 
 	if (exitPoint.get() == nullptr)

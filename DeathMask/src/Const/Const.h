@@ -13,10 +13,12 @@ namespace DeathMaskGame {
 
 	enum ItemType {
 
-		supply,
 		weapon,
+		supply,
 		bioshell,
 		questItem,
+		oxygenItem,
+		foodItem,
 		count
     
 	};

@@ -44,6 +44,7 @@ bool MapGeneratorTest::perform() {
 	}
 
 	mapGeneratorParams->objects = objects;
+	mapGeneratorParams->enemies = make_shared<FSCObjects>();	
 
 	auto gameMap = MapGenerator::generate(mapGeneratorParams, objectsContext);
 
