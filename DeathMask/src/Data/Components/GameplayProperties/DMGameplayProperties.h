@@ -14,9 +14,13 @@
 #ifndef DMGAMEPLAYPROPERTIES_H
 #define DMGAMEPLAYPROPERTIES_H
 
+#include <DeathMask/src/Const/Const.h>
 #include <FlameSteelCore/FSCObject.h>
 
+
 class Damage;
+
+using namespace DeathMaskGame;
 
 class DMGameplayProperties: public FSCObject {
 public:        
@@ -52,6 +56,8 @@ public:
     
 	bool isDead();
     
+	CreatureType creatureType = CreatureType::unknown;
+
 private:
     
 	int health = 0;
@@ -69,6 +75,7 @@ private:
 	shared_ptr<FSCObject> weapon;
 	shared_ptr<FSCObject> bioshell;
 	shared_ptr<FSCObject> questItem;
+	shared_ptr<FSCObject> supplyItem;
 
 };
 

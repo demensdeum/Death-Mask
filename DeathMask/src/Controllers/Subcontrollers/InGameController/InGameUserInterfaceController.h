@@ -9,16 +9,27 @@ using namespace std;
 
 namespace DeathMaskGame {
 
-class InGameUserInterfaceController {
+class InGameUserInterfaceController;
+
+class InGameUserInterfaceControllerDataSource {
 
 public:
-	InGameUserInterfaceController(shared_ptr<FSEGTText> text, shared_ptr<DMGameplayProperties> gameplayProperties);
+	virtual shared_ptr<FSCObjects> objectsForInGameUserInterfaceController(shared_ptr<InGameUserInterfaceController> inGameUserInterfaceController);
+
+};
+
+class InGameUserInterfaceController: public enable_shared_from_this<InGameUserInterfaceController> {
+
+public:
+	InGameUserInterfaceController(shared_ptr<FSEGTText> text, 
+											shared_ptr<DMGameplayProperties> gameplayProperties, 
+												shared_ptr<InGameUserInterfaceControllerDataSource> dataSource);
 	void step();
 
 private:
 	shared_ptr<FSEGTText> text;
 	shared_ptr<DMGameplayProperties> gameplayProperties;
-
+	shared_ptr<InGameUserInterfaceControllerDataSource> dataSource;
 };
 };
 

@@ -23,6 +23,15 @@ namespace DeathMaskGame {
     
 	};
 
+	enum CreatureType {
+
+		unknown,
+		living,
+		ghost,
+		undead
+
+	};
+
 };
 
 #endif

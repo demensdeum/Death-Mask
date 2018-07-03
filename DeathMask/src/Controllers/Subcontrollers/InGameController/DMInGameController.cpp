@@ -14,6 +14,7 @@
 #include <FlameSteelEngineGameToolkitAlgorithms/Algorithms/MapGenerator/FSEGTAMapGeneratorParams.h>
 #include <FlameSteelEngineGameToolkit/Controllers/FreeCameraController/FSEGTFreeCameraController.h>
 #include <FlameSteelEngineGameToolkitAlgorithms/Algorithms/MazeObjectGenerator/FSGTAMazeObjectGenerator.h>
+#include "GameplayRulesController.h"
 
 using namespace DeathMaskGame;
 using namespace FlameSteelEngine::GameToolkit::Algorithms;
@@ -23,6 +24,8 @@ DMInGameController::DMInGameController() {
 };
 
 void DMInGameController::generateMap() {
+
+	objectsMap = make_shared<ObjectsMap>();
 
    auto mapGeneratorParams = make_shared<FSEGTAMapGeneratorParams>();
 
@@ -114,6 +117,7 @@ void DMInGameController::generateMap() {
 	gameplayProperties->setHungerMax(10);
 	gameplayProperties->setOxygen(10);
 	gameplayProperties->setOxygenMax(10);
+	gameplayProperties->creatureType = CreatureType::living;
 
 	exitPoint =  objectsContext->objectWithInstanceIdentifier(make_shared<string>(ConstMapEntityEndPoint));
 
@@ -144,7 +148,18 @@ void DMInGameController::generateMap() {
 
 	objectsContext->addObject(versionText);
 
-	inGameUserInterfaceController = make_shared<DeathMaskGame::InGameUserInterfaceController>(userInterfaceTextComponent, mainCharacterGameplayProperties);
+	inGameUserInterfaceController = make_shared<DeathMaskGame::InGameUserInterfaceController>(userInterfaceTextComponent, mainCharacterGameplayProperties, shared_from_this());
+	auto gameRulesObjects = make_shared<FSCObjects>();
+
+	for (auto i = 0; i < enemies->size(); i++)
+	{
+		auto enemy = enemies->objectAtIndex(i);
+		gameRulesObjects->addObject(enemy);
+	}
+
+	gameRulesObjects->addObject(mainCharacter);
+
+	gameplayRulesController = make_shared<GameplayRulesController>(gameRulesObjects);
 }
 
 void DMInGameController::beforeStart() {
@@ -153,10 +168,17 @@ void DMInGameController::beforeStart() {
  
 }
 
+shared_ptr<FSCObjects> DMInGameController::objectsForInGameUserInterfaceController(shared_ptr<InGameUserInterfaceController> inGameUserInterfaceController) {
+
+	return shared_ptr<FSCObjects>();
+
+}
+
 void DMInGameController::step() {
 
 	handleMessages();
 	frameStep();
+	gameplayRulesController->step();
 }
 
 void DMInGameController::frameStep() {
