@@ -51,6 +51,8 @@ void InGameUserInterfaceController::step() {
 					gameplayProperties->getOxygen(), gameplayProperties->getOxygenMax(),
 					objectsString.c_str());
 
+	buffer[1023] = 0;
+
 	text->text = make_shared<string>(buffer);
 
 }

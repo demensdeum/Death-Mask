@@ -15,7 +15,10 @@
 
 DMObjectControls::DMObjectControls(shared_ptr<FSCObject> object) {
     
-    this->object = object;
+	this->setInstanceIdentifier(make_shared<string>("object controls"));
+	this->setClassIdentifier(make_shared<string>("object controls"));
+
+	this->object = object;
     
 }
 

@@ -46,9 +46,11 @@ private:
 	shared_ptr<InGameUserInterfaceController> inGameUserInterfaceController;
 	shared_ptr<DMPlayerObjectControls> playerObjectControls;
 	shared_ptr<ObjectsMap> objectsMap;
+	shared_ptr<FSCObjects> enemies;
 
 	vector<shared_ptr<FSCMessage> > messages;
 
+	void useItemAtXY(shared_ptr<FSCObjects> objects);
 	void handleMessages();
 	void generateMap();
 	void frameStep();

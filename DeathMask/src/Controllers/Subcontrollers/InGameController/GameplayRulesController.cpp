@@ -56,3 +56,8 @@ void GameplayRulesController::step()
 		previousOxygenTimer = oxygenTimer;
 	}
 }
+
+bool GameplayRulesController::objectTryingToUseItem(shared_ptr<FSCObject> object, shared_ptr<FSCObject> item)
+{
+	return false;
+}

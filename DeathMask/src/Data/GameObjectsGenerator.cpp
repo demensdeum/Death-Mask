@@ -1,5 +1,6 @@
 #include "GameObjectsGenerator.h"
 
+#include <DeathMask/src/Data/Components/Controls/ZombieControls/ZombieControls.h>
 #include <FlameSteelEngineGameToolkit/Data/Components/FSEGTFactory.h>
 #include <FlameSteelEngineGameToolkit/Data/Components/Text/FSEGTText.h>
 #include <DeathMask/src/Const/DMConstClassIdentifiers.h>
@@ -141,6 +142,9 @@ shared_ptr<FSCObject> GameObjectsGenerator::generateEnemy(Difficulty enemyDiffic
 
 	auto gameplayProperties = make_shared<DMGameplayProperties>();
 	object->addComponent(gameplayProperties);
+
+	auto zombieControls = make_shared<ZombieControls>(object);
+	object->addComponent(zombieControls);
 
 	return object;
 

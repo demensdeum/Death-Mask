@@ -10,6 +10,8 @@ public:
 	GameplayRulesController(shared_ptr<FSCObjects> objects);
 	void step();
 
+	bool objectTryingToUseItem(shared_ptr<FSCObject> object, shared_ptr<FSCObject> item);
+
 private:
 	shared_ptr<FSCObjects> objects;
 	int previousHungerTimer;

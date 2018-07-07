@@ -30,19 +30,19 @@ void DMInGameController::generateMap() {
 
 	auto mapGeneratorParams = make_shared<FSEGTAMapGeneratorParams>();
 
-    shared_ptr<FSCObject> freeTile = std::make_shared<FSCObject>();
-    shared_ptr<FSCObject> solidTile = std::make_shared<FSCObject>();
+	shared_ptr<FSCObject> freeTile = std::make_shared<FSCObject>();
+	shared_ptr<FSCObject> solidTile = std::make_shared<FSCObject>();
     
-    mapGeneratorParams->freeTileIndex = 0;
-    mapGeneratorParams->solidTileIndex = 1;
+	mapGeneratorParams->freeTileIndex = 0;
+	mapGeneratorParams->solidTileIndex = 1;
 
-    mapGeneratorParams->tiles.push_back(freeTile);
-    mapGeneratorParams->tiles.push_back(solidTile);
+	mapGeneratorParams->tiles.push_back(freeTile);
+	mapGeneratorParams->tiles.push_back(solidTile);
     
-    mapGeneratorParams->maxIterations = 255;
-    mapGeneratorParams->minCursorSize = 2;
-    mapGeneratorParams->maxCursorSize = 1 + FSCUtils::FSCRandomInt(6);
-    mapGeneratorParams->maxLineLength = 6 + FSCUtils::FSCRandomInt(6);
+	mapGeneratorParams->maxIterations = 255;
+	mapGeneratorParams->minCursorSize = 2;
+	mapGeneratorParams->maxCursorSize = 1 + FSCUtils::FSCRandomInt(6);
+	mapGeneratorParams->maxLineLength = 6 + FSCUtils::FSCRandomInt(6);
 	mapGeneratorParams->gameplayObjectRespawnChance = 300;
 	mapGeneratorParams->enemyRespawnChance = 300;
 
@@ -56,16 +56,20 @@ void DMInGameController::generateMap() {
 
 	mapGeneratorParams->objects = objects;
 
-	auto enemies = make_shared<FSCObjects>();
+	enemies = make_shared<FSCObjects>();
+	auto mapParametersEnemies = make_shared<FSCObjects>();
 
 	for (auto i = 0; i < 20; i ++)
 	{
-		enemies->addObject(objectsGenerator->generateEnemy(Difficulty::easy));
+		auto enemy = objectsGenerator->generateEnemy(Difficulty::easy);
+
+		enemies->addObject(enemy);
+		mapParametersEnemies->addObject(enemy);
 	}
 
-	mapGeneratorParams->enemies = enemies;
+	mapGeneratorParams->enemies = mapParametersEnemies;
 
-    auto gameMap = MapGenerator::generate(mapGeneratorParams, objectsContext);
+	auto gameMap = MapGenerator::generate(mapGeneratorParams, objectsContext);
 
 	gameData->gameMap = gameMap;
 
@@ -93,37 +97,31 @@ void DMInGameController::generateMap() {
 	text->setClassIdentifier(make_shared<string>(DMConstClassIdentifierLabel.c_str()));
 	city->addComponent(text);
 
-	    	camera = FSEGTFactory::makeOnSceneObject(
-            make_shared<string>("camera"),
-            make_shared<string>("camera"),
-            shared_ptr<string>(),
-            shared_ptr<string>(),
-			shared_ptr<string>(),
-            startPointPosition->x, startPointPosition->y, startPointPosition->z + 2,
-            1, 1, 1,
-            0, 0, 0,
-            0);   
+	camera = FSEGTFactory::makeOnSceneObject(
+      															make_shared<string>("camera"),
+													           	make_shared<string>("camera"),
+													           	shared_ptr<string>(),
+															shared_ptr<string>(),
+															shared_ptr<string>(),
+													            startPointPosition->x, startPointPosition->y, startPointPosition->z + 2,
+													            1, 1, 1,
+													            0, 0, 0,
+													            0);   
 
 	text = make_shared<FSEGTText>(make_shared<string>("Camera"));
 	text->setClassIdentifier(make_shared<string>(DMConstClassIdentifierLabel.c_str()));
 	camera->addComponent(text);
-
-	mainCharacter = FSEGTFactory::makeOnSceneObject(
-            make_shared<string>("main character"),
-            make_shared<string>("main character"),
-            shared_ptr<string>(),
-            shared_ptr<string>(),
-			shared_ptr<string>(),
-            startPointPosition->x, startPointPosition->y, startPointPosition->z,
-            1, 1, 1,
-            0, 0, 0,
-            0);   
 
 	text = make_shared<FSEGTText>(make_shared<string>("Main Character"));
 	text->setClassIdentifier(make_shared<string>(DMConstClassIdentifierLabel.c_str()));
 	mainCharacter->addComponent(text);
 
 	playerObjectControls = make_shared<DMPlayerObjectControls>(mainCharacter, ioSystem->inputController, gameMap);
+
+	auto mainCharacterPosition =  FSEGTUtils::getObjectPosition(mainCharacter);
+	mainCharacterPosition->x = startPointPosition->x;
+	mainCharacterPosition->y = startPointPosition->y;
+	mainCharacterPosition->z = startPointPosition->z;
 
 	auto gameplayProperties = make_shared<DMGameplayProperties>();
 	mainCharacter->addComponent(gameplayProperties);
@@ -183,8 +181,30 @@ void DMInGameController::generateMap() {
 	gameplayRulesController = make_shared<GameplayRulesController>(gameRulesObjects);
 }
 
+void DMInGameController::useItemAtXY(shared_ptr<FSCObjects> objects) {
+
+	for (auto i = 0; i < objects->size(); i++) {
+		auto object = objects->objectAtIndex(i);
+		if (gameplayRulesController->objectTryingToUseItem(mainCharacter, object))
+		{
+			//TODO remove object at position
+		}
+	}
+}
+
 void DMInGameController::beforeStart() {
  
+	mainCharacter = FSEGTFactory::makeOnSceneObject(
+		make_shared<string>("main character"),
+		make_shared<string>("main character"),
+		shared_ptr<string>(),
+ 		shared_ptr<string>(),
+		shared_ptr<string>(),
+            0, 0, 0,
+            1, 1, 1,
+            0, 0, 0,
+            0);   
+
 	objectsContext->subscribe(shared_from_this());
 	generateMap();   
  
@@ -228,6 +248,18 @@ void DMInGameController::step() {
 	handleMessages();
 	frameStep();
 	gameplayRulesController->step();
+
+	for (auto i = 0; i < enemies->size(); i++)
+	{
+		auto enemy = enemies->objectAtIndex(i);
+		auto enemyControls = DMUtils::getObjectControls(enemy);
+		if (enemy.get() == nullptr)
+		{
+			throw logic_error("Can't control enemy - enemy controls are null");
+		}
+		enemyControls->step(shared_from_this());
+	}
+
 }
 
 void DMInGameController::frameStep() {
@@ -247,6 +279,25 @@ auto inputController = ioSystem->inputController;
 		cout << "Bye-Bye!" << endl;
 		ioSystem->stop();
 		exit(0);
+
+	}
+	else if (inputController->isUseKeyPressed()) {
+
+		auto mainCharacterPosition = FSEGTUtils::getObjectPosition(mainCharacter);
+
+		if (mainCharacterPosition.get() == nullptr)
+		{
+			throw logic_error("Cannot use objects for because main character position is null");
+		}
+
+		auto objectsToUse = objectsMap->objectsAtXY(mainCharacterPosition->x,mainCharacterPosition->z);
+
+		if (objectsToUse.get() == nullptr)
+		{
+			throw logic_error("Can't use empty objects");
+		}
+
+		useItemAtXY(objectsToUse);
 
 	}
 	else {
