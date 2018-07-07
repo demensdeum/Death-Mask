@@ -5,5 +5,5 @@ git clone https://gitlab.com/demensdeum/FlameSteelEngineGameToolkit.git
 git clone https://gitlab.com/demensdeum/FlameSteelEngineGameToolkitAlgorithms.git
 git clone https://gitlab.com/demensdeum/FlameSteelEngineGameToolkitFSGL.git
 git clone https://gitlab.com/demensdeum/FlameSteelSpiderToolkit.git
-#git clone https://gitlab.com/demensdeum/FSGL.git
+git clone https://gitlab.com/demensdeum/FSGL.git
 #git clone https://gitlab.com/demensdeum/FlameSteelEngineGameToolkitNcurses.git

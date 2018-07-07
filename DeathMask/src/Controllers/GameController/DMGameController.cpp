@@ -25,7 +25,7 @@
 #include <DeathMask/src/Controllers/Subcontrollers/InGameController/DMInGameController.h>
 
 
-#define DEATHMASK_IO_SYSTEM 1
+#define DEATHMASK_IO_SYSTEM 0
 
 #if DEATHMASK_IO_SYSTEM == 0
 #include <FlameSteelEngineGameToolkitFSGL/FSEGTIOFSGLSystem.h>
