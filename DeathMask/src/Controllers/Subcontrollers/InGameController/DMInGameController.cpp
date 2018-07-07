@@ -8,6 +8,7 @@
 #include <DeathMask/src/Data/GameObjectsGenerator.h>
 #include <FlameSteelEngineGameToolkit/Utils/FSEGTUtils.h>
 #include <FlameSteelFramework/FlameSteelCore/FSCUtils.h>
+#include <DeathMask/src/Const/DMConstClassIdentifiers.h>
 #include <FlameSteelEngineGameToolkitAlgorithms/Const/Const.h>
 #include <FlameSteelEngineGameToolkit/Data/Components/FSEGTFactory.h>
 #include <FlameSteelEngineGameToolkitAlgorithms/Algorithms/MapGenerator/MapGenerator.h>
@@ -27,7 +28,7 @@ void DMInGameController::generateMap() {
 
 	objectsMap = make_shared<ObjectsMap>();
 
-   auto mapGeneratorParams = make_shared<FSEGTAMapGeneratorParams>();
+	auto mapGeneratorParams = make_shared<FSEGTAMapGeneratorParams>();
 
     shared_ptr<FSCObject> freeTile = std::make_shared<FSCObject>();
     shared_ptr<FSCObject> solidTile = std::make_shared<FSCObject>();
@@ -75,6 +76,10 @@ void DMInGameController::generateMap() {
 		throw logic_error("DMInGameController::beforeStart - no start point on map, can't place camera.");
 	}
 
+	auto text = make_shared<FSEGTText>(make_shared<string>("Start Point Entity"));
+	text->setClassIdentifier(make_shared<string>(DMConstClassIdentifierLabel.c_str()));
+	startPoint->addComponent(text);
+
 	auto startPointPosition = FSEGTUtils::getObjectPosition(startPoint);
 
 	if (startPointPosition.get() == nullptr)
@@ -84,27 +89,39 @@ void DMInGameController::generateMap() {
 
 	auto city = FSGTAMazeObjectGenerator::generate(gameMap);
 
+	text = make_shared<FSEGTText>(make_shared<string>("City Model"));
+	text->setClassIdentifier(make_shared<string>(DMConstClassIdentifierLabel.c_str()));
+	city->addComponent(text);
+
 	    	camera = FSEGTFactory::makeOnSceneObject(
             make_shared<string>("camera"),
             make_shared<string>("camera"),
             shared_ptr<string>(),
             shared_ptr<string>(),
-		shared_ptr<string>(),
+			shared_ptr<string>(),
             startPointPosition->x, startPointPosition->y, startPointPosition->z + 2,
             1, 1, 1,
             0, 0, 0,
             0);   
+
+	text = make_shared<FSEGTText>(make_shared<string>("Camera"));
+	text->setClassIdentifier(make_shared<string>(DMConstClassIdentifierLabel.c_str()));
+	camera->addComponent(text);
 
 	mainCharacter = FSEGTFactory::makeOnSceneObject(
             make_shared<string>("main character"),
             make_shared<string>("main character"),
             shared_ptr<string>(),
             shared_ptr<string>(),
-		shared_ptr<string>(),
+			shared_ptr<string>(),
             startPointPosition->x, startPointPosition->y, startPointPosition->z,
             1, 1, 1,
             0, 0, 0,
             0);   
+
+	text = make_shared<FSEGTText>(make_shared<string>("Main Character"));
+	text->setClassIdentifier(make_shared<string>(DMConstClassIdentifierLabel.c_str()));
+	mainCharacter->addComponent(text);
 
 	playerObjectControls = make_shared<DMPlayerObjectControls>(mainCharacter, ioSystem->inputController, gameMap);
 
@@ -125,6 +142,10 @@ void DMInGameController::generateMap() {
 	{
 		throw logic_error("DMInGameController::beforeStart - no exit point.");
 	}
+
+	text = make_shared<FSEGTText>(make_shared<string>("End Point Entity"));
+	text->setClassIdentifier(make_shared<string>(DMConstClassIdentifierLabel.c_str()));
+	exitPoint->addComponent(text);
 
 	objectsContext->addObject(camera);    
 	objectsContext->addObject(city);
@@ -164,13 +185,41 @@ void DMInGameController::generateMap() {
 
 void DMInGameController::beforeStart() {
  
+	objectsContext->subscribe(shared_from_this());
 	generateMap();   
  
 }
 
 shared_ptr<FSCObjects> DMInGameController::objectsForInGameUserInterfaceController(shared_ptr<InGameUserInterfaceController> inGameUserInterfaceController) {
 
-	return shared_ptr<FSCObjects>();
+	auto mainCharacterPosition = FSEGTUtils::getObjectPosition(mainCharacter);
+
+	if (mainCharacterPosition.get() == nullptr)
+	{
+		throw logic_error("Cannot get objects for inGameUserInterface because main character position is null");
+	}
+
+	auto objects = objectsMap->objectsAtXY(mainCharacterPosition->x,mainCharacterPosition->z);
+
+	return objects;
+
+}
+
+void DMInGameController::objectsContextObjectAdded(shared_ptr<FSEGTObjectsContext> context, shared_ptr<FSCObject> object) {
+
+	objectsMap->handleObject(object);
+
+}
+
+void DMInGameController::objectsContextObjectUpdate(shared_ptr<FSEGTObjectsContext> context, shared_ptr<FSCObject> object) {
+
+	objectsMap->handleObject(object);
+
+}
+
+void DMInGameController::objectsContextAllObjectsRemoved(shared_ptr<FSEGTObjectsContext> context) {
+
+	objectsMap->removeAllObjects();
 
 }
 
@@ -231,11 +280,13 @@ void DMInGameController::handleMessages() {
 void DMInGameController::objectsControlsDelegateObjectDidUpdate(shared_ptr<FSCObject> object) {
 
 	objectsContext->updateObject(object);
+	objectsMap->handleObject(object);
 
 }
 
 void DMInGameController::freeCameraControllerDidUpdateCamera(shared_ptr<FSEGTFreeCameraController> freeCameraController, shared_ptr<FSCObject> camera) {
 
 	objectsContext->updateObject(camera);
+	objectsMap->handleObject(camera);
 
 }

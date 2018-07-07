@@ -19,7 +19,8 @@ class DMInGameController: public FSEGTController,
 									public DMObjectControlsDelegate, 
 										public FSEGTFreeCameraControllerDelegate, 
 											public enable_shared_from_this<DMInGameController>,
-												public InGameUserInterfaceControllerDataSource {
+												public InGameUserInterfaceControllerDataSource,
+													public FSEGTObjectContextDelegate {
 
 public:
 	DMInGameController();
@@ -30,6 +31,10 @@ public:
 	virtual void freeCameraControllerDidUpdateCamera(shared_ptr<FSEGTFreeCameraController> freeCameraController, shared_ptr<FSCObject> camera);
 	virtual void objectsControlsDelegateObjectDidUpdate(shared_ptr<FSCObject> object);
 	virtual shared_ptr<FSCObjects> objectsForInGameUserInterfaceController(shared_ptr<InGameUserInterfaceController> inGameUserInterfaceController);
+
+	virtual void objectsContextObjectAdded(shared_ptr<FSEGTObjectsContext> context, shared_ptr<FSCObject> object);
+	virtual void objectsContextObjectUpdate(shared_ptr<FSEGTObjectsContext> context, shared_ptr<FSCObject> object);
+	virtual void objectsContextAllObjectsRemoved(shared_ptr<FSEGTObjectsContext> context);
 
 private:
 	shared_ptr<GameplayRulesController> gameplayRulesController;

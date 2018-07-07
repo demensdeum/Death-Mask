@@ -22,7 +22,7 @@ void InGameUserInterfaceController::step() {
 	}
 
 	auto objects = dataSource->objectsForInGameUserInterfaceController(shared_from_this());
-	string objectsString = "<No objects>";
+	string objectsString = "";
 	
 	if (objects.get() != nullptr)
 	{
@@ -30,8 +30,17 @@ void InGameUserInterfaceController::step() {
 		{
 			auto object = objects->objectAtIndex(i);
 			auto label = DMUtils::getObjectLabel(object);
-			objectsString += *label->text;
+			objectsString +=  *label->text;
+			objectsString += ", ";
 		} 
+
+		auto size = objects->size();
+		objectsString += std::to_string(size);
+	}
+
+	if (objectsString.length() < 1)
+	{
+		objectsString = "<No objects>";
 	}
 
 	char buffer[1024];

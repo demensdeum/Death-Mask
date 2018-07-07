@@ -135,6 +135,10 @@ shared_ptr<FSCObject> GameObjectsGenerator::generateEnemy(Difficulty enemyDiffic
 	object->setClassIdentifier(make_shared<string>(DMConstClassIdentifierEnemy));
 	object->setInstanceIdentifier(make_shared<string>(object->uuid));
 	
+	auto text = make_shared<FSEGTText>(make_shared<string>("Enemy"));
+	text->setClassIdentifier(make_shared<string>(DMConstClassIdentifierLabel.c_str()));
+	object->addComponent(text);
+
 	auto gameplayProperties = make_shared<DMGameplayProperties>();
 	object->addComponent(gameplayProperties);
 
