@@ -245,6 +245,7 @@ auto inputController = ioSystem->inputController;
 	if (inputController->isExitKeyPressed()) {
 
 		cout << "Bye-Bye!" << endl;
+		ioSystem->stop();
 		exit(0);
 
 	}
