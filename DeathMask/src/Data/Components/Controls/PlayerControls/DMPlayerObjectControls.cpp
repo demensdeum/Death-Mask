@@ -17,35 +17,42 @@
 
 void DMPlayerObjectControls::step(shared_ptr<DMObjectControlsDelegate> delegate) {
 
+	bool updateNeeded = false;
+
 	auto step = 0.4;
 
-    auto position = FSEGTUtils::getObjectPosition(object);
+	auto position = FSEGTUtils::getObjectPosition(object);
       
-    if (inputController->isLeftKeyPressed()) {
+	if (inputController->isLeftKeyPressed()) {
 
-        position->x -= step;
-        
-    }
+		position->x -= step;
+		updateNeeded = true;        
 
-    if (inputController->isRightKeyPressed()) {
+	}
 
-        position->x += step;
-        
-    }
+	if (inputController->isRightKeyPressed()) {
+
+		position->x += step;
+		updateNeeded = true;        
+
+	}
   
-    if (inputController->isDownKeyPressed()) {    
+	if (inputController->isDownKeyPressed()) {    
 
-        position->z += step;
-        
-    }
+		position->z += step;
+		updateNeeded = true;
+	}
 
-    if (inputController->isUpKeyPressed()) {
+	if (inputController->isUpKeyPressed()) {
 
-        position->z -= step;
-        
-    }
+		position->z -= step;
+		updateNeeded = true;        
+	}
 
-    delegate->objectsControlsDelegateObjectDidUpdate(object);
+	if (updateNeeded)
+	{
+		delegate->objectsControlsDelegateObjectDidUpdate(object);
+	}
 }
 
 DMPlayerObjectControls::~DMPlayerObjectControls() {

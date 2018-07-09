@@ -103,7 +103,7 @@ void DMInGameController::generateMap() {
 													           	shared_ptr<string>(),
 															shared_ptr<string>(),
 															shared_ptr<string>(),
-													            startPointPosition->x, startPointPosition->y, startPointPosition->z + 2,
+													            startPointPosition->x, startPointPosition->y, startPointPosition->z,
 													            1, 1, 1,
 													            0, 0, 0,
 													            0);   
@@ -149,8 +149,8 @@ void DMInGameController::generateMap() {
 	objectsContext->addObject(city);
 	objectsContext->addObject(mainCharacter);
 
-	freeCameraController = make_shared<FSEGTFreeCameraController>(ioSystem->inputController, camera);
-	freeCameraController->delegate = shared_from_this();
+	//freeCameraController = make_shared<FSEGTFreeCameraController>(ioSystem->inputController, camera);
+	//freeCameraController->delegate = shared_from_this();
 
 	auto userInterfaceText = FSEGTFactory::makeOnScreenText(
 						  make_shared<string>("User Interface"), 
@@ -302,8 +302,20 @@ auto inputController = ioSystem->inputController;
 	}
 	else {
 
-		freeCameraController->step();
+		if (freeCameraController.get() != nullptr)
+		{
+			freeCameraController->step();
+		}
+		else
+		{
+			auto mainCharacterPosition =  FSEGTUtils::getObjectPosition(mainCharacter);
+			auto cameraPosition = FSEGTUtils::getObjectPosition(camera);
+			cameraPosition->x = mainCharacterPosition->x;
+			cameraPosition->y = 0.5;
+			cameraPosition->z = mainCharacterPosition->z;
 
+			objectsContext->updateObject(camera);
+		}
 	}
 
 	{
