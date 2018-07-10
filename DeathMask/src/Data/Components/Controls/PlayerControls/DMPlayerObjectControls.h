@@ -40,6 +40,10 @@ public:
     shared_ptr<FSEGTGameMap> gameMap;
     
     virtual void step(shared_ptr<DMObjectControlsDelegate> delegate);
+
+private:
+	void moveByRotation(float x, float y, float z);
+
 };
 
 #endif /* DMPLAYERCONTROLS_H */

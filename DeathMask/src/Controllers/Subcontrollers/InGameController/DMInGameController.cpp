@@ -300,6 +300,12 @@ auto inputController = ioSystem->inputController;
 		useItemAtXY(objectsToUse);
 
 	}
+	else if (inputController->isShootKeyPressed()) {
+
+		generateMap();
+		return;
+
+	}
 	else {
 
 		if (freeCameraController.get() != nullptr)
@@ -313,6 +319,12 @@ auto inputController = ioSystem->inputController;
 			cameraPosition->x = mainCharacterPosition->x;
 			cameraPosition->y = 0.5;
 			cameraPosition->z = mainCharacterPosition->z;
+
+			auto mainCharacterRotation = FSEGTUtils::getObjectRotation(mainCharacter);
+			auto cameraRotation = FSEGTUtils::getObjectRotation(camera);
+			cameraRotation->x = mainCharacterRotation->x;
+			cameraRotation->y = mainCharacterRotation->y;
+			cameraRotation->z = mainCharacterRotation->z;
 
 			objectsContext->updateObject(camera);
 		}
