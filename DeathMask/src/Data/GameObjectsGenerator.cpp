@@ -10,6 +10,7 @@
 #include <DeathMask/src/Data/Components/GameplayProperties/DMGameplayProperties.h>
 #include <string>
 #include <iostream>
+#include <FlameSteelEngineGameToolkitAlgorithms/Algorithms/MazeObjectGenerator/FSGTAMazeObjectGenerator.h>
 
 using namespace FlameSteelCore::Utils;
 using namespace DeathMaskGame;
@@ -89,12 +90,14 @@ shared_ptr<FSCObject> GameObjectsGenerator::generateQuestItem(Difficulty difficu
 
 shared_ptr<FSCObject> GameObjectsGenerator::generateObject(ItemType type, Difficulty itemDiffuclty, vector<string>firstNames, vector<string>secondNames) {
 
+	auto serializedCardModelString = FSGTAMazeObjectGenerator::generateCube(0, 0, make_shared<string>("com.demensdeum.testenvironment.crate.bmp"));
+
       auto item = FSEGTFactory::makeOnSceneObject(
 													            make_shared<string>("dummy"),
 													            make_shared<string>("dummy"),
 													            shared_ptr<string>(),
 													            shared_ptr<string>(),
-															shared_ptr<string>(),
+															serializedCardModelString,
 													            0, 0, 0,
 													            1, 1, 1,
 													            0, 0, 0,
@@ -122,12 +125,14 @@ shared_ptr<FSCObject> GameObjectsGenerator::generateObject(ItemType type, Diffic
 
 shared_ptr<FSCObject> GameObjectsGenerator::generateEnemy(Difficulty enemyDifficulty) {
 
+	auto serializedCubeModelString = FSGTAMazeObjectGenerator::generateCube(0, 0, make_shared<string>("com.demensdeum.testenvironment.enemy.bmp"));
+
       auto object = FSEGTFactory::makeOnSceneObject(
 													            make_shared<string>("dummy"),
 													            make_shared<string>("dummy"),
 													            shared_ptr<string>(),
 													            shared_ptr<string>(),
-															shared_ptr<string>(),
+															serializedCubeModelString,
 													            0, 0, 0,
 													            1, 1, 1,
 													            0, 0, 0,

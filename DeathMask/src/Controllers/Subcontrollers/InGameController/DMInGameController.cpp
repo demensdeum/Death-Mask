@@ -173,6 +173,7 @@ void DMInGameController::generateMap() {
 	for (auto i = 0; i < enemies->size(); i++)
 	{
 		auto enemy = enemies->objectAtIndex(i);
+		objectsContext->addObject(enemy);
 		gameRulesObjects->addObject(enemy);
 	}
 
