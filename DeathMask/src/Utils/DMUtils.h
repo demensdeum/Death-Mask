@@ -31,12 +31,12 @@ public:
 	DMUtils(const DMUtils& orig);
 	virtual ~DMUtils();
     
-	static shared_ptr<DMGameplayProperties> getObjectGameplayProperties(shared_ptr<FSCObject> object);
-	static shared_ptr<DMObjectControls> getObjectControls(shared_ptr<FSCObject> object);
-	static shared_ptr<ItemProperties> getObjectItemProperties(shared_ptr<FSCObject> object);
-	static shared_ptr<FSEGTText> getObjectLabel(shared_ptr<FSCObject> object);
+	static shared_ptr<DMGameplayProperties> getObjectGameplayProperties(shared_ptr<Object> object);
+	static shared_ptr<DMObjectControls> getObjectControls(shared_ptr<Object> object);
+	static shared_ptr<ItemProperties> getObjectItemProperties(shared_ptr<Object> object);
+	static shared_ptr<FSEGTText> getObjectLabel(shared_ptr<Object> object);
     
-	static void step(shared_ptr<FSCObject> object, shared_ptr<DMObjectControlsDelegate> delegate);
+	static void step(shared_ptr<Object> object, shared_ptr<DMObjectControlsDelegate> delegate);
     
 private:
 

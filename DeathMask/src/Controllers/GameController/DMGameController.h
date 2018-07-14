@@ -14,14 +14,14 @@
 #ifndef DMGAMECONTROLLER_H
 #define DMGAMECONTROLLER_H
 
-#include <FlameSteelEngineGameToolkit/Controllers/FSEGTGameController.h>
+#include <FlameSteelEngineGameToolkit/Controllers/MainGameController.h>
 
-class DMGameController: public FSEGTGameController {
+class DMGameController: public MainGameController {
 public:
     DMGameController();
     DMGameController(const DMGameController& orig);
     
-    virtual void controllerDidFinish(FSEGTController *controller);  
+    virtual void controllerDidFinish(Controller *controller);  
     
     virtual ~DMGameController();
     

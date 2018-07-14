@@ -3,7 +3,7 @@
 #include <memory>
 #include <iostream>
 #include <FlameSteelCore/FSCUtils.h>
-#include <FlameSteelCore/FSCObject.h>
+#include <FlameSteelCore/Object.h>
 #include <DeathMask/src/Data/GameObjectsGenerator.h>
 #include <FlameSteelEngineGameToolkit/Utils/FSEGTUtils.h>
 #include <FlameSteelEngineGameToolkitAlgorithms/Const/Const.h>
@@ -19,8 +19,8 @@ bool MapGeneratorTest::perform() {
 
 	auto objectsContext = make_shared<FSEGTObjectsContext>();
 
-	shared_ptr<FSCObject> freeTile = std::make_shared<FSCObject>();
-	shared_ptr<FSCObject> solidTile = std::make_shared<FSCObject>();
+	shared_ptr<Object> freeTile = std::make_shared<Object>();
+	shared_ptr<Object> solidTile = std::make_shared<Object>();
     
 	auto mapGeneratorParams = make_shared<FSEGTAMapGeneratorParams>();
 
@@ -36,7 +36,7 @@ bool MapGeneratorTest::perform() {
 	mapGeneratorParams->maxLineLength = 6 + FSCUtils::FSCRandomInt(6);
 
 	auto objectsGenerator = make_shared<GameObjectsGenerator>();
-	auto objects = make_shared<FSCObjects>();
+	auto objects = make_shared<Objects>();
 
 	for (auto i = 0; i < 20; i++)
 	{
@@ -44,7 +44,7 @@ bool MapGeneratorTest::perform() {
 	}
 
 	mapGeneratorParams->objects = objects;
-	mapGeneratorParams->enemies = make_shared<FSCObjects>();	
+	mapGeneratorParams->enemies = make_shared<Objects>();	
 
 	auto gameMap = MapGenerator::generate(mapGeneratorParams, objectsContext);
 

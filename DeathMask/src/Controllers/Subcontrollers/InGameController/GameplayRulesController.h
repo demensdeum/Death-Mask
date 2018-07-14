@@ -2,18 +2,18 @@
 #define GAMEPLAYRULESCONTROLLER_DEFINED 1
 
 #include <memory>
-#include <FlameSteelCore/FSCObjects.h>
+#include <FlameSteelCore/Objects.h>
 
 class GameplayRulesController {
 
 public:	
-	GameplayRulesController(shared_ptr<FSCObjects> objects);
+	GameplayRulesController(shared_ptr<Objects> objects);
 	void step();
 
-	bool objectTryingToUseItem(shared_ptr<FSCObject> object, shared_ptr<FSCObject> item);
+	bool objectTryingToUseItem(shared_ptr<Object> object, shared_ptr<Object> item);
 
 private:
-	shared_ptr<FSCObjects> objects;
+	shared_ptr<Objects> objects;
 	int previousHungerTimer;
 	int previousOxygenTimer;
 

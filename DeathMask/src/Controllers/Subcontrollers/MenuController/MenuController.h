@@ -1,11 +1,11 @@
 #ifndef DEATHMASKMENUCONTROLLER
 #define DETAHMASKMENUCONTROLLER
 
-#include <FlameSteelEngineGameToolkit/Controllers/FSEGTController.h>
+#include <FlameSteelEngineGameToolkit/Controllers/GameController.h>
 
 namespace DeathMaskGame {
 
-class MenuController: public FSEGTController
+class MenuController: public GameController
 {
 
 	virtual void beforeStart();    

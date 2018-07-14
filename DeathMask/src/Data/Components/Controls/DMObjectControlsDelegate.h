@@ -14,11 +14,12 @@
 #ifndef DMObjectControlsDelegate_H
 #define DMObjectControlsDelegate_H
 
-#include <FlameSteelCore/FSCObject.h>
+#include <FlameSteelCore/Object.h>
 
 #include <memory>
 
 using namespace std;
+using namespace FlameSteelCore;
 
 class DMObjectControlsDelegate {
 public:
@@ -26,10 +27,10 @@ public:
     DMObjectControlsDelegate(const DMObjectControlsDelegate& orig);
     virtual ~DMObjectControlsDelegate();
     
-    virtual shared_ptr<FSCObject> objectsControlsDelegateObjectAt(int x, int y);
-    virtual void objectsControlsDelegateDidPickObject(shared_ptr<FSCObject> object);
+    virtual shared_ptr<Object> objectsControlsDelegateObjectAt(int x, int y);
+    virtual void objectsControlsDelegateDidPickObject(shared_ptr<Object> object);
     
-    virtual void objectsControlsDelegateObjectDidUpdate(shared_ptr<FSCObject> object);
+    virtual void objectsControlsDelegateObjectDidUpdate(shared_ptr<Object> object);
     
 private:
 

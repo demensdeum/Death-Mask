@@ -12,7 +12,7 @@
  */
 
 #include "DMUtils.h"
-#include <FlameSteelCore/FSCObject.h>
+#include <FlameSteelCore/Object.h>
 #include <DeathMask/src/Const/DMConstClassIdentifiers.h>
 #include <DeathMask/src/Data/Components/Item/ItemProperties.h>
 #include <FlameSteelEngineGameToolkit/Data/Components/Text/FSEGTText.h>
@@ -23,7 +23,7 @@ DMUtils::DMUtils() {
 DMUtils::DMUtils(const DMUtils& ) {
 }
 
-shared_ptr<ItemProperties> DMUtils::getObjectItemProperties(shared_ptr<FSCObject> object) {
+shared_ptr<ItemProperties> DMUtils::getObjectItemProperties(shared_ptr<Object> object) {
 
     auto itemProperties = object->getComponent(make_shared<string>(DMConstClassIdentifierItemProperties.c_str()));
     
@@ -33,7 +33,7 @@ shared_ptr<ItemProperties> DMUtils::getObjectItemProperties(shared_ptr<FSCObject
 
 }
 
-shared_ptr<FSEGTText> DMUtils::getObjectLabel(shared_ptr<FSCObject> object) {
+shared_ptr<FSEGTText> DMUtils::getObjectLabel(shared_ptr<Object> object) {
 
 	auto label = object->getComponent(make_shared<string>(DMConstClassIdentifierLabel));
 
@@ -43,7 +43,7 @@ shared_ptr<FSEGTText> DMUtils::getObjectLabel(shared_ptr<FSCObject> object) {
 
 }
 
-shared_ptr<DMGameplayProperties> DMUtils::getObjectGameplayProperties(shared_ptr<FSCObject> object) {
+shared_ptr<DMGameplayProperties> DMUtils::getObjectGameplayProperties(shared_ptr<Object> object) {
     
     auto gameplayProperties = object->getComponent(make_shared<string>("death mask gameplay properties"));
     
@@ -53,7 +53,7 @@ shared_ptr<DMGameplayProperties> DMUtils::getObjectGameplayProperties(shared_ptr
     
 }
 
-shared_ptr<DMObjectControls> DMUtils::getObjectControls(shared_ptr<FSCObject> object) {
+shared_ptr<DMObjectControls> DMUtils::getObjectControls(shared_ptr<Object> object) {
     
     auto objectControls = object->getComponent(make_shared<string>("object controls"));
     
@@ -62,7 +62,7 @@ shared_ptr<DMObjectControls> DMUtils::getObjectControls(shared_ptr<FSCObject> ob
     return castedObjectControls;
 }
 
-void DMUtils::step(shared_ptr<FSCObject> object, shared_ptr<DMObjectControlsDelegate> delegate) {
+void DMUtils::step(shared_ptr<Object> object, shared_ptr<DMObjectControlsDelegate> delegate) {
     
     auto objectControls = getObjectControls(object);
     

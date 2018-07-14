@@ -5,7 +5,7 @@
 
 using namespace DeathMaskGame;
 
-GameplayRulesController::GameplayRulesController(shared_ptr<FSCObjects> objects) 
+GameplayRulesController::GameplayRulesController(shared_ptr<Objects> objects) 
 {
 	if (objects.get() == nullptr)
 	{
@@ -57,7 +57,7 @@ void GameplayRulesController::step()
 	}
 }
 
-bool GameplayRulesController::objectTryingToUseItem(shared_ptr<FSCObject> object, shared_ptr<FSCObject> item)
+bool GameplayRulesController::objectTryingToUseItem(shared_ptr<Object> object, shared_ptr<Object> item)
 {
 	return false;
 }

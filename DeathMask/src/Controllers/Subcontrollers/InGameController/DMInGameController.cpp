@@ -3,7 +3,7 @@
 #include <chrono>
 #include <thread>
 #include <iostream>
-#include <FlameSteelCore/FSCMessage.h>
+#include <FlameSteelCore/Message.h>
 #include <DeathMask/src/Utils/DMUtils.h>
 #include <DeathMask/src/Data/GameObjectsGenerator.h>
 #include <FlameSteelEngineGameToolkit/Utils/FSEGTUtils.h>
@@ -30,8 +30,8 @@ void DMInGameController::generateMap() {
 
 	auto mapGeneratorParams = make_shared<FSEGTAMapGeneratorParams>();
 
-	shared_ptr<FSCObject> freeTile = std::make_shared<FSCObject>();
-	shared_ptr<FSCObject> solidTile = std::make_shared<FSCObject>();
+	shared_ptr<Object> freeTile = std::make_shared<Object>();
+	shared_ptr<Object> solidTile = std::make_shared<Object>();
     
 	mapGeneratorParams->freeTileIndex = 0;
 	mapGeneratorParams->solidTileIndex = 1;
@@ -46,7 +46,7 @@ void DMInGameController::generateMap() {
 	mapGeneratorParams->gameplayObjectRespawnChance = 300;
 	mapGeneratorParams->enemyRespawnChance = 300;
 
-	auto objects = make_shared<FSCObjects>();
+	auto objects = make_shared<Objects>();
 	auto objectsGenerator = make_shared<GameObjectsGenerator>();
 
 	for (auto i = 0; i < 20; i++)
@@ -56,8 +56,8 @@ void DMInGameController::generateMap() {
 
 	mapGeneratorParams->objects = objects;
 
-	enemies = make_shared<FSCObjects>();
-	auto mapParametersEnemies = make_shared<FSCObjects>();
+	enemies = make_shared<Objects>();
+	auto mapParametersEnemies = make_shared<Objects>();
 
 	for (auto i = 0; i < 20; i ++)
 	{
@@ -168,7 +168,7 @@ void DMInGameController::generateMap() {
 	objectsContext->addObject(versionText);
 
 	inGameUserInterfaceController = make_shared<DeathMaskGame::InGameUserInterfaceController>(userInterfaceTextComponent, mainCharacterGameplayProperties, shared_from_this());
-	auto gameRulesObjects = make_shared<FSCObjects>();
+	auto gameRulesObjects = make_shared<Objects>();
 
 	for (auto i = 0; i < enemies->size(); i++)
 	{
@@ -182,7 +182,7 @@ void DMInGameController::generateMap() {
 	gameplayRulesController = make_shared<GameplayRulesController>(gameRulesObjects);
 }
 
-void DMInGameController::useItemAtXY(shared_ptr<FSCObjects> objects) {
+void DMInGameController::useItemAtXY(shared_ptr<Objects> objects) {
 
 	for (auto i = 0; i < objects->size(); i++) {
 		auto object = objects->objectAtIndex(i);
@@ -211,7 +211,7 @@ void DMInGameController::beforeStart() {
  
 }
 
-shared_ptr<FSCObjects> DMInGameController::objectsForInGameUserInterfaceController(shared_ptr<InGameUserInterfaceController> inGameUserInterfaceController) {
+shared_ptr<Objects> DMInGameController::objectsForInGameUserInterfaceController(shared_ptr<InGameUserInterfaceController> inGameUserInterfaceController) {
 
 	auto mainCharacterPosition = FSEGTUtils::getObjectPosition(mainCharacter);
 
@@ -226,13 +226,13 @@ shared_ptr<FSCObjects> DMInGameController::objectsForInGameUserInterfaceControll
 
 }
 
-void DMInGameController::objectsContextObjectAdded(shared_ptr<FSEGTObjectsContext> context, shared_ptr<FSCObject> object) {
+void DMInGameController::objectsContextObjectAdded(shared_ptr<FSEGTObjectsContext> context, shared_ptr<Object> object) {
 
 	objectsMap->handleObject(object);
 
 }
 
-void DMInGameController::objectsContextObjectUpdate(shared_ptr<FSEGTObjectsContext> context, shared_ptr<FSCObject> object) {
+void DMInGameController::objectsContextObjectUpdate(shared_ptr<FSEGTObjectsContext> context, shared_ptr<Object> object) {
 
 	objectsMap->handleObject(object);
 
@@ -337,7 +337,7 @@ auto inputController = ioSystem->inputController;
 
 		if (int(mainCharacterPosition->x) == int(exitPosition->x) && int(mainCharacterPosition->y) == int(exitPosition->y) && int(mainCharacterPosition->z) ==int(exitPosition->z)) {
 		
-			auto switchLevelMessage = make_shared<FSCMessage>(make_shared<string>("About gameplay process"), make_shared<string>("We need to switch level, because player step inside exit point."));
+			auto switchLevelMessage = make_shared<Message>(make_shared<string>("About gameplay process"), make_shared<string>("We need to switch level, because player step inside exit point."));
 			messages.push_back(switchLevelMessage);
 
 		}
@@ -354,14 +354,14 @@ void DMInGameController::handleMessages() {
 	}
 }
 
-void DMInGameController::objectsControlsDelegateObjectDidUpdate(shared_ptr<FSCObject> object) {
+void DMInGameController::objectsControlsDelegateObjectDidUpdate(shared_ptr<Object> object) {
 
 	objectsContext->updateObject(object);
 	objectsMap->handleObject(object);
 
 }
 
-void DMInGameController::freeCameraControllerDidUpdateCamera(shared_ptr<FSEGTFreeCameraController> freeCameraController, shared_ptr<FSCObject> camera) {
+void DMInGameController::freeCameraControllerDidUpdateCamera(shared_ptr<FSEGTFreeCameraController> freeCameraController, shared_ptr<Object> camera) {
 
 	objectsContext->updateObject(camera);
 	objectsMap->handleObject(camera);

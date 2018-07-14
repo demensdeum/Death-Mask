@@ -15,14 +15,15 @@
 #define DMGAMEPLAYPROPERTIES_H
 
 #include <DeathMask/src/Const/Const.h>
-#include <FlameSteelCore/FSCObject.h>
+#include <FlameSteelCore/Object.h>
 
 
 class Damage;
 
 using namespace DeathMaskGame;
+using namespace FlameSteelCore;
 
-class DMGameplayProperties: public FSCObject {
+class DMGameplayProperties: public Object {
 public:        
 
 	DMGameplayProperties();
@@ -49,8 +50,8 @@ public:
 	void setOxygen(int oxygen);
 	void setOxygenMax(int oxygenMax);
 
-	void applyItem(shared_ptr<FSCObject> item);
-	void removeItem(shared_ptr<FSCObject> item);
+	void applyItem(shared_ptr<Object> item);
+	void removeItem(shared_ptr<Object> item);
     
 	shared_ptr<string> name;    
     
@@ -72,10 +73,10 @@ private:
 	int oxygen = 0;
 	int oxygenMax = 0;
 
-	shared_ptr<FSCObject> weapon;
-	shared_ptr<FSCObject> bioshell;
-	shared_ptr<FSCObject> questItem;
-	shared_ptr<FSCObject> supplyItem;
+	shared_ptr<Object> weapon;
+	shared_ptr<Object> bioshell;
+	shared_ptr<Object> questItem;
+	shared_ptr<Object> supplyItem;
 
 };
 

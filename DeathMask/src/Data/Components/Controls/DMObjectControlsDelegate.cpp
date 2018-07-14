@@ -19,16 +19,16 @@ DMObjectControlsDelegate::DMObjectControlsDelegate() {
 DMObjectControlsDelegate::DMObjectControlsDelegate(const DMObjectControlsDelegate& ) {
 }
 
-shared_ptr<FSCObject> DMObjectControlsDelegate::objectsControlsDelegateObjectAt(int , int ) {
+shared_ptr<Object> DMObjectControlsDelegate::objectsControlsDelegateObjectAt(int , int ) {
     
-	return shared_ptr<FSCObject>();
+	return shared_ptr<Object>();
 }
     
-void DMObjectControlsDelegate::objectsControlsDelegateDidPickObject(shared_ptr<FSCObject> ) {
+void DMObjectControlsDelegate::objectsControlsDelegateDidPickObject(shared_ptr<Object> ) {
     
 }
 
-void DMObjectControlsDelegate::objectsControlsDelegateObjectDidUpdate(shared_ptr<FSCObject> ) {
+void DMObjectControlsDelegate::objectsControlsDelegateObjectDidUpdate(shared_ptr<Object> ) {
     
 }
 

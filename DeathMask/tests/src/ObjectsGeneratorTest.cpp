@@ -26,7 +26,7 @@ bool ObjectsGeneratorTest::testItemGenerator(ItemType type) {
 
 	auto objectsGenerator = make_shared<GameObjectsGenerator>();
 
-	auto item = shared_ptr<FSCObject>();
+	auto item = shared_ptr<Object>();
 
 	switch (type)
 	{

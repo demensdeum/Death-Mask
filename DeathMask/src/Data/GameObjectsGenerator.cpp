@@ -18,11 +18,11 @@ using namespace DeathMaskGame;
 GameObjectsGenerator::GameObjectsGenerator() {
 }
 
-shared_ptr<FSCObject> GameObjectsGenerator::generateRandomItem(Difficulty itemDifficulty) {
+shared_ptr<Object> GameObjectsGenerator::generateRandomItem(Difficulty itemDifficulty) {
 
 	auto randomItemType = FSCUtils::FSCRandomInt(ItemType::count - 1);
 
-	auto item = shared_ptr<FSCObject>();
+	auto item = shared_ptr<Object>();
 
 	switch (randomItemType)
 	{
@@ -78,7 +78,7 @@ shared_ptr<FSCObject> GameObjectsGenerator::generateRandomItem(Difficulty itemDi
 
 }
 
-shared_ptr<FSCObject> GameObjectsGenerator::generateQuestItem(Difficulty difficulty) {
+shared_ptr<Object> GameObjectsGenerator::generateQuestItem(Difficulty difficulty) {
 
 	auto firstNames = vector<string>{LocalizedString("Quest")};
 	auto secondNames = vector<string>{LocalizedString("Item")};
@@ -88,7 +88,7 @@ shared_ptr<FSCObject> GameObjectsGenerator::generateQuestItem(Difficulty difficu
 
 }
 
-shared_ptr<FSCObject> GameObjectsGenerator::generateObject(ItemType type, Difficulty itemDiffuclty, vector<string>firstNames, vector<string>secondNames) {
+shared_ptr<Object> GameObjectsGenerator::generateObject(ItemType type, Difficulty itemDiffuclty, vector<string>firstNames, vector<string>secondNames) {
 
 	auto serializedCardModelString = FSGTAMazeObjectGenerator::generateCube(0, 0, make_shared<string>("com.demensdeum.testenvironment.crate.bmp"));
 
@@ -123,7 +123,7 @@ shared_ptr<FSCObject> GameObjectsGenerator::generateObject(ItemType type, Diffic
 	return item;
 };
 
-shared_ptr<FSCObject> GameObjectsGenerator::generateEnemy(Difficulty enemyDifficulty) {
+shared_ptr<Object> GameObjectsGenerator::generateEnemy(Difficulty enemyDifficulty) {
 
 	auto serializedCubeModelString = FSGTAMazeObjectGenerator::generateCube(0, 0, make_shared<string>("com.demensdeum.testenvironment.enemy.bmp"));
 
@@ -155,7 +155,7 @@ shared_ptr<FSCObject> GameObjectsGenerator::generateEnemy(Difficulty enemyDiffic
 
 };
 
-shared_ptr<FSCObject> GameObjectsGenerator::generateOxygenItem(Difficulty oxygenDifficulty) {
+shared_ptr<Object> GameObjectsGenerator::generateOxygenItem(Difficulty oxygenDifficulty) {
 
 	auto firstNames = vector<string>{LocalizedString("Oxygen"), LocalizedString("Oxygen") };
 	auto secondNames = vector<string>{LocalizedString("tank"), LocalizedString("cassete"), LocalizedString("tablet")};
@@ -165,7 +165,7 @@ shared_ptr<FSCObject> GameObjectsGenerator::generateOxygenItem(Difficulty oxygen
 
 }
 
-shared_ptr<FSCObject> GameObjectsGenerator::generateFoodItem(Difficulty foodDifficulty) {
+shared_ptr<Object> GameObjectsGenerator::generateFoodItem(Difficulty foodDifficulty) {
 
 	auto firstNames = vector<string>{LocalizedString("ForsightTech"), LocalizedString("VitaCom"), LocalizedString("Optimum")};
 	auto secondNames = vector<string>{LocalizedString("soyjar"), LocalizedString("grass-bar"), LocalizedString("protein pills")};
@@ -175,7 +175,7 @@ shared_ptr<FSCObject> GameObjectsGenerator::generateFoodItem(Difficulty foodDiff
 
 }
 
-shared_ptr<FSCObject> GameObjectsGenerator::generateWeapon(Difficulty weaponDifficulty) {
+shared_ptr<Object> GameObjectsGenerator::generateWeapon(Difficulty weaponDifficulty) {
 
 	auto firstNames = vector<string>{LocalizedString("Laser"), LocalizedString("Wave"), LocalizedString("Electro-emitted-gravity")};
 	auto secondNames = vector<string>{LocalizedString("pistol"), LocalizedString("shotgun"), LocalizedString("machine-gun")};
@@ -185,7 +185,7 @@ shared_ptr<FSCObject> GameObjectsGenerator::generateWeapon(Difficulty weaponDiff
 
 };
 
-shared_ptr<FSCObject> GameObjectsGenerator::generateSupplyItem(Difficulty supplyItemDifficulty) {
+shared_ptr<Object> GameObjectsGenerator::generateSupplyItem(Difficulty supplyItemDifficulty) {
 
 	auto firstNames = vector<string>{LocalizedString("VitaCom"), LocalizedString("Human Compatible Nanobots"), LocalizedString("Astra-Life")};
 	auto secondNames = vector<string>{LocalizedString("painkiller"), LocalizedString("medkit"), LocalizedString("first aid")};
@@ -195,7 +195,7 @@ shared_ptr<FSCObject> GameObjectsGenerator::generateSupplyItem(Difficulty supply
 
 };
 
-shared_ptr<FSCObject> GameObjectsGenerator::generateBioshellItem(Difficulty bioshellItemDifficulty) {
+shared_ptr<Object> GameObjectsGenerator::generateBioshellItem(Difficulty bioshellItemDifficulty) {
 
 	auto firstNames = vector<string>{LocalizedString("Advanced"), LocalizedString("Enhanced"), LocalizedString("Cyber")};
 	auto secondNames = vector<string>{LocalizedString("legs bioshell"), LocalizedString("hand bioshell"), LocalizedString("eye bioshell")};

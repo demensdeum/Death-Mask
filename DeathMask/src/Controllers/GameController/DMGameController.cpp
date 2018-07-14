@@ -64,7 +64,7 @@ shared_ptr<FSEGTIOSystem> DMGameController::makeIOSystem() {
     return ioSystem;
 }
 
-void DMGameController::controllerDidFinish(FSEGTController *) {
+void DMGameController::controllerDidFinish(Controller *) {
     
     switch (state) {
      

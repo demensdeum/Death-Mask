@@ -5,8 +5,8 @@ class GameplayRulesController;
 
 #include "InGameUserInterfaceController.h"
 #include <DeathMask/src/Data/Components/Controls/PlayerControls/DMPlayerObjectControls.h>
-#include <FlameSteelCore/FSCMessage.h>
-#include <FlameSteelEngineGameToolkit/Controllers/FSEGTController.h>
+#include <FlameSteelCore/Message.h>
+#include <FlameSteelEngineGameToolkit/Controllers/GameController.h>
 #include <FlameSteelEngineGameToolkit/Controllers/FreeCameraController/FSEGTFreeCameraControllerDelegate.h>
 #include <FlameSteelEngineGameToolkit/Data/ObjectsMap/ObjectsMap.h>
 
@@ -15,7 +15,7 @@ class FSEGTFreeCameraController;
 using namespace DeathMaskGame;
 using namespace FlameSteelEngine::GameToolkit;
 
-class DMInGameController: public FSEGTController,
+class DMInGameController: public GameController,
 									public DMObjectControlsDelegate, 
 										public FSEGTFreeCameraControllerDelegate, 
 											public enable_shared_from_this<DMInGameController>,
@@ -28,29 +28,29 @@ public:
 	virtual void beforeStart();    
 	virtual void step();
 
-	virtual void freeCameraControllerDidUpdateCamera(shared_ptr<FSEGTFreeCameraController> freeCameraController, shared_ptr<FSCObject> camera);
-	virtual void objectsControlsDelegateObjectDidUpdate(shared_ptr<FSCObject> object);
-	virtual shared_ptr<FSCObjects> objectsForInGameUserInterfaceController(shared_ptr<InGameUserInterfaceController> inGameUserInterfaceController);
+	virtual void freeCameraControllerDidUpdateCamera(shared_ptr<FSEGTFreeCameraController> freeCameraController, shared_ptr<Object> camera);
+	virtual void objectsControlsDelegateObjectDidUpdate(shared_ptr<Object> object);
+	virtual shared_ptr<Objects> objectsForInGameUserInterfaceController(shared_ptr<InGameUserInterfaceController> inGameUserInterfaceController);
 
-	virtual void objectsContextObjectAdded(shared_ptr<FSEGTObjectsContext> context, shared_ptr<FSCObject> object);
-	virtual void objectsContextObjectUpdate(shared_ptr<FSEGTObjectsContext> context, shared_ptr<FSCObject> object);
+	virtual void objectsContextObjectAdded(shared_ptr<FSEGTObjectsContext> context, shared_ptr<Object> object);
+	virtual void objectsContextObjectUpdate(shared_ptr<FSEGTObjectsContext> context, shared_ptr<Object> object);
 	virtual void objectsContextAllObjectsRemoved(shared_ptr<FSEGTObjectsContext> context);
 
 private:
 	shared_ptr<GameplayRulesController> gameplayRulesController;
 	shared_ptr<FSEGTFreeCameraController> freeCameraController;
-	shared_ptr<FSCObject> camera;
-	shared_ptr<FSCObject> mainCharacter;
-	shared_ptr<FSCObject> exitPoint;
+	shared_ptr<Object> camera;
+	shared_ptr<Object> mainCharacter;
+	shared_ptr<Object> exitPoint;
 
 	shared_ptr<InGameUserInterfaceController> inGameUserInterfaceController;
 	shared_ptr<DMPlayerObjectControls> playerObjectControls;
 	shared_ptr<ObjectsMap> objectsMap;
-	shared_ptr<FSCObjects> enemies;
+	shared_ptr<Objects> enemies;
 
-	vector<shared_ptr<FSCMessage> > messages;
+	vector<shared_ptr<Message> > messages;
 
-	void useItemAtXY(shared_ptr<FSCObjects> objects);
+	void useItemAtXY(shared_ptr<Objects> objects);
 	void handleMessages();
 	void generateMap();
 	void frameStep();

@@ -14,12 +14,12 @@
 #ifndef DMOBJECTCONTROLS_H
 #define DMOBJECTCONTROLS_H
 
-#include <FlameSteelCore/FSCObject.h>
+#include <FlameSteelCore/Object.h>
 #include "DMObjectControlsDelegate.h"
 
-class DMObjectControls : public FSCObject {
+class DMObjectControls : public Object {
 public:
-    DMObjectControls(shared_ptr<FSCObject> object);
+    DMObjectControls(shared_ptr<Object> object);
     DMObjectControls(const DMObjectControls& orig);
     virtual ~DMObjectControls();
     
@@ -27,7 +27,7 @@ public:
     
 protected:
     
-    shared_ptr<FSCObject> object;
+    shared_ptr<Object> object;
 };
 
 #endif /* DMOBJECTCONTROLS_H */

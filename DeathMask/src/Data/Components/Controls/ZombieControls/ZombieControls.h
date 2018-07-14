@@ -3,7 +3,7 @@
 
 #include <DeathMask/src/Data/Components/Controls/DMObjectControls.h>
 #include <FlameSteelEngineGameToolkit/Data/FSEGTSimpleDirection.h>
-#include <FlameSteelCore/FSCObject.h>
+#include <FlameSteelCore/Object.h>
 #include <memory>
 
 namespace DeathMaskGame {
@@ -11,7 +11,7 @@ namespace DeathMaskGame {
 class ZombieControls : public DMObjectControls  {
 
 public:
-	ZombieControls(shared_ptr<FSCObject> object) : DMObjectControls(object) {}
+	ZombieControls(shared_ptr<Object> object) : DMObjectControls(object) {}
 
 	virtual void step(shared_ptr<DMObjectControlsDelegate> delegate);
 

@@ -14,7 +14,7 @@ class InGameUserInterfaceController;
 class InGameUserInterfaceControllerDataSource {
 
 public:
-	virtual shared_ptr<FSCObjects> objectsForInGameUserInterfaceController(shared_ptr<InGameUserInterfaceController> inGameUserInterfaceController);
+	virtual shared_ptr<Objects> objectsForInGameUserInterfaceController(shared_ptr<InGameUserInterfaceController> inGameUserInterfaceController);
 
 };
 

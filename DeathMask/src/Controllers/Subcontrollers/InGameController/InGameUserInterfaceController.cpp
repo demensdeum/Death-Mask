@@ -1,6 +1,6 @@
 #include "InGameUserInterfaceController.h"
 
-#include <FlameSteelCore/FSCObjects.h>
+#include <FlameSteelCore/Objects.h>
 #include <DeathMask/src/Utils/DMUtils.h>
 
 using namespace DeathMaskGame;
@@ -57,8 +57,8 @@ void InGameUserInterfaceController::step() {
 
 }
 
-shared_ptr<FSCObjects> InGameUserInterfaceControllerDataSource::objectsForInGameUserInterfaceController(shared_ptr<InGameUserInterfaceController> inGameUserInterfaceController) {
+shared_ptr<Objects> InGameUserInterfaceControllerDataSource::objectsForInGameUserInterfaceController(shared_ptr<InGameUserInterfaceController> inGameUserInterfaceController) {
 
-	return shared_ptr<FSCObjects>();
+	return shared_ptr<Objects>();
 
 }

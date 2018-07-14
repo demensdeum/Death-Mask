@@ -2,11 +2,13 @@
 #define DEATHMASKGAMEITEMPROPERTIES_DEFINED
 
 #include <DeathMask/src/Const/Const.h>
-#include <FlameSteelCore/FSCObject.h>
+#include <FlameSteelCore/Object.h>
+
+using namespace FlameSteelCore;
 
 namespace DeathMaskGame {
 
-class ItemProperties: public FSCObject {
+class ItemProperties: public Object {
 
 public:
 	ItemProperties(ItemType type, int minimalEffect, int maximalEffect);

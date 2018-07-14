@@ -1,8 +1,8 @@
-#include <FlameSteelCore/FSCObject.h>
+#include <FlameSteelCore/Object.h>
 
 using namespace DeathMaskGame {
 
-class Damage: public FSCObject {
+class Damage: public Object {
 
 };
 

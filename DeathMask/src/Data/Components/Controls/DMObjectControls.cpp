@@ -13,7 +13,7 @@
 
 #include "DMObjectControls.h"
 
-DMObjectControls::DMObjectControls(shared_ptr<FSCObject> object) {
+DMObjectControls::DMObjectControls(shared_ptr<Object> object) {
     
 	this->setInstanceIdentifier(make_shared<string>("object controls"));
 	this->setClassIdentifier(make_shared<string>("object controls"));
