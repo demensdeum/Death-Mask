@@ -50,8 +50,13 @@ DMGameController::DMGameController() {
     ioSystem = this->makeIOSystem();
     ioSystem->initialize();
         
-	auto creditsController = make_shared<CreditsController>();
-	setControllerForState(creditsController, DMStateCredits);
+	auto companyLogoController = make_shared<CreditsController>();
+	companyLogoController->logoPath = make_shared<string>("com.demensdeum.logo.bmp");
+	setControllerForState(companyLogoController, DMStateCompanyLogo);
+
+	auto flameSteelEngineController = make_shared<CreditsController>();
+	flameSteelEngineController->logoPath = make_shared<string>("com.demensdeum.flamesteelengine.bmp");
+	setControllerForState(flameSteelEngineController, DMStateFlameSteelEngineLogo);
 
     auto inGameController = make_shared<DMInGameController>();
     this->setControllerForState(inGameController, DMStateInGame);
@@ -68,16 +73,17 @@ shared_ptr<FSEGTIOSystem> DMGameController::makeIOSystem() {
     return ioSystem;
 }
 
-void DMGameController::controllerDidFinish(Controller *) {
+void DMGameController::controllerDidFinish(Controller *controller) {
     
     switch (state) {
-     
-        case DMStateMenu:
-            
-            switchToState(DMStateInGame);
-            
-            break; 
+
+      		case DMStateCompanyLogo:
+			objectsContext->removeAllObjects();
+            		switchToState(DMStateFlameSteelEngineLogo);
+	            break; 
            
+	default:
+		throw logic_error("Unhandled state to switch");
     }
 }
 

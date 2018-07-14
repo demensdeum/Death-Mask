@@ -16,6 +16,8 @@
 
 #include <FlameSteelEngineGameToolkit/Controllers/MainGameController.h>
 
+using namespace FlameSteelEngine::GameToolkit;
+
 class DMGameController: public MainGameController {
 public:
     DMGameController();

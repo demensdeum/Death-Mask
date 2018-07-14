@@ -20,7 +20,12 @@ void CreditsController::beforeStart() {
 													            0, 0, 0,
 													            0);   
 
-	auto serializedCardModelString = FSGTAMazeObjectGenerator::generatePlane(4, 2.28, make_shared<string>("com.demensdeum.logo.bmp"));
+	if (logoPath.get() == nullptr)
+	{
+		throw logic_error("Logo is null");
+	}
+
+	auto serializedCardModelString = FSGTAMazeObjectGenerator::generatePlane(4, 2.28, logoPath);
 
 	companyLogo = FSEGTFactory::makeOnSceneObject(
             make_shared<string>("Demensdeum Logo"),
@@ -64,7 +69,7 @@ void CreditsController::step() {
 	{
 		brightness->floatNumber += 0.01;
 	}
-	else if (waitCounter <120)
+	else if (waitCounter <130)
 	{
 		waitCounter += 1;
 	}
@@ -72,6 +77,12 @@ void CreditsController::step() {
 	{
 		brightness->floatNumber -= 0.01;
 	}
+	else
+	{
+		notifyListenerAboutControllerDidFinish(this);
+		return;
+	}
+
 	objectsContext->updateObject(companyLogo);
 }
 

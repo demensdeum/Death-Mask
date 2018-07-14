@@ -16,7 +16,8 @@
 
 enum DMState {
 
-	DMStateCredits,
+	DMStateCompanyLogo,
+	DMStateFlameSteelEngineLogo,
 	DMStateMenu,
 	DMStateInGame,
     

@@ -25,6 +25,8 @@ public:
 	virtual void beforeStart();    
 	virtual void step();
 
+	shared_ptr<string> logoPath;
+
 	virtual void freeCameraControllerDidUpdateCamera(shared_ptr<FSEGTFreeCameraController> freeCameraController, shared_ptr<Object> camera);
 
 private:
