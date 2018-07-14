@@ -16,8 +16,9 @@
 
 enum DMState {
 
-    DMStateMenu,
-    DMStateInGame,
+	DMStateCredits,
+	DMStateMenu,
+	DMStateInGame,
     
 };
 

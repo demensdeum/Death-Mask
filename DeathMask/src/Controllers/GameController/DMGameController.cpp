@@ -22,6 +22,7 @@
 #include <DeathMask/src/Const/DMConstStates.h>
 #include <DeathMask/src/Const/DMConstIOSystem.h>
 
+#include <DeathMask/src/Controllers/Subcontrollers/CreditsController/CreditsController.h>
 #include <DeathMask/src/Controllers/Subcontrollers/InGameController/DMInGameController.h>
 
 
@@ -49,6 +50,9 @@ DMGameController::DMGameController() {
     ioSystem = this->makeIOSystem();
     ioSystem->initialize();
         
+	auto creditsController = make_shared<CreditsController>();
+	setControllerForState(creditsController, DMStateCredits);
+
     auto inGameController = make_shared<DMInGameController>();
     this->setControllerForState(inGameController, DMStateInGame);
 }

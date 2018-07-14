@@ -12,5 +12,5 @@ int main()
 
         auto controller = make_shared<DMGameController>();
 
-        controller->startGameFromState(DMStateInGame);        
+        controller->startGameFromState(DMStateCredits);
 }
