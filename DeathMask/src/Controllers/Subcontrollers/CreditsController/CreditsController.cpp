@@ -43,9 +43,6 @@ void CreditsController::beforeStart() {
 
 	objectsContext->addObject(companyLogo);
 
-	freeCameraController = make_shared<FSEGTFreeCameraController>(ioSystem->inputController, camera);
-	freeCameraController->delegate = shared_from_this();
-
 };
 
 void CreditsController::step() {
@@ -59,10 +56,6 @@ void CreditsController::step() {
 		ioSystem->stop();
 		exit(0);
 
-	}
-	else if (freeCameraController.get() != nullptr)
-	{
-			freeCameraController->step();
 	}
 
 	if (brightness->floatNumber < 1 && waitCounter < 100)

@@ -14,6 +14,7 @@
 #include "DMGameController.h"
 
 #include <ctime>
+#include <iostream>
 
 #include <FlameSteelEngineGameToolkit/IO/IOSystems/FSEGTIOGenericSystemParams.h>
 
@@ -24,6 +25,7 @@
 
 #include <DeathMask/src/Controllers/Subcontrollers/CreditsController/CreditsController.h>
 #include <DeathMask/src/Controllers/Subcontrollers/InGameController/DMInGameController.h>
+#include <DeathMask/src/Controllers/Subcontrollers/MenuController/MenuController.h>
 
 
 #define DEATHMASK_IO_SYSTEM 0
@@ -58,8 +60,11 @@ DMGameController::DMGameController() {
 	flameSteelEngineController->logoPath = make_shared<string>("com.demensdeum.flamesteelengine.bmp");
 	setControllerForState(flameSteelEngineController, DMStateFlameSteelEngineLogo);
 
-    auto inGameController = make_shared<DMInGameController>();
-    this->setControllerForState(inGameController, DMStateInGame);
+	auto menuController = make_shared<MenuController>();
+	setControllerForState(menuController, DMStateMenu);
+
+	auto inGameController = make_shared<DMInGameController>();
+	setControllerForState(inGameController, DMStateInGame);
 }
 
 shared_ptr<FSEGTIOSystem> DMGameController::makeIOSystem() {
@@ -82,7 +87,17 @@ void DMGameController::controllerDidFinish(Controller *controller) {
             		switchToState(DMStateFlameSteelEngineLogo);
 	            break; 
            
+		case DMStateFlameSteelEngineLogo:
+			objectsContext->removeAllObjects();
+            		switchToState(DMStateMenu);
+			break;
+
+		case DMStateMenu:
+			cout << "Menu stopped" << endl;
+			break;
+
 	default:
+		cout << "State: " << state << endl;
 		throw logic_error("Unhandled state to switch");
     }
 }

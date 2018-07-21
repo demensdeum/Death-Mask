@@ -30,7 +30,6 @@ public:
 	virtual void freeCameraControllerDidUpdateCamera(shared_ptr<FSEGTFreeCameraController> freeCameraController, shared_ptr<Object> camera);
 
 private:
-	shared_ptr<FSEGTFreeCameraController> freeCameraController;
 	shared_ptr<Object> camera;
 	shared_ptr<Object> companyLogo;
 	shared_ptr<FloatComponent> brightness;
