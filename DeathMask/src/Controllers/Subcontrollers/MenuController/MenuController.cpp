@@ -34,7 +34,7 @@ void MenuController::beforeStart() {
 	{
 
 		float skyscraperY = -0.67  - FSCUtils::FSCRandomInt(4) / 10.f;
-		float skyscraperZ = -1.2 + FSCUtils::FSCRandomInt(15) / 10.f;
+		float skyscraperZ = -1.15 + FSCUtils::FSCRandomInt(15) / 10.f;
 
 		auto skyscraper = FSEGTFactory::makeOnSceneObject(
 	      	      make_shared<string>("Skyscraper"),
@@ -107,14 +107,14 @@ void MenuController::freeCameraControllerDidUpdateCamera(shared_ptr<FSEGTFreeCam
 
 		if (skyscraperPosition->x < 3)
 		{
-			skyscraperPosition->x += 0.001;
+			skyscraperPosition->x += 0.0003;
 		}
 		else
 		{
 			skyscraperPosition->x -= 5.3;
 
 			skyscraperPosition->y = -0.67  - FSCUtils::FSCRandomInt(4) / 10.f;
-			skyscraperPosition->z = -1.2 + FSCUtils::FSCRandomInt(15) / 10.f;	
+			skyscraperPosition->z = -1.15 + FSCUtils::FSCRandomInt(15) / 10.f;	
 
 		}
 
