@@ -28,14 +28,4 @@ set(EXECUTABLE_OUTPUT_PATH "DeathMask")
 
 add_executable(${FSEGT_PROJECT_NAME} ${SOURCE_FILES})
 
-#Uncomment next line for GLESv2 build (sometimes does not work on desktop)
-#target_link_libraries(${FSEGT_PROJECT_NAME} SDL2 assimp GLESv2)
-
-#Uncomment next line for OpenGL build
-#target_link_libraries(${FSEGT_PROJECT_NAME} SDL2 assimp GL)
-
-#Uncomment next line for Ncurses build
-#target_link_libraries(${FSEGT_PROJECT_NAME} ncurses)
-
-#Uncomment for mixed build
-target_link_libraries(${FSEGT_PROJECT_NAME} SDL2 assimp GL ncurses)
+target_link_libraries(${FSEGT_PROJECT_NAME} SDL2 assimp GL ncurses GLEW)
