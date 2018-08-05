@@ -28,7 +28,9 @@ public:
 
 private:
 	shared_ptr<Object> camera;
+	shared_ptr<Object> gameLogo;
 	shared_ptr<FloatComponent> brightness;
+	shared_ptr<FloatComponent> logoBrightness;
 	shared_ptr<Object> sky;
 	shared_ptr<FSEGTFreeCameraController> freeCameraController;
 	vector<shared_ptr<Object> > skyscrapers;

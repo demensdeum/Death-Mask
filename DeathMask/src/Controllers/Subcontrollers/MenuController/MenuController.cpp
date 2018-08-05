@@ -54,6 +54,24 @@ void MenuController::beforeStart() {
 		skyscrapers.push_back(skyscraper);
 	}
 
+	auto serializedGameLogoModelString = FSGTAMazeObjectGenerator::generatePlane(0.336, 0.4, make_shared<string>("com.demensdeum.deathmaskgame.logo.bmp"));
+
+	gameLogo = FSEGTFactory::makeOnSceneObject(
+            make_shared<string>("Game Logo"),
+            make_shared<string>("Game Logo"),
+            shared_ptr<string>(),
+            shared_ptr<string>(),
+		serializedGameLogoModelString,
+            -0.2, -0.08, -0.6,
+            1, 1, 1,
+            0, 0, 0,
+            0);    	
+
+	logoBrightness = FSEGTUtils::getObjectBrightness(gameLogo);
+	logoBrightness->floatNumber = 0;
+
+	objectsContext->addObject(gameLogo);
+
 	camera = FSEGTFactory::makeOnSceneObject(
       															make_shared<string>("camera"),
 													           	make_shared<string>("camera"),
@@ -99,6 +117,13 @@ void MenuController::freeCameraControllerDidUpdateCamera(shared_ptr<FSEGTFreeCam
 	}
 
 	objectsContext->updateObject(sky);
+
+	if (logoBrightness->floatNumber < 1.0)
+	{
+		logoBrightness->floatNumber += 0.01;
+	}
+
+	objectsContext->updateObject(gameLogo);
 
 	for (auto skyscraper : skyscrapers)
 	{
