@@ -2,10 +2,12 @@
 
 #include <FlameSteelEngineGameToolkitAlgorithms/Algorithms/MazeObjectGenerator/FSGTAMazeObjectGenerator.h>
 #include <FlameSteelEngineGameToolkit/Controllers/FreeCameraController/FSEGTFreeCameraController.h>
+#include <FlameSteelEngineGameToolkitAlgorithms/Controllers/CursorController/CursorController.h>
 #include <FlameSteelEngineGameToolkit/Data/Components/FSEGTFactory.h>
 #include <FlameSteelEngineGameToolkit/Utils/FSEGTUtils.h>
 #include <FlameSteelCore/FSCUtils.h>
 
+using namespace FlameSteelEngine::GameToolkit::Algorithms;
 using namespace DeathMaskGame;
 
 void MenuController::beforeStart() {
@@ -72,6 +74,21 @@ void MenuController::beforeStart() {
 
 	objectsContext->addObject(gameLogo);
 
+	auto serializedCursorModelString = FSGTAMazeObjectGenerator::generatePlane(0.018, 0.025, make_shared<string>("com.demensdeum.deathmaskgame.cursor.bmp"));
+
+	cursor = FSEGTFactory::makeOnSceneObject(
+            make_shared<string>("Game Cursor"),
+            make_shared<string>("Game Cursor"),
+            shared_ptr<string>(),
+            shared_ptr<string>(),
+		serializedCursorModelString,
+            -0.2, -0.08, -0.4,
+            1, 1, 1,
+            0, 0, 0,
+            0);    	
+
+	objectsContext->addObject(cursor);
+
 	camera = FSEGTFactory::makeOnSceneObject(
       															make_shared<string>("camera"),
 													           	make_shared<string>("camera"),
@@ -86,15 +103,29 @@ void MenuController::beforeStart() {
 	freeCameraController = make_shared<FSEGTFreeCameraController>(ioSystem->inputController, camera);
 	freeCameraController->delegate = shared_from_this();
 
+	cursorController = make_shared<CursorController>(cursor, ioSystem->inputController);
+	cursorController->delegate = shared_from_this();
+
 }
 
 void MenuController::freeCameraControllerDidUpdateCamera(shared_ptr<FSEGTFreeCameraController> freeCameraController, shared_ptr<Object> camera) {
 
-	objectsContext->updateObject(camera);
+	//objectsContext->updateObject(camera);
+
+}
+
+void MenuController::cursorControllerDidUpdateCursor(CursorController *cursorController, shared_ptr<Object> cursor) {
+
+	objectsContext->updateObject(cursor);
 
 }
 
  void MenuController::step() {
+
+	if (cursorController.get() != nullptr)
+	{
+		cursorController->step();
+	}
 
 	if (freeCameraController.get() != nullptr)
 	{

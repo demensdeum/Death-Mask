@@ -1,7 +1,5 @@
 #include "DMInGameController.h"
 
-#include <chrono>
-#include <thread>
 #include <iostream>
 #include <FlameSteelCore/Message.h>
 #include <DeathMask/src/Utils/DMUtils.h>
@@ -271,7 +269,6 @@ auto inputController = ioSystem->inputController;
 	inGameUserInterfaceController->step();
 
 	renderer->render(gameData);
-	std::this_thread::sleep_for(0.01s);
 
       	inputController->pollKey();
 
