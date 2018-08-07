@@ -1,3 +1,5 @@
+mkdir include
+cd include
 mkdir FlameSteelFramework 
 cd FlameSteelFramework
 git clone https://gitlab.com/demensdeum/FlameSteelCore.git

@@ -114,7 +114,7 @@ void MenuController::freeCameraControllerDidUpdateCamera(shared_ptr<FSEGTFreeCam
 
 }
 
-void MenuController::cursorControllerDidUpdateCursor(CursorController *cursorController, shared_ptr<Object> cursor) {
+void MenuController::cursorControllerDidUpdateCursor(shared_ptr<CursorController> cursorController, shared_ptr<Object> cursor) {
 
 	objectsContext->updateObject(cursor);
 

@@ -29,7 +29,7 @@ public:
 	virtual void step();
 
 	virtual void freeCameraControllerDidUpdateCamera(shared_ptr<FSEGTFreeCameraController> freeCameraController, shared_ptr<Object> camera);
-	virtual void cursorControllerDidUpdateCursor(CursorController *cursorController, shared_ptr<Object> cursor);
+	virtual void cursorControllerDidUpdateCursor(shared_ptr<CursorController> cursorController, shared_ptr<Object> cursor);
 
 private:
 	shared_ptr<CursorController> cursorController;
