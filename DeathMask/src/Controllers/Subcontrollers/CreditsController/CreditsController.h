@@ -1,5 +1,5 @@
- #ifndef DEATHMASKCREDITSCONTROLLER
-#define DETAHMASKCREDITSCONTROLLER
+#ifndef DEATHMASKCREDITSCONTROLLER_H_
+#define DEATHMASKCREDITSCONTROLLER_H_
 
 #include <FlameSteelEngineGameToolkit/Controllers/GameController.h>
 #include <FlameSteelEngineGameToolkit/Controllers/FreeCameraController/FSEGTFreeCameraControllerDelegate.h>

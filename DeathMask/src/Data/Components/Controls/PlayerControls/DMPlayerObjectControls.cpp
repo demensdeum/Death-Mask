@@ -88,7 +88,7 @@ void DMPlayerObjectControls::moveByRotation(float x, float y, float z) {
 		auto position = FSEGTUtils::getObjectPosition(object);
 		auto rotation = FSEGTUtils::getObjectRotation(object);
 
-		glm::mat4 matrix;
+		glm::mat4 matrix(1.0);
 
 		matrix = glm::translate(matrix, glm::vec3(position->x, position->y, position->z));
 
