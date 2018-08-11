@@ -16,11 +16,11 @@ set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/${FSEGT_PROJECT_NAME})
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/${FSEGT_PROJECT_NAME})
 set(CMAKE_EXECUTABLE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/${FSEGT_PROJECT_NAME})
 
-include_directories(. DeathMask FlameSteelFramework)
+include_directories(. DeathMask include/FlameSteelFramework)
 
 file(GLOB_RECURSE SOURCE_FILES
-    "FlameSteelFramework/*.cpp"
-    "Death-Mask-Src/*.cpp"
+    "include/FlameSteelFramework/*.cpp"
+    "DeathMaskSrc/*.cpp"
     "src/*.cpp"
 )
 
@@ -28,11 +28,4 @@ set(EXECUTABLE_OUTPUT_PATH "DeathMaskTests")
 
 add_executable(${FSEGT_PROJECT_NAME} ${SOURCE_FILES})
 
-#Uncomment next line for GLESv2 build (sometimes does not work on desktop)
-#target_link_libraries(${FSEGT_PROJECT_NAME} SDL2 assimp GLESv2)
-
-#Uncomment next line for OpenGL build
-#target_link_libraries(${FSEGT_PROJECT_NAME} SDL2 assimp GL)
-
-#Uncomment next line for Ncurses build
-target_link_libraries(${FSEGT_PROJECT_NAME} ncurses)
+target_link_libraries(${FSEGT_PROJECT_NAME} SDL2 assimp GL ncurses GLEW)

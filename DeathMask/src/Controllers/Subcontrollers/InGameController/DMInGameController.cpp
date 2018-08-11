@@ -5,7 +5,7 @@
 #include <DeathMask/src/Utils/DMUtils.h>
 #include <DeathMask/src/Data/GameObjectsGenerator.h>
 #include <FlameSteelEngineGameToolkit/Utils/FSEGTUtils.h>
-#include <FlameSteelFramework/FlameSteelCore/FSCUtils.h>
+#include <FlameSteelCore/FSCUtils.h>
 #include <DeathMask/src/Const/DMConstClassIdentifiers.h>
 #include <FlameSteelEngineGameToolkitAlgorithms/Const/Const.h>
 #include <FlameSteelEngineGameToolkit/Data/Components/FSEGTFactory.h>
