@@ -315,7 +315,7 @@ auto inputController = ioSystem->inputController;
 			auto mainCharacterPosition =  FSEGTUtils::getObjectPosition(mainCharacter);
 			auto cameraPosition = FSEGTUtils::getObjectPosition(camera);
 			cameraPosition->x = mainCharacterPosition->x;
-			cameraPosition->y = 0.5;
+			cameraPosition->y = mainCharacterPosition->y;
 			cameraPosition->z = mainCharacterPosition->z;
 
 			auto mainCharacterRotation = FSEGTUtils::getObjectRotation(mainCharacter);

@@ -19,7 +19,7 @@ void MenuController::beforeStart() {
             make_shared<string>("Demensdeum Logo"),
             shared_ptr<string>(),
             shared_ptr<string>(),
-		serializedCardModelString,
+		serializedCardModelString->serializedModelString(),
             -2, -1.12, -2,
             1, 1, 1,
             0, 0, 0,
@@ -30,7 +30,7 @@ void MenuController::beforeStart() {
 
 	objectsContext->addObject(sky);
 
-	auto skyscraperModelString = FSGTAMazeObjectGenerator::generateBox(0.2, 1, 0.2, 10, 3, make_shared<string>("com.demensdeum.deathmaskgame.skyscraper.bmp"));
+	auto skyscraperModelString = FSGTAMazeObjectGenerator::generateBox(0.2, 1, 0.2, 1, 10, make_shared<string>("com.demensdeum.deathmaskgame.logo.bmp"));
 
 	for (auto i = 0; i < 5; i++)
 	{
@@ -43,7 +43,7 @@ void MenuController::beforeStart() {
       		      make_shared<string>("Skyscraper"),
 	            shared_ptr<string>(),
 	            shared_ptr<string>(),
-			skyscraperModelString,
+			 skyscraperModelString->serializedModelString(),
 	            i-2, skyscraperY, skyscraperZ,
 	            1, 1, 1,
 	            -0.8, 0, 0,
@@ -56,14 +56,14 @@ void MenuController::beforeStart() {
 		skyscrapers.push_back(skyscraper);
 	}
 
-	auto serializedGameLogoModelString = FSGTAMazeObjectGenerator::generatePlane(0.336, 0.4, make_shared<string>("com.demensdeum.deathmaskgame.logo.bmp"));
+	auto serializedGameLogoModel = FSGTAMazeObjectGenerator::generatePlane(0.336, 0.4, make_shared<string>("com.demensdeum.deathmaskgame.logo.bmp"));
 
 	gameLogo = FSEGTFactory::makeOnSceneObject(
             make_shared<string>("Game Logo"),
             make_shared<string>("Game Logo"),
             shared_ptr<string>(),
             shared_ptr<string>(),
-		serializedGameLogoModelString,
+		serializedGameLogoModel->serializedModelString(),
             -0.2, -0.08, -0.6,
             1, 1, 1,
             0, 0, 0,
@@ -74,14 +74,14 @@ void MenuController::beforeStart() {
 
 	objectsContext->addObject(gameLogo);
 
-	auto serializedCursorModelString = FSGTAMazeObjectGenerator::generatePlane(0.018, 0.025, make_shared<string>("com.demensdeum.deathmaskgame.cursor.bmp"));
+	auto serializedCursorModel = FSGTAMazeObjectGenerator::generatePlane(0.018, 0.025, make_shared<string>("com.demensdeum.deathmaskgame.cursor.bmp"));
 
 	cursor = FSEGTFactory::makeOnSceneObject(
             make_shared<string>("Game Cursor"),
             make_shared<string>("Game Cursor"),
             shared_ptr<string>(),
             shared_ptr<string>(),
-		serializedCursorModelString,
+		serializedCursorModel->serializedModelString(),
             -0.2, -0.08, -0.4,
             1, 1, 1,
             0, 0, 0,

@@ -25,14 +25,14 @@ void CreditsController::beforeStart() {
 		throw logic_error("Logo is null");
 	}
 
-	auto serializedCardModelString = FSGTAMazeObjectGenerator::generatePlane(4, 2.28, logoPath);
+	auto serializedCardModel = FSGTAMazeObjectGenerator::generatePlane(4, 2.28, logoPath);
 
 	companyLogo = FSEGTFactory::makeOnSceneObject(
             make_shared<string>("Demensdeum Logo"),
             make_shared<string>("Demensdeum Logo"),
             shared_ptr<string>(),
             shared_ptr<string>(),
-		serializedCardModelString,
+		  serializedCardModel->serializedModelString(),
             -2, -1.12, -2,
             1, 1, 1,
             0, 0, 0,
