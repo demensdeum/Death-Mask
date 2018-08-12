@@ -141,6 +141,11 @@ void MenuController::cursorControllerDidUpdateCursor(shared_ptr<CursorController
 		ioSystem->stop();
 		exit(0);
 	}
+ 	else if (ioSystem->inputController->isShootKeyPressed()) {
+		
+		notifyListenerAboutControllerDidFinish(this);
+		return;
+	}
 
 	if (brightness->floatNumber < 1.0)
 	{

@@ -79,7 +79,7 @@ shared_ptr<FSEGTIOSystem> DMGameController::makeIOSystem() {
 }
 
 void DMGameController::controllerDidFinish(Controller *controller) {
-    
+
     switch (state) {
 
       		case DMStateCompanyLogo:
@@ -88,12 +88,13 @@ void DMGameController::controllerDidFinish(Controller *controller) {
 	            break; 
            
 		case DMStateFlameSteelEngineLogo:
-			objectsContext->removeAllObjects();
+				objectsContext->removeAllObjects();
             		switchToState(DMStateMenu);
 			break;
 
 		case DMStateMenu:
-			cout << "Menu stopped" << endl;
+				objectsContext->removeAllObjects();
+            		switchToState(DMStateInGame);		
 			break;
 
 	default:
