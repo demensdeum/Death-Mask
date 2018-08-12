@@ -30,7 +30,7 @@ void MenuController::beforeStart() {
 
 	objectsContext->addObject(sky);
 
-	auto skyscraperModelString = FSGTAMazeObjectGenerator::generateBox(0.2, 1, 0.2, 1, 10, make_shared<string>("com.demensdeum.deathmaskgame.logo.bmp"));
+	auto skyscraperModelString = FSGTAMazeObjectGenerator::generateBox(0.2, 1, 0.2, 4, 18, make_shared<string>("com.demensdeum.deathmaskgame.skyscraper.bmp"));
 
 	for (auto i = 0; i < 5; i++)
 	{
