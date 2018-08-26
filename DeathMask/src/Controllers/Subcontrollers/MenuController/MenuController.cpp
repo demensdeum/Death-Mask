@@ -1,5 +1,6 @@
 #include "MenuController.h"
 
+#include <FlameSteelEngineGameToolkit/Const/FSEGTConst.h>
 #include <FlameSteelEngineGameToolkitAlgorithms/Algorithms/MazeObjectGenerator/FSGTAMazeObjectGenerator.h>
 #include <FlameSteelEngineGameToolkit/Controllers/FreeCameraController/FSEGTFreeCameraController.h>
 #include <FlameSteelEngineGameToolkitAlgorithms/Controllers/CursorController/CursorController.h>
@@ -12,6 +13,10 @@ using namespace DeathMaskGame;
 
 void MenuController::beforeStart() {
 
+	auto flag2D = FSEGTFactory::makeBooleanComponent();
+	flag2D->setInstanceIdentifier(make_shared<string>(FSEGTConstComponentsFlag2D));
+	flag2D->setClassIdentifier(make_shared<string>(FSEGTConstComponentsFlag2D));
+
 	auto serializedCardModelString = FSGTAMazeObjectGenerator::generatePlane(4, 2.28, make_shared<string>("com.demensdeum.deathmaskgame.sky.bmp"));
 
 	sky = FSEGTFactory::makeOnSceneObject(
@@ -19,7 +24,7 @@ void MenuController::beforeStart() {
             make_shared<string>("Demensdeum Logo"),
             shared_ptr<string>(),
             shared_ptr<string>(),
-		serializedCardModelString->serializedModelString(),
+	    serializedCardModelString->serializedModelString(),
             -2, -1.12, -2,
             1, 1, 1,
             0, 0, 0,
@@ -69,6 +74,8 @@ void MenuController::beforeStart() {
             0, 0, 0,
             0);    	
 
+	gameLogo->addComponent(flag2D);
+
 	logoBrightness = FSEGTUtils::getObjectBrightness(gameLogo);
 	logoBrightness->floatNumber = 0;
 
@@ -87,6 +94,7 @@ void MenuController::beforeStart() {
             0, 0, 0,
             0);    	
 
+	cursor->addComponent(flag2D);
 	objectsContext->addObject(cursor);
 
 	camera = FSEGTFactory::makeOnSceneObject(
