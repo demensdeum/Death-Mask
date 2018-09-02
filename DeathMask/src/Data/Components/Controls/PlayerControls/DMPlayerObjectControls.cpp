@@ -28,22 +28,30 @@ void DMPlayerObjectControls::step(shared_ptr<DMObjectControlsDelegate> delegate)
       
 	if (inputController->isLeftKeyPressed()) {
 
-#if DMPLAYEROBJECTCONTROLSMOVEBYDIRECTION == 1
+/*#if DMPLAYEROBJECTCONTROLSMOVEBYDIRECTION == 1
 		moveByRotation(-step, 0, 0);
 #else
 		position->x -= step;
-#endif
+#endif*/
+
+		auto rotation = FSEGTUtils::getObjectRotation(object);
+		rotation->y += 0.1;
+
 		updateNeeded = true;        
 
 	}
 
 	if (inputController->isRightKeyPressed()) {
 
-#if DMPLAYEROBJECTCONTROLSMOVEBYDIRECTION == 1
+/*#if DMPLAYEROBJECTCONTROLSMOVEBYDIRECTION == 1
 		moveByRotation(step, 0, 0);
 #else
 		position->x += step;
-#endif
+#endif*/
+
+		auto rotation = FSEGTUtils::getObjectRotation(object);
+		rotation->y -= 0.1;
+
 		updateNeeded = true;        
 
 	}

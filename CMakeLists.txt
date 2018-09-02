@@ -7,7 +7,7 @@ set(FSEGT_PROJECT_NAME DeathMask)
 set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-set(CMAKE_CXX_FLAGS "-Wall -Wextra -Werror=return-type")
+set(CMAKE_CXX_FLAGS "-Wall -Wextra -Werror=return-type -s USE_SDL=2 -s -O3 --preload-file DeathMask/data/ -s TOTAL_MEMORY=536870912")
 set(CMAKE_CXX_FLAGS_DEBUG "-g")
 set(CMAKE_CXX_FLAGS_RELEASE "-O3")
 
@@ -21,11 +21,13 @@ include_directories(. include/FlameSteelFramework include)
 file(GLOB_RECURSE SOURCE_FILES
     "include/FlameSteelFramework/*.cpp"
     "DeathMask/src/*.cpp"
+    "DeathMask/src/*.c"
     "DeathMask/DeathMask.cpp"
 )
 
-set(EXECUTABLE_OUTPUT_PATH "DeathMask")
+set(EXECUTABLE_OUTPUT_PATH "DeathMask.html")
+
 
 add_executable(${FSEGT_PROJECT_NAME} ${SOURCE_FILES})
 
-target_link_libraries(${FSEGT_PROJECT_NAME} SDL2 assimp GL ncurses GLEW)
+target_link_libraries(${FSEGT_PROJECT_NAME} GL GLEW)
