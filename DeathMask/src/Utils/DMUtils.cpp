@@ -16,6 +16,9 @@
 #include <DeathMask/src/Const/DMConstClassIdentifiers.h>
 #include <DeathMask/src/Data/Components/Item/ItemProperties.h>
 #include <FlameSteelEngineGameToolkit/Data/Components/Text/FSEGTText.h>
+#include <DeathMask/src/Data/Components/Controls/ZombieControls/ZombieControls.h>
+
+using namespace DeathMaskGame;
 
 DMUtils::DMUtils() {
 }
@@ -60,6 +63,18 @@ shared_ptr<DMObjectControls> DMUtils::getObjectControls(shared_ptr<Object> objec
     auto castedObjectControls = static_pointer_cast<DMObjectControls>(objectControls);
     
     return castedObjectControls;
+}
+
+shared_ptr<ZombieControls> DMUtils::getObjectZombieControls(shared_ptr<Object> object) {
+
+	auto objectControls = getObjectControls(object);
+	auto controlsInstanceIdentifier = objectControls->getInstanceIdentifier();
+	
+	if (*controlsInstanceIdentifier != string("zombie controls")) {
+		throw logic_error("controls does not contain zombie controls instance identifier");
+	}
+
+	return static_pointer_cast<ZombieControls>(objectControls);
 }
 
 void DMUtils::step(shared_ptr<Object> object, shared_ptr<DMObjectControlsDelegate> delegate) {

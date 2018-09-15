@@ -1,10 +1,21 @@
 #include "ZombieControls.h"
+#include <math.h>
 #include <FlameSteelCore/FSCUtils.h>
 #include <FlameSteelEngineGameToolkit/Utils/FSEGTUtils.h>
 
 using namespace DeathMaskGame;
 
+void ZombieControls::enableLookAt(shared_ptr<Object> target) {
+
+	lookAtRotator = make_shared<LookAtRotator>(object, target);
+
+}
+
 void ZombieControls::step(shared_ptr<DMObjectControlsDelegate> delegate) {
+
+	if (lookAtRotator.get() == nullptr) {
+		throw logic_error("Can't rotate zombie, because look at rotator disabled");
+	}
 
 	if (object.get() == nullptr)
 	{
@@ -48,6 +59,8 @@ void ZombieControls::step(shared_ptr<DMObjectControlsDelegate> delegate) {
 		      position->z += step;
 			break;
 	}
+
+	lookAtRotator->step();
 
 	delegate->objectsControlsDelegateObjectDidUpdate(object);
 

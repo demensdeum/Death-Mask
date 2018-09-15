@@ -6,9 +6,11 @@
 #include <DeathMask/src/Data/GameObjectsGenerator.h>
 #include <FlameSteelEngineGameToolkit/Utils/FSEGTUtils.h>
 #include <FlameSteelCore/FSCUtils.h>
+#include <FlameSteelEngineGameToolkit/Const/FSEGTConst.h>
 #include <DeathMask/src/Const/DMConstClassIdentifiers.h>
 #include <FlameSteelEngineGameToolkitAlgorithms/Const/Const.h>
 #include <FlameSteelEngineGameToolkit/Data/Components/FSEGTFactory.h>
+#include <DeathMask/src/Data/Components/Controls/ZombieControls/ZombieControls.h>
 #include <FlameSteelEngineGameToolkitAlgorithms/Algorithms/MapGenerator/MapGenerator.h>
 #include <FlameSteelEngineGameToolkitAlgorithms/Algorithms/MapGenerator/FSEGTAMapGeneratorParams.h>
 #include <FlameSteelEngineGameToolkit/Controllers/FreeCameraController/FSEGTFreeCameraController.h>
@@ -57,12 +59,20 @@ void DMInGameController::generateMap() {
 	enemies = make_shared<Objects>();
 	auto mapParametersEnemies = make_shared<Objects>();
 
+	/*auto flag2D = FSEGTFactory::makeBooleanComponent();
+	flag2D->setInstanceIdentifier(make_shared<string>(FSEGTConstComponentsFlag2D));
+	flag2D->setClassIdentifier(make_shared<string>(FSEGTConstComponentsFlag2D));*/
+
 	for (auto i = 0; i < 20; i ++)
 	{
 		auto enemy = objectsGenerator->generateEnemy(Difficulty::easy);
+		//enemy->addComponent(flag2D);
 
 		enemies->addObject(enemy);
 		mapParametersEnemies->addObject(enemy);
+
+		auto controls = DMUtils::getObjectZombieControls(enemy);
+		controls->enableLookAt(mainCharacter);
 	}
 
 	mapGeneratorParams->enemies = mapParametersEnemies;
@@ -172,6 +182,8 @@ void DMInGameController::generateMap() {
 	{
 		auto enemy = enemies->objectAtIndex(i);
 		gameRulesObjects->addObject(enemy);
+
+		
 	}
 
 	gameRulesObjects->addObject(mainCharacter);
