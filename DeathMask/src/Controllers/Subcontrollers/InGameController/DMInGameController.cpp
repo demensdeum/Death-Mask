@@ -134,12 +134,11 @@ void DMInGameController::generateMap() {
 	auto gameplayProperties = make_shared<DMGameplayProperties>();
 	mainCharacter->addComponent(gameplayProperties);
 
-	gameplayProperties->setHealth(10);
-	gameplayProperties->setHealthMax(10);
-	gameplayProperties->setHunger(10);
-	gameplayProperties->setHungerMax(10);
-	gameplayProperties->setOxygen(10);
-	gameplayProperties->setOxygenMax(10);
+	gameplayProperties->health = 100;
+	gameplayProperties->healthMax = 100;
+	gameplayProperties->synergy = 100;
+	gameplayProperties->synergyMax = 100;
+
 	gameplayProperties->creatureType = CreatureType::living;
 
 	exitPoint =  objectsContext->objectWithInstanceIdentifier(make_shared<string>(ConstMapEntityEndPoint));
@@ -160,35 +159,26 @@ void DMInGameController::generateMap() {
 	//freeCameraController = make_shared<FSEGTFreeCameraController>(ioSystem->inputController, camera);
 	//freeCameraController->delegate = shared_from_this();
 
-	auto userInterfaceText = FSEGTFactory::makeOnScreenText(
-						  make_shared<string>("User Interface"), 
-						  0, 0.8);
-
-	objectsContext->addObject(userInterfaceText);
-
-	auto userInterfaceTextComponent = FSEGTUtils::getText(userInterfaceText);
 	auto mainCharacterGameplayProperties = DMUtils::getObjectGameplayProperties(mainCharacter);
 
-	auto versionText = FSEGTFactory::makeOnScreenText(
-						  make_shared<string>("Death Mask"), 
-						  0.7, 0.9);
-
-	objectsContext->addObject(versionText);
-
-	inGameUserInterfaceController = make_shared<DeathMaskGame::InGameUserInterfaceController>(userInterfaceTextComponent, mainCharacterGameplayProperties, shared_from_this());
+	inGameUserInterfaceController = make_shared<DeathMaskGame::InGameUserInterfaceController>(camera,
+																														mainCharacterGameplayProperties, 
+																														 shared_from_this());
 	auto gameRulesObjects = make_shared<Objects>();
 
 	for (auto i = 0; i < enemies->size(); i++)
 	{
 		auto enemy = enemies->objectAtIndex(i);
 		gameRulesObjects->addObject(enemy);
-
-		
 	}
 
 	gameRulesObjects->addObject(mainCharacter);
 
 	gameplayRulesController = make_shared<GameplayRulesController>(gameRulesObjects);
+
+	uiObject = inGameUserInterfaceController->uiObject;
+
+	objectsContext->addObject(inGameUserInterfaceController->uiObject);
 }
 
 void DMInGameController::useItemAtXY(shared_ptr<Objects> objects) {
@@ -269,7 +259,6 @@ void DMInGameController::step() {
 		}
 		enemyControls->step(shared_from_this());
 	}
-
 }
 
 void DMInGameController::frameStep() {
@@ -278,6 +267,7 @@ auto inputController = ioSystem->inputController;
 
 	playerObjectControls->step(shared_from_this());
 	inGameUserInterfaceController->step();
+	objectsContext->updateObject(uiObject);
 
 	renderer->render(gameData);
 

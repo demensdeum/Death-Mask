@@ -14,8 +14,7 @@ public:
 
 private:
 	shared_ptr<Objects> objects;
-	int previousHungerTimer;
-	int previousOxygenTimer;
+	int previousSynergyTimer;
 
 };
 

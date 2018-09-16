@@ -43,6 +43,7 @@ private:
 	shared_ptr<Object> camera;
 	shared_ptr<Object> mainCharacter;
 	shared_ptr<Object> exitPoint;
+	shared_ptr<Object> uiObject;
 
 	shared_ptr<InGameUserInterfaceController> inGameUserInterfaceController;
 	shared_ptr<DMPlayerObjectControls> playerObjectControls;

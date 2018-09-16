@@ -2,7 +2,6 @@
 #define DEATHMASKGAMEINGAMEUSERINTERFACECONTROLLERDEFINED
 
 #include <memory>
-#include <FlameSteelEngineGameToolkit/Data/Components/Text/FSEGTText.h>
 #include <DeathMask/src/Data/Components/GameplayProperties/DMGameplayProperties.h>
 
 using namespace std;
@@ -21,13 +20,14 @@ public:
 class InGameUserInterfaceController: public enable_shared_from_this<InGameUserInterfaceController> {
 
 public:
-	InGameUserInterfaceController(shared_ptr<FSEGTText> text, 
+	InGameUserInterfaceController(shared_ptr<Object> camera,
 											shared_ptr<DMGameplayProperties> gameplayProperties, 
 												shared_ptr<InGameUserInterfaceControllerDataSource> dataSource);
 	void step();
+	shared_ptr<Object> uiObject;
 
 private:
-	shared_ptr<FSEGTText> text;
+	shared_ptr<Object> camera;
 	shared_ptr<DMGameplayProperties> gameplayProperties;
 	shared_ptr<InGameUserInterfaceControllerDataSource> dataSource;
 };
