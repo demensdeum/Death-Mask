@@ -9,7 +9,7 @@
 
 namespace DeathMaskGame {
 
-class ZombieControls : public DMObjectControls {
+class ZombieControls : public DMObjectControls, public enable_shared_from_this<ZombieControls> {
 
 public:
 	ZombieControls(shared_ptr<Object> object) : DMObjectControls(object) {

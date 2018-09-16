@@ -375,3 +375,18 @@ void DMInGameController::freeCameraControllerDidUpdateCamera(shared_ptr<FSEGTFre
 	objectsMap->handleObject(camera);
 
 }
+
+bool DMInGameController::objectsControlsIsObjectCanMoveToPosition(shared_ptr<DMObjectControls> objectControls, shared_ptr<Object> object, shared_ptr<FSEGTVector> position) {
+
+	auto gameMap = gameData->gameMap;
+	if (gameMap.get() == nullptr) {
+		throw logic_error("Game map is null");
+	}
+
+	auto tileX = int(position->x);
+	auto tileY = int(position->z);
+
+	auto tile = gameMap->getTileIndexAtXY(tileX, tileY);
+
+	return tile == 0;
+}

@@ -27,7 +27,7 @@
 using namespace std;
 using namespace FlameSteelEngine::GameToolkit;
 
-class DMPlayerObjectControls : public DMObjectControls {
+class DMPlayerObjectControls : public DMObjectControls, public enable_shared_from_this<DMPlayerObjectControls> {
 public:
     DMPlayerObjectControls(shared_ptr<Object> object, shared_ptr<FSEGTInputController> inputController, shared_ptr<GameMap> gameMap) : DMObjectControls(object) {
     
@@ -43,7 +43,7 @@ public:
     virtual void step(shared_ptr<DMObjectControlsDelegate> delegate);
 
 private:
-	void moveByRotation(float x, float y, float z);
+	void moveByRotation(float x, float y, float z, shared_ptr<DMObjectControlsDelegate> delegate);
 
 };
 

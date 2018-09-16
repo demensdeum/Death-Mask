@@ -32,5 +32,9 @@ void DMObjectControlsDelegate::objectsControlsDelegateObjectDidUpdate(shared_ptr
     
 }
 
+bool DMObjectControlsDelegate::objectsControlsIsObjectCanMoveToPosition(shared_ptr<DMObjectControls> objectControls, shared_ptr<Object> object, shared_ptr<FSEGTVector> position) {
+	return true;
+}
+
 DMObjectControlsDelegate::~DMObjectControlsDelegate() {
 }

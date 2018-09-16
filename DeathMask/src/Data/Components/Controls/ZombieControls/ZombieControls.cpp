@@ -24,7 +24,7 @@ void ZombieControls::step(shared_ptr<DMObjectControlsDelegate> delegate) {
 
 	auto step = 0.1;
 
-	auto position = FSEGTUtils::getObjectPosition(object);
+	auto position = FSEGTUtils::getObjectPosition(object)->copy();
 
 	if (position.get() == nullptr)
 	{
@@ -62,6 +62,25 @@ void ZombieControls::step(shared_ptr<DMObjectControlsDelegate> delegate) {
 
 	lookAtRotator->step();
 
+	if (delegate->objectsControlsIsObjectCanMoveToPosition(shared_from_this(), object, position)) {
+		FSEGTUtils::getObjectPosition(object)->populate(position);
+	}
+	else {
+		// only x
+		auto positionXonly = FSEGTUtils::getObjectPosition(object)->copy();
+		positionXonly->x = position->x;
+		if (delegate->objectsControlsIsObjectCanMoveToPosition(shared_from_this(), object, positionXonly)) {
+			FSEGTUtils::getObjectPosition(object)->populate(positionXonly);
+		}
+		else {
+			// only z
+			auto positionZonly = FSEGTUtils::getObjectPosition(object)->copy();
+			positionZonly->z = position->z;
+			if (delegate->objectsControlsIsObjectCanMoveToPosition(shared_from_this(), object, positionZonly)) {
+				FSEGTUtils::getObjectPosition(object)->populate(positionZonly);
+			}
+		}
+	}
 	delegate->objectsControlsDelegateObjectDidUpdate(object);
 
 	walkTime -= 1;

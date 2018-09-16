@@ -21,6 +21,9 @@
 using namespace std;
 using namespace FlameSteelCore;
 
+class FSEGTVector;
+class DMObjectControls;
+
 class DMObjectControlsDelegate {
 public:
     DMObjectControlsDelegate();
@@ -31,7 +34,8 @@ public:
     virtual void objectsControlsDelegateDidPickObject(shared_ptr<Object> object);
     
     virtual void objectsControlsDelegateObjectDidUpdate(shared_ptr<Object> object);
-    
+    virtual bool objectsControlsIsObjectCanMoveToPosition(shared_ptr<DMObjectControls> objectControls, shared_ptr<Object> object, shared_ptr<FSEGTVector> position);
+
 private:
 
 };

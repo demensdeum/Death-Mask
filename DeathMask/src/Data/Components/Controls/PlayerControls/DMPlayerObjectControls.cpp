@@ -29,7 +29,7 @@ void DMPlayerObjectControls::step(shared_ptr<DMObjectControlsDelegate> delegate)
 	if (inputController->isLeftKeyPressed()) {
 
 #if DMPLAYEROBJECTCONTROLSMOVEBYDIRECTION == 1
-		moveByRotation(-step, 0, 0);
+		moveByRotation(-step, 0, 0, delegate);
 #else
 		position->x -= step;
 #endif
@@ -40,7 +40,7 @@ void DMPlayerObjectControls::step(shared_ptr<DMObjectControlsDelegate> delegate)
 	if (inputController->isRightKeyPressed()) {
 
 #if DMPLAYEROBJECTCONTROLSMOVEBYDIRECTION == 1
-		moveByRotation(step, 0, 0);
+		moveByRotation(step, 0, 0, delegate);
 #else
 		position->x += step;
 #endif
@@ -51,7 +51,7 @@ void DMPlayerObjectControls::step(shared_ptr<DMObjectControlsDelegate> delegate)
 	if (inputController->isDownKeyPressed()) {    
 
 #if DMPLAYEROBJECTCONTROLSMOVEBYDIRECTION == 1
-		moveByRotation(0, 0, step);
+		moveByRotation(0, 0, step, delegate);
 #else
 		position->z += step;
 #endif
@@ -62,7 +62,7 @@ void DMPlayerObjectControls::step(shared_ptr<DMObjectControlsDelegate> delegate)
 	if (inputController->isUpKeyPressed()) {
 
 #if DMPLAYEROBJECTCONTROLSMOVEBYDIRECTION == 1
-		moveByRotation(0, 0, -step);
+		moveByRotation(0, 0, -step, delegate);
 #else
 		position->z -= step;
 #endif
@@ -83,9 +83,9 @@ void DMPlayerObjectControls::step(shared_ptr<DMObjectControlsDelegate> delegate)
 	}
 }
 
-void DMPlayerObjectControls::moveByRotation(float x, float y, float z) {
+void DMPlayerObjectControls::moveByRotation(float x, float y, float z, shared_ptr<DMObjectControlsDelegate> delegate) {
 
-		auto position = FSEGTUtils::getObjectPosition(object);
+		auto position = FSEGTUtils::getObjectPosition(object)->copy();
 		auto rotation = FSEGTUtils::getObjectRotation(object);
 
 		glm::mat4 matrix(1.0);
@@ -103,6 +103,26 @@ void DMPlayerObjectControls::moveByRotation(float x, float y, float z) {
 		position->x = result.x;
 		position->y = result.y;
 		position->z = result.z;
+
+	if (delegate->objectsControlsIsObjectCanMoveToPosition(shared_from_this(), object, position)) {
+		FSEGTUtils::getObjectPosition(object)->populate(position);
+	}
+	else {
+		// only x
+		auto positionXonly = FSEGTUtils::getObjectPosition(object)->copy();
+		positionXonly->x = position->x;
+		if (delegate->objectsControlsIsObjectCanMoveToPosition(shared_from_this(), object, positionXonly)) {
+			FSEGTUtils::getObjectPosition(object)->populate(positionXonly);
+		}
+		else {
+			// only z
+			auto positionZonly = FSEGTUtils::getObjectPosition(object)->copy();
+			positionZonly->z = position->z;
+			if (delegate->objectsControlsIsObjectCanMoveToPosition(shared_from_this(), object, positionZonly)) {
+				FSEGTUtils::getObjectPosition(object)->populate(positionZonly);
+			}
+		}
+	}
 }
 
 DMPlayerObjectControls::~DMPlayerObjectControls() {
