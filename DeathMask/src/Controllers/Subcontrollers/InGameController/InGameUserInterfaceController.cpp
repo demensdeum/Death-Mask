@@ -44,12 +44,14 @@ InGameUserInterfaceController::InGameUserInterfaceController(shared_ptr<Object> 
 	surfaceMaterial = FSEGTFactory::makeSurfaceMaterialComponent(1024, 1024);
 	uiObject->addComponent(surfaceMaterial);
 
+	auto uiTestImageMaterial = make_shared<FSGLMaterial>(make_shared<string>("data/com.uitest.remove.bmp"));
+	auto uiTestImageMaterialSurface = SDL_LoadBMP(uiTestImageMaterial->texturePath->c_str());
+	uiTestImageMaterial->surface = uiTestImageMaterialSurface;
+	uiTestImage = make_shared<SurfaceMaterial>(uiTestImageMaterial);
+
 }
 
 void InGameUserInterfaceController::step() {
-
-	auto surface = surfaceMaterial->surface;
-	SDL_FillRect(surface, NULL, SDL_MapRGB(surface->format, 0, 0, 255));
 
 	if (dataSource.get() == nullptr)
 	{
@@ -118,6 +120,11 @@ void InGameUserInterfaceController::step() {
 		FSEGTUtils::getObjectRotation(uiObject)->populate(rotation);
 	}
 
+	auto surface = surfaceMaterial->material->surface;
+	SDL_FillRect(surface, NULL, SDL_MapRGB(surface->format, 0, 0, 255));
+
+	SDL_BlitSurface(uiTestImage->material->surface, nullptr, surface, nullptr);
+
 }
 
 shared_ptr<Objects> InGameUserInterfaceControllerDataSource::objectsForInGameUserInterfaceController(shared_ptr<InGameUserInterfaceController> inGameUserInterfaceController) {
@@ -125,3 +132,6 @@ shared_ptr<Objects> InGameUserInterfaceControllerDataSource::objectsForInGameUse
 	return shared_ptr<Objects>();
 
 }
+
+InGameUserInterfaceController::~InGameUserInterfaceController() {
+};

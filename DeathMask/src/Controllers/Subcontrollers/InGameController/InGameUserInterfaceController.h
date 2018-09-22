@@ -1,6 +1,7 @@
 #ifndef DEATHMASKGAMEINGAMEUSERINTERFACECONTROLLERDEFINED
 #define DEATHMASKGAMEINGAMEUSERINTERFACECONTROLLERDEFINED
 
+#include <SDL2/SDL.h>
 #include <memory>
 #include <DeathMask/src/Data/Components/GameplayProperties/DMGameplayProperties.h>
 
@@ -34,11 +35,16 @@ public:
 	void step();
 	shared_ptr<Object> uiObject;
 
+	virtual ~InGameUserInterfaceController();
+
 private:
 	shared_ptr<SurfaceMaterial> surfaceMaterial;
 	shared_ptr<Object> camera;
 	shared_ptr<DMGameplayProperties> gameplayProperties;
 	shared_ptr<InGameUserInterfaceControllerDataSource> dataSource;
+
+	shared_ptr<SurfaceMaterial> uiTestImage;
+
 };
 };
 
