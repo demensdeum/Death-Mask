@@ -6,6 +6,14 @@
 
 using namespace std;
 
+namespace FlameSteelEngine {
+namespace GameToolkit {
+	class SurfaceMaterial;
+};
+};
+
+using namespace FlameSteelEngine::GameToolkit;
+
 namespace DeathMaskGame {
 
 class InGameUserInterfaceController;
@@ -27,6 +35,7 @@ public:
 	shared_ptr<Object> uiObject;
 
 private:
+	shared_ptr<SurfaceMaterial> surfaceMaterial;
 	shared_ptr<Object> camera;
 	shared_ptr<DMGameplayProperties> gameplayProperties;
 	shared_ptr<InGameUserInterfaceControllerDataSource> dataSource;

@@ -41,9 +41,15 @@ InGameUserInterfaceController::InGameUserInterfaceController(shared_ptr<Object> 
 	text->setClassIdentifier(make_shared<string>(DMConstClassIdentifierLabel.c_str()));
 	uiObject->addComponent(text);
 
+	surfaceMaterial = FSEGTFactory::makeSurfaceMaterialComponent(1024, 1024);
+	uiObject->addComponent(surfaceMaterial);
+
 }
 
 void InGameUserInterfaceController::step() {
+
+	auto surface = surfaceMaterial->surface;
+	SDL_FillRect(surface, NULL, SDL_MapRGB(surface->format, 0, 0, 255));
 
 	if (dataSource.get() == nullptr)
 	{
