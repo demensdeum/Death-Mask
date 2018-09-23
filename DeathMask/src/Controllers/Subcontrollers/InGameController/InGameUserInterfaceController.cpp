@@ -1,5 +1,6 @@
 #include "InGameUserInterfaceController.h"
 
+#include <iostream>
 #include <glm/gtc/matrix_transform.hpp>
 #include <FlameSteelCore/Objects.h>
 #include <DeathMask/src/Utils/DMUtils.h>
@@ -10,6 +11,7 @@
 #include <FlameSteelEngineGameToolkitAlgorithms/Algorithms/MazeObjectGenerator/FSGTAMazeObjectGenerator.h>
 
 using namespace DeathMaskGame;
+using namespace std;
 
 InGameUserInterfaceController::InGameUserInterfaceController(shared_ptr<Object> camera,
 																			shared_ptr<DMGameplayProperties> gameplayProperties,
@@ -44,10 +46,17 @@ InGameUserInterfaceController::InGameUserInterfaceController(shared_ptr<Object> 
 	surfaceMaterial = FSEGTFactory::makeSurfaceMaterialComponent(1024, 1024);
 	uiObject->addComponent(surfaceMaterial);
 
-	auto uiTestImageMaterial = make_shared<FSGLMaterial>(make_shared<string>("data/com.uitest.remove.bmp"));
-	auto uiTestImageMaterialSurface = SDL_LoadBMP(uiTestImageMaterial->texturePath->c_str());
-	uiTestImageMaterial->surface = uiTestImageMaterialSurface;
-	uiTestImage = make_shared<SurfaceMaterial>(uiTestImageMaterial);
+	if(TTF_Init() != 0) {
+		printf("TTF_Init: %s\n", TTF_GetError());
+		throw runtime_error("Can't load SDL2 TTF");
+	}
+
+	font = TTF_OpenFont("data/com.demensdeum.deathmask.crystal.font.ttf", 16);
+
+	if(!font) {
+		printf("TTF_OpenFont: %s\n", TTF_GetError());
+		runtime_error("TTF Can't load font");
+	}
 
 }
 
@@ -67,6 +76,7 @@ void InGameUserInterfaceController::step() {
 		{
 			auto object = objects->objectAtIndex(i);
 			auto label = DMUtils::getObjectLabel(object);
+			objectsString += *label->text;
 			objectsString += ", ";
 		} 
 
@@ -80,7 +90,7 @@ void InGameUserInterfaceController::step() {
 	}
 
 	char buffer[1024];
-	sprintf(buffer, "Name: Seeker\nHealth: %d/%d\nSynergy: %d/%d\nWeapon: <None>\nObjects: %s", 
+	sprintf(buffer, "Death Mask 1.0\nName: Seeker\nHealth: %d/%d\nSynergy: %d/%d\nWeapon: <None>\nObjects: %s", 
 					gameplayProperties->health, gameplayProperties->healthMax, 
 					gameplayProperties->synergy, gameplayProperties->synergyMax,
 					objectsString.c_str());
@@ -123,7 +133,15 @@ void InGameUserInterfaceController::step() {
 	auto surface = surfaceMaterial->material->surface;
 	SDL_FillRect(surface, NULL, SDL_MapRGB(surface->format, 0, 0, 255));
 
-	SDL_BlitSurface(uiTestImage->material->surface, nullptr, surface, nullptr);
+	SDL_Color color = { 255, 255, 255 };
+	auto uiText = TTF_RenderText_Blended_Wrapped(font, buffer, color, 1024);
+	SDL_Rect destinationRect;
+	destinationRect.x = 10;
+	destinationRect.y = 10;
+	destinationRect.w = uiText->w;
+	destinationRect.h = uiText->h;
+	SDL_BlitSurface(uiText, nullptr, surface, &destinationRect);
+	SDL_FreeSurface(uiText);
 
 }
 
@@ -134,4 +152,7 @@ shared_ptr<Objects> InGameUserInterfaceControllerDataSource::objectsForInGameUse
 }
 
 InGameUserInterfaceController::~InGameUserInterfaceController() {
+	if (font != nullptr) {
+		TTF_CloseFont(font);
+	}
 };

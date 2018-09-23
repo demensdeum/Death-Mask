@@ -28,4 +28,4 @@ set(EXECUTABLE_OUTPUT_PATH "DeathMask")
 
 add_executable(${FSEGT_PROJECT_NAME} ${SOURCE_FILES})
 
-target_link_libraries(${FSEGT_PROJECT_NAME} SDL2 assimp GL ncurses GLEW)
+target_link_libraries(${FSEGT_PROJECT_NAME} SDL2 assimp GL ncurses GLEW SDL2_ttf)
