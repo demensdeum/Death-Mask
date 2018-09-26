@@ -7,7 +7,11 @@ set(FSEGT_PROJECT_NAME DeathMask)
 set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
+if (APPLE)
+set(CMAKE_CXX_FLAGS "-Wall -Wextra -Werror=return-type -framework OpenGL")
+else()
 set(CMAKE_CXX_FLAGS "-Wall -Wextra -Werror=return-type")
+endif()
 set(CMAKE_CXX_FLAGS_DEBUG "-g")
 set(CMAKE_CXX_FLAGS_RELEASE "-O3")
 
@@ -28,4 +32,8 @@ set(EXECUTABLE_OUTPUT_PATH "DeathMask")
 
 add_executable(${FSEGT_PROJECT_NAME} ${SOURCE_FILES})
 
+if (APPLE)
+target_link_libraries(${FSEGT_PROJECT_NAME} SDL2 assimp ncurses GLEW SDL2_ttf)
+else()
 target_link_libraries(${FSEGT_PROJECT_NAME} SDL2 assimp GL ncurses GLEW SDL2_ttf)
+endif()
