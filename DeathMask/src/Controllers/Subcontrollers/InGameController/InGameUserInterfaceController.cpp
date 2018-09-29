@@ -1,5 +1,6 @@
 #include "InGameUserInterfaceController.h"
 
+#include <sstream>
 #include <iostream>
 #include <glm/gtc/matrix_transform.hpp>
 #include <FlameSteelCore/Objects.h>
@@ -134,14 +135,28 @@ void InGameUserInterfaceController::step() {
 	SDL_FillRect(surface, NULL, SDL_MapRGB(surface->format, 0, 0, 255));
 
 	SDL_Color color = { 255, 255, 255 };
-	auto uiText = TTF_RenderText_Blended_Wrapped(font, buffer, color, 1024);
-	SDL_Rect destinationRect;
-	destinationRect.x = 10;
-	destinationRect.y = 10;
-	destinationRect.w = uiText->w;
-	destinationRect.h = uiText->h;
-	SDL_BlitSurface(uiText, nullptr, surface, &destinationRect);
-	SDL_FreeSurface(uiText);
+
+	// SDL TTF on OS X mojave crash workaround - wrapped rendering simulation
+
+	auto bufferString = string(buffer);
+
+	std::istringstream iss(bufferString);
+
+	auto lineIndex = 0;
+
+	for (std::string line; std::getline(iss, line); ) {
+		
+		lineIndex+= 1;
+		auto uiText = TTF_RenderText_Solid(font, line.c_str(), color);
+		SDL_Rect destinationRect;
+		destinationRect.x = 20;
+		destinationRect.y = lineIndex * 20;
+		destinationRect.w = uiText->w;
+		destinationRect.h = uiText->h;
+		SDL_BlitSurface(uiText, nullptr, surface, &destinationRect);
+		SDL_FreeSurface(uiText);
+	
+	}
 
 }
 

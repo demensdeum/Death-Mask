@@ -36,3 +36,7 @@ Makefile
 /cmake_install.cmake
 FlameSteelFramework
 DeathMask/data/.directory
+include
+CMakeScripts
+DeathMask.build
+DeathMask.xcodeproj
