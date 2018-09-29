@@ -15,10 +15,8 @@ namespace DeathMaskGame {
 
 		weapon,
 		supply,
-		bioshell,
 		questItem,
-		oxygenItem,
-		foodItem,
+		synergyItem,
 		count
     
 	};

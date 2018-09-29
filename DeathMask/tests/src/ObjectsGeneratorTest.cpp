@@ -18,7 +18,7 @@ bool ObjectsGeneratorTest::perform() {
 				testItemGenerator(ItemType::supply) && 
 					testItemGenerator(ItemType::bioshell) &&
 						testItemGenerator(ItemType::questItem) &&
-							testItemGenerator(ItemType::oxygenItem) &&
+							testItemGenerator(ItemType::synergyItem) &&
 								testItemGenerator(ItemType::foodItem);
 }
 
@@ -50,9 +50,9 @@ bool ObjectsGeneratorTest::testItemGenerator(ItemType type) {
 			item = objectsGenerator->generateQuestItem(Difficulty::easy);
 			break;
 
-		case ItemType::oxygenItem:
+		case ItemType::synergyItem:
 
-			item = objectsGenerator->generateOxygenItem(Difficulty::easy);
+			item = objectsGenerator->generateSynergyItem(Difficulty::easy);
 			break;
 
 

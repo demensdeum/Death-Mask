@@ -20,7 +20,7 @@ GameObjectsGenerator::GameObjectsGenerator() {
 
 shared_ptr<Object> GameObjectsGenerator::generateRandomItem(Difficulty itemDifficulty) {
 
-	auto randomItemType = FSCUtils::FSCRandomInt(ItemType::count - 1);
+	auto randomItemType = FSCUtils::FSCRandomInt(ItemType::count);
 
 	auto item = shared_ptr<Object>();
 
@@ -41,13 +41,6 @@ shared_ptr<Object> GameObjectsGenerator::generateRandomItem(Difficulty itemDiffi
 			item  = generateSupplyItem(itemDifficulty);
 			break;
 
-		case bioshell:
-
-			cout << "Generate bioshell item" << endl;
-
-			item = generateBioshellItem(itemDifficulty);
-			break;
-
 		case questItem:
 
 			cout << "Generate quest item" << endl;
@@ -55,18 +48,11 @@ shared_ptr<Object> GameObjectsGenerator::generateRandomItem(Difficulty itemDiffi
 			item = generateQuestItem(itemDifficulty);
 			break;
 
-		case oxygenItem:
+		case synergyItem:
 
-			cout << "Generate oxygen item" << endl;
+			cout << "Generate synergy item" << endl;
 
-			item = generateOxygenItem(itemDifficulty);
-			break;
-
-		case foodItem:
-
-			cout << "Generate food item" << endl;
-
-			item = generateFoodItem(itemDifficulty);
+			item = generateSynergyItem(itemDifficulty);
 			break;
 
 		case count:
@@ -155,23 +141,13 @@ shared_ptr<Object> GameObjectsGenerator::generateEnemy(Difficulty enemyDifficult
 
 };
 
-shared_ptr<Object> GameObjectsGenerator::generateOxygenItem(Difficulty oxygenDifficulty) {
+shared_ptr<Object> GameObjectsGenerator::generateSynergyItem(Difficulty synergyDifficulty) {
 
-	auto firstNames = vector<string>{LocalizedString("Oxygen"), LocalizedString("Oxygen") };
+	auto firstNames = vector<string>{LocalizedString("Synergy"), LocalizedString("Synergy") };
 	auto secondNames = vector<string>{LocalizedString("tank"), LocalizedString("cassete"), LocalizedString("tablet")};
-	auto type = ItemType::oxygenItem;
+	auto type = ItemType::synergyItem;
 
-	return generateObject(type,  oxygenDifficulty, firstNames, secondNames);
-
-}
-
-shared_ptr<Object> GameObjectsGenerator::generateFoodItem(Difficulty foodDifficulty) {
-
-	auto firstNames = vector<string>{LocalizedString("ForsightTech"), LocalizedString("VitaCom"), LocalizedString("Optimum")};
-	auto secondNames = vector<string>{LocalizedString("soyjar"), LocalizedString("grass-bar"), LocalizedString("protein pills")};
-	auto type = ItemType::foodItem;
-
-	return generateObject(type, foodDifficulty, firstNames, secondNames);
+	return generateObject(type,  synergyDifficulty, firstNames, secondNames);
 
 }
 
@@ -194,13 +170,3 @@ shared_ptr<Object> GameObjectsGenerator::generateSupplyItem(Difficulty supplyIte
 	return generateObject(type, supplyItemDifficulty, firstNames, secondNames);
 
 };
-
-shared_ptr<Object> GameObjectsGenerator::generateBioshellItem(Difficulty bioshellItemDifficulty) {
-
-	auto firstNames = vector<string>{LocalizedString("Advanced"), LocalizedString("Enhanced"), LocalizedString("Cyber")};
-	auto secondNames = vector<string>{LocalizedString("legs bioshell"), LocalizedString("hand bioshell"), LocalizedString("eye bioshell")};
-	auto type = ItemType::bioshell;
-
-	return generateObject(type, bioshellItemDifficulty, firstNames, secondNames);
-
-}

@@ -42,6 +42,9 @@ public:
 
 	shared_ptr<Object> weapon;
 
+public:
+	void addSynergy(int effect);
+
 };
 
 #endif /* DMGAMEPLAYPROPERTIES_H */

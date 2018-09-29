@@ -183,6 +183,8 @@ void DMInGameController::generateMap() {
 
 void DMInGameController::useItemAtXY(shared_ptr<Objects> objects) {
 
+	cout << "Trying to use objects" << endl;
+
 	for (auto i = 0; i < objects->size(); i++) {
 		auto object = objects->objectAtIndex(i);
 		if (gameplayRulesController->objectTryingToUseItem(mainCharacter, object))

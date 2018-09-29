@@ -21,3 +21,10 @@ DMGameplayProperties::DMGameplayProperties() {
 bool DMGameplayProperties::isDead() {
         return health < 1;
 }
+
+void DMGameplayProperties::addSynergy(int effect) {
+	synergy += effect;
+	if (synergy > synergyMax) {
+		synergy = synergyMax;
+	}
+}

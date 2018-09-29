@@ -19,9 +19,7 @@ public:
 	shared_ptr<Object> generateEnemy(Difficulty enemyDifficulty);
 	shared_ptr<Object> generateWeapon(Difficulty weaponDifficulty);
 	shared_ptr<Object> generateSupplyItem(Difficulty supplyItemDifficulty);
-	shared_ptr<Object> generateOxygenItem(Difficulty oxygenDifficulty);
-	shared_ptr<Object> generateFoodItem(Difficulty foodDifficulty);
-	shared_ptr<Object> generateBioshellItem(Difficulty bioshellDifficulty);
+	shared_ptr<Object> generateSynergyItem(Difficulty synergyDifficulty);
 	shared_ptr<Object> generateRandomItem(Difficulty itemDifficulty);
 	shared_ptr<Object> generateQuestItem(Difficulty questItemDifficulty);
 

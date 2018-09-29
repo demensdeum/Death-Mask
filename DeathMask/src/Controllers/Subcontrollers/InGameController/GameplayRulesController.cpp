@@ -2,6 +2,7 @@
 #include "GameplayRulesController.h"
 #include <DeathMask/src/Utils/DMUtils.h>
 #include <iostream>
+#include <DeathMask/src/Const/DMConstClassIdentifiers.h>
 
 using namespace DeathMaskGame;
 
@@ -41,5 +42,25 @@ void GameplayRulesController::step()
 
 bool GameplayRulesController::objectTryingToUseItem(shared_ptr<Object> object, shared_ptr<Object> item)
 {
+	auto gameplayProperties = DMUtils::getObjectGameplayProperties(object);
+
+	if (item->containsComponentWithIdentifier(make_shared<string>(DMConstClassIdentifierItemProperties))) {
+		auto objectItemProperties = DMUtils::getObjectItemProperties(item);
+		auto itemEffect = objectItemProperties->getRangeRandomEffect();
+
+		switch (objectItemProperties->type) {
+
+			case synergyItem:
+				gameplayProperties->addSynergy(itemEffect);
+				break;
+
+			default:
+				break;
+
+		}
+
+		return true;
+	}
+
 	return false;
 }
