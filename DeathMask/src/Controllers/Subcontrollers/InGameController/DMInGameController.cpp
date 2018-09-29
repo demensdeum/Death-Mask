@@ -189,9 +189,13 @@ void DMInGameController::useItemAtXY(shared_ptr<Objects> objects) {
 		auto object = objects->objectAtIndex(i);
 		if (gameplayRulesController->objectTryingToUseItem(mainCharacter, object))
 		{
-			//TODO remove object at position
+			removeObject(object);
 		}
 	}
+}
+
+void DMInGameController::removeObject(shared_ptr<Object> object) {
+	objectsContext->removeObject(object);
 }
 
 void DMInGameController::beforeStart() {
@@ -225,6 +229,10 @@ shared_ptr<Objects> DMInGameController::objectsForInGameUserInterfaceController(
 
 	return objects;
 
+}
+
+void DMInGameController::objectsContextObjectRemoved(shared_ptr<FSEGTObjectsContext> context, shared_ptr<Object> object) {
+	objectsMap->removeObject(object);
 }
 
 void DMInGameController::objectsContextObjectAdded(shared_ptr<FSEGTObjectsContext> context, shared_ptr<Object> object) {
