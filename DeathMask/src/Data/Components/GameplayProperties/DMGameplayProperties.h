@@ -44,6 +44,7 @@ public:
 
 public:
 	void addSynergy(int effect);
+	void addHealth(int effect);
 
 };
 

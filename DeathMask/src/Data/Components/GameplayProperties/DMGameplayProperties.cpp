@@ -28,3 +28,10 @@ void DMGameplayProperties::addSynergy(int effect) {
 		synergy = synergyMax;
 	}
 }
+
+void DMGameplayProperties::addHealth(int effect) {
+	health += effect;
+	if (health > healthMax) {
+		 health = healthMax;
+	}
+}

@@ -52,14 +52,16 @@ bool GameplayRulesController::objectTryingToUseItem(shared_ptr<Object> object, s
 
 			case synergyItem:
 				gameplayProperties->addSynergy(itemEffect);
-				break;
+				return true;
+
+			case supply:
+				gameplayProperties->addHealth(itemEffect);
+				return true;
 
 			default:
 				break;
 
 		}
-
-		return true;
 	}
 
 	return false;
