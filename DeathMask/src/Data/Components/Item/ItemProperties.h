@@ -11,7 +11,7 @@ namespace DeathMaskGame {
 class ItemProperties: public Object {
 
 public:
-	ItemProperties(ItemType type, int minimalEffect, int maximalEffect);
+	ItemProperties(ItemType type, int minimalEffect, int maximalEffect, bool lockedByQuestItem);
 
 	ItemType type;
 
@@ -19,6 +19,8 @@ public:
 	int getMaximalEffect();
 
 	int getRangeRandomEffect();
+
+	bool lockedByQuestItem = false;
 
 private:
 	int minimalEffect;

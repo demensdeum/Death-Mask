@@ -44,25 +44,47 @@ bool GameplayRulesController::objectTryingToUseItem(shared_ptr<Object> object, s
 {
 	auto gameplayProperties = DMUtils::getObjectGameplayProperties(object);
 
+	bool result = false;
+
 	if (item->containsComponentWithIdentifier(make_shared<string>(DMConstClassIdentifierItemProperties))) {
 		auto objectItemProperties = DMUtils::getObjectItemProperties(item);
 		auto itemEffect = objectItemProperties->getRangeRandomEffect();
 
+		if (objectItemProperties->lockedByQuestItem == true && gameplayProperties->questItem.get() == nullptr)
+		{
+			cout << "Can't pickup item - quest item required to unlock" << endl;
+			return false;
+		}
+
 		switch (objectItemProperties->type) {
 
 			case synergyItem:
+
 				gameplayProperties->addSynergy(itemEffect);
-				return true;
+				result = true;
+				break;
 
 			case supply:
 				gameplayProperties->addHealth(itemEffect);
-				return true;
-
-			default:
+				result = true;
 				break;
 
+			case questItem:
+				gameplayProperties->questItem = item;
+				result = true;
+				break;
+
+			case weapon:
+				gameplayProperties->weapon = item;
+				result = true;
+				break;
+		}
+
+		if (objectItemProperties->lockedByQuestItem == true && gameplayProperties->questItem.get() != nullptr)
+		{
+			gameplayProperties->questItem = nullptr;
 		}
 	}
 
-	return false;
+	return result;
 }

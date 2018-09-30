@@ -4,7 +4,7 @@
 
 using namespace DeathMaskGame;
 
-ItemProperties::ItemProperties(ItemType type, int minimalEffect, int maximalEffect) {
+ItemProperties::ItemProperties(ItemType type, int minimalEffect, int maximalEffect, bool lockedByQuestItem) {
 
 	auto identifier = make_shared<string>(DMConstClassIdentifierItemProperties);
 
@@ -14,6 +14,7 @@ ItemProperties::ItemProperties(ItemType type, int minimalEffect, int maximalEffe
 	this->type = type;
 	this->minimalEffect = minimalEffect;
 	this->maximalEffect = maximalEffect;
+	this->lockedByQuestItem = lockedByQuestItem;
 
 } 
 

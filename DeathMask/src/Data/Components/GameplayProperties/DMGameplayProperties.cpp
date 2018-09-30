@@ -12,6 +12,8 @@
  */
 
 #include "DMGameplayProperties.h"
+#include <DeathMask/src/Utils/DMUtils.h>
+#include <FlameSteelEngineGameToolkit/Data/Components/Text/FSEGTText.h>
 
 DMGameplayProperties::DMGameplayProperties() {
 	setClassIdentifier(make_shared<string>("death mask gameplay properties"));
@@ -34,4 +36,28 @@ void DMGameplayProperties::addHealth(int effect) {
 	if (health > healthMax) {
 		 health = healthMax;
 	}
+}
+
+shared_ptr<string> DMGameplayProperties::weaponLabel() {
+	if (weapon.get() != nullptr) {
+		auto label = DMUtils::getObjectLabel(weapon);
+		auto text = label->text;
+		if (text.get() != nullptr) {
+			return label->text;
+		}
+	}
+
+	return make_shared<string>("<None>");
+}
+
+shared_ptr<string> DMGameplayProperties::questItemLabel() {
+	if (questItem.get() != nullptr) {
+		auto label = DMUtils::getObjectLabel(questItem);
+		auto text = label->text;
+		if (text.get() != nullptr) {
+			return label->text;
+		}
+	}
+
+	return make_shared<string>("<None>");
 }

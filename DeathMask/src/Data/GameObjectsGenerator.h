@@ -24,7 +24,7 @@ public:
 	shared_ptr<Object> generateQuestItem(Difficulty questItemDifficulty);
 
 private:
-	shared_ptr<Object> generateObject(ItemType type, Difficulty itemDiffuclty, vector<string>firstNames, vector<string>secondNames);
+	shared_ptr<Object> generateObject(ItemType type, Difficulty itemDiffuclty, vector<string>firstNames, vector<string>secondNames, bool lockedByQuestItem);
 
 };
 

@@ -66,15 +66,15 @@ shared_ptr<Object> GameObjectsGenerator::generateRandomItem(Difficulty itemDiffi
 
 shared_ptr<Object> GameObjectsGenerator::generateQuestItem(Difficulty difficulty) {
 
-	auto firstNames = vector<string>{LocalizedString("Quest")};
-	auto secondNames = vector<string>{LocalizedString("Item")};
+	auto firstNames = vector<string>{LocalizedString("Red"), LocalizedString("Yellow"), LocalizedString("Blue")};
+	auto secondNames = vector<string>{LocalizedString("Card"), LocalizedString("Key")};
 	auto type = ItemType::questItem;
 
-	return generateObject(type, difficulty, firstNames, secondNames);
+	return generateObject(type, difficulty, firstNames, secondNames, false);
 
 }
 
-shared_ptr<Object> GameObjectsGenerator::generateObject(ItemType type, Difficulty itemDiffuclty, vector<string>firstNames, vector<string>secondNames) {
+shared_ptr<Object> GameObjectsGenerator::generateObject(ItemType type, Difficulty itemDiffuclty, vector<string>firstNames, vector<string>secondNames, bool lockedByQuestItem) {
 
 	auto serializedCardModel = FSGTAMazeObjectGenerator::generateCube(0, 0, make_shared<string>("com.demensdeum.testenvironment.crate.bmp"));
 
@@ -103,7 +103,7 @@ shared_ptr<Object> GameObjectsGenerator::generateObject(ItemType type, Difficult
 	text->setClassIdentifier(make_shared<string>(DMConstClassIdentifierLabel.c_str()));
 	item->addComponent(text);
 
-	auto itemProperties = make_shared<ItemProperties>(type, 5,10);
+	auto itemProperties = make_shared<ItemProperties>(type, 5,10, lockedByQuestItem);
 	item->addComponent(itemProperties);
 
 	return item;
@@ -147,7 +147,7 @@ shared_ptr<Object> GameObjectsGenerator::generateSynergyItem(Difficulty synergyD
 	auto secondNames = vector<string>{LocalizedString("tank"), LocalizedString("cassete"), LocalizedString("tablet")};
 	auto type = ItemType::synergyItem;
 
-	return generateObject(type,  synergyDifficulty, firstNames, secondNames);
+	return generateObject(type,  synergyDifficulty, firstNames, secondNames, false);
 
 }
 
@@ -156,8 +156,9 @@ shared_ptr<Object> GameObjectsGenerator::generateWeapon(Difficulty weaponDifficu
 	auto firstNames = vector<string>{LocalizedString("Laser"), LocalizedString("Wave"), LocalizedString("Electro-emitted-gravity")};
 	auto secondNames = vector<string>{LocalizedString("pistol"), LocalizedString("shotgun"), LocalizedString("machine-gun")};
 	auto type = ItemType::weapon;
+	auto lockedByQuestItem = FSCUtils::FSCRandomBool();
 
-	return generateObject(type, weaponDifficulty, firstNames, secondNames);
+	return generateObject(type, weaponDifficulty, firstNames, secondNames, lockedByQuestItem);
 
 };
 
@@ -167,6 +168,6 @@ shared_ptr<Object> GameObjectsGenerator::generateSupplyItem(Difficulty supplyIte
 	auto secondNames = vector<string>{LocalizedString("painkiller"), LocalizedString("medkit"), LocalizedString("first aid")};
 	auto type = ItemType::supply;
 
-	return generateObject(type, supplyItemDifficulty, firstNames, secondNames);
+	return generateObject(type, supplyItemDifficulty, firstNames, secondNames, false);
 
 };
