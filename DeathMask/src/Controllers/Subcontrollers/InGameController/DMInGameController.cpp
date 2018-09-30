@@ -311,11 +311,10 @@ auto inputController = ioSystem->inputController;
 	}
 	else if (inputController->isShootKeyPressed()) {
 
-		generateMap();
-		return;
+		objectShoots(mainCharacter);
 
 	}
-	else {
+
 
 		if (freeCameraController.get() != nullptr)
 		{
@@ -337,7 +336,6 @@ auto inputController = ioSystem->inputController;
 
 			objectsContext->updateObject(camera);
 		}
-	}
 
 	{
 		auto mainCharacterPosition = FSEGTUtils::getObjectPosition(mainCharacter);
@@ -350,6 +348,12 @@ auto inputController = ioSystem->inputController;
 
 		}
 	}
+
+}
+
+void DMInGameController::objectShoots(shared_ptr<Object> object) {
+
+	cout << "pew pew" << endl;
 
 }
 

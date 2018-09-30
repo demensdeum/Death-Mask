@@ -91,7 +91,7 @@ void InGameUserInterfaceController::step() {
 	}
 
 	char buffer[1024];
-	sprintf(buffer, "Death Mask 1.0\nName: Seeker\nHealth: %d/%d\nSynergy: %d/%d\nWeapon: %s\nQuest Item: %s\nObjects: %s", 
+	sprintf(buffer, "Death Mask 0.1 (Alpha)\nName: Seeker\nHealth: %d/%d\nSynergy: %d/%d\nWeapon: %s\nQuest Item: %s\nObjects: %s", 
 					gameplayProperties->health, gameplayProperties->healthMax, 
 					gameplayProperties->synergy, gameplayProperties->synergyMax,
 					gameplayProperties->weaponLabel()->c_str(), gameplayProperties->questItemLabel()->c_str(),

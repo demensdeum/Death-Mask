@@ -22,7 +22,7 @@ void DMPlayerObjectControls::step(shared_ptr<DMObjectControlsDelegate> delegate)
 
 	bool updateNeeded = false;
 
-	auto step = 0.4;
+	auto step = 0.1;
 
 	auto position = FSEGTUtils::getObjectPosition(object);
       
@@ -74,7 +74,7 @@ void DMPlayerObjectControls::step(shared_ptr<DMObjectControlsDelegate> delegate)
 
 	if (inputController->pointerXdiff != 0)
 	{
-		rotation->y -= float(inputController->pointerXdiff) / 100;
+		rotation->y -= float(inputController->pointerXdiff) / 200;
 	}
 
 	if (updateNeeded)

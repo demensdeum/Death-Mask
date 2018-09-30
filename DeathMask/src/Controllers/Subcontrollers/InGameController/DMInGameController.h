@@ -58,5 +58,6 @@ private:
 	void generateMap();
 	void frameStep();
 	void removeObject(shared_ptr<Object> object);
+	void objectShoots(shared_ptr<Object> object);
 };
 #endif
