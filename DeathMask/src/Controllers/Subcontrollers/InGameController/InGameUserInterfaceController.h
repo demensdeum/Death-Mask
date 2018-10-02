@@ -2,7 +2,11 @@
 #define DEATHMASKGAMEINGAMEUSERINTERFACECONTROLLERDEFINED
 
 #include <SDL2/SDL.h>
+#ifdef __EMSCRIPTEN__
+#include <SDL_ttf.h>
+#else
 #include <SDL2/SDL_ttf.h>
+#endif
 #include <memory>
 #include <DeathMask/src/Data/Components/GameplayProperties/DMGameplayProperties.h>
 
@@ -45,6 +49,7 @@ private:
 	shared_ptr<InGameUserInterfaceControllerDataSource> dataSource;
 
 	TTF_Font *font = nullptr;
+	string previousRenderedString;
 };
 };
 

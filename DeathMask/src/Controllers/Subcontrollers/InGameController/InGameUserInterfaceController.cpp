@@ -132,16 +132,28 @@ void InGameUserInterfaceController::step() {
 		FSEGTUtils::getObjectRotation(uiObject)->populate(rotation);
 	}
 
+	auto bufferString = string(buffer);
+
+	std::istringstream iss(bufferString);
+
+	if (bufferString.compare(previousRenderedString) != 0) {
+
 	auto surface = surfaceMaterial->material->surface;
 	SDL_FillRect(surface, NULL, SDL_MapRGB(surface->format, 0, 0, 255));
+
+	#ifdef __EMSCRIPTEN__
+
+	previousRenderedString = bufferString;
+
+	// TODO: move to bitmap font instead of SDL_TTF (EMSCRIPTEN, OS X problems)
+
+	return;
+
+	#endif
 
 	SDL_Color color = { 255, 255, 255 };
 
 	// SDL TTF on OS X mojave crash workaround - wrapped rendering simulation
-
-	auto bufferString = string(buffer);
-
-	std::istringstream iss(bufferString);
 
 	auto lineIndex = 0;
 
@@ -156,6 +168,10 @@ void InGameUserInterfaceController::step() {
 		destinationRect.h = uiText->h;
 		SDL_BlitSurface(uiText, nullptr, surface, &destinationRect);
 		SDL_FreeSurface(uiText);
+	
+	}
+	
+	previousRenderedString = bufferString;
 	
 	}
 
