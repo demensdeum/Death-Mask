@@ -22,6 +22,7 @@ public:
 	shared_ptr<Object> generateSynergyItem(Difficulty synergyDifficulty);
 	shared_ptr<Object> generateRandomItem(Difficulty itemDifficulty);
 	shared_ptr<Object> generateQuestItem(Difficulty questItemDifficulty);
+	shared_ptr<Object> generateDeathMask();
 
 private:
 	shared_ptr<Object> generateObject(ItemType type, Difficulty itemDiffuclty, vector<string>firstNames, vector<string>secondNames, bool lockedByQuestItem);

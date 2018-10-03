@@ -78,6 +78,13 @@ bool GameplayRulesController::objectTryingToUseItem(shared_ptr<Object> object, s
 				gameplayProperties->weapon = item;
 				result = true;
 				break;
+
+			case deathMask:
+				cout << "YOU FOUND DEATH-MASK WOW! THE END" << endl;
+				gameplayProperties->questItem = item;
+				result = true;
+				break;
+
 		}
 
 		if (objectItemProperties->lockedByQuestItem == true && gameplayProperties->questItem.get() != nullptr)

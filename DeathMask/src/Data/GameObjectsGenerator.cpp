@@ -22,6 +22,13 @@ shared_ptr<Object> GameObjectsGenerator::generateRandomItem(Difficulty itemDiffi
 
 	auto randomItemType = FSCUtils::FSCRandomInt(ItemType::count);
 
+	if (randomItemType == ItemType::deathMask) {
+		auto luckyDay = FSCUtils::FSCRandomInt(10) == 3;
+		if (luckyDay != true) {
+			randomItemType = synergyItem;
+		}
+	}
+
 	auto item = shared_ptr<Object>();
 
 	switch (randomItemType)
@@ -61,6 +68,16 @@ shared_ptr<Object> GameObjectsGenerator::generateRandomItem(Difficulty itemDiffi
 	}
 
 	return item;
+
+}
+
+shared_ptr<Object> GameObjectsGenerator::generateDeathMask() {
+
+	auto firstNames = vector<string>{LocalizedString("Death-Mask")};
+	auto secondNames = vector<string>{LocalizedString("")};
+	auto type = ItemType::deathMask;
+
+	return generateObject(type, Difficulty::hard, firstNames, secondNames, false);
 
 }
 

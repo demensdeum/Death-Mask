@@ -17,6 +17,7 @@ namespace DeathMaskGame {
 		supply,
 		questItem,
 		synergyItem,
+		deathMask,
 		count
     
 	};
