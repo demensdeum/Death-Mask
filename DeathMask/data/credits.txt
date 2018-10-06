@@ -1,8 +1,7 @@
 Art:
 	enemy, hero image - https://forums.rpgmakerweb.com/index.php?threads/kazzadors-modern-sci-fi-resources.18271/
 	crate - https://www.blendswap.com/user/Rjjonesy99
-	
+	shotgun hud - free doom (GNU General Public License) https://freedoom.github.io/about.html
 Music:
 
-	
-
+	com.demensdeum.deathmaskgame.dc113.ogg - ANTI RIAA / Independent Artists / Free To Share / Netlabel - info in com.demensdeum.deathmaskgame.dc113.txt
