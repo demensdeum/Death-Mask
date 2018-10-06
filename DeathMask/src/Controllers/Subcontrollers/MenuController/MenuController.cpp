@@ -176,7 +176,7 @@ void MenuController::cursorControllerDidUpdateCursor(shared_ptr<CursorController
 
 		if (skyscraperPosition->x < 3)
 		{
-			skyscraperPosition->x += 0.0003;
+			skyscraperPosition->x += 0.00008;
 		}
 		else
 		{
