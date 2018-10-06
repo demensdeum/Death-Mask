@@ -22,7 +22,7 @@ shared_ptr<Object> GameObjectsGenerator::generateRandomItem(Difficulty itemDiffi
 
 	auto randomItemType = FSCUtils::FSCRandomInt(ItemType::count);
 
-	if (randomItemType == ItemType::deathMask) {
+	if (randomItemType == deathMask) {
 		auto luckyDay = FSCUtils::FSCRandomInt(10) == 3;
 		if (luckyDay != true) {
 			randomItemType = synergyItem;
@@ -60,6 +60,13 @@ shared_ptr<Object> GameObjectsGenerator::generateRandomItem(Difficulty itemDiffi
 			cout << "Generate synergy item" << endl;
 
 			item = generateSynergyItem(itemDifficulty);
+			break;
+
+		case deathMask:
+
+			cout << "Generate death-mask item. yay!" << endl;
+
+			item = generateDeathMask();
 			break;
 
 		case count:
