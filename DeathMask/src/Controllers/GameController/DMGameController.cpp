@@ -52,6 +52,10 @@ DMGameController::DMGameController() {
     ioSystem = this->makeIOSystem();
     ioSystem->initialize();
         
+	Sound::initializeSoundSystem();
+	sound = make_shared<Sound>(make_shared<string>("data/com.demensdeum.deathmaskgame.dc113.ogg"));
+	sound->play();
+
 	auto companyLogoController = make_shared<CreditsController>();
 	companyLogoController->logoPath = make_shared<string>("com.demensdeum.logo.bmp");
 	setControllerForState(companyLogoController, DMStateCompanyLogo);

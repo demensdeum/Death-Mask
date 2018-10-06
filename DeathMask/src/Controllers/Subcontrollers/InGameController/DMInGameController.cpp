@@ -51,7 +51,8 @@ void DMInGameController::generateMap() {
 
 	for (auto i = 0; i < 20; i++)
 	{
-		objects->addObject(objectsGenerator->generateRandomItem(Difficulty::easy));
+		auto item = objectsGenerator->generateRandomItem(Difficulty::easy);
+		objects->addObject(item);
 	}
 
 	mapGeneratorParams->objects = objects;

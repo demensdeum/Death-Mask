@@ -15,6 +15,11 @@
 #define DMGAMECONTROLLER_H
 
 #include <FlameSteelEngineGameToolkit/Controllers/MainGameController.h>
+#include <FlameSteelBattleHorn/Sound.h>
+#include <memory>
+
+using namespace std;
+using namespace FlameSteelBattleHorn;
 
 using namespace FlameSteelEngine::GameToolkit;
 
@@ -30,7 +35,9 @@ public:
 private:
 
     shared_ptr<FSEGTIOSystem> makeIOSystem();
-    
+  
+	shared_ptr<Sound> sound;
+  
 };
 
 #endif /* DMGAMECONTROLLER_H */
