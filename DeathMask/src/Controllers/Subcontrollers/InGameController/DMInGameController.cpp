@@ -10,17 +10,22 @@
 #include <DeathMask/src/Const/DMConstClassIdentifiers.h>
 #include <FlameSteelEngineGameToolkitAlgorithms/Const/Const.h>
 #include <FlameSteelEngineGameToolkit/Data/Components/FSEGTFactory.h>
+#include <FlameSteelEngineGameToolkit/IO/AudioPlayer/FSEGTAudioPlayer.h>
 #include <DeathMask/src/Data/Components/Controls/ZombieControls/ZombieControls.h>
 #include <FlameSteelEngineGameToolkitAlgorithms/Algorithms/MapGenerator/MapGenerator.h>
 #include <FlameSteelEngineGameToolkitAlgorithms/Algorithms/MapGenerator/FSEGTAMapGeneratorParams.h>
 #include <FlameSteelEngineGameToolkit/Controllers/FreeCameraController/FSEGTFreeCameraController.h>
 #include <FlameSteelEngineGameToolkitAlgorithms/Algorithms/MazeObjectGenerator/FSGTAMazeObjectGenerator.h>
+#include <FlameSteelCore/FSCUtils.h>
 #include "GameplayRulesController.h"
 
+using namespace FlameSteelCore::Utils;
 using namespace DeathMaskGame;
 using namespace FlameSteelEngine::GameToolkit::Algorithms;
 
 DMInGameController::DMInGameController() {
+
+	screenMessage = make_shared<string>("Screen Message");
 
 };
 
@@ -182,16 +187,44 @@ void DMInGameController::generateMap() {
 	objectsContext->addObject(inGameUserInterfaceController->uiObject);
 }
 
+void DMInGameController::showMessage(shared_ptr<string> message) {
+
+	screenMessage = message;
+	screenMessageTimer = 240;
+
+}
+
 void DMInGameController::useItemAtXY(shared_ptr<Objects> objects) {
 
 	cout << "Trying to use objects" << endl;
 
+	UseItemResultType useItemResultType = cant;
+
 	for (auto i = 0; i < objects->size(); i++) {
 		auto object = objects->objectAtIndex(i);
-		if (gameplayRulesController->objectTryingToUseItem(mainCharacter, object))
+		useItemResultType = gameplayRulesController->objectTryingToUseItem(mainCharacter, object);
+		switch (useItemResultType)
 		{
-			removeObject(object);
+
+			case cant:
+				break;
+
+			case picked:
+				ioSystem->audioPlayer->play(make_shared<string>("data/com.demensdeum.deathmask.turum.audio.json"));
+				showMessage(make_shared<string>(LocalizedString("Item picked")));
+				removeObject(object);
+				return;
+
+			case questItemNeeded:
+				ioSystem->audioPlayer->play(make_shared<string>("data/com.demensdeum.deathmask.turum.audio.json"));
+				showMessage(make_shared<string>(LocalizedString("Quest item needed")));
+				return;
 		}
+	}
+
+	if (useItemResultType == cant) {
+				showMessage(make_shared<string>(LocalizedString("No item to pickup")));
+				ioSystem->audioPlayer->play(make_shared<string>("data/com.demensdeum.deathmask.beep.audio.json"));
 	}
 }
 
@@ -215,6 +248,15 @@ void DMInGameController::beforeStart() {
 	objectsContext->subscribe(shared_from_this());
 	generateMap();   
  
+}
+
+shared_ptr<string> DMInGameController::messageForInGameUserInterfaceController(shared_ptr<InGameUserInterfaceController> inGameUserInterfaceController) {
+
+	if (screenMessageTimer > 0) {
+		return screenMessage;
+	}
+
+	return make_shared<string>("<No Message>");
 }
 
 shared_ptr<Objects> DMInGameController::objectsForInGameUserInterfaceController(shared_ptr<InGameUserInterfaceController> inGameUserInterfaceController) {
@@ -259,6 +301,10 @@ void DMInGameController::step() {
 	handleMessages();
 	frameStep();
 	gameplayRulesController->step();
+
+	if (screenMessageTimer > 0) {
+		screenMessageTimer -= 1;
+	}
 
 	for (auto i = 0; i < enemies->size(); i++)
 	{
@@ -307,7 +353,13 @@ auto inputController = ioSystem->inputController;
 			throw logic_error("Can't use empty objects");
 		}
 
-		useItemAtXY(objectsToUse);
+		if (useItemLocked == false) {
+
+			useItemLocked = true;
+
+			useItemAtXY(objectsToUse);
+
+		}
 
 	}
 	else if (inputController->isShootKeyPressed()) {
@@ -316,6 +368,9 @@ auto inputController = ioSystem->inputController;
 
 	}
 
+	if (!inputController->isUseKeyPressed()) {
+		useItemLocked = false;
+	}
 
 		if (freeCameraController.get() != nullptr)
 		{

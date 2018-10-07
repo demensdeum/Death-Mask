@@ -5,3 +5,8 @@ Art:
 Music:
 
 	com.demensdeum.deathmaskgame.dc113.ogg - ANTI RIAA / Independent Artists / Free To Share / Netlabel - info in com.demensdeum.deathmaskgame.dc113.txt
+	
+Sound:
+
+	com.demensdeum.deathmask.beep.ogg - rhodesmas - https://freesound.org/people/rhodesmas/sounds/322898/
+	com.demensdeum.deathmask.turum.audio.ogg - Vicces1212 - https://freesound.org/people/Vicces1212/sounds/123759/

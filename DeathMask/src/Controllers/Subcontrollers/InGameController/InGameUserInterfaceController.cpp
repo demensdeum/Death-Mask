@@ -90,12 +90,14 @@ void InGameUserInterfaceController::step() {
 		objectsString = "<No objects>";
 	}
 
+	auto screenMessage = dataSource->messageForInGameUserInterfaceController(shared_from_this());
+
 	char buffer[1024];
-	sprintf(buffer, "Death Mask 0.1 (Alpha)\nName: Seeker\nHealth: %d/%d\nSynergy: %d/%d\nWeapon: %s\nQuest Item: %s\nObjects: %s", 
+	sprintf(buffer, "Death Mask 0.1 (Alpha)\nName: Seeker\nHealth: %d/%d\nSynergy: %d/%d\nWeapon: %s\nQuest Item: %s\nObjects: %s\n%s", 
 					gameplayProperties->health, gameplayProperties->healthMax, 
 					gameplayProperties->synergy, gameplayProperties->synergyMax,
 					gameplayProperties->weaponLabel()->c_str(), gameplayProperties->questItemLabel()->c_str(),
-					objectsString.c_str());
+					objectsString.c_str(), screenMessage->c_str());
 
 	buffer[1023] = 0;
 
@@ -164,6 +166,12 @@ void InGameUserInterfaceController::step() {
 	previousRenderedString = bufferString;
 	
 	}
+
+}
+
+shared_ptr<string> InGameUserInterfaceControllerDataSource::messageForInGameUserInterfaceController(shared_ptr<InGameUserInterfaceController> inGameUserInterfaceController) {
+
+	return make_shared<string>();
 
 }
 

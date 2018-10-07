@@ -32,6 +32,7 @@ public:
 	virtual void objectsControlsDelegateObjectDidUpdate(shared_ptr<Object> object);
 	virtual bool objectsControlsIsObjectCanMoveToPosition(shared_ptr<DMObjectControls> objectControls, shared_ptr<Object> object, shared_ptr<FSEGTVector> position);
 	virtual shared_ptr<Objects> objectsForInGameUserInterfaceController(shared_ptr<InGameUserInterfaceController> inGameUserInterfaceController);
+	virtual shared_ptr<string> messageForInGameUserInterfaceController(shared_ptr<InGameUserInterfaceController> inGameUserInterfaceController);
 
 	virtual void objectsContextObjectAdded(shared_ptr<FSEGTObjectsContext> context, shared_ptr<Object> object);
 	virtual void objectsContextObjectUpdate(shared_ptr<FSEGTObjectsContext> context, shared_ptr<Object> object);
@@ -59,5 +60,11 @@ private:
 	void frameStep();
 	void removeObject(shared_ptr<Object> object);
 	void objectShoots(shared_ptr<Object> object);
+	void showMessage(shared_ptr<string> message);
+
+	shared_ptr<string> screenMessage;
+	int screenMessageTimer = 0;
+
+	bool useItemLocked = false;
 };
 #endif

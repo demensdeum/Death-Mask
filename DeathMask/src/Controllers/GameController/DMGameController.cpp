@@ -28,6 +28,7 @@
 #include <DeathMask/src/Controllers/Subcontrollers/InGameController/DMInGameController.h>
 #include <DeathMask/src/Controllers/Subcontrollers/MenuController/MenuController.h>
 
+#define DEATHMASK_PLAY_MUSIC 1
 
 #define DEATHMASK_IO_SYSTEM 0
 
@@ -38,7 +39,7 @@
 #endif
 
 DMGameController::DMGameController() {
-    
+
     // random seed
     
     srand (time(NULL));
@@ -53,7 +54,9 @@ DMGameController::DMGameController() {
     ioSystem = this->makeIOSystem();
     ioSystem->initialize();
         
+#if DEATHMASK_PLAY_MUSIC == 1
 	ioSystem->audioPlayer->play(make_shared<string>("data/com.demensdeum.deathmaskgame.dc113.audio.json"));
+#endif
 
 	auto companyLogoController = make_shared<CreditsController>();
 	companyLogoController->logoPath = make_shared<string>("com.demensdeum.logo.bmp");

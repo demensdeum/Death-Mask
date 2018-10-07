@@ -40,11 +40,11 @@ void GameplayRulesController::step()
 	}
 }
 
-bool GameplayRulesController::objectTryingToUseItem(shared_ptr<Object> object, shared_ptr<Object> item)
+UseItemResultType GameplayRulesController::objectTryingToUseItem(shared_ptr<Object> object, shared_ptr<Object> item)
 {
 	auto gameplayProperties = DMUtils::getObjectGameplayProperties(object);
 
-	bool result = false;
+	UseItemResultType result = cant;
 
 	if (item->containsComponentWithIdentifier(make_shared<string>(DMConstClassIdentifierItemProperties))) {
 		auto objectItemProperties = DMUtils::getObjectItemProperties(item);
@@ -53,7 +53,7 @@ bool GameplayRulesController::objectTryingToUseItem(shared_ptr<Object> object, s
 		if (objectItemProperties->lockedByQuestItem == true && gameplayProperties->questItem.get() == nullptr)
 		{
 			cout << "Can't pickup item - quest item required to unlock" << endl;
-			return false;
+			return questItemNeeded;
 		}
 
 		switch (objectItemProperties->type) {
@@ -61,28 +61,28 @@ bool GameplayRulesController::objectTryingToUseItem(shared_ptr<Object> object, s
 			case synergyItem:
 
 				gameplayProperties->addSynergy(itemEffect);
-				result = true;
+				result = picked;
 				break;
 
 			case supply:
 				gameplayProperties->addHealth(itemEffect);
-				result = true;
+				result = picked;
 				break;
 
 			case questItem:
 				gameplayProperties->questItem = item;
-				result = true;
+				result = picked;
 				break;
 
 			case weapon:
 				gameplayProperties->weapon = item;
-				result = true;
+				result = picked;
 				break;
 
 			case deathMask:
 				cout << "YOU FOUND DEATH-MASK WOW! THE END" << endl;
 				gameplayProperties->questItem = item;
-				result = true;
+				result = picked;
 				break;
 
 		}
