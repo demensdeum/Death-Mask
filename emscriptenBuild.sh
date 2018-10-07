@@ -5,6 +5,7 @@ rm Makefile
 rm -rf data
 cp -R DeathMask/data data
 cd data
+rm *.ogg
 mogrify -filter point -resize 320x320\! *.bmp
 cd ..
 source ../emsdk/emsdk_env.sh

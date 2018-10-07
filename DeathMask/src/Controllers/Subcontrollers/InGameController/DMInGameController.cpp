@@ -256,7 +256,7 @@ shared_ptr<string> DMInGameController::messageForInGameUserInterfaceController(s
 		return screenMessage;
 	}
 
-	return make_shared<string>("<No Message>");
+	return make_shared<string>("Controls: Move - Arrows, WSAD and E to use");
 }
 
 shared_ptr<Objects> DMInGameController::objectsForInGameUserInterfaceController(shared_ptr<InGameUserInterfaceController> inGameUserInterfaceController) {
@@ -332,9 +332,11 @@ auto inputController = ioSystem->inputController;
 
 	if (inputController->isExitKeyPressed()) {
 
+#ifndef __EMSCRIPTEN__
 		cout << "Bye-Bye!" << endl;
 		ioSystem->stop();
 		exit(0);
+#endif
 
 	}
 	else if (inputController->isUseKeyPressed()) {
