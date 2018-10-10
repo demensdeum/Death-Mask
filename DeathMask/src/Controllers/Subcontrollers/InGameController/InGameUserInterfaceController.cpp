@@ -93,7 +93,7 @@ void InGameUserInterfaceController::step() {
 	auto screenMessage = dataSource->messageForInGameUserInterfaceController(shared_from_this());
 
 	char buffer[1024];
-	sprintf(buffer, "Death Mask 0.1 (Alpha)\nName: Seeker\nHealth: %d/%d\nSynergy: %d/%d\nWeapon: %s\nQuest Item: %s\nObjects: %s\n%s", 
+	sprintf(buffer, "Death Mask 0.2 (Alpha)\nName: Seeker\nHealth: %d/%d\nSynergy: %d/%d\nWeapon: %s\nQuest Item: %s\nObjects: %s\n%s", 
 					gameplayProperties->health, gameplayProperties->healthMax, 
 					gameplayProperties->synergy, gameplayProperties->synergyMax,
 					gameplayProperties->weaponLabel()->c_str(), gameplayProperties->questItemLabel()->c_str(),
@@ -130,7 +130,6 @@ void InGameUserInterfaceController::step() {
 		position->z = result.z;
 
 		FSEGTUtils::getObjectPosition(uiObject)->populate(position);
-		//FSEGTUtils::getObjectRotation(uiObject)->y += 0.1;
 		FSEGTUtils::getObjectRotation(uiObject)->populate(rotation);
 	}
 
@@ -164,7 +163,8 @@ void InGameUserInterfaceController::step() {
 	}
 	
 	previousRenderedString = bufferString;
-	
+	surfaceMaterial->material->needsUpdate = true;
+
 	}
 
 }
