@@ -100,7 +100,7 @@ shared_ptr<Object> GameObjectsGenerator::generateQuestItem(Difficulty difficulty
 
 shared_ptr<Object> GameObjectsGenerator::generateObject(ItemType type, Difficulty itemDiffuclty, vector<string>firstNames, vector<string>secondNames, bool lockedByQuestItem) {
 
-	auto serializedCardModel = FSGTAMazeObjectGenerator::generateCube(0, 0, make_shared<string>("com.demensdeum.testenvironment.crate.bmp"));
+	auto serializedCardModel = FSGTAMazeObjectGenerator::generateCube(0, 0, make_shared<string>("com.demensdeum.testenvironment.crate.png"));
 
       auto item = FSEGTFactory::makeOnSceneObject(
 													            make_shared<string>("dummy"),
@@ -135,7 +135,7 @@ shared_ptr<Object> GameObjectsGenerator::generateObject(ItemType type, Difficult
 
 shared_ptr<Object> GameObjectsGenerator::generateEnemy(Difficulty enemyDifficulty) {
 
-	auto serializedCubeModel = FSGTAMazeObjectGenerator::generatePlane(1, 1, make_shared<string>("com.demensdeum.testenvironment.enemy.bmp"));
+	auto serializedCubeModel = FSGTAMazeObjectGenerator::generatePlane(1, 1, make_shared<string>("com.demensdeum.testenvironment.enemy.png"));
 
       auto object = FSEGTFactory::makeOnSceneObject(
 													            make_shared<string>("dummy"),

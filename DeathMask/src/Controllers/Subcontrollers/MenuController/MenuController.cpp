@@ -17,7 +17,7 @@ void MenuController::beforeStart() {
 	flag2D->setInstanceIdentifier(make_shared<string>(FSEGTConstComponentsFlag2D));
 	flag2D->setClassIdentifier(make_shared<string>(FSEGTConstComponentsFlag2D));
 
-	auto serializedCardModelString = FSGTAMazeObjectGenerator::generatePlane(4, 2.28, make_shared<string>("com.demensdeum.deathmaskgame.sky.bmp"));
+	auto serializedCardModelString = FSGTAMazeObjectGenerator::generatePlane(4, 2.28, make_shared<string>("com.demensdeum.deathmaskgame.sky.png"));
 
 	sky = FSEGTFactory::makeOnSceneObject(
             make_shared<string>("Demensdeum Logo"),
@@ -35,7 +35,7 @@ void MenuController::beforeStart() {
 
 	objectsContext->addObject(sky);
 
-	auto skyscraperModelString = FSGTAMazeObjectGenerator::generateBox(0.2, 1, 0.2, 4, 18, make_shared<string>("com.demensdeum.deathmaskgame.skyscraper.bmp"));
+	auto skyscraperModelString = FSGTAMazeObjectGenerator::generateBox(0.2, 1, 0.2, 4, 18, make_shared<string>("com.demensdeum.deathmaskgame.skyscraper.png"));
 
 	for (auto i = 0; i < 5; i++)
 	{
@@ -61,7 +61,7 @@ void MenuController::beforeStart() {
 		skyscrapers.push_back(skyscraper);
 	}
 
-	auto serializedGameLogoModel = FSGTAMazeObjectGenerator::generatePlane(0.336, 0.4, make_shared<string>("com.demensdeum.deathmaskgame.logo.bmp"));
+	auto serializedGameLogoModel = FSGTAMazeObjectGenerator::generatePlane(0.336, 0.4, make_shared<string>("com.demensdeum.deathmaskgame.logo.png"));
 
 	gameLogo = FSEGTFactory::makeOnSceneObject(
             make_shared<string>("Game Logo"),
@@ -81,7 +81,7 @@ void MenuController::beforeStart() {
 
 	objectsContext->addObject(gameLogo);
 
-	auto serializedCursorModel = FSGTAMazeObjectGenerator::generatePlane(0.018, 0.025, make_shared<string>("com.demensdeum.deathmaskgame.cursor.bmp"));
+	auto serializedCursorModel = FSGTAMazeObjectGenerator::generatePlane(0.018, 0.025, make_shared<string>("com.demensdeum.deathmaskgame.cursor.png"));
 
 	cursor = FSEGTFactory::makeOnSceneObject(
             make_shared<string>("Game Cursor"),

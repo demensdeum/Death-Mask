@@ -59,11 +59,11 @@ DMGameController::DMGameController() {
 #endif
 
 	auto companyLogoController = make_shared<CreditsController>();
-	companyLogoController->logoPath = make_shared<string>("com.demensdeum.logo.bmp");
+	companyLogoController->logoPath = make_shared<string>("com.demensdeum.logo.png");
 	setControllerForState(companyLogoController, DMStateCompanyLogo);
 
 	auto flameSteelEngineController = make_shared<CreditsController>();
-	flameSteelEngineController->logoPath = make_shared<string>("com.demensdeum.flamesteelengine.bmp");
+	flameSteelEngineController->logoPath = make_shared<string>("com.demensdeum.flamesteelengine.png");
 	setControllerForState(flameSteelEngineController, DMStateFlameSteelEngineLogo);
 
 	auto menuController = make_shared<MenuController>();

@@ -25,7 +25,7 @@ InGameUserInterfaceController::InGameUserInterfaceController(shared_ptr<Object> 
 	flag2D->setInstanceIdentifier(make_shared<string>(FSEGTConstComponentsFlag2D));
 	flag2D->setClassIdentifier(make_shared<string>(FSEGTConstComponentsFlag2D));
 
-	auto uiPlane = FSGTAMazeObjectGenerator::generatePlane(1.2, 1.2, make_shared<string>("com.uitest.remove.bmp"));
+	auto uiPlane = FSGTAMazeObjectGenerator::generatePlane(1.2, 1.2, make_shared<string>("com.uitest.remove.png"));
 
 	uiObject = FSEGTFactory::makeOnSceneObject(
             make_shared<string>("UI Plane"),
