@@ -44,6 +44,8 @@ public:
 	virtual ~InGameUserInterfaceController();
 
 private:
+	SDL_Surface *weaponSurface = nullptr;
+
 	shared_ptr<SurfaceMaterial> surfaceMaterial;
 	shared_ptr<Object> camera;
 	shared_ptr<DMGameplayProperties> gameplayProperties;

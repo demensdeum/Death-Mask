@@ -29,7 +29,7 @@
 #include <DeathMask/src/Controllers/Subcontrollers/MenuController/MenuController.h>
 #include <FlameSteelEngineGameToolkitFSGL/FSEGTIOFSGLSystem.h>
 
-#define DEATHMASK_PLAY_MUSIC 1
+#define DEATHMASK_PLAY_MUSIC 0
 
 DMGameController::DMGameController() {
 
