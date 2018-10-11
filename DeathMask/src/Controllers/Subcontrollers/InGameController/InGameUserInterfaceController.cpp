@@ -140,7 +140,7 @@ void InGameUserInterfaceController::step() {
 	if (bufferString.compare(previousRenderedString) != 0) {
 
 	auto surface = surfaceMaterial->material->surface;
-	SDL_FillRect(surface, NULL, SDL_MapRGB(surface->format, 0, 0, 255));
+	SDL_FillRect(surface, NULL, SDL_MapRGBA(surface->format, 0, 0, 0, 1));
 
 	SDL_Color color = { 255, 255, 255 };
 
