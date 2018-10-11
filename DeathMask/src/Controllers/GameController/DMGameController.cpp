@@ -27,16 +27,9 @@
 #include <DeathMask/src/Controllers/Subcontrollers/CreditsController/CreditsController.h>
 #include <DeathMask/src/Controllers/Subcontrollers/InGameController/DMInGameController.h>
 #include <DeathMask/src/Controllers/Subcontrollers/MenuController/MenuController.h>
+#include <FlameSteelEngineGameToolkitFSGL/FSEGTIOFSGLSystem.h>
 
 #define DEATHMASK_PLAY_MUSIC 1
-
-#define DEATHMASK_IO_SYSTEM 0
-
-#if DEATHMASK_IO_SYSTEM == 0
-#include <FlameSteelEngineGameToolkitFSGL/FSEGTIOFSGLSystem.h>
-#elif DEATHMASK_IO_SYSTEM ==1
-#include <FlameSteelEngineGameToolkitNcurses/FSEGTIONcursesSystem.h>
-#endif
 
 DMGameController::DMGameController() {
 
@@ -47,12 +40,12 @@ DMGameController::DMGameController() {
     // IO System
     
     auto ioSystemParams = make_shared<FSEGTIOGenericSystemParams>();
-    ioSystemParams->title = FSCUtils::localizedString(make_shared<string>("Death Mask"));
+    ioSystemParams->title = FSCUtils::localizedString(make_shared<string>("Death Mask v0.3"));
     ioSystemParams->width = DMConstIOSystemScreenWidth;
     ioSystemParams->height = DMConstIOSystemScreenHeight;
     
-    ioSystem = this->makeIOSystem();
-    ioSystem->initialize();
+    ioSystem = makeIOSystem();
+    ioSystem->initialize(ioSystemParams);
         
 #if DEATHMASK_PLAY_MUSIC == 1
 	ioSystem->audioPlayer->play(make_shared<string>("data/com.demensdeum.deathmaskgame.dc113.audio.json"));
@@ -74,13 +67,7 @@ DMGameController::DMGameController() {
 }
 
 shared_ptr<FSEGTIOSystem> DMGameController::makeIOSystem() {
-
-#if DEATHMASK_IO_SYSTEM == 0
-    auto ioSystem = make_shared<FSEGTIOFSGLSystem>();    
-#elif DEATHMASK_IO_SYSTEM ==1
-    auto ioSystem = make_shared<FSEGTIONcursesSystem>();    
-#endif    
-
+    auto ioSystem = make_shared<FSEGTIOFSGLSystem>();
     return ioSystem;
 }
 
