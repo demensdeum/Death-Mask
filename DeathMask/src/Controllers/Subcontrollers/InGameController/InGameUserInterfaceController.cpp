@@ -59,9 +59,6 @@ InGameUserInterfaceController::InGameUserInterfaceController(shared_ptr<Object> 
 		printf("TTF_OpenFont: %s\n", TTF_GetError());
 		runtime_error("TTF Can't load font");
 	}
-
-	weaponSurface = IMG_Load("data/com.demensdeum.shotgun.hud.png");
-
 }
 
 void InGameUserInterfaceController::step() {
@@ -96,7 +93,8 @@ void InGameUserInterfaceController::step() {
 	auto screenMessage = dataSource->messageForInGameUserInterfaceController(shared_from_this());
 
 	char buffer[1024];
-	sprintf(buffer, "Death Mask 0.3 (Alpha)\nName: Blade\nHealth: %d/%d\nSynergy: %d/%d\nWeapon: %s\nQuest Item: %s\nObjects: %s\n%s", 
+	sprintf(buffer, "Death Mask 0.3 (Alpha)\nName: %s\nHealth: %d/%d\nSynergy: %d/%d\nWeapon: %s\nQuest Item: %s\nObjects: %s\n%s", 
+					gameplayProperties->name->c_str(),
 					gameplayProperties->health, gameplayProperties->healthMax, 
 					gameplayProperties->synergy, gameplayProperties->synergyMax,
 					gameplayProperties->weaponLabel()->c_str(), gameplayProperties->questItemLabel()->c_str(),
@@ -145,6 +143,25 @@ void InGameUserInterfaceController::step() {
 	auto surface = surfaceMaterial->material->surface;
 	SDL_FillRect(surface, NULL, SDL_MapRGBA(surface->format, 0, 0, 0, 1));
 
+	auto weapon = gameplayProperties->weapon;
+
+	if (weapon) {
+		auto weaponSurfaceMaterial = DMUtils::getWeaponHUDImageSurfaceMaterial(weapon);
+		if (weaponSurfaceMaterial) {
+			auto material = weaponSurfaceMaterial->material;
+			if (material) {
+				auto weaponSurface = material->surface;
+				SDL_BlitSurface(weaponSurface, nullptr, surface, nullptr);
+			}
+			else {
+				cout << "There is weapon, there is material, but no surface to render" << endl;
+			}
+		}
+		else {
+			cout << "There is weapon, but no material surface to render" << endl;
+		}
+	}
+
 	SDL_Color color = { 255, 255, 255 };
 
 	// SDL TTF on OS X mojave crash workaround - wrapped rendering simulation
@@ -165,16 +182,6 @@ void InGameUserInterfaceController::step() {
 	
 	}
 	
-	SDL_Rect weaponRect;
-	weaponRect.x = 356;
-	weaponRect.y = 382;
-	weaponRect.w = 256;
-	weaponRect.h = 195;
-
-	if (gameplayProperties->weapon) {
-		SDL_BlitSurface(weaponSurface, nullptr, surface, &weaponRect);
-	}
-
 	previousRenderedString = bufferString;
 	surfaceMaterial->material->needsUpdate = true;
 
@@ -195,10 +202,6 @@ shared_ptr<Objects> InGameUserInterfaceControllerDataSource::objectsForInGameUse
 }
 
 InGameUserInterfaceController::~InGameUserInterfaceController() {
-
-	if (weaponSurface) {
-		SDL_FreeSurface(weaponSurface);
-	}
 
 	if (font != nullptr) {
 		TTF_CloseFont(font);

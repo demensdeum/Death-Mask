@@ -1,13 +1,13 @@
 #include "DMInGameController.h"
 
 #include <iostream>
+#include <FlameSteelCore/FSCUtils.h>
 #include <FlameSteelCore/Message.h>
 #include <DeathMask/src/Utils/DMUtils.h>
 #include <DeathMask/src/Data/GameObjectsGenerator.h>
-#include <FlameSteelEngineGameToolkit/Utils/FSEGTUtils.h>
-#include <FlameSteelCore/FSCUtils.h>
-#include <FlameSteelEngineGameToolkit/Const/FSEGTConst.h>
 #include <DeathMask/src/Const/DMConstClassIdentifiers.h>
+#include <FlameSteelEngineGameToolkit/Utils/FSEGTUtils.h>
+#include <FlameSteelEngineGameToolkit/Const/FSEGTConst.h>
 #include <FlameSteelEngineGameToolkitAlgorithms/Const/Const.h>
 #include <FlameSteelEngineGameToolkit/Data/Components/FSEGTFactory.h>
 #include <FlameSteelEngineGameToolkit/IO/AudioPlayer/FSEGTAudioPlayer.h>
@@ -16,7 +16,7 @@
 #include <FlameSteelEngineGameToolkitAlgorithms/Algorithms/MapGenerator/FSEGTAMapGeneratorParams.h>
 #include <FlameSteelEngineGameToolkit/Controllers/FreeCameraController/FSEGTFreeCameraController.h>
 #include <FlameSteelEngineGameToolkitAlgorithms/Algorithms/MazeObjectGenerator/FSGTAMazeObjectGenerator.h>
-#include <FlameSteelCore/FSCUtils.h>
+
 #include "GameplayRulesController.h"
 
 using namespace FlameSteelCore::Utils;
@@ -140,12 +140,14 @@ void DMInGameController::generateMap() {
 	auto gameplayProperties = make_shared<DMGameplayProperties>();
 	mainCharacter->addComponent(gameplayProperties);
 
+	gameplayProperties->name = make_shared<string>("Razor");
 	gameplayProperties->health = 100;
 	gameplayProperties->healthMax = 100;
 	gameplayProperties->synergy = 100;
 	gameplayProperties->synergyMax = 100;
 
 	gameplayProperties->creatureType = CreatureType::living;
+	gameplayProperties->weapon = GameObjectsGenerator().makePistol();
 
 	exitPoint =  objectsContext->objectWithInstanceIdentifier(make_shared<string>(ConstMapEntityEndPoint));
 

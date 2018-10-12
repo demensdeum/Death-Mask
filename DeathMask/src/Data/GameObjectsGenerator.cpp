@@ -1,11 +1,11 @@
 #include "GameObjectsGenerator.h"
 
+#include <SDL2/SDL_image.h>
 #include <DeathMask/src/Data/Components/Controls/ZombieControls/ZombieControls.h>
 #include <FlameSteelEngineGameToolkit/Data/Components/FSEGTFactory.h>
 #include <FlameSteelEngineGameToolkit/Data/Components/Text/FSEGTText.h>
 #include <DeathMask/src/Const/DMConstClassIdentifiers.h>
 #include <DeathMask/src/Data/Components/Item/ItemProperties.h>
-#include <DeathMask/src/Data/GameObjectsGenerator.h>
 #include <FlameSteelCore/FSCUtils.h>
 #include <DeathMask/src/Data/Components/GameplayProperties/DMGameplayProperties.h>
 #include <string>
@@ -98,7 +98,34 @@ shared_ptr<Object> GameObjectsGenerator::generateQuestItem(Difficulty difficulty
 
 }
 
-shared_ptr<Object> GameObjectsGenerator::generateObject(ItemType type, Difficulty itemDiffuclty, vector<string>firstNames, vector<string>secondNames, bool lockedByQuestItem) {
+shared_ptr<SurfaceMaterial> GameObjectsGenerator::makeSurfaceMaterialWeaponHUD(shared_ptr<string> path, SDL_Rect rect) {
+
+	auto surfaceMaterial = FSEGTFactory::makeSurfaceMaterialComponent(1024, 1024);
+	auto weaponSurface = IMG_Load(path->c_str());
+
+	if (!weaponSurface) {
+		cout << "Can't load image at path: " << path->c_str() << endl;
+		throw runtime_error("Can't load image for weapon hud in objects generator");
+	}
+
+	auto surface = surfaceMaterial->material->surface;
+
+	SDL_FillRect(surface, NULL, SDL_MapRGBA(surface->format, 0, 0, 0, 1));
+	SDL_BlitSurface(weaponSurface, nullptr, surface, &rect);
+	SDL_FreeSurface(weaponSurface);
+
+	surfaceMaterial->setInstanceIdentifier(make_shared<string>("Weapon HUD Image"));
+	surfaceMaterial->setClassIdentifier(make_shared<string>("Weapon HUD Image"));
+
+	return surfaceMaterial;
+
+}
+
+shared_ptr<Object> GameObjectsGenerator::makeObject(ItemType type, 
+															shared_ptr<string> name, 
+															int minimalEffect,
+															int maximalEffect,
+															bool lockedByQuestItem) {
 
 	auto serializedCardModel = FSGTAMazeObjectGenerator::generateCube(0, 0, make_shared<string>("com.demensdeum.testenvironment.crate.png"));
 
@@ -111,7 +138,22 @@ shared_ptr<Object> GameObjectsGenerator::generateObject(ItemType type, Difficult
 													            0, 0, 0,
 													            1, 1, 1,
 													            0, 0, 0,
-													            0);   
+													            0);   	
+
+	item->setClassIdentifier(make_shared<string>(DMConstClassIdentifierItem));
+	item->setInstanceIdentifier(make_shared<string>(item->uuid));
+
+	auto text = make_shared<FSEGTText>(name);
+	text->setClassIdentifier(make_shared<string>(DMConstClassIdentifierLabel.c_str()));
+	item->addComponent(text);
+
+	auto itemProperties = make_shared<ItemProperties>(type, minimalEffect, maximalEffect, lockedByQuestItem);
+	item->addComponent(itemProperties);
+
+	return item;
+}
+
+shared_ptr<Object> GameObjectsGenerator::generateObject(ItemType type, Difficulty itemDiffuclty, vector<string>firstNames, vector<string>secondNames, bool lockedByQuestItem) {
 
 	auto firstRandom = FSCUtils::FSCRandomInt(firstNames.size());
 	auto secondRandom = FSCUtils::FSCRandomInt(secondNames.size());
@@ -120,15 +162,9 @@ shared_ptr<Object> GameObjectsGenerator::generateObject(ItemType type, Difficult
 	label += " ";
 	label += secondNames[secondRandom];
 
-	item->setClassIdentifier(make_shared<string>(DMConstClassIdentifierItem));
-	item->setInstanceIdentifier(make_shared<string>(item->uuid));
+	auto name = make_shared<string>(label);
 
-	auto text = make_shared<FSEGTText>(make_shared<string>(label));
-	text->setClassIdentifier(make_shared<string>(DMConstClassIdentifierLabel.c_str()));
-	item->addComponent(text);
-
-	auto itemProperties = make_shared<ItemProperties>(type, 5,10, lockedByQuestItem);
-	item->addComponent(itemProperties);
+	auto item = makeObject(type, name, 5, 10, lockedByQuestItem);
 
 	return item;
 };
@@ -177,12 +213,7 @@ shared_ptr<Object> GameObjectsGenerator::generateSynergyItem(Difficulty synergyD
 
 shared_ptr<Object> GameObjectsGenerator::generateWeapon(Difficulty weaponDifficulty) {
 
-	auto firstNames = vector<string>{LocalizedString("Laser"), LocalizedString("Wave"), LocalizedString("Electro-emitted-gravity")};
-	auto secondNames = vector<string>{LocalizedString("pistol"), LocalizedString("shotgun"), LocalizedString("machine-gun")};
-	auto type = ItemType::weapon;
-	auto lockedByQuestItem = FSCUtils::FSCRandomBool();
-
-	return generateObject(type, weaponDifficulty, firstNames, secondNames, lockedByQuestItem);
+	return makeShotgun();
 
 };
 
@@ -193,5 +224,124 @@ shared_ptr<Object> GameObjectsGenerator::generateSupplyItem(Difficulty supplyIte
 	auto type = ItemType::supply;
 
 	return generateObject(type, supplyItemDifficulty, firstNames, secondNames, false);
+
+};
+
+shared_ptr<Object> GameObjectsGenerator::makePistol() {
+
+	auto name = make_shared<string>(LocalizedString("Pistol"));
+	auto type = ItemType::weapon;
+	auto minimalEffect = 5;
+	auto maximalEffect = 10;
+	auto lockedByQuestItem = false;
+
+	auto item = makeObject(weapon, name, 5, 10, lockedByQuestItem);
+
+	SDL_Rect weaponRect;
+	weaponRect.x = 356;
+	weaponRect.y = 382;
+	weaponRect.w = 256;
+	weaponRect.h = 195;
+
+	auto path = make_shared<string>("data/com.demensdeum.pistol.hud.png");
+	auto hudImage = makeSurfaceMaterialWeaponHUD(path, weaponRect);
+	item->addComponent(hudImage);
+
+	return item;
+
+};
+
+shared_ptr<Object> GameObjectsGenerator::makeShotgun() {
+
+	auto name = make_shared<string>(LocalizedString("Shotgun"));
+	auto type = ItemType::weapon;
+	auto minimalEffect = 5;
+	auto maximalEffect = 10;
+	auto lockedByQuestItem = false;
+
+	auto item = makeObject(weapon, name, 5, 10, lockedByQuestItem);
+
+	SDL_Rect weaponRect;
+	weaponRect.x = 356;
+	weaponRect.y = 382;
+	weaponRect.w = 256;
+	weaponRect.h = 195;
+
+	auto path = make_shared<string>("data/com.demensdeum.shotgun.hud.png");
+	auto hudImage = makeSurfaceMaterialWeaponHUD(path, weaponRect);
+	item->addComponent(hudImage);
+
+	return item;
+
+};
+
+shared_ptr<Object> GameObjectsGenerator::makeUzi() {
+
+	auto name = make_shared<string>(LocalizedString("Uzi"));
+	auto type = ItemType::weapon;
+	auto minimalEffect = 5;
+	auto maximalEffect = 10;
+	auto lockedByQuestItem = false;
+
+	auto item = makeObject(weapon, name, 5, 10, lockedByQuestItem);
+
+	SDL_Rect weaponRect;
+	weaponRect.x = 356;
+	weaponRect.y = 382;
+	weaponRect.w = 256;
+	weaponRect.h = 195;
+
+	auto path = make_shared<string>("data/com.demensdeum.uzi.hud.png");
+	auto hudImage = makeSurfaceMaterialWeaponHUD(path, weaponRect);
+	item->addComponent(hudImage);
+
+	return item;
+
+};
+
+shared_ptr<Object> GameObjectsGenerator::makeAssaultRifle() {
+
+	auto name = make_shared<string>(LocalizedString("Assault Rifle"));
+	auto type = ItemType::weapon;
+	auto minimalEffect = 5;
+	auto maximalEffect = 10;
+	auto lockedByQuestItem = false;
+
+	auto item = makeObject(weapon, name, 5, 10, lockedByQuestItem);
+
+	SDL_Rect weaponRect;
+	weaponRect.x = 356;
+	weaponRect.y = 382;
+	weaponRect.w = 256;
+	weaponRect.h = 195;
+
+	auto path = make_shared<string>("data/com.demensdeum.assaultrifle.hud.png");
+	auto hudImage = makeSurfaceMaterialWeaponHUD(path, weaponRect);
+	item->addComponent(hudImage);
+
+	return item;
+};
+
+shared_ptr<Object> GameObjectsGenerator::makeGSD() {
+
+	auto name = make_shared<string>(LocalizedString("GSD-4000"));
+	auto type = ItemType::weapon;
+	auto minimalEffect = 5;
+	auto maximalEffect = 10;
+	auto lockedByQuestItem = false;
+
+	auto item = makeObject(weapon, name, 5, 10, lockedByQuestItem);
+
+	SDL_Rect weaponRect;
+	weaponRect.x = 356;
+	weaponRect.y = 382;
+	weaponRect.w = 256;
+	weaponRect.h = 195;
+
+	auto path = make_shared<string>("data/com.demensdeum.gsd.hud.png");
+	auto hudImage = makeSurfaceMaterialWeaponHUD(path, weaponRect);
+	item->addComponent(hudImage);
+
+	return item;
 
 };

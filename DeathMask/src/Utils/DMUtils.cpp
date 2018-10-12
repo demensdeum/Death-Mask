@@ -77,6 +77,14 @@ shared_ptr<ZombieControls> DMUtils::getObjectZombieControls(shared_ptr<Object> o
 	return static_pointer_cast<ZombieControls>(objectControls);
 }
 
+shared_ptr<SurfaceMaterial> DMUtils::getWeaponHUDImageSurfaceMaterial(shared_ptr<Object> object) {
+
+	auto classIdentifier = make_shared<string>("Weapon HUD Image");
+	auto weaponHUDImageComponent = object->getComponent(classIdentifier);
+
+	return static_pointer_cast<SurfaceMaterial>(weaponHUDImageComponent);
+}
+
 void DMUtils::step(shared_ptr<Object> object, shared_ptr<DMObjectControlsDelegate> delegate) {
     
     auto objectControls = getObjectControls(object);

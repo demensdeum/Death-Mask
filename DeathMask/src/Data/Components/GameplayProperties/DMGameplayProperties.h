@@ -43,7 +43,6 @@ public:
 	shared_ptr<Object> weapon;
 	shared_ptr<Object> questItem;
 
-public:
 	void addSynergy(int effect);
 	void addHealth(int effect);
 

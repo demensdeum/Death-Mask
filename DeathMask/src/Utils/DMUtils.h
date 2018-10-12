@@ -14,6 +14,7 @@
 #ifndef DMUTILS_H
 #define DMUTILS_H
 
+#include <FlameSteelEngineGameToolkit/Data/Components/SurfaceMaterial/SurfaceMaterial.h>
 #include <DeathMask/src/Data/Components/GameplayProperties/DMGameplayProperties.h>
 #include <DeathMask/src/Data/Components/Controls/DMObjectControlsDelegate.h>
 #include <DeathMask/src/Data/Components/Controls/DMObjectControls.h>
@@ -22,6 +23,7 @@
 
 using namespace std;
 using namespace DeathMaskGame;
+using namespace FlameSteelEngine::GameToolkit;
 
 namespace DeathMaskGame {
 
@@ -42,6 +44,7 @@ public:
 	static shared_ptr<ItemProperties> getObjectItemProperties(shared_ptr<Object> object);
 	static shared_ptr<FSEGTText> getObjectLabel(shared_ptr<Object> object);
 	static shared_ptr<ZombieControls> getObjectZombieControls(shared_ptr<Object> object);
+	static shared_ptr<SurfaceMaterial> getWeaponHUDImageSurfaceMaterial(shared_ptr<Object> object);
     
 	static void step(shared_ptr<Object> object, shared_ptr<DMObjectControlsDelegate> delegate);
     

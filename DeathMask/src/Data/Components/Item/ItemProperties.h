@@ -23,8 +23,8 @@ public:
 	bool lockedByQuestItem = false;
 
 private:
-	int minimalEffect;
-	int maximalEffect;
+	int minimalEffect = 0;
+	int maximalEffect = 0;
 
 };
 

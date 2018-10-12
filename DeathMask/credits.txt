@@ -1,0 +1,20 @@
+Art:
+	enemy, hero image - https://forums.rpgmakerweb.com/index.php?threads/kazzadors-modern-sci-fi-resources.18271/
+	crate - https://www.blendswap.com/user/Rjjonesy99
+	shotgun hud - free doom (GNU General Public License) https://freedoom.github.io/about.html
+	
+Music:
+
+	com.demensdeum.deathmaskgame.dc113.ogg - ANTI RIAA / Independent Artists / Free To Share / Netlabel - info in com.demensdeum.deathmaskgame.dc113.txt
+	
+Sound:
+
+	com.demensdeum.deathmask.beep.ogg - rhodesmas - https://freesound.org/people/rhodesmas/sounds/322898/
+	com.demensdeum.deathmask.turum.audio.ogg - Vicces1212 - https://freesound.org/people/Vicces1212/sounds/123759/
+	
+Font:
+
+	Font - Crystal
+		Copyright (c) 2013-2014, Felipe Munoz (femu27@gmail.com)
+		This Font Software is licensed under the Attribution-ShareAlike 4.0 International (CC BY-SA 4.0).
+		http://creativecommons.org/licenses/by-sa/4.0/

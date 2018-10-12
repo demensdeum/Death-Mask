@@ -31,6 +31,21 @@ namespace DeathMaskGame {
 
 	};
 
+namespace WeaponType {
+
+	enum WeaponType {
+
+		pistol,
+		shotgun,
+		uzi,
+		assaultRifle,
+		gsd,
+		count
+
+	};
+
+};
+
 };
 
 #endif
