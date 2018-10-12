@@ -147,7 +147,7 @@ void DMInGameController::generateMap() {
 	gameplayProperties->synergyMax = 100;
 
 	gameplayProperties->creatureType = CreatureType::living;
-	//gameplayProperties->weapon = GameObjectsGenerator().makePistol();
+	gameplayProperties->weapon = GameObjectsGenerator().makePistol();
 
 	exitPoint =  objectsContext->objectWithInstanceIdentifier(make_shared<string>(ConstMapEntityEndPoint));
 

@@ -13,7 +13,7 @@ int main()
 try
 {
         auto controller = make_shared<DMGameController>();
-        controller->startGameFromState(DMStateInGame);
+        controller->startGameFromState(DMStateCompanyLogo);
 }
 catch (const std::exception &exc)
 {
