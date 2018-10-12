@@ -11,6 +11,7 @@
 #include <string>
 #include <iostream>
 #include <FlameSteelEngineGameToolkitAlgorithms/Algorithms/MazeObjectGenerator/FSGTAMazeObjectGenerator.h>
+#include <DeathMask/src/Const/Const.h>
 
 using namespace FlameSteelCore::Utils;
 using namespace DeathMaskGame;
@@ -213,7 +214,29 @@ shared_ptr<Object> GameObjectsGenerator::generateSynergyItem(Difficulty synergyD
 
 shared_ptr<Object> GameObjectsGenerator::generateWeapon(Difficulty weaponDifficulty) {
 
-	return makeShotgun();
+	auto weaponType =  FSCUtils::FSCRandomInt(WeaponType::count);
+
+	switch (weaponType) {
+
+		case WeaponType::pistol:
+			return makePistol();
+
+		case WeaponType::shotgun:
+			return makeShotgun();
+
+		case WeaponType::uzi:
+			return makeUzi();
+
+		case WeaponType::assaultRifle:
+			return makeAssaultRifle();
+
+		case WeaponType::gsd:
+			return makeGSD();
+	}
+
+	throw logic_error("Can't generate weapon - incorrect weapon type");
+
+	return shared_ptr<Object>();
 
 };
 
@@ -286,7 +309,7 @@ shared_ptr<Object> GameObjectsGenerator::makeUzi() {
 	auto item = makeObject(weapon, name, 5, 10, lockedByQuestItem);
 
 	SDL_Rect weaponRect;
-	weaponRect.x = 356;
+	weaponRect.x = 606;
 	weaponRect.y = 382;
 	weaponRect.w = 256;
 	weaponRect.h = 195;
@@ -310,7 +333,7 @@ shared_ptr<Object> GameObjectsGenerator::makeAssaultRifle() {
 	auto item = makeObject(weapon, name, 5, 10, lockedByQuestItem);
 
 	SDL_Rect weaponRect;
-	weaponRect.x = 356;
+	weaponRect.x = 580;
 	weaponRect.y = 382;
 	weaponRect.w = 256;
 	weaponRect.h = 195;
@@ -333,7 +356,7 @@ shared_ptr<Object> GameObjectsGenerator::makeGSD() {
 	auto item = makeObject(weapon, name, 5, 10, lockedByQuestItem);
 
 	SDL_Rect weaponRect;
-	weaponRect.x = 356;
+	weaponRect.x = 436;
 	weaponRect.y = 382;
 	weaponRect.w = 256;
 	weaponRect.h = 195;

@@ -20,30 +20,30 @@ class GameObjectsGenerator {
 public:
 	GameObjectsGenerator();
 
-	shared_ptr<Object> generateEnemy(Difficulty enemyDifficulty);
-	shared_ptr<Object> generateWeapon(Difficulty weaponDifficulty);
-	shared_ptr<Object> generateSupplyItem(Difficulty supplyItemDifficulty);
-	shared_ptr<Object> generateSynergyItem(Difficulty synergyDifficulty);
-	shared_ptr<Object> generateRandomItem(Difficulty itemDifficulty);
-	shared_ptr<Object> generateQuestItem(Difficulty questItemDifficulty);
-	shared_ptr<Object> generateDeathMask();
+	static shared_ptr<Object> generateEnemy(Difficulty enemyDifficulty);
+	static shared_ptr<Object> generateWeapon(Difficulty weaponDifficulty);
+	static shared_ptr<Object> generateSupplyItem(Difficulty supplyItemDifficulty);
+	static shared_ptr<Object> generateSynergyItem(Difficulty synergyDifficulty);
+	static shared_ptr<Object> generateRandomItem(Difficulty itemDifficulty);
+	static shared_ptr<Object> generateQuestItem(Difficulty questItemDifficulty);
+	static shared_ptr<Object> generateDeathMask();
 
-	shared_ptr<Object> makePistol();
-	shared_ptr<Object> makeShotgun();
-	shared_ptr<Object> makeUzi();
-	shared_ptr<Object> makeAssaultRifle();
-	shared_ptr<Object> makeGSD(); // Giant Soviet Destructor
+	static shared_ptr<Object> makePistol();
+	static shared_ptr<Object> makeShotgun();
+	static shared_ptr<Object> makeUzi();
+	static shared_ptr<Object> makeAssaultRifle();
+	static shared_ptr<Object> makeGSD(); // Giant Soviet Destructor
 
 private:
-	shared_ptr<Object> generateObject(ItemType type, Difficulty itemDiffuclty, vector<string>firstNames, vector<string>secondNames, bool lockedByQuestItem);
+	static shared_ptr<Object> generateObject(ItemType type, Difficulty itemDiffuclty, vector<string>firstNames, vector<string>secondNames, bool lockedByQuestItem);
 
-	shared_ptr<Object> makeObject(ItemType type, 
+	static shared_ptr<Object> makeObject(ItemType type, 
 									   shared_ptr<string> name, 
 									   int minimalEffect,
 									   int maximalEffect,
 									   bool lockedByQuestItem);
 
-	shared_ptr<SurfaceMaterial> makeSurfaceMaterialWeaponHUD(shared_ptr<string> path, SDL_Rect rect);
+	static shared_ptr<SurfaceMaterial> makeSurfaceMaterialWeaponHUD(shared_ptr<string> path, SDL_Rect rect);
 
 };
 
