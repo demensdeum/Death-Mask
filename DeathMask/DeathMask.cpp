@@ -10,14 +10,18 @@ int main()
 {
 	cout << "Death Mask - Cyber Fantasy Adventure in Endless Techno-Maze\nPrepare to die!\n" << endl;
 
+#ifdef __EMSCRIPTEN__
 try
 {
+#endif
         auto controller = make_shared<DMGameController>();
         controller->startGameFromState(DMStateCompanyLogo);
+#ifdef __EMSCRIPTEN__
 }
 catch (const std::exception &exc)
 {
 	cout << exc.what();
 }
+#endif
 
 }

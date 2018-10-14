@@ -172,7 +172,7 @@ shared_ptr<Object> GameObjectsGenerator::generateObject(ItemType type, Difficult
 
 shared_ptr<Object> GameObjectsGenerator::generateEnemy(Difficulty enemyDifficulty) {
 
-	auto serializedCubeModel = FSGTAMazeObjectGenerator::generatePlane(1, 1, make_shared<string>("com.demensdeum.testenvironment.enemy.png"), -0.5, 0);
+	auto serializedCubeModel = FSGTAMazeObjectGenerator::generatePlane(1, 1, make_shared<string>("com.demensdeum.testenvironment.enemy.png"), -0.5, 0); // centered
 
       auto object = FSEGTFactory::makeOnSceneObject(
 													            make_shared<string>("dummy"),

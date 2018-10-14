@@ -66,5 +66,6 @@ private:
 	int screenMessageTimer = 0;
 
 	bool useItemLocked = false;
+	bool shootKeyLocked = false;
 };
 #endif

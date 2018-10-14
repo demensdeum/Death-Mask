@@ -16,6 +16,7 @@
 #include <FlameSteelEngineGameToolkitAlgorithms/Algorithms/MapGenerator/FSEGTAMapGeneratorParams.h>
 #include <FlameSteelEngineGameToolkit/Controllers/FreeCameraController/FSEGTFreeCameraController.h>
 #include <FlameSteelEngineGameToolkitAlgorithms/Algorithms/MazeObjectGenerator/FSGTAMazeObjectGenerator.h>
+#include "IntersectionController.h"
 
 #include "GameplayRulesController.h"
 
@@ -232,6 +233,12 @@ void DMInGameController::useItemAtXY(shared_ptr<Objects> objects) {
 
 void DMInGameController::removeObject(shared_ptr<Object> object) {
 	objectsContext->removeObject(object);
+
+	auto uuid = object->uuid;
+
+	if (enemies->objectWithUUID(uuid).get() != nullptr) {
+		enemies->removeObject(object);
+	}
 }
 
 void DMInGameController::beforeStart() {
@@ -368,12 +375,22 @@ auto inputController = ioSystem->inputController;
 	}
 	else if (inputController->isShootKeyPressed()) {
 
-		objectShoots(mainCharacter);
+		if (shootKeyLocked == false) {
+
+			shootKeyLocked = true;
+
+			objectShoots(mainCharacter);
+		}
+
 
 	}
 
 	if (!inputController->isUseKeyPressed()) {
 		useItemLocked = false;
+	}
+
+	if (!inputController->isShootKeyPressed()) {
+			shootKeyLocked = false;
 	}
 
 		if (freeCameraController.get() != nullptr)
@@ -415,6 +432,18 @@ void DMInGameController::objectShoots(shared_ptr<Object> object) {
 
 	cout << "pew pew" << endl;
 
+	auto hittedObjects = IntersectionController::rayFromObjectIntersectsObjects(mainCharacter, objectsMap, gameData->gameMap);
+
+	for (auto i = 0; i < hittedObjects->size(); i++) {
+		auto object = hittedObjects->objectAtIndex(i);
+		auto classIdentifier = object->getClassIdentifier();
+
+		if (classIdentifier->compare(DMConstClassIdentifierEnemy) == 0) {
+			removeObject(object);
+
+			showMessage(make_shared<string>(LocalizedString("Enemy killed")));
+		}
+	}
 }
 
 void DMInGameController::handleMessages() {
