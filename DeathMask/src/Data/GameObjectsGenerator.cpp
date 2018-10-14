@@ -198,6 +198,11 @@ shared_ptr<Object> GameObjectsGenerator::generateEnemy(Difficulty enemyDifficult
 	auto zombieControls = make_shared<ZombieControls>(object);
 	object->addComponent(zombieControls);
 
+	auto hitboxRectangle = FSEGTFactory::makeRectangle(0, 0, 1, 1);
+	hitboxRectangle->setClassIdentifier(make_shared<string>("Hitbox"));
+	hitboxRectangle->setInstanceIdentifier(make_shared<string>("Hitbox"));
+	object->addComponent(hitboxRectangle);
+
 	return object;
 
 };
