@@ -25,6 +25,8 @@ private:
 
 	shared_ptr<LookAtRotator> lookAtRotator;
 
+	int shootTimer = 0;
+
 };
 
 };

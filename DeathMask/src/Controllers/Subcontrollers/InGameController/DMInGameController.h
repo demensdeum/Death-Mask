@@ -33,6 +33,7 @@ public:
 	virtual bool objectsControlsIsObjectCanMoveToPosition(shared_ptr<DMObjectControls> objectControls, shared_ptr<Object> object, shared_ptr<FSEGTVector> position);
 	virtual shared_ptr<Objects> objectsForInGameUserInterfaceController(shared_ptr<InGameUserInterfaceController> inGameUserInterfaceController);
 	virtual shared_ptr<string> messageForInGameUserInterfaceController(shared_ptr<InGameUserInterfaceController> inGameUserInterfaceController);
+	virtual void objectDidShoot(shared_ptr<Object> object);
 
 	virtual void objectsContextObjectAdded(shared_ptr<FSEGTObjectsContext> context, shared_ptr<Object> object);
 	virtual void objectsContextObjectUpdate(shared_ptr<FSEGTObjectsContext> context, shared_ptr<Object> object);
@@ -52,6 +53,9 @@ private:
 	shared_ptr<ObjectsMap> objectsMap;
 	shared_ptr<Objects> enemies;
 
+	void objectDidHitObject(shared_ptr<Object> object, shared_ptr<Object> hitObject);
+	void shooterObjectHitObject(shared_ptr<Object> shooterObject, shared_ptr<Object> hitObject);
+
 	vector<shared_ptr<Message> > messages;
 
 	void useItemAtXY(shared_ptr<Objects> objects);
@@ -59,7 +63,6 @@ private:
 	void generateMap();
 	void frameStep();
 	void removeObject(shared_ptr<Object> object);
-	void objectShoots(shared_ptr<Object> object);
 	void showMessage(shared_ptr<string> message);
 
 	shared_ptr<string> screenMessage;

@@ -35,6 +35,7 @@ public:
     
     virtual void objectsControlsDelegateObjectDidUpdate(shared_ptr<Object> object);
     virtual bool objectsControlsIsObjectCanMoveToPosition(shared_ptr<DMObjectControls> objectControls, shared_ptr<Object> object, shared_ptr<FSEGTVector> position);
+	virtual void objectDidShoot(shared_ptr<Object> object) = 0;
 
 private:
 

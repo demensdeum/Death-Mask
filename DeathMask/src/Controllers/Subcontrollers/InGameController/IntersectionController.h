@@ -16,7 +16,7 @@ using namespace FlameSteelEngine::GameToolkit;
 class IntersectionController {
 
 public:
-	static shared_ptr<Objects> rayFromObjectIntersectsObjects(shared_ptr<Object> object, shared_ptr<ObjectsMap> objectsMap, shared_ptr<GameMap> gameMap);
+	static shared_ptr<Objects> rayFromObjectIntersectsObjects(shared_ptr<Object> object, shared_ptr<ObjectsMap> objectsMap, shared_ptr<GameMap> gameMap, bool invertZ = false);
 
 };
 

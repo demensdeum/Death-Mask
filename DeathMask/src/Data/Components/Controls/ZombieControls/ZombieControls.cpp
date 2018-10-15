@@ -2,6 +2,7 @@
 #include <math.h>
 #include <FlameSteelCore/FSCUtils.h>
 #include <FlameSteelEngineGameToolkit/Utils/FSEGTUtils.h>
+#include <iostream>
 
 using namespace DeathMaskGame;
 
@@ -84,4 +85,16 @@ void ZombieControls::step(shared_ptr<DMObjectControlsDelegate> delegate) {
 	delegate->objectsControlsDelegateObjectDidUpdate(object);
 
 	walkTime -= 1;
+
+	if (shootTimer >= 120) {
+
+		cout << "zombie controls shoot" << endl;
+
+		shootTimer = 0;
+
+		delegate->objectDidShoot(object);
+
+	}
+
+	shootTimer += 1;
 };

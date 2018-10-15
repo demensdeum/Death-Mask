@@ -4,7 +4,8 @@
 
 shared_ptr<Objects> IntersectionController::rayFromObjectIntersectsObjects(shared_ptr<Object> object, 
 																				shared_ptr<ObjectsMap> objectsMap, 
-																				shared_ptr<GameMap> gameMap) {
+																				shared_ptr<GameMap> gameMap, 
+																				bool invertZ) {
 
 		auto objects = make_shared<Objects>();
 
@@ -21,9 +22,11 @@ shared_ptr<Objects> IntersectionController::rayFromObjectIntersectsObjects(share
 		matrix = glm::rotate(matrix, rotation->y, glm::vec3(0.f, 1.f, 0.f));
 		matrix = glm::rotate(matrix, rotation->z, glm::vec3(0.f, 0.f, 1.f));
 
+			float step = invertZ ? 0.1 : -0.1;
+
 			float x = 0;
 			float y = 0;
-			float z = -0.1 * i;
+			float z = step * i;
 
 			matrix = glm::translate(matrix, glm::vec3(x, y, z));
 

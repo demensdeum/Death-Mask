@@ -197,6 +197,24 @@ void DMInGameController::showMessage(shared_ptr<string> message) {
 
 }
 
+void DMInGameController::shooterObjectHitObject(shared_ptr<Object> shooterObject, shared_ptr<Object> hitObject) {
+		if (shooterObject == mainCharacter) {
+			if (hitObject->getClassIdentifier()->compare(DMConstClassIdentifierEnemy) == 0) {
+				removeObject(hitObject);
+
+				showMessage(make_shared<string>(LocalizedString("Enemy killed")));
+			}
+		}
+		else if (shooterObject->getClassIdentifier()->compare(DMConstClassIdentifierEnemy) == 0) {
+
+			cout << "shooter object is enemy" << endl;
+
+			if (hitObject == mainCharacter) {
+				showMessage(make_shared<string>(LocalizedString("Hitted by object")));
+			}
+		}	
+}
+
 void DMInGameController::useItemAtXY(shared_ptr<Objects> objects) {
 
 	cout << "Trying to use objects" << endl;
@@ -374,15 +392,10 @@ auto inputController = ioSystem->inputController;
 
 	}
 	else if (inputController->isShootKeyPressed()) {
-
 		if (shootKeyLocked == false) {
-
 			shootKeyLocked = true;
-
-			objectShoots(mainCharacter);
+			objectDidShoot(mainCharacter);
 		}
-
-
 	}
 
 	if (!inputController->isUseKeyPressed()) {
@@ -428,21 +441,23 @@ auto inputController = ioSystem->inputController;
 
 }
 
-void DMInGameController::objectShoots(shared_ptr<Object> object) {
+void DMInGameController::objectDidShoot(shared_ptr<Object> shooterObject) {
 
-	cout << "pew pew" << endl;
+	if (shooterObject->getClassIdentifier()->compare(DMConstClassIdentifierEnemy) == 0) {
 
-	auto hittedObjects = IntersectionController::rayFromObjectIntersectsObjects(mainCharacter, objectsMap, gameData->gameMap);
+		cout << "pew pew by enemy" << endl;
+
+	}
+
+	bool invertZ = shooterObject != mainCharacter;
+
+	auto hittedObjects = IntersectionController::rayFromObjectIntersectsObjects(shooterObject, objectsMap, gameData->gameMap, invertZ);
 
 	for (auto i = 0; i < hittedObjects->size(); i++) {
-		auto object = hittedObjects->objectAtIndex(i);
-		auto classIdentifier = object->getClassIdentifier();
 
-		if (classIdentifier->compare(DMConstClassIdentifierEnemy) == 0) {
-			removeObject(object);
+		auto hitObject = hittedObjects->objectAtIndex(i);
 
-			showMessage(make_shared<string>(LocalizedString("Enemy killed")));
-		}
+		shooterObjectHitObject(shooterObject, hitObject);
 	}
 }
 
@@ -459,6 +474,12 @@ void DMInGameController::objectsControlsDelegateObjectDidUpdate(shared_ptr<Objec
 
 	objectsContext->updateObject(object);
 	objectsMap->handleObject(object);
+
+}
+
+void DMInGameController::objectDidHitObject(shared_ptr<Object> object, shared_ptr<Object> hitObject) {
+
+
 
 }
 
