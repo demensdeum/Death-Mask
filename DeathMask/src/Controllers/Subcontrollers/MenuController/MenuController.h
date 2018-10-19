@@ -1,5 +1,5 @@
-#ifndef DEATHMASKMENUCONTROLLER
-#define DETAHMASKMENUCONTROLLER
+#ifndef DEATHMASKMENUCONTROLLER_H_
+#define DEATHMASKMENUCONTROLLER_H_
 
 #include <vector>
 #include <FlameSteelEngineGameToolkit/Controllers/GameController.h>

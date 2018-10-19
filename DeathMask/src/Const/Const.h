@@ -3,13 +3,17 @@
 
 namespace DeathMaskGame {
 	
-	enum class Difficulty {
+    namespace Difficulty {
+    
+        enum Difficulty {
 
-		easy,
-		normal,
-		hard	
+            easy,
+            normal,
+            hard
 
-	};
+        };
+        
+    };
 
 	enum ItemType {
 
