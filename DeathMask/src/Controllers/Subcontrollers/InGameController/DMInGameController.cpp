@@ -477,12 +477,6 @@ void DMInGameController::objectsControlsDelegateObjectDidUpdate(shared_ptr<Objec
 
 }
 
-void DMInGameController::objectDidHitObject(shared_ptr<Object> object, shared_ptr<Object> hitObject) {
-
-
-
-}
-
 void DMInGameController::freeCameraControllerDidUpdateCamera(shared_ptr<FSEGTFreeCameraController> freeCameraController, shared_ptr<Object> camera) {
 
 	objectsContext->updateObject(camera);

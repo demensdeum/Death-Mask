@@ -53,7 +53,6 @@ private:
 	shared_ptr<ObjectsMap> objectsMap;
 	shared_ptr<Objects> enemies;
 
-	void objectDidHitObject(shared_ptr<Object> object, shared_ptr<Object> hitObject);
 	void shooterObjectHitObject(shared_ptr<Object> shooterObject, shared_ptr<Object> hitObject);
 
 	vector<shared_ptr<Message> > messages;
