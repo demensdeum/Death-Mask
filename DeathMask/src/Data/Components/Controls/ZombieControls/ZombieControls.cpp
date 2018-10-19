@@ -59,6 +59,9 @@ void ZombieControls::step(shared_ptr<DMObjectControlsDelegate> delegate) {
 
 		      position->z += step;
 			break;
+            
+        case FSEGTSimpleDirectionCount:
+            break;
 	}
 
 	lookAtRotator->step();

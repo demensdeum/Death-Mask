@@ -84,6 +84,12 @@ UseItemResultType GameplayRulesController::objectTryingToUseItem(shared_ptr<Obje
 				gameplayProperties->questItem = item;
 				result = picked;
 				break;
+                
+            case ItemType::count:
+                
+                throw logic_error("Can't handle \"count\" as objectItemProperties type in GameplayRulesController");
+                
+                break;
 
 		}
 

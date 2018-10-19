@@ -19,7 +19,10 @@ using namespace DeathMaskGame;
 GameObjectsGenerator::GameObjectsGenerator() {
 }
 
-shared_ptr<Object> GameObjectsGenerator::generateRandomItem(Difficulty itemDifficulty) {
+using namespace DeathMaskGame;
+using namespace DeathMaskGame::Difficulty;
+
+shared_ptr<Object> GameObjectsGenerator::generateRandomItem(enum Difficulty itemDifficulty) {
 
 	auto randomItemType = FSCUtils::FSCRandomInt(ItemType::count);
 
@@ -89,7 +92,7 @@ shared_ptr<Object> GameObjectsGenerator::generateDeathMask() {
 
 }
 
-shared_ptr<Object> GameObjectsGenerator::generateQuestItem(Difficulty difficulty) {
+shared_ptr<Object> GameObjectsGenerator::generateQuestItem(enum Difficulty difficulty) {
 
 	auto firstNames = vector<string>{LocalizedString("Red"), LocalizedString("Yellow"), LocalizedString("Blue")};
 	auto secondNames = vector<string>{LocalizedString("Card"), LocalizedString("Key")};
@@ -154,7 +157,7 @@ shared_ptr<Object> GameObjectsGenerator::makeObject(ItemType type,
 	return item;
 }
 
-shared_ptr<Object> GameObjectsGenerator::generateObject(ItemType type, Difficulty itemDiffuclty, vector<string>firstNames, vector<string>secondNames, bool lockedByQuestItem) {
+shared_ptr<Object> GameObjectsGenerator::generateObject(ItemType type, enum Difficulty itemDiffuclty, vector<string>firstNames, vector<string>secondNames, bool lockedByQuestItem) {
 
 	auto firstRandom = FSCUtils::FSCRandomInt(firstNames.size());
 	auto secondRandom = FSCUtils::FSCRandomInt(secondNames.size());
@@ -170,7 +173,7 @@ shared_ptr<Object> GameObjectsGenerator::generateObject(ItemType type, Difficult
 	return item;
 };
 
-shared_ptr<Object> GameObjectsGenerator::generateEnemy(Difficulty enemyDifficulty) {
+shared_ptr<Object> GameObjectsGenerator::generateEnemy(enum Difficulty enemyDifficulty) {
 
 	auto serializedCubeModel = FSGTAMazeObjectGenerator::generatePlane(1, 1, make_shared<string>("com.demensdeum.testenvironment.enemy.png"), -0.5, 0); // centered
 
@@ -207,7 +210,7 @@ shared_ptr<Object> GameObjectsGenerator::generateEnemy(Difficulty enemyDifficult
 
 };
 
-shared_ptr<Object> GameObjectsGenerator::generateSynergyItem(Difficulty synergyDifficulty) {
+shared_ptr<Object> GameObjectsGenerator::generateSynergyItem(enum Difficulty synergyDifficulty) {
 
 	auto firstNames = vector<string>{LocalizedString("Synergy"), LocalizedString("Synergy") };
 	auto secondNames = vector<string>{LocalizedString("tank"), LocalizedString("cassete"), LocalizedString("tablet")};
@@ -217,10 +220,26 @@ shared_ptr<Object> GameObjectsGenerator::generateSynergyItem(Difficulty synergyD
 
 }
 
-shared_ptr<Object> GameObjectsGenerator::generateWeapon(Difficulty weaponDifficulty) {
+shared_ptr<Object> GameObjectsGenerator::generateWeapon(enum Difficulty weaponDifficulty) {
 
-	auto weaponType =  FSCUtils::FSCRandomInt(WeaponType::count);
-
+    auto weaponType =  FSCUtils::FSCRandomInt(WeaponType::count);
+    
+    switch (weaponDifficulty) {
+        
+        case easy:
+            
+            break;
+            
+        case normal:
+            
+            break;
+            
+        case hard:
+            
+            break;
+        
+    }
+    
 	switch (weaponType) {
 
 		case WeaponType::pistol:
@@ -241,11 +260,9 @@ shared_ptr<Object> GameObjectsGenerator::generateWeapon(Difficulty weaponDifficu
 
 	throw logic_error("Can't generate weapon - incorrect weapon type");
 
-	return shared_ptr<Object>();
-
 };
 
-shared_ptr<Object> GameObjectsGenerator::generateSupplyItem(Difficulty supplyItemDifficulty) {
+shared_ptr<Object> GameObjectsGenerator::generateSupplyItem(enum Difficulty supplyItemDifficulty) {
 
 	auto firstNames = vector<string>{LocalizedString("VitaCom"), LocalizedString("Human Compatible Nanobots"), LocalizedString("Astra-Life")};
 	auto secondNames = vector<string>{LocalizedString("painkiller"), LocalizedString("medkit"), LocalizedString("first aid")};
@@ -263,7 +280,7 @@ shared_ptr<Object> GameObjectsGenerator::makePistol() {
 	auto maximalEffect = 10;
 	auto lockedByQuestItem = false;
 
-	auto item = makeObject(weapon, name, 5, 10, lockedByQuestItem);
+	auto item = makeObject(type, name, minimalEffect, maximalEffect, lockedByQuestItem);
 
 	SDL_Rect weaponRect;
 	weaponRect.x = 356;
@@ -287,7 +304,7 @@ shared_ptr<Object> GameObjectsGenerator::makeShotgun() {
 	auto maximalEffect = 10;
 	auto lockedByQuestItem = false;
 
-	auto item = makeObject(weapon, name, 5, 10, lockedByQuestItem);
+	auto item = makeObject(type, name, minimalEffect, maximalEffect, lockedByQuestItem);
 
 	SDL_Rect weaponRect;
 	weaponRect.x = 356;
@@ -311,7 +328,7 @@ shared_ptr<Object> GameObjectsGenerator::makeUzi() {
 	auto maximalEffect = 10;
 	auto lockedByQuestItem = false;
 
-	auto item = makeObject(weapon, name, 5, 10, lockedByQuestItem);
+	auto item = makeObject(type, name, minimalEffect, maximalEffect, lockedByQuestItem);
 
 	SDL_Rect weaponRect;
 	weaponRect.x = 606;
@@ -335,7 +352,7 @@ shared_ptr<Object> GameObjectsGenerator::makeAssaultRifle() {
 	auto maximalEffect = 10;
 	auto lockedByQuestItem = false;
 
-	auto item = makeObject(weapon, name, 5, 10, lockedByQuestItem);
+	auto item = makeObject(type, name, minimalEffect, maximalEffect, lockedByQuestItem);
 
 	SDL_Rect weaponRect;
 	weaponRect.x = 580;
@@ -358,7 +375,7 @@ shared_ptr<Object> GameObjectsGenerator::makeGSD() {
 	auto maximalEffect = 10;
 	auto lockedByQuestItem = false;
 
-	auto item = makeObject(weapon, name, 5, 10, lockedByQuestItem);
+	auto item = makeObject(type, name, minimalEffect, maximalEffect, lockedByQuestItem);
 
 	SDL_Rect weaponRect;
 	weaponRect.x = 436;

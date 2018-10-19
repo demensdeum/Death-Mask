@@ -162,7 +162,7 @@ void InGameUserInterfaceController::step() {
 		}
 	}
 
-	SDL_Color color = { 255, 255, 255 };
+	SDL_Color color = { 255, 255, 255, 255 };
 
 	// SDL TTF on OS X mojave crash workaround - wrapped rendering simulation
 

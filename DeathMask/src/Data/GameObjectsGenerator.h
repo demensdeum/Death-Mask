@@ -13,6 +13,9 @@
 using namespace FlameSteelEngine::GameToolkit;
 using namespace FlameSteelCore;
 
+using namespace DeathMaskGame;
+using namespace DeathMaskGame::Difficulty;
+
 namespace DeathMaskGame {
 
 class GameObjectsGenerator {
@@ -20,12 +23,12 @@ class GameObjectsGenerator {
 public:
 	GameObjectsGenerator();
 
-	static shared_ptr<Object> generateEnemy(Difficulty enemyDifficulty);
-	static shared_ptr<Object> generateWeapon(Difficulty weaponDifficulty);
-	static shared_ptr<Object> generateSupplyItem(Difficulty supplyItemDifficulty);
-	static shared_ptr<Object> generateSynergyItem(Difficulty synergyDifficulty);
-	static shared_ptr<Object> generateRandomItem(Difficulty itemDifficulty);
-	static shared_ptr<Object> generateQuestItem(Difficulty questItemDifficulty);
+	static shared_ptr<Object> generateEnemy(enum Difficulty enemyDifficulty);
+	static shared_ptr<Object> generateWeapon(enum Difficulty weaponDifficulty);
+	static shared_ptr<Object> generateSupplyItem(enum Difficulty supplyItemDifficulty);
+	static shared_ptr<Object> generateSynergyItem(enum Difficulty synergyDifficulty);
+	static shared_ptr<Object> generateRandomItem(enum Difficulty itemDifficulty);
+	static shared_ptr<Object> generateQuestItem(enum Difficulty questItemDifficulty);
 	static shared_ptr<Object> generateDeathMask();
 
 	static shared_ptr<Object> makePistol();
@@ -35,7 +38,7 @@ public:
 	static shared_ptr<Object> makeGSD(); // Giant Soviet Destructor
 
 private:
-	static shared_ptr<Object> generateObject(ItemType type, Difficulty itemDiffuclty, vector<string>firstNames, vector<string>secondNames, bool lockedByQuestItem);
+	static shared_ptr<Object> generateObject(ItemType type, enum Difficulty itemDiffuclty, vector<string>firstNames, vector<string>secondNames, bool lockedByQuestItem);
 
 	static shared_ptr<Object> makeObject(ItemType type, 
 									   shared_ptr<string> name, 

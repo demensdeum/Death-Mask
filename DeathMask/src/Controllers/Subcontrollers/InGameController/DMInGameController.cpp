@@ -22,6 +22,7 @@
 
 using namespace FlameSteelCore::Utils;
 using namespace DeathMaskGame;
+using namespace DeathMaskGame::Difficulty;
 using namespace FlameSteelEngine::GameToolkit::Algorithms;
 
 DMInGameController::DMInGameController() {
@@ -57,7 +58,7 @@ void DMInGameController::generateMap() {
 
 	for (auto i = 0; i < 20; i++)
 	{
-		auto item = objectsGenerator->generateRandomItem(Difficulty::easy);
+		auto item = objectsGenerator->generateRandomItem(easy);
 		objects->addObject(item);
 	}
 
@@ -72,7 +73,7 @@ void DMInGameController::generateMap() {
 
 	for (auto i = 0; i < 20; i ++)
 	{
-		auto enemy = objectsGenerator->generateEnemy(Difficulty::easy);
+		auto enemy = objectsGenerator->generateEnemy(easy);
 		//enemy->addComponent(flag2D);
 
 		enemies->addObject(enemy);
