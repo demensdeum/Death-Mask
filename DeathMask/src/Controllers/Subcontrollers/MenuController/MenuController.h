@@ -32,6 +32,7 @@ public:
 	virtual void cursorControllerDidUpdateCursor(shared_ptr<CursorController> cursorController, shared_ptr<Object> cursor);
 
 private:
+    bool cameraUpdated = false;
 	shared_ptr<CursorController> cursorController;
 	shared_ptr<Object> cursor;
 	shared_ptr<Object> camera;

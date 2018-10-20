@@ -6,8 +6,11 @@
 
 using namespace DeathMaskGame;
 
-GameplayRulesController::GameplayRulesController(shared_ptr<Objects> objects) 
+GameplayRulesController::GameplayRulesController(shared_ptr<Objects> objects, shared_ptr<Object> mainCharacter, shared_ptr<GameplayRulesControllerDelegate> delegate)
 {
+    this->mainCharacter = mainCharacter;
+    this->delegate = delegate;
+    
 	if (objects.get() == nullptr)
 	{
 		throw logic_error("Can't initialize Gameplay Rules Controller with null objects pointer");
@@ -38,6 +41,17 @@ void GameplayRulesController::step()
 	{
 		previousSynergyTimer = synergyTimer;		
 	}
+    
+    if (mainCharacter.get() == nullptr) {
+        throw logic_error("Can't handle main character in gameplay rules controller, because it's null");
+    }
+    else {
+        auto gameplayProperties = DMUtils::getObjectGameplayProperties(mainCharacter);
+        if (gameplayProperties->isDead()) {
+            delegate->gameplayRulesControllerMainCharacterDidDie(shared_from_this(), mainCharacter);
+        }
+    }
+    
 }
 
 UseItemResultType GameplayRulesController::objectTryingToUseItem(shared_ptr<Object> object, shared_ptr<Object> item)

@@ -50,6 +50,10 @@ shared_ptr<string> DMGameplayProperties::weaponLabel() {
 	return make_shared<string>("<None>");
 }
 
+void DMGameplayProperties::takeDamage(int effect) {
+    health -= effect;
+}
+
 shared_ptr<string> DMGameplayProperties::questItemLabel() {
 	if (questItem.get() != nullptr) {
 		auto label = DMUtils::getObjectLabel(questItem);

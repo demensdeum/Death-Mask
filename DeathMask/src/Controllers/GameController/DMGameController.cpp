@@ -77,22 +77,25 @@ void DMGameController::controllerDidFinish(Controller *controller) {
 
       		case DMStateCompanyLogo:
 			objectsContext->removeAllObjects();
-            		switchToState(DMStateFlameSteelEngineLogo);
-	            break; 
+            switchToState(DMStateFlameSteelEngineLogo);
+            break; 
            
 		case DMStateFlameSteelEngineLogo:
-				objectsContext->removeAllObjects();
-            		switchToState(DMStateMenu);
+            objectsContext->removeAllObjects();
+            switchToState(DMStateMenu);
 			break;
 
 		case DMStateMenu:
-				objectsContext->removeAllObjects();
-            		switchToState(DMStateInGame);		
+            ioSystem->materialLibrary->clear();
+            objectsContext->removeAllObjects();
+            switchToState(DMStateInGame);
 			break;
 
-	default:
-		cout << "State: " << state << endl;
-		throw logic_error("Unhandled state to switch");
+        case DMStateInGame:
+            objectsContext->removeAllObjects();
+            ioSystem->materialLibrary->clear();
+            switchToState(DMStateMenu);
+            break;
     }
 }
 

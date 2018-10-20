@@ -206,6 +206,9 @@ shared_ptr<Object> GameObjectsGenerator::generateEnemy(enum Difficulty enemyDiff
 	hitboxRectangle->setInstanceIdentifier(make_shared<string>("Hitbox"));
 	object->addComponent(hitboxRectangle);
 
+    auto weapon = generateWeapon(Difficulty::easy);
+    gameplayProperties->weapon = weapon;
+    
 	return object;
 
 };

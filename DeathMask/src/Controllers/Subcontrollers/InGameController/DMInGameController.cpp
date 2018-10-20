@@ -166,9 +166,6 @@ void DMInGameController::generateMap() {
 	objectsContext->addObject(city);
 	objectsContext->addObject(mainCharacter);
 
-	//freeCameraController = make_shared<FSEGTFreeCameraController>(ioSystem->inputController, camera);
-	//freeCameraController->delegate = shared_from_this();
-
 	auto mainCharacterGameplayProperties = DMUtils::getObjectGameplayProperties(mainCharacter);
 
 	inGameUserInterfaceController = make_shared<DeathMaskGame::InGameUserInterfaceController>(camera,
@@ -184,7 +181,7 @@ void DMInGameController::generateMap() {
 
 	gameRulesObjects->addObject(mainCharacter);
 
-	gameplayRulesController = make_shared<GameplayRulesController>(gameRulesObjects);
+	gameplayRulesController = make_shared<GameplayRulesController>(gameRulesObjects, mainCharacter, shared_from_this());
 
 	uiObject = inGameUserInterfaceController->uiObject;
 
@@ -196,6 +193,13 @@ void DMInGameController::showMessage(shared_ptr<string> message) {
 	screenMessage = message;
 	screenMessageTimer = 240;
 
+}
+
+void DMInGameController::gameplayRulesControllerMainCharacterDidDie(shared_ptr<GameplayRulesController> gameplayRulesController, shared_ptr<Object> mainCharacter) {
+    
+    auto gameOverMessage = make_shared<Message>(make_shared<string>("About gameplay process"), make_shared<string>("We need to switch level, because main character died"));
+    messages.push_back(gameOverMessage);
+    
 }
 
 void DMInGameController::shooterObjectHitObject(shared_ptr<Object> shooterObject, shared_ptr<Object> hitObject) {
@@ -212,6 +216,21 @@ void DMInGameController::shooterObjectHitObject(shared_ptr<Object> shooterObject
 
 			if (hitObject == mainCharacter) {
 				showMessage(make_shared<string>(LocalizedString("Hitted by object")));
+                
+                auto enemyGameplayProperties = DMUtils::getObjectGameplayProperties(shooterObject);
+                
+                auto weapon = enemyGameplayProperties->weapon;
+                
+                if (weapon.get() == nullptr) {
+                    throw logic_error("Enemy shoots without weapon, nonsense");
+                }
+
+                auto objectItemProperties = DMUtils::getObjectItemProperties(weapon);
+                auto itemEffect = objectItemProperties->getRangeRandomEffect();
+                
+                auto gameplayProperties = DMUtils::getObjectGameplayProperties(mainCharacter);
+                gameplayProperties->takeDamage(itemEffect);
+                
 			}
 		}	
 }
@@ -326,7 +345,10 @@ void DMInGameController::objectsContextAllObjectsRemoved(shared_ptr<FSEGTObjects
 
 void DMInGameController::step() {
 
-	handleMessages();
+    if (handleMessagesAndStopIfNeeded()) {
+        return;
+    }
+    
 	frameStep();
 	gameplayRulesController->step();
 
@@ -462,13 +484,28 @@ void DMInGameController::objectDidShoot(shared_ptr<Object> shooterObject) {
 	}
 }
 
-void DMInGameController::handleMessages() {
+bool DMInGameController::handleMessagesAndStopIfNeeded() {
 
 	if (messages.size() > 0)
 	{
-		generateMap();
-		messages.pop_back();
+        auto message = messages.back();
+        messages.pop_back();
+        
+        auto text = message->getText();
+        
+        if (text->compare("We need to switch level, because main character died") == 0) {
+            notifyListenerAboutControllerDidFinish(this);
+            return true;
+        }
+        else if (text->compare("We need to switch level, because player step inside exit point.") == 0) {
+            generateMap();
+            return true;
+        }
+        
+        return true;
 	}
+    
+    return false;
 }
 
 void DMInGameController::objectsControlsDelegateObjectDidUpdate(shared_ptr<Object> object) {

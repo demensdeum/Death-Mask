@@ -13,6 +13,9 @@ using namespace DeathMaskGame;
 
 void MenuController::beforeStart() {
 
+    cameraUpdated = false;
+    skyscrapers.clear();
+    
 	auto flag2D = FSEGTFactory::makeBooleanComponent();
 	flag2D->setInstanceIdentifier(make_shared<string>(FSEGTConstComponentsFlag2D));
 	flag2D->setClassIdentifier(make_shared<string>(FSEGTConstComponentsFlag2D));
@@ -130,6 +133,11 @@ void MenuController::cursorControllerDidUpdateCursor(shared_ptr<CursorController
 
  void MenuController::step() {
 
+     if (cameraUpdated == false) {
+         objectsContext->updateObject(camera);
+         cameraUpdated = true;
+     }
+     
 	if (cursorController.get() != nullptr)
 	{
 		cursorController->step();

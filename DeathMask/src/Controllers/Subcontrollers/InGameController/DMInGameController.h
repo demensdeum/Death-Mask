@@ -1,7 +1,9 @@
 #ifndef DMINGAMECONTROLLERDEFINED
 #define DMINGAMECONTROLLERDEFINED
 
-class GameplayRulesController;
+namespace DeathMaskGame {
+    class GameplayRulesController;
+};
 
 #include "InGameUserInterfaceController.h"
 #include <DeathMask/src/Data/Components/Controls/PlayerControls/DMPlayerObjectControls.h>
@@ -9,6 +11,7 @@ class GameplayRulesController;
 #include <FlameSteelEngineGameToolkit/Controllers/GameController.h>
 #include <FlameSteelEngineGameToolkit/Controllers/FreeCameraController/FSEGTFreeCameraControllerDelegate.h>
 #include <FlameSteelEngineGameToolkit/Data/ObjectsMap/ObjectsMap.h>
+#include <DeathMask/src/Controllers/Subcontrollers/InGameController/GameplayRulesControllerDelegate.h>
 
 class FSEGTFreeCameraController;
 
@@ -20,7 +23,8 @@ class DMInGameController: public GameController,
 										public FSEGTFreeCameraControllerDelegate, 
 											public enable_shared_from_this<DMInGameController>,
 												public InGameUserInterfaceControllerDataSource,
-													public FSEGTObjectContextDelegate {
+													public FSEGTObjectContextDelegate,
+                                                        public GameplayRulesControllerDelegate {
 
 public:
 	DMInGameController();
@@ -39,6 +43,8 @@ public:
 	virtual void objectsContextObjectUpdate(shared_ptr<FSEGTObjectsContext> context, shared_ptr<Object> object);
 	virtual void objectsContextAllObjectsRemoved(shared_ptr<FSEGTObjectsContext> context);
 	virtual void objectsContextObjectRemoved(shared_ptr<FSEGTObjectsContext> context, shared_ptr<Object> object);
+    void gameplayRulesControllerMainCharacterDidDie(shared_ptr<GameplayRulesController> gameplayRulesController,
+                                                    shared_ptr<Object> mainCharacter);
 
 private:
 	shared_ptr<GameplayRulesController> gameplayRulesController;
@@ -58,7 +64,7 @@ private:
 	vector<shared_ptr<Message> > messages;
 
 	void useItemAtXY(shared_ptr<Objects> objects);
-	void handleMessages();
+	bool handleMessagesAndStopIfNeeded();
 	void generateMap();
 	void frameStep();
 	void removeObject(shared_ptr<Object> object);

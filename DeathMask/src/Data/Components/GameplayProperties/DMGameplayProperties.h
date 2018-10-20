@@ -46,6 +46,8 @@ public:
 	void addSynergy(int effect);
 	void addHealth(int effect);
 
+    void takeDamage(int effect);
+    
 	shared_ptr<string> weaponLabel();
 	shared_ptr<string> questItemLabel();
 
