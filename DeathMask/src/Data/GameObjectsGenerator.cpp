@@ -88,7 +88,7 @@ shared_ptr<Object> GameObjectsGenerator::generateDeathMask() {
 	auto secondNames = vector<string>{LocalizedString("")};
 	auto type = ItemType::deathMask;
 
-	return generateObject(type, Difficulty::hard, firstNames, secondNames, false);
+	return generateObject(type, Difficulty::hard, firstNames, secondNames, false, 0, 0);
 
 }
 
@@ -98,7 +98,7 @@ shared_ptr<Object> GameObjectsGenerator::generateQuestItem(enum Difficulty diffi
 	auto secondNames = vector<string>{LocalizedString("Card"), LocalizedString("Key")};
 	auto type = ItemType::questItem;
 
-	return generateObject(type, difficulty, firstNames, secondNames, false);
+	return generateObject(type, difficulty, firstNames, secondNames, false, 0, 0);
 
 }
 
@@ -172,7 +172,7 @@ shared_ptr<Object> GameObjectsGenerator::makeObject(ItemType type,
 	return item;
 }
 
-shared_ptr<Object> GameObjectsGenerator::generateObject(ItemType type, enum Difficulty itemDiffuclty, vector<string>firstNames, vector<string>secondNames, bool lockedByQuestItem) {
+shared_ptr<Object> GameObjectsGenerator::generateObject(ItemType type, enum Difficulty itemDiffuclty, vector<string>firstNames, vector<string>secondNames, bool lockedByQuestItem, int minimalEffect, int maximalEffect) {
 
 	auto firstRandom = FSCUtils::FSCRandomInt(firstNames.size());
 	auto secondRandom = FSCUtils::FSCRandomInt(secondNames.size());
@@ -183,7 +183,7 @@ shared_ptr<Object> GameObjectsGenerator::generateObject(ItemType type, enum Diff
 
 	auto name = make_shared<string>(label);
 
-	auto item = makeObject(type, name, 5, 10, lockedByQuestItem);
+	auto item = makeObject(type, name, minimalEffect, maximalEffect, lockedByQuestItem);
 
 	return item;
 };
@@ -236,7 +236,7 @@ shared_ptr<Object> GameObjectsGenerator::generateSynergyItem(enum Difficulty syn
 	auto secondNames = vector<string>{LocalizedString("tank"), LocalizedString("cassete"), LocalizedString("tablet")};
 	auto type = ItemType::synergyItem;
 
-	return generateObject(type,  synergyDifficulty, firstNames, secondNames, false);
+	return generateObject(type,  synergyDifficulty, firstNames, secondNames, false, 10, 30);
 
 }
 
@@ -288,7 +288,7 @@ shared_ptr<Object> GameObjectsGenerator::generateSupplyItem(enum Difficulty supp
 	auto secondNames = vector<string>{LocalizedString("painkiller"), LocalizedString("medkit"), LocalizedString("first aid")};
 	auto type = ItemType::supply;
 
-	return generateObject(type, supplyItemDifficulty, firstNames, secondNames, false);
+	return generateObject(type, supplyItemDifficulty, firstNames, secondNames, false, 10, 30);
 
 };
 

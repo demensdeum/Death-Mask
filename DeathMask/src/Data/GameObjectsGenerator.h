@@ -39,7 +39,7 @@ public:
 	static shared_ptr<Object> makeGSD(weak_ptr<MaterialLibrary> materialLibrary); // Giant Soviet Destructor
 
 private:
-	static shared_ptr<Object> generateObject(ItemType type, enum Difficulty itemDiffuclty, vector<string>firstNames, vector<string>secondNames, bool lockedByQuestItem);
+	static shared_ptr<Object> generateObject(ItemType type, enum Difficulty itemDiffuclty, vector<string>firstNames, vector<string>secondNames, bool lockedByQuestItem, int minimalEffect, int maximalEffect);
 
 	static shared_ptr<Object> makeObject(ItemType type, 
 									   shared_ptr<string> name, 

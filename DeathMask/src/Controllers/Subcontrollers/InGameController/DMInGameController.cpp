@@ -197,9 +197,16 @@ void DMInGameController::showMessage(shared_ptr<string> message) {
 
 void DMInGameController::gameplayRulesControllerMainCharacterDidDie(shared_ptr<GameplayRulesController> gameplayRulesController, shared_ptr<Object> mainCharacter) {
     
-    auto gameOverMessage = make_shared<Message>(make_shared<string>("About gameplay process"), make_shared<string>("We need to switch level, because main character died"));
-    messages.push_back(gameOverMessage);
+	auto gameOverMessage = make_shared<Message>(make_shared<string>("About gameplay process"), make_shared<string>("We need to switch level, because main character died"));
+	messages.push_back(gameOverMessage);
     
+}
+
+void DMInGameController::gameplayRulesControllerMainCharacterDidFoundDeathMask(shared_ptr<GameplayRulesController> gameplayRulesController) {
+
+	auto gameFinalMessage = make_shared<Message>(make_shared<string>("About gameplay process"), make_shared<string>("We need to finish game, because player found death-mask"));
+	messages.push_back(gameFinalMessage);
+
 }
 
 void DMInGameController::shooterObjectHitObject(shared_ptr<Object> shooterObject, shared_ptr<Object> hitObject) {
@@ -495,9 +502,13 @@ bool DMInGameController::handleMessagesAndStopIfNeeded() {
         auto text = message->getText();
         
         if (text->compare("We need to switch level, because main character died") == 0) {
-            notifyListenerAboutControllerDidFinish(this);
+            notifyListenerAboutControllerDidFinish(this, make_shared<string>("Game Over"));
             return true;
         }
+	else if (text->compare("We need to finish game, because player found death-mask") == 0) {
+            notifyListenerAboutControllerDidFinish(this, make_shared<string>("Game Final"));
+            return true;
+	}
         else if (text->compare("We need to switch level, because player step inside exit point.") == 0) {
             generateMap();
             return true;

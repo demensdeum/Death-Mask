@@ -21,8 +21,10 @@ namespace DeathMaskGame {
     class GameplayRulesControllerDelegate {
         
     public:
-        virtual void gameplayRulesControllerMainCharacterDidDie(shared_ptr<GameplayRulesController> gameplayRulesController,
+	virtual void gameplayRulesControllerMainCharacterDidDie(shared_ptr<GameplayRulesController> gameplayRulesController,
                                                          shared_ptr<Object> mainCharacter) = 0;
+
+	virtual void gameplayRulesControllerMainCharacterDidFoundDeathMask(shared_ptr<GameplayRulesController> gameplayRulesController) = 0;
         
     };
     

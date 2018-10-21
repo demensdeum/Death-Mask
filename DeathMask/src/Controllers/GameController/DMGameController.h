@@ -28,7 +28,7 @@ public:
     DMGameController();
     DMGameController(const DMGameController& orig);
     
-    virtual void controllerDidFinish(Controller *controller);  
+    virtual void controllerDidFinish(Controller *controller, shared_ptr<string> message);  
     
     virtual ~DMGameController();
     

@@ -28,6 +28,7 @@
 #include <DeathMask/src/Controllers/Subcontrollers/InGameController/DMInGameController.h>
 #include <DeathMask/src/Controllers/Subcontrollers/MenuController/MenuController.h>
 #include <DeathMask/src/Controllers/Subcontrollers/GameOverController/GameOverController.h>
+#include <DeathMask/src/Controllers/Subcontrollers/GameFinalController/GameFinalController.h>
 
 #include <FlameSteelEngineGameToolkitFSGL/FSEGTIOFSGLSystem.h>
 
@@ -69,6 +70,9 @@ DMGameController::DMGameController() {
 
 	auto gameOverController = make_shared<GameOverController>();
 	setControllerForState(gameOverController, DMStateGameOver);
+
+	auto gameFinalController = make_shared<GameFinalController>();
+	setControllerForState(gameFinalController, DMStateGameFinal);
 }
 
 shared_ptr<FSEGTIOSystem> DMGameController::makeIOSystem() {
@@ -76,7 +80,7 @@ shared_ptr<FSEGTIOSystem> DMGameController::makeIOSystem() {
     return ioSystem;
 }
 
-void DMGameController::controllerDidFinish(Controller *controller) {
+void DMGameController::controllerDidFinish(Controller *controller, shared_ptr<string> message) {
 
     switch (state) {
 
@@ -97,12 +101,30 @@ void DMGameController::controllerDidFinish(Controller *controller) {
 			break;
 
         case DMStateInGame:
+
+		if (message.get() == nullptr) {
+			throw logic_error("INGAME CONTROLLER FINISHED WITHOUT MESSAGE, CAN'T CONTINUE");
+		}
+
             ioSystem->materialLibrary->clear();
             objectsContext->removeAllObjects();
-            switchToState(DMStateGameOver);
+
+		if (message->compare("Game Over") == 0) {
+	            switchToState(DMStateGameOver);
+		}
+		else if (message->compare("Game Final") == 0) {
+	            switchToState(DMStateGameFinal);
+		}
+
             break;
 
 	case DMStateGameOver:
+            ioSystem->materialLibrary->clear();
+            objectsContext->removeAllObjects();
+            switchToState(DMStateMenu);
+            break;
+
+	case DMStateGameFinal:
             ioSystem->materialLibrary->clear();
             objectsContext->removeAllObjects();
             switchToState(DMStateMenu);

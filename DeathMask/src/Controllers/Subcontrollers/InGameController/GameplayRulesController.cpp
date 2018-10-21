@@ -102,9 +102,7 @@ UseItemResultType GameplayRulesController::objectTryingToUseItem(shared_ptr<Obje
 				break;
 
 			case deathMask:
-				cout << "YOU FOUND DEATH-MASK WOW! THE END" << endl;
-				gameplayProperties->questItem = item;
-				result = picked;
+				delegate->gameplayRulesControllerMainCharacterDidFoundDeathMask(shared_from_this()) ;
 				break;
                 
             case ItemType::count:
