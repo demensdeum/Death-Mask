@@ -19,3 +19,8 @@ OpenGL32.lib (native)<br>
 <br>
 Video:<br>
 https://www.youtube.com/watch?v=5aoRcW-4mRw
+---
+<a href="https://scan.coverity.com/projects/death-mask">
+  <img alt="Coverity Scan Build Status"
+       src="https://scan.coverity.com/projects/17040/badge.svg"/>
+</a>
