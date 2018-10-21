@@ -58,7 +58,7 @@ void DMInGameController::generateMap() {
 
 	for (auto i = 0; i < 20; i++)
 	{
-		auto item = objectsGenerator->generateRandomItem(easy);
+		auto item = objectsGenerator->generateRandomItem(easy, ioSystem->materialLibrary);
 		objects->addObject(item);
 	}
 
@@ -73,7 +73,7 @@ void DMInGameController::generateMap() {
 
 	for (auto i = 0; i < 20; i ++)
 	{
-		auto enemy = objectsGenerator->generateEnemy(easy);
+		auto enemy = objectsGenerator->generateEnemy(easy, ioSystem->materialLibrary);
 		//enemy->addComponent(flag2D);
 
 		enemies->addObject(enemy);
@@ -149,7 +149,7 @@ void DMInGameController::generateMap() {
 	gameplayProperties->synergyMax = 100;
 
 	gameplayProperties->creatureType = CreatureType::living;
-	gameplayProperties->weapon = GameObjectsGenerator().makePistol();
+	gameplayProperties->weapon = GameObjectsGenerator().makePistol(ioSystem->materialLibrary);
 
 	exitPoint =  objectsContext->objectWithInstanceIdentifier(make_shared<string>(ConstMapEntityEndPoint));
 

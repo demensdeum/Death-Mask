@@ -22,7 +22,7 @@ GameObjectsGenerator::GameObjectsGenerator() {
 using namespace DeathMaskGame;
 using namespace DeathMaskGame::Difficulty;
 
-shared_ptr<Object> GameObjectsGenerator::generateRandomItem(enum Difficulty itemDifficulty) {
+shared_ptr<Object> GameObjectsGenerator::generateRandomItem(enum Difficulty itemDifficulty, weak_ptr<MaterialLibrary> materialLibrary) {
 
 	auto randomItemType = FSCUtils::FSCRandomInt(ItemType::count);
 
@@ -42,7 +42,7 @@ shared_ptr<Object> GameObjectsGenerator::generateRandomItem(enum Difficulty item
 
 			cout << "Generate weapon item" << endl;
 
-			item = generateWeapon(itemDifficulty);
+			item = generateWeapon(itemDifficulty, materialLibrary);
 			break;
 
 		case supply:
@@ -102,27 +102,39 @@ shared_ptr<Object> GameObjectsGenerator::generateQuestItem(enum Difficulty diffi
 
 }
 
-shared_ptr<SurfaceMaterial> GameObjectsGenerator::makeSurfaceMaterialWeaponHUD(shared_ptr<string> path, SDL_Rect rect) {
+shared_ptr<SurfaceMaterial> GameObjectsGenerator::makeSurfaceMaterialWeaponHUD(shared_ptr<string> path, SDL_Rect rect, weak_ptr<MaterialLibrary> materialLibrary) {
 
-	auto surfaceMaterial = FSEGTFactory::makeSurfaceMaterialComponent(1024, 1024);
-
-	auto weaponSurface = IMG_Load(path->c_str());
-
-	if (!weaponSurface) {
-		cout << "Can't load image at path: " << path->c_str() << endl;
-		throw runtime_error("Can't load image for weapon hud in objects generator");
+	auto materialLibraryLocked = materialLibrary.lock();
+	if (materialLibraryLocked.get() == nullptr) {
+		throw logic_error("Material Library is null, can't get surface material");
 	}
 
-	auto surface = surfaceMaterial->material->surface;
+	auto surfaceMaterial = materialLibraryLocked->surfaceMaterialForPath(path);
 
-	SDL_FillRect(surface, NULL, SDL_MapRGBA(surface->format, 0, 0, 0, 1));
-	SDL_BlitSurface(weaponSurface, nullptr, surface, &rect);
-	SDL_FreeSurface(weaponSurface);
+	if (surfaceMaterial.get() == nullptr) {
 
-	surfaceMaterial->setInstanceIdentifier(make_shared<string>("Weapon HUD Image"));
-	surfaceMaterial->setClassIdentifier(make_shared<string>("Weapon HUD Image"));
+		surfaceMaterial = FSEGTFactory::makeSurfaceMaterialComponent(1024, 1024);
 
-	surfaceMaterial->debugIdentifier = "WEAPON SURFACE MATERIAL";
+		auto weaponSurface = IMG_Load(path->c_str());
+
+		if (!weaponSurface) {
+			cout << "Can't load image at path: " << path->c_str() << endl;
+			throw runtime_error("Can't load image for weapon hud in objects generator");
+		}
+
+		auto surface = surfaceMaterial->material->surface;
+
+		SDL_FillRect(surface, NULL, SDL_MapRGBA(surface->format, 0, 0, 0, 1));
+		SDL_BlitSurface(weaponSurface, nullptr, surface, &rect);
+		SDL_FreeSurface(weaponSurface);
+
+		surfaceMaterial->setInstanceIdentifier(make_shared<string>("Weapon HUD Image"));
+		surfaceMaterial->setClassIdentifier(make_shared<string>("Weapon HUD Image"));
+
+		surfaceMaterial->debugIdentifier = "WEAPON SURFACE MATERIAL";
+
+		materialLibraryLocked->setSurfaceMaterialForPath(surfaceMaterial, path);
+	}
 
 	return surfaceMaterial;
 
@@ -176,7 +188,7 @@ shared_ptr<Object> GameObjectsGenerator::generateObject(ItemType type, enum Diff
 	return item;
 };
 
-shared_ptr<Object> GameObjectsGenerator::generateEnemy(enum Difficulty enemyDifficulty) {
+shared_ptr<Object> GameObjectsGenerator::generateEnemy(enum Difficulty enemyDifficulty, weak_ptr<MaterialLibrary> materialLibrary) {
 
 	auto serializedCubeModel = FSGTAMazeObjectGenerator::generatePlane(1, 1, make_shared<string>("com.demensdeum.testenvironment.enemy.png"), -0.5, 0); // centered
 
@@ -209,7 +221,7 @@ shared_ptr<Object> GameObjectsGenerator::generateEnemy(enum Difficulty enemyDiff
 	hitboxRectangle->setInstanceIdentifier(make_shared<string>("Hitbox"));
 	object->addComponent(hitboxRectangle);
 
-	auto weapon = generateWeapon(Difficulty::easy);
+	auto weapon = generateWeapon(Difficulty::easy, materialLibrary);
 	gameplayProperties->weapon = weapon;
     
 	object->debugIdentifier = "Enemy";
@@ -228,7 +240,7 @@ shared_ptr<Object> GameObjectsGenerator::generateSynergyItem(enum Difficulty syn
 
 }
 
-shared_ptr<Object> GameObjectsGenerator::generateWeapon(enum Difficulty weaponDifficulty) {
+shared_ptr<Object> GameObjectsGenerator::generateWeapon(enum Difficulty weaponDifficulty, weak_ptr<MaterialLibrary> materialLibrary) {
 
     auto weaponType =  FSCUtils::FSCRandomInt(WeaponType::count);
     
@@ -251,19 +263,19 @@ shared_ptr<Object> GameObjectsGenerator::generateWeapon(enum Difficulty weaponDi
 	switch (weaponType) {
 
 		case WeaponType::pistol:
-			return makePistol();
+			return makePistol(materialLibrary);
 
 		case WeaponType::shotgun:
-			return makeShotgun();
+			return makeShotgun(materialLibrary);
 
 		case WeaponType::uzi:
-			return makeUzi();
+			return makeUzi(materialLibrary);
 
 		case WeaponType::assaultRifle:
-			return makeAssaultRifle();
+			return makeAssaultRifle(materialLibrary);
 
 		case WeaponType::gsd:
-			return makeGSD();
+			return makeGSD(materialLibrary);
 	}
 
 	throw logic_error("Can't generate weapon - incorrect weapon type");
@@ -280,7 +292,7 @@ shared_ptr<Object> GameObjectsGenerator::generateSupplyItem(enum Difficulty supp
 
 };
 
-shared_ptr<Object> GameObjectsGenerator::makePistol() {
+shared_ptr<Object> GameObjectsGenerator::makePistol(weak_ptr<MaterialLibrary> materialLibrary) {
 
 	auto name = make_shared<string>(LocalizedString("Pistol"));
 	auto type = ItemType::weapon;
@@ -297,14 +309,14 @@ shared_ptr<Object> GameObjectsGenerator::makePistol() {
 	weaponRect.h = 195;
 
 	auto path = make_shared<string>("data/com.demensdeum.pistol.hud.png");
-	auto hudImage = makeSurfaceMaterialWeaponHUD(path, weaponRect);
+	auto hudImage = makeSurfaceMaterialWeaponHUD(path, weaponRect, materialLibrary);
 	item->addComponent(hudImage);
 
 	return item;
 
 };
 
-shared_ptr<Object> GameObjectsGenerator::makeShotgun() {
+shared_ptr<Object> GameObjectsGenerator::makeShotgun(weak_ptr<MaterialLibrary> materialLibrary) {
 
 	auto name = make_shared<string>(LocalizedString("Shotgun"));
 	auto type = ItemType::weapon;
@@ -321,14 +333,14 @@ shared_ptr<Object> GameObjectsGenerator::makeShotgun() {
 	weaponRect.h = 195;
 
 	auto path = make_shared<string>("data/com.demensdeum.shotgun.hud.png");
-	auto hudImage = makeSurfaceMaterialWeaponHUD(path, weaponRect);
+	auto hudImage = makeSurfaceMaterialWeaponHUD(path, weaponRect, materialLibrary);
 	item->addComponent(hudImage);
 
 	return item;
 
 };
 
-shared_ptr<Object> GameObjectsGenerator::makeUzi() {
+shared_ptr<Object> GameObjectsGenerator::makeUzi(weak_ptr<MaterialLibrary> materialLibrary) {
 
 	auto name = make_shared<string>(LocalizedString("Uzi"));
 	auto type = ItemType::weapon;
@@ -345,14 +357,14 @@ shared_ptr<Object> GameObjectsGenerator::makeUzi() {
 	weaponRect.h = 195;
 
 	auto path = make_shared<string>("data/com.demensdeum.uzi.hud.png");
-	auto hudImage = makeSurfaceMaterialWeaponHUD(path, weaponRect);
+	auto hudImage = makeSurfaceMaterialWeaponHUD(path, weaponRect, materialLibrary);
 	item->addComponent(hudImage);
 
 	return item;
 
 };
 
-shared_ptr<Object> GameObjectsGenerator::makeAssaultRifle() {
+shared_ptr<Object> GameObjectsGenerator::makeAssaultRifle(weak_ptr<MaterialLibrary> materialLibrary) {
 
 	auto name = make_shared<string>(LocalizedString("Assault Rifle"));
 	auto type = ItemType::weapon;
@@ -369,13 +381,13 @@ shared_ptr<Object> GameObjectsGenerator::makeAssaultRifle() {
 	weaponRect.h = 195;
 
 	auto path = make_shared<string>("data/com.demensdeum.assaultrifle.hud.png");
-	auto hudImage = makeSurfaceMaterialWeaponHUD(path, weaponRect);
+	auto hudImage = makeSurfaceMaterialWeaponHUD(path, weaponRect, materialLibrary);
 	item->addComponent(hudImage);
 
 	return item;
 };
 
-shared_ptr<Object> GameObjectsGenerator::makeGSD() {
+shared_ptr<Object> GameObjectsGenerator::makeGSD(weak_ptr<MaterialLibrary> materialLibrary) {
 
 	auto name = make_shared<string>(LocalizedString("GSD-4000"));
 	auto type = ItemType::weapon;
@@ -392,7 +404,7 @@ shared_ptr<Object> GameObjectsGenerator::makeGSD() {
 	weaponRect.h = 195;
 
 	auto path = make_shared<string>("data/com.demensdeum.gsd.hud.png");
-	auto hudImage = makeSurfaceMaterialWeaponHUD(path, weaponRect);
+	auto hudImage = makeSurfaceMaterialWeaponHUD(path, weaponRect, materialLibrary);
 	item->addComponent(hudImage);
 
 	return item;
