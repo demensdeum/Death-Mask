@@ -26,9 +26,11 @@ void GameplayRulesController::step()
 	auto synergyTimer = std::time(nullptr);
 	auto shouldDecrementSynergy = synergyTimer  > 20 + previousSynergyTimer;
 
-	for (auto i = 0; i < objects->size(); i++)
+	auto copiedObjects = objects->copy();
+
+	for (auto i = 0; i < copiedObjects->size(); i++)
 	{
-		auto object = objects->objectAtIndex(i);
+		auto object = copiedObjects->objectAtIndex(i);
 		auto gameplayProperties = DMUtils::getObjectGameplayProperties(object);
 
 		if (gameplayProperties->creatureType == CreatureType::living && shouldDecrementSynergy)
@@ -52,6 +54,12 @@ void GameplayRulesController::step()
         }
     }
     
+}
+
+void GameplayRulesController::removeObject(shared_ptr<Object> object) {
+
+	objects->removeObject(object);
+
 }
 
 UseItemResultType GameplayRulesController::objectTryingToUseItem(shared_ptr<Object> object, shared_ptr<Object> item)

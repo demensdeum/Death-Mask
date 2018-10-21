@@ -29,6 +29,7 @@ public:
                             shared_ptr<Object> mainCharacter,
                             shared_ptr<GameplayRulesControllerDelegate> delegate);
 	void step();
+	void removeObject(shared_ptr<Object> object);
 
 	UseItemResultType objectTryingToUseItem(shared_ptr<Object> object, shared_ptr<Object> item);
 

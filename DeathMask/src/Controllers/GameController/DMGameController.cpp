@@ -92,8 +92,8 @@ void DMGameController::controllerDidFinish(Controller *controller) {
 			break;
 
         case DMStateInGame:
-            objectsContext->removeAllObjects();
             ioSystem->materialLibrary->clear();
+            objectsContext->removeAllObjects();
             switchToState(DMStateMenu);
             break;
     }

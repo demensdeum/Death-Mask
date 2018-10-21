@@ -105,6 +105,7 @@ shared_ptr<Object> GameObjectsGenerator::generateQuestItem(enum Difficulty diffi
 shared_ptr<SurfaceMaterial> GameObjectsGenerator::makeSurfaceMaterialWeaponHUD(shared_ptr<string> path, SDL_Rect rect) {
 
 	auto surfaceMaterial = FSEGTFactory::makeSurfaceMaterialComponent(1024, 1024);
+
 	auto weaponSurface = IMG_Load(path->c_str());
 
 	if (!weaponSurface) {
@@ -120,6 +121,8 @@ shared_ptr<SurfaceMaterial> GameObjectsGenerator::makeSurfaceMaterialWeaponHUD(s
 
 	surfaceMaterial->setInstanceIdentifier(make_shared<string>("Weapon HUD Image"));
 	surfaceMaterial->setClassIdentifier(make_shared<string>("Weapon HUD Image"));
+
+	surfaceMaterial->debugIdentifier = "WEAPON SURFACE MATERIAL";
 
 	return surfaceMaterial;
 
@@ -206,9 +209,11 @@ shared_ptr<Object> GameObjectsGenerator::generateEnemy(enum Difficulty enemyDiff
 	hitboxRectangle->setInstanceIdentifier(make_shared<string>("Hitbox"));
 	object->addComponent(hitboxRectangle);
 
-    auto weapon = generateWeapon(Difficulty::easy);
-    gameplayProperties->weapon = weapon;
+	auto weapon = generateWeapon(Difficulty::easy);
+	gameplayProperties->weapon = weapon;
     
+	object->debugIdentifier = "Enemy";
+
 	return object;
 
 };

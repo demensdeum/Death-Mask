@@ -27,7 +27,7 @@ public:
     
 protected:
     
-    shared_ptr<Object> object;
+    weak_ptr<Object> object;
 };
 
 #endif /* DMOBJECTCONTROLS_H */

@@ -271,6 +271,7 @@ void DMInGameController::useItemAtXY(shared_ptr<Objects> objects) {
 
 void DMInGameController::removeObject(shared_ptr<Object> object) {
 	objectsContext->removeObject(object);
+	gameplayRulesController->removeObject(object);
 
 	auto uuid = object->uuid;
 

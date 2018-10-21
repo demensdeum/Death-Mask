@@ -24,7 +24,13 @@ void DMPlayerObjectControls::step(shared_ptr<DMObjectControlsDelegate> delegate)
 
 	auto step = 0.1;
 
-	auto position = FSEGTUtils::getObjectPosition(object);
+	auto lockedObject = object.lock();
+
+	if (lockedObject.get() == nullptr) {
+		return;
+	}
+
+	auto position = FSEGTUtils::getObjectPosition(lockedObject);
       
 	if (inputController->isLeftKeyPressed()) {
 
@@ -70,7 +76,7 @@ void DMPlayerObjectControls::step(shared_ptr<DMObjectControlsDelegate> delegate)
 
 	}
 
-	auto rotation = FSEGTUtils::getObjectRotation(object);
+	auto rotation = FSEGTUtils::getObjectRotation(lockedObject);
 
 	if (inputController->pointerXdiff != 0)
 	{
@@ -79,14 +85,20 @@ void DMPlayerObjectControls::step(shared_ptr<DMObjectControlsDelegate> delegate)
 
 	if (updateNeeded)
 	{
-		delegate->objectsControlsDelegateObjectDidUpdate(object);
+		delegate->objectsControlsDelegateObjectDidUpdate(lockedObject);
 	}
 }
 
 void DMPlayerObjectControls::moveByRotation(float x, float y, float z, shared_ptr<DMObjectControlsDelegate> delegate) {
 
-		auto position = FSEGTUtils::getObjectPosition(object)->copy();
-		auto rotation = FSEGTUtils::getObjectRotation(object);
+		auto lockedObject = object.lock();
+
+		if (lockedObject.get() == nullptr) {
+			return;
+		}
+
+		auto position = FSEGTUtils::getObjectPosition(lockedObject)->copy();
+		auto rotation = FSEGTUtils::getObjectRotation(lockedObject);
 
 		glm::mat4 matrix(1.0);
 
@@ -104,22 +116,22 @@ void DMPlayerObjectControls::moveByRotation(float x, float y, float z, shared_pt
 		position->y = result.y;
 		position->z = result.z;
 
-	if (delegate->objectsControlsIsObjectCanMoveToPosition(shared_from_this(), object, position)) {
-		FSEGTUtils::getObjectPosition(object)->populate(position);
+	if (delegate->objectsControlsIsObjectCanMoveToPosition(shared_from_this(), lockedObject, position)) {
+		FSEGTUtils::getObjectPosition(lockedObject)->populate(position);
 	}
 	else {
 		// only x
-		auto positionXonly = FSEGTUtils::getObjectPosition(object)->copy();
+		auto positionXonly = FSEGTUtils::getObjectPosition(lockedObject)->copy();
 		positionXonly->x = position->x;
-		if (delegate->objectsControlsIsObjectCanMoveToPosition(shared_from_this(), object, positionXonly)) {
-			FSEGTUtils::getObjectPosition(object)->populate(positionXonly);
+		if (delegate->objectsControlsIsObjectCanMoveToPosition(shared_from_this(), lockedObject, positionXonly)) {
+			FSEGTUtils::getObjectPosition(lockedObject)->populate(positionXonly);
 		}
 		else {
 			// only z
-			auto positionZonly = FSEGTUtils::getObjectPosition(object)->copy();
+			auto positionZonly = FSEGTUtils::getObjectPosition(lockedObject)->copy();
 			positionZonly->z = position->z;
-			if (delegate->objectsControlsIsObjectCanMoveToPosition(shared_from_this(), object, positionZonly)) {
-				FSEGTUtils::getObjectPosition(object)->populate(positionZonly);
+			if (delegate->objectsControlsIsObjectCanMoveToPosition(shared_from_this(), lockedObject, positionZonly)) {
+				FSEGTUtils::getObjectPosition(lockedObject)->populate(positionZonly);
 			}
 		}
 	}

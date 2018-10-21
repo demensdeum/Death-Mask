@@ -8,7 +8,13 @@ using namespace DeathMaskGame;
 
 void ZombieControls::enableLookAt(shared_ptr<Object> target) {
 
-	lookAtRotator = make_shared<LookAtRotator>(object, target);
+	auto lockedObject = object.lock();
+
+	if (lockedObject.get() == nullptr) {
+		return;
+	}
+
+	lookAtRotator = make_shared<LookAtRotator>(lockedObject, target);
 
 }
 
@@ -18,14 +24,15 @@ void ZombieControls::step(shared_ptr<DMObjectControlsDelegate> delegate) {
 		throw logic_error("Can't rotate zombie, because look at rotator disabled");
 	}
 
-	if (object.get() == nullptr)
-	{
-		throw logic_error("Can't control null zombie");
+	auto lockedObject = object.lock();
+
+	if (lockedObject.get() == nullptr) {
+		return;
 	}
 
 	auto step = 0.1;
 
-	auto position = FSEGTUtils::getObjectPosition(object)->copy();
+	auto position = FSEGTUtils::getObjectPosition(lockedObject)->copy();
 
 	if (position.get() == nullptr)
 	{
@@ -66,26 +73,26 @@ void ZombieControls::step(shared_ptr<DMObjectControlsDelegate> delegate) {
 
 	lookAtRotator->step();
 
-	if (delegate->objectsControlsIsObjectCanMoveToPosition(shared_from_this(), object, position)) {
-		FSEGTUtils::getObjectPosition(object)->populate(position);
+	if (delegate->objectsControlsIsObjectCanMoveToPosition(shared_from_this(), lockedObject, position)) {
+		FSEGTUtils::getObjectPosition(lockedObject)->populate(position);
 	}
 	else {
 		// only x
-		auto positionXonly = FSEGTUtils::getObjectPosition(object)->copy();
+		auto positionXonly = FSEGTUtils::getObjectPosition(lockedObject)->copy();
 		positionXonly->x = position->x;
-		if (delegate->objectsControlsIsObjectCanMoveToPosition(shared_from_this(), object, positionXonly)) {
-			FSEGTUtils::getObjectPosition(object)->populate(positionXonly);
+		if (delegate->objectsControlsIsObjectCanMoveToPosition(shared_from_this(), lockedObject, positionXonly)) {
+			FSEGTUtils::getObjectPosition(lockedObject)->populate(positionXonly);
 		}
 		else {
 			// only z
-			auto positionZonly = FSEGTUtils::getObjectPosition(object)->copy();
+			auto positionZonly = FSEGTUtils::getObjectPosition(lockedObject)->copy();
 			positionZonly->z = position->z;
-			if (delegate->objectsControlsIsObjectCanMoveToPosition(shared_from_this(), object, positionZonly)) {
-				FSEGTUtils::getObjectPosition(object)->populate(positionZonly);
+			if (delegate->objectsControlsIsObjectCanMoveToPosition(shared_from_this(), lockedObject, positionZonly)) {
+				FSEGTUtils::getObjectPosition(lockedObject)->populate(positionZonly);
 			}
 		}
 	}
-	delegate->objectsControlsDelegateObjectDidUpdate(object);
+	delegate->objectsControlsDelegateObjectDidUpdate(lockedObject);
 
 	walkTime -= 1;
 
@@ -95,7 +102,7 @@ void ZombieControls::step(shared_ptr<DMObjectControlsDelegate> delegate) {
 
 		shootTimer = 0;
 
-		delegate->objectDidShoot(object);
+		delegate->objectDidShoot(lockedObject);
 
 	}
 
