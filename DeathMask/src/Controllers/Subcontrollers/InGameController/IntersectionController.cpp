@@ -22,7 +22,7 @@ shared_ptr<Objects> IntersectionController::rayFromObjectIntersectsObjects(share
 		matrix = glm::rotate(matrix, rotation->y, glm::vec3(0.f, 1.f, 0.f));
 		matrix = glm::rotate(matrix, rotation->z, glm::vec3(0.f, 0.f, 1.f));
 
-			float step = invertZ ? 0.1 : -0.1;
+			float step = invertZ ? 0.3 : -0.3;
 
 			float x = 0;
 			float y = 0;

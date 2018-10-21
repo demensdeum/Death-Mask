@@ -42,6 +42,7 @@ private:
 	shared_ptr<Object> sky;
 	shared_ptr<FSEGTFreeCameraController> freeCameraController;
 	vector<shared_ptr<Object> > skyscrapers;
+	int cooldownTimer = 0;
 };
 
 };

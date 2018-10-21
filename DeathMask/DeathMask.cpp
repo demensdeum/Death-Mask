@@ -15,7 +15,7 @@ try
 {
 #endif
         auto controller = make_shared<DMGameController>();
-        controller->startGameFromState(DMStateInGame);
+        controller->startGameFromState(DMStateCompanyLogo);
 #ifdef __EMSCRIPTEN__
 }
 catch (const std::exception &exc)

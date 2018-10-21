@@ -20,7 +20,7 @@ enum DMState {
 	DMStateFlameSteelEngineLogo,
 	DMStateMenu,
 	DMStateInGame,
-    
+	DMStateGameOver
 };
 
 #endif /* DMCONST_H */

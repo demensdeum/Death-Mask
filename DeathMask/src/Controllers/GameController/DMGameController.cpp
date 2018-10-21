@@ -27,9 +27,11 @@
 #include <DeathMask/src/Controllers/Subcontrollers/CreditsController/CreditsController.h>
 #include <DeathMask/src/Controllers/Subcontrollers/InGameController/DMInGameController.h>
 #include <DeathMask/src/Controllers/Subcontrollers/MenuController/MenuController.h>
+#include <DeathMask/src/Controllers/Subcontrollers/GameOverController/GameOverController.h>
+
 #include <FlameSteelEngineGameToolkitFSGL/FSEGTIOFSGLSystem.h>
 
-#define DEATHMASK_PLAY_MUSIC 0
+#define DEATHMASK_PLAY_MUSIC 1
 
 DMGameController::DMGameController() {
 
@@ -40,7 +42,7 @@ DMGameController::DMGameController() {
     // IO System
     
     auto ioSystemParams = make_shared<FSEGTIOGenericSystemParams>();
-    ioSystemParams->title = FSCUtils::localizedString(make_shared<string>("Death Mask v0.3"));
+    ioSystemParams->title = FSCUtils::localizedString(make_shared<string>("Death Mask v0.4"));
     ioSystemParams->width = DMConstIOSystemScreenWidth;
     ioSystemParams->height = DMConstIOSystemScreenHeight;
     
@@ -64,6 +66,9 @@ DMGameController::DMGameController() {
 
 	auto inGameController = make_shared<DMInGameController>();
 	setControllerForState(inGameController, DMStateInGame);
+
+	auto gameOverController = make_shared<GameOverController>();
+	setControllerForState(gameOverController, DMStateGameOver);
 }
 
 shared_ptr<FSEGTIOSystem> DMGameController::makeIOSystem() {
@@ -94,8 +99,15 @@ void DMGameController::controllerDidFinish(Controller *controller) {
         case DMStateInGame:
             ioSystem->materialLibrary->clear();
             objectsContext->removeAllObjects();
+            switchToState(DMStateGameOver);
+            break;
+
+	case DMStateGameOver:
+            ioSystem->materialLibrary->clear();
+            objectsContext->removeAllObjects();
             switchToState(DMStateMenu);
             break;
+
     }
 }
 

@@ -13,6 +13,7 @@ using namespace DeathMaskGame;
 
 void MenuController::beforeStart() {
 
+	cooldownTimer = 0;
     cameraUpdated = false;
     skyscrapers.clear();
     
@@ -43,7 +44,7 @@ void MenuController::beforeStart() {
 	for (auto i = 0; i < 5; i++)
 	{
 
-		float skyscraperY = -0.67  - FSCUtils::FSCRandomInt(4) / 10.f;
+		float skyscraperY = -0.72  - FSCUtils::FSCRandomInt(4) / 10.f;
 		float skyscraperZ = -1.15 + FSCUtils::FSCRandomInt(15) / 10.f;
 
 		auto skyscraper = FSEGTFactory::makeOnSceneObject(
@@ -156,6 +157,9 @@ void MenuController::cursorControllerDidUpdateCursor(shared_ptr<CursorController
 	{
 		ioSystem->stop();
 		exit(0);
+	}
+	else if (cooldownTimer < 80) {
+		cooldownTimer++;
 	}
  	else if (ioSystem->inputController->isShootKeyPressed()) {
 		
