@@ -32,7 +32,7 @@
 
 #include <FlameSteelEngineGameToolkitFSGL/FSEGTIOFSGLSystem.h>
 
-#define DEATHMASK_PLAY_MUSIC 1
+#define DEATHMASK_PLAY_MUSIC 0
 
 DMGameController::DMGameController() {
 
@@ -43,7 +43,7 @@ DMGameController::DMGameController() {
     // IO System
     
     auto ioSystemParams = make_shared<FSEGTIOGenericSystemParams>();
-    ioSystemParams->title = FSCUtils::localizedString(make_shared<string>("Death Mask v0.4"));
+    ioSystemParams->title = FSCUtils::localizedString(make_shared<string>("Death Mask v0.5"));
     ioSystemParams->width = DMConstIOSystemScreenWidth;
     ioSystemParams->height = DMConstIOSystemScreenHeight;
     
