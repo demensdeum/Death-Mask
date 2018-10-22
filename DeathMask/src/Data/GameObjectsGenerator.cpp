@@ -308,7 +308,7 @@ shared_ptr<Object> GameObjectsGenerator::makePistol(weak_ptr<MaterialLibrary> ma
 	weaponRect.w = 256;
 	weaponRect.h = 195;
 
-	auto path = make_shared<string>("data/com.demensdeum.pistol.hud.png");
+	auto path = make_shared<string>("data/com.demensdeum.pistol.hud.keepsize.png");
 	auto hudImage = makeSurfaceMaterialWeaponHUD(path, weaponRect, materialLibrary);
 	item->addComponent(hudImage);
 
@@ -332,7 +332,7 @@ shared_ptr<Object> GameObjectsGenerator::makeShotgun(weak_ptr<MaterialLibrary> m
 	weaponRect.w = 256;
 	weaponRect.h = 195;
 
-	auto path = make_shared<string>("data/com.demensdeum.shotgun.hud.png");
+	auto path = make_shared<string>("data/com.demensdeum.shotgun.hud.keepsize.png");
 	auto hudImage = makeSurfaceMaterialWeaponHUD(path, weaponRect, materialLibrary);
 	item->addComponent(hudImage);
 
@@ -356,7 +356,7 @@ shared_ptr<Object> GameObjectsGenerator::makeUzi(weak_ptr<MaterialLibrary> mater
 	weaponRect.w = 256;
 	weaponRect.h = 195;
 
-	auto path = make_shared<string>("data/com.demensdeum.uzi.hud.png");
+	auto path = make_shared<string>("data/com.demensdeum.uzi.hud.keepsize.png");
 	auto hudImage = makeSurfaceMaterialWeaponHUD(path, weaponRect, materialLibrary);
 	item->addComponent(hudImage);
 
@@ -380,7 +380,7 @@ shared_ptr<Object> GameObjectsGenerator::makeAssaultRifle(weak_ptr<MaterialLibra
 	weaponRect.w = 256;
 	weaponRect.h = 195;
 
-	auto path = make_shared<string>("data/com.demensdeum.assaultrifle.hud.png");
+	auto path = make_shared<string>("data/com.demensdeum.assaultrifle.hud.keepsize.png");
 	auto hudImage = makeSurfaceMaterialWeaponHUD(path, weaponRect, materialLibrary);
 	item->addComponent(hudImage);
 
@@ -403,7 +403,7 @@ shared_ptr<Object> GameObjectsGenerator::makeGSD(weak_ptr<MaterialLibrary> mater
 	weaponRect.w = 256;
 	weaponRect.h = 195;
 
-	auto path = make_shared<string>("data/com.demensdeum.gsd.hud.png");
+	auto path = make_shared<string>("data/com.demensdeum.gsd.hud.keepsize.png");
 	auto hudImage = makeSurfaceMaterialWeaponHUD(path, weaponRect, materialLibrary);
 	item->addComponent(hudImage);
 
