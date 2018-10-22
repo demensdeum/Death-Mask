@@ -7,10 +7,11 @@ print("Power of two converter textures converter")
 directory = "data"
 
 for filename in os.listdir(directory):
-    if filename.endswith(".png"): 
-    
-    	if filename.endswith("keepsize.png"):
-    		continue
+
+    if filename.endswith("keepsize.png"):
+    	continue
+
+    elif filename.endswith(".png"): 
     
 		filePath = os.path.join(directory, filename)
 
