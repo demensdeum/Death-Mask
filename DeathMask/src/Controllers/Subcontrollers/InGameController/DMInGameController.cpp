@@ -16,6 +16,7 @@
 #include <FlameSteelEngineGameToolkitAlgorithms/Algorithms/MapGenerator/FSEGTAMapGeneratorParams.h>
 #include <FlameSteelEngineGameToolkit/Controllers/FreeCameraController/FSEGTFreeCameraController.h>
 #include <FlameSteelEngineGameToolkitAlgorithms/Algorithms/MazeObjectGenerator/FSGTAMazeObjectGenerator.h>
+#include <FlameSteelEngineGameToolkit/Data/Components/Touch/FSEGTTouch.h>
 #include "IntersectionController.h"
 
 #include "GameplayRulesController.h"
@@ -378,15 +379,15 @@ void DMInGameController::step() {
 
 void DMInGameController::frameStep() {
 
-auto inputController = ioSystem->inputController;
+	auto inputController = ioSystem->inputController;
+
+      	inputController->pollKey();
 
 	playerObjectControls->step(shared_from_this());
 	inGameUserInterfaceController->step();
 	objectsContext->updateObject(uiObject);
 
 	renderer->render(gameData);
-
-      	inputController->pollKey();
 
 	if (inputController->isExitKeyPressed()) {
 
@@ -469,6 +470,8 @@ auto inputController = ioSystem->inputController;
 
 		}
 	}
+
+	inputController->clearTouches();
 
 }
 

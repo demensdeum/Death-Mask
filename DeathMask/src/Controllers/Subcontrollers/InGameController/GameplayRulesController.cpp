@@ -24,7 +24,7 @@ GameplayRulesController::GameplayRulesController(shared_ptr<Objects> objects, sh
 void GameplayRulesController::step()
 {
 	auto synergyTimer = std::time(nullptr);
-	auto synergyTimerTimeout = 20;
+	auto synergyTimerTimeout = 10;
 	auto synergyDecrementFactor = 1;
 	auto shouldDecrementSynergy = synergyTimer  > synergyTimerTimeout + previousSynergyTimer;
 

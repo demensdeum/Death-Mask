@@ -12,6 +12,9 @@
  */
 
 #include "DMPlayerObjectControls.h"
+#include <iostream>
+
+using namespace std;
 
 #include <glm/gtc/matrix_transform.hpp>
 #include <FlameSteelEngineGameToolkit/Utils/FSEGTUtils.h>
@@ -28,6 +31,30 @@ void DMPlayerObjectControls::step(shared_ptr<DMObjectControlsDelegate> delegate)
 
 	if (lockedObject.get() == nullptr) {
 		return;
+	}
+
+	if (inputController->touches->size() > 0) {
+
+		cout << "touch handle inside player controls" << endl;
+
+		auto touch = static_pointer_cast<FSEGTTouch>(inputController->touches->objectAtIndex(0));
+
+		auto rotation = FSEGTUtils::getObjectRotation(lockedObject);
+
+		if (touch->x< 512) {
+			rotation->y += 0.1;
+		}
+		else {
+			rotation->y -= 0.1;
+		}
+
+#if DMPLAYEROBJECTCONTROLSMOVEBYDIRECTION == 1
+		moveByRotation(0, 0, -step, delegate);
+#else
+		position->z -= step;
+#endif
+		updateNeeded = true;
+
 	}
 
 	auto position = FSEGTUtils::getObjectPosition(lockedObject);
