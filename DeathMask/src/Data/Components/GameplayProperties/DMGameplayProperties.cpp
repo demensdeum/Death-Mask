@@ -21,7 +21,7 @@ DMGameplayProperties::DMGameplayProperties() {
 }
 
 bool DMGameplayProperties::isDead() {
-        return health < 1;
+        return health < 1 || synergy < 1;
 }
 
 void DMGameplayProperties::addSynergy(int effect) {

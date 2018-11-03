@@ -24,7 +24,9 @@ GameplayRulesController::GameplayRulesController(shared_ptr<Objects> objects, sh
 void GameplayRulesController::step()
 {
 	auto synergyTimer = std::time(nullptr);
-	auto shouldDecrementSynergy = synergyTimer  > 20 + previousSynergyTimer;
+	auto synergyTimerTimeout = 20;
+	auto synergyDecrementFactor = 1;
+	auto shouldDecrementSynergy = synergyTimer  > synergyTimerTimeout + previousSynergyTimer;
 
 	auto copiedObjects = objects->copy();
 
@@ -35,7 +37,7 @@ void GameplayRulesController::step()
 
 		if (gameplayProperties->creatureType == CreatureType::living && shouldDecrementSynergy)
 		{
-			gameplayProperties->synergy -= 1;
+			gameplayProperties->synergy -= synergyDecrementFactor;
 		}
 	}
 
