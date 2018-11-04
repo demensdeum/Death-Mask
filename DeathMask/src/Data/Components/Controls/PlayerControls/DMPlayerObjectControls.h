@@ -45,6 +45,14 @@ public:
 private:
 	void moveByRotation(float x, float y, float z, shared_ptr<DMObjectControlsDelegate> delegate);
 
+	shared_ptr<string> viewTouchUUID;
+	int viewTouchStartX = -1;
+	int viewTouchStartY = -1;
+
+	shared_ptr<string> moveTouchUUID;
+	int moveTouchStartX = -1;
+	int moveTouchStartY = -1;
+
 };
 
 #endif /* DMPLAYERCONTROLS_H */
