@@ -290,6 +290,8 @@ void DMInGameController::removeObject(shared_ptr<Object> object) {
 
 void DMInGameController::beforeStart() {
  
+	stickController = make_shared<StickController>(ioSystem->inputController);
+
 	mainCharacter = FSEGTFactory::makeOnSceneObject(
 		make_shared<string>("main character"),
 		make_shared<string>("main character"),

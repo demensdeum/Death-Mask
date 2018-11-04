@@ -12,6 +12,7 @@ namespace DeathMaskGame {
 #include <FlameSteelEngineGameToolkit/Controllers/FreeCameraController/FSEGTFreeCameraControllerDelegate.h>
 #include <FlameSteelEngineGameToolkit/Data/ObjectsMap/ObjectsMap.h>
 #include <DeathMask/src/Controllers/Subcontrollers/InGameController/GameplayRulesControllerDelegate.h>
+#include <FlameSteelEngineGameToolkit/Controllers/StickController.h>
 
 class FSEGTFreeCameraController;
 
@@ -61,6 +62,7 @@ private:
 	shared_ptr<DMPlayerObjectControls> playerObjectControls;
 	shared_ptr<ObjectsMap> objectsMap;
 	shared_ptr<Objects> enemies;
+	shared_ptr<StickController> stickController;
 
 	void shooterObjectHitObject(shared_ptr<Object> shooterObject, shared_ptr<Object> hitObject);
 
