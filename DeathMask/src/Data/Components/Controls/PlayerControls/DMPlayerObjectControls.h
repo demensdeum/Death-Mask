@@ -15,13 +15,10 @@
 #define DMPLAYERCONTROLS_H
 
 #include <DeathMask/src/Data/Components/Controls/DMObjectControls.h>
-
 #include <FlameSteelEngineGameToolkit/IO/Input/FSEGTInputController.h>
-
 #include <FlameSteelEngineGameToolkit/Data/Components/Vector/FSEGTVector.h>
-
 #include <FlameSteelEngineGameToolkit/Data/Components/GameMap/GameMap.h>
-
+#include <FlameSteelEngineGameToolkit/Controllers/StickController.h>
 #include <memory>
 
 using namespace std;
@@ -29,10 +26,11 @@ using namespace FlameSteelEngine::GameToolkit;
 
 class DMPlayerObjectControls : public DMObjectControls, public enable_shared_from_this<DMPlayerObjectControls> {
 public:
-    DMPlayerObjectControls(shared_ptr<Object> object, shared_ptr<FSEGTInputController> inputController, shared_ptr<GameMap> gameMap) : DMObjectControls(object) {
+    DMPlayerObjectControls(shared_ptr<Object> object, shared_ptr<FSEGTInputController> inputController, shared_ptr<GameMap> gameMap, shared_ptr<StickController> stickController) : DMObjectControls(object) {
     
-        this->inputController = inputController;
-        this->gameMap = gameMap;
+	this->stickController = stickController;
+	this->inputController = inputController;
+ 	this->gameMap = gameMap;
         
     };
     virtual ~DMPlayerObjectControls();
@@ -45,13 +43,9 @@ public:
 private:
 	void moveByRotation(float x, float y, float z, shared_ptr<DMObjectControlsDelegate> delegate);
 
-	shared_ptr<string> viewTouchUUID;
-	int viewTouchStartX = -1;
-	int viewTouchStartY = -1;
+	float viewTouchStartX = -1;
 
-	shared_ptr<string> moveTouchUUID;
-	int moveTouchStartX = -1;
-	int moveTouchStartY = -1;
+	shared_ptr<StickController> stickController;
 
 };
 

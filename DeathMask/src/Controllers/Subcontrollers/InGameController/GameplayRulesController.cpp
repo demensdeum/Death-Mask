@@ -76,7 +76,7 @@ UseItemResultType GameplayRulesController::objectTryingToUseItem(shared_ptr<Obje
 
 		if (objectItemProperties->lockedByQuestItem == true && gameplayProperties->questItem.get() == nullptr)
 		{
-			cout << "Can't pickup item - quest item required to unlock" << endl;
+			//cout << "Can't pickup item - quest item required to unlock" << endl;
 			return questItemNeeded;
 		}
 

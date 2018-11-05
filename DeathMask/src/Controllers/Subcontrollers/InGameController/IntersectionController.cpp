@@ -43,12 +43,12 @@ shared_ptr<Objects> IntersectionController::rayFromObjectIntersectsObjects(share
 
 			if (tile == 1) {
 
-				cout << "ray trace stop - wall" << endl;
+				//cout << "ray trace stop - wall" << endl;
 
 				break;
 			}
 
-			cout << "check intersection" << endl;
+			//cout << "check intersection" << endl;
 
 			auto objectsIntersected = objectsMap->objectsAtXY(tileX, tileY);
 
@@ -65,7 +65,7 @@ shared_ptr<Objects> IntersectionController::rayFromObjectIntersectsObjects(share
 			}
 		}
 
-	cout << "objects intersected number: " << objects->size() << endl;
+	//cout << "objects intersected number: " << objects->size() << endl;
 
 	return objects;
 

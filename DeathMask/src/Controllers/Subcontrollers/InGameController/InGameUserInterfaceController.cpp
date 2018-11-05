@@ -154,11 +154,11 @@ void InGameUserInterfaceController::step() {
 				SDL_BlitSurface(weaponSurface, nullptr, surface, nullptr);
 			}
 			else {
-				cout << "There is weapon, there is material, but no surface to render" << endl;
+				//cout << "There is weapon, there is material, but no surface to render" << endl;
 			}
 		}
 		else {
-			cout << "There is weapon, but no material surface to render" << endl;
+			//cout << "There is weapon, but no material surface to render" << endl;
 		}
 	}
 

@@ -40,35 +40,35 @@ shared_ptr<Object> GameObjectsGenerator::generateRandomItem(enum Difficulty item
 
 		case weapon:
 
-			cout << "Generate weapon item" << endl;
+			//cout << "Generate weapon item" << endl;
 
 			item = generateWeapon(itemDifficulty, materialLibrary);
 			break;
 
 		case supply:
 
-			cout << "Generate supply item" << endl;
+			//cout << "Generate supply item" << endl;
 
 			item  = generateSupplyItem(itemDifficulty);
 			break;
 
 		case questItem:
 
-			cout << "Generate quest item" << endl;
+			//cout << "Generate quest item" << endl;
 
 			item = generateQuestItem(itemDifficulty);
 			break;
 
 		case synergyItem:
 
-			cout << "Generate synergy item" << endl;
+			//cout << "Generate synergy item" << endl;
 
 			item = generateSynergyItem(itemDifficulty);
 			break;
 
 		case deathMask:
 
-			cout << "Generate death-mask item. yay!" << endl;
+			//cout << "Generate death-mask item. yay!" << endl;
 
 			item = generateDeathMask();
 			break;
@@ -118,7 +118,7 @@ shared_ptr<SurfaceMaterial> GameObjectsGenerator::makeSurfaceMaterialWeaponHUD(s
 		auto weaponSurface = IMG_Load(path->c_str());
 
 		if (!weaponSurface) {
-			cout << "Can't load image at path: " << path->c_str() << endl;
+			//cout << "Can't load image at path: " << path->c_str() << endl;
 			throw runtime_error("Can't load image for weapon hud in objects generator");
 		}
 

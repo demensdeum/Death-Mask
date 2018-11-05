@@ -53,7 +53,7 @@ void GameFinalController::step() {
 	if (inputController->isExitKeyPressed()) {
 
 #ifndef __EMSCRIPTEN__
-		cout << "Bye-Bye!" << endl;
+		//cout << "Bye-Bye!" << endl;
 		ioSystem->stop();
 		exit(0);
 #endif
@@ -66,6 +66,6 @@ void GameFinalController::step() {
 		notifyListenerAboutControllerDidFinish(this);
 	}
 
-	cout << "Game Over Controller step" << endl;
+	//cout << "Game Over Controller step" << endl;
 
 };

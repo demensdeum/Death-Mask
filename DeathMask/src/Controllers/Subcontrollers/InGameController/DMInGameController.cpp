@@ -133,7 +133,7 @@ void DMInGameController::generateMap() {
 	text->setClassIdentifier(make_shared<string>(DMConstClassIdentifierLabel.c_str()));
 	mainCharacter->addComponent(text);
 
-	playerObjectControls = make_shared<DMPlayerObjectControls>(mainCharacter, ioSystem->inputController, gameMap);
+	playerObjectControls = make_shared<DMPlayerObjectControls>(mainCharacter, ioSystem->inputController, gameMap, stickController);
 
 	auto mainCharacterPosition =  FSEGTUtils::getObjectPosition(mainCharacter);
 	mainCharacterPosition->x = startPointPosition->x;
@@ -220,7 +220,7 @@ void DMInGameController::shooterObjectHitObject(shared_ptr<Object> shooterObject
 		}
 		else if (shooterObject->getClassIdentifier()->compare(DMConstClassIdentifierEnemy) == 0) {
 
-			cout << "shooter object is enemy" << endl;
+			//cout << "shooter object is enemy" << endl;
 
 			if (hitObject == mainCharacter) {
 				showMessage(make_shared<string>(LocalizedString("Hitted by object")));
@@ -245,7 +245,7 @@ void DMInGameController::shooterObjectHitObject(shared_ptr<Object> shooterObject
 
 void DMInGameController::useItemAtXY(shared_ptr<Objects> objects) {
 
-	cout << "Trying to use objects" << endl;
+	//cout << "Trying to use objects" << endl;
 
 	UseItemResultType useItemResultType = cant;
 
@@ -356,6 +356,8 @@ void DMInGameController::objectsContextAllObjectsRemoved(shared_ptr<FSEGTObjects
 
 void DMInGameController::step() {
 
+	stickController->step();
+
     if (handleMessagesAndStopIfNeeded()) {
         return;
     }
@@ -394,7 +396,7 @@ void DMInGameController::frameStep() {
 	if (inputController->isExitKeyPressed()) {
 
 #ifndef __EMSCRIPTEN__
-		cout << "Bye-Bye!" << endl;
+		//cout << "Bye-Bye!" << endl;
 		ioSystem->stop();
 		exit(0);
 #endif
@@ -472,16 +474,13 @@ void DMInGameController::frameStep() {
 
 		}
 	}
-
-	inputController->clearTouches();
-
 }
 
 void DMInGameController::objectDidShoot(shared_ptr<Object> shooterObject) {
 
 	if (shooterObject->getClassIdentifier()->compare(DMConstClassIdentifierEnemy) == 0) {
 
-		cout << "pew pew by enemy" << endl;
+		//cout << "pew pew by enemy" << endl;
 
 	}
 

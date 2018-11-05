@@ -98,7 +98,7 @@ void ZombieControls::step(shared_ptr<DMObjectControlsDelegate> delegate) {
 
 	if (shootTimer >= 120) {
 
-		cout << "zombie controls shoot" << endl;
+		//cout << "zombie controls shoot" << endl;
 
 		shootTimer = 0;
 

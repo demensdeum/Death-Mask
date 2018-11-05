@@ -33,9 +33,57 @@ void DMPlayerObjectControls::step(shared_ptr<DMObjectControlsDelegate> delegate)
 		return;
 	}
 
+	auto rotation = FSEGTUtils::getObjectRotation(lockedObject);
 	auto position = FSEGTUtils::getObjectPosition(lockedObject);
       
-	if (inputController->isLeftKeyPressed()) {
+	bool leftKeyPressed = inputController->isLeftKeyPressed();
+	bool rightKeyPressed = inputController->isRightKeyPressed();
+	bool downKeyPressed = inputController->isDownKeyPressed();
+	bool upKeyPressed = inputController->isUpKeyPressed();
+
+	int stickOffset = 6;
+
+	auto moveStick = stickController->moveStick;
+
+	if (moveStick.get() != nullptr) {
+
+		if (moveStick->x < -stickOffset) {
+			leftKeyPressed = true;
+		}
+
+		if (moveStick->x > stickOffset) {
+			rightKeyPressed = true;
+		}
+
+		if (moveStick->y < -stickOffset) {
+			upKeyPressed = true;
+		}
+
+		if (moveStick->y > stickOffset) {
+			downKeyPressed = true;
+		}
+
+	}
+
+	auto viewStick = stickController->viewStick;
+
+	if (viewStick.get() != nullptr) {
+
+		if (viewTouchStartX == -1) {
+			viewTouchStartX = rotation->y;
+		}
+		else {
+			rotation->y = viewTouchStartX - float(viewStick->x) / 200;
+		}
+
+	}
+	else {
+
+		viewTouchStartX = -1;
+
+	}
+
+	if (leftKeyPressed) {
 
 #if DMPLAYEROBJECTCONTROLSMOVEBYDIRECTION == 1
 		moveByRotation(-step, 0, 0, delegate);
@@ -46,7 +94,7 @@ void DMPlayerObjectControls::step(shared_ptr<DMObjectControlsDelegate> delegate)
 
 	}
 
-	if (inputController->isRightKeyPressed()) {
+	if (rightKeyPressed) {
 
 #if DMPLAYEROBJECTCONTROLSMOVEBYDIRECTION == 1
 		moveByRotation(step, 0, 0, delegate);
@@ -57,7 +105,7 @@ void DMPlayerObjectControls::step(shared_ptr<DMObjectControlsDelegate> delegate)
 
 	}
   
-	if (inputController->isDownKeyPressed()) {    
+	if (downKeyPressed) {    
 
 #if DMPLAYEROBJECTCONTROLSMOVEBYDIRECTION == 1
 		moveByRotation(0, 0, step, delegate);
@@ -68,7 +116,7 @@ void DMPlayerObjectControls::step(shared_ptr<DMObjectControlsDelegate> delegate)
 
 	}
 
-	if (inputController->isUpKeyPressed()) {
+	if (upKeyPressed) {
 
 #if DMPLAYEROBJECTCONTROLSMOVEBYDIRECTION == 1
 		moveByRotation(0, 0, -step, delegate);
@@ -78,8 +126,6 @@ void DMPlayerObjectControls::step(shared_ptr<DMObjectControlsDelegate> delegate)
 		updateNeeded = true;
 
 	}
-
-	auto rotation = FSEGTUtils::getObjectRotation(lockedObject);
 
 	if (inputController->pointerXdiff != 0)
 	{
