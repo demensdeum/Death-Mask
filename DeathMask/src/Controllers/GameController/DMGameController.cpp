@@ -32,7 +32,7 @@
 
 #include <FlameSteelEngineGameToolkitFSGL/FSEGTIOFSGLSystem.h>
 
-#define DEATHMASK_PLAY_MUSIC 0
+#define DEATHMASK_PLAY_MUSIC 1
 
 DMGameController::DMGameController() {
 
@@ -51,7 +51,7 @@ DMGameController::DMGameController() {
     ioSystem->initialize(ioSystemParams);
         
 #if DEATHMASK_PLAY_MUSIC == 1
-	ioSystem->audioPlayer->play(make_shared<string>("data/com.demensdeum.deathmaskgame.dc113.audio.json"));
+	ioSystem->audioPlayer->play(make_shared<string>("data/com.demensdeum.deathmaskgame.dc117.audio.json"));
 #endif
 
 	auto companyLogoController = make_shared<CreditsController>();

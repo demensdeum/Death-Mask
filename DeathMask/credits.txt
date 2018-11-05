@@ -6,6 +6,7 @@ Art:
 Music:
 
 	com.demensdeum.deathmaskgame.dc113.ogg - ANTI RIAA / Independent Artists / Free To Share / Netlabel - info in com.demensdeum.deathmaskgame.dc113.txt
+	com.demensdeum.deathmaskgame.dc117.ogg - ANTI RIAA / Independent Artists / Free To Share / Netlabel - info in com.demensdeum.deathmaskgame.dc117.txt
 	
 Sound:
 
