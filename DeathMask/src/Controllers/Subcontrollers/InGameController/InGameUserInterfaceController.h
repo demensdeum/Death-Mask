@@ -49,6 +49,8 @@ private:
 	shared_ptr<DMGameplayProperties> gameplayProperties;
 	shared_ptr<InGameUserInterfaceControllerDataSource> dataSource;
 
+	SDL_Surface *aimSurface = nullptr;
+
 	TTF_Font *font = nullptr;
 	string previousRenderedString;
 };

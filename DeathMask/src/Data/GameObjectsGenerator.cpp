@@ -336,7 +336,7 @@ shared_ptr<Object> GameObjectsGenerator::makePistol(weak_ptr<MaterialLibrary> ma
 	auto item = makeObject(type, name, minimalEffect, maximalEffect, lockedByQuestItem);
 
 	SDL_Rect weaponRect;
-	weaponRect.x = 356;
+	weaponRect.x = 383;
 	weaponRect.y = 382;
 	weaponRect.w = 256;
 	weaponRect.h = 195;

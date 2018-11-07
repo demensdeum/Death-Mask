@@ -1,7 +1,9 @@
 Art:
 	enemy, hero image - https://forums.rpgmakerweb.com/index.php?threads/kazzadors-modern-sci-fi-resources.18271/
 	crate - https://www.blendswap.com/user/Rjjonesy99
-	shotgun hud - free doom (GNU General Public License) https://freedoom.github.io/about.html
+	weapons - free doom (GNU General Public License) https://freedoom.github.io/about.html
+	skybox - https://opengameart.org/content/sky-box-sunny-day
+	aim - https://opengameart.org/content/10-aimtargets
 	
 Music:
 

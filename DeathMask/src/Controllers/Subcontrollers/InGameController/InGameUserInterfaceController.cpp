@@ -59,6 +59,8 @@ InGameUserInterfaceController::InGameUserInterfaceController(shared_ptr<Object> 
 		printf("TTF_OpenFont: %s\n", TTF_GetError());
 		runtime_error("TTF Can't load font");
 	}
+
+	aimSurface = IMG_Load("data/com.demensdeum.hud.aim.png");
 }
 
 void InGameUserInterfaceController::step() {
@@ -181,6 +183,15 @@ void InGameUserInterfaceController::step() {
 		SDL_FreeSurface(uiText);
 	
 	}
+
+	{
+		SDL_Rect sourceRect = aimSurface->clip_rect;
+		SDL_Rect destinationRect = sourceRect;
+		destinationRect.x = (surface->w / 2)  - aimSurface->w / 2;
+		destinationRect.y = (surface->h / 4) ;
+
+		SDL_BlitSurface(aimSurface, nullptr, surface, &destinationRect);
+	}
 	
 	previousRenderedString = bufferString;
 	surfaceMaterial->material->needsUpdate = true;
@@ -202,6 +213,10 @@ shared_ptr<Objects> InGameUserInterfaceControllerDataSource::objectsForInGameUse
 }
 
 InGameUserInterfaceController::~InGameUserInterfaceController() {
+
+	if (aimSurface != nullptr) {
+		SDL_FreeSurface(aimSurface);
+	}
 
 	if (font != nullptr) {
 		TTF_CloseFont(font);
