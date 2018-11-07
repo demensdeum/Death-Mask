@@ -31,6 +31,7 @@ public:
 	static shared_ptr<Object> generateRandomItem(enum Difficulty itemDifficulty, weak_ptr<MaterialLibrary> materialLibrary);
 	static shared_ptr<Object> generateQuestItem(enum Difficulty questItemDifficulty);
 	static shared_ptr<Object> generateDeathMask();
+	static shared_ptr<Object> generateSkybox();
 
 	static shared_ptr<Object> makePistol(weak_ptr<MaterialLibrary> materialLibrary);
 	static shared_ptr<Object> makeShotgun(weak_ptr<MaterialLibrary> materialLibrary);

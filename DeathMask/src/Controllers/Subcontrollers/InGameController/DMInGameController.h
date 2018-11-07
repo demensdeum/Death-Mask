@@ -13,6 +13,7 @@ namespace DeathMaskGame {
 #include <FlameSteelEngineGameToolkit/Data/ObjectsMap/ObjectsMap.h>
 #include <DeathMask/src/Controllers/Subcontrollers/InGameController/GameplayRulesControllerDelegate.h>
 #include <FlameSteelEngineGameToolkit/Controllers/StickController.h>
+#include <FlameSteelEngineGameToolkit/Controllers/SkyboxController.h>
 
 class FSEGTFreeCameraController;
 
@@ -25,7 +26,8 @@ class DMInGameController: public GameController,
 											public enable_shared_from_this<DMInGameController>,
 												public InGameUserInterfaceControllerDataSource,
 													public FSEGTObjectContextDelegate,
-                                                        public GameplayRulesControllerDelegate {
+                                                        						public GameplayRulesControllerDelegate,
+															public SkyboxControllerDelegate {
 
 public:
 	DMInGameController();
@@ -50,6 +52,8 @@ public:
 
 	void gameplayRulesControllerMainCharacterDidFoundDeathMask(shared_ptr<GameplayRulesController> gameplayRulesController);
 
+	void skyboxControllerDidUpdateSkybox(shared_ptr<SkyboxController> skyboxController, shared_ptr<Object> skybox);
+
 private:
 	shared_ptr<GameplayRulesController> gameplayRulesController;
 	shared_ptr<FSEGTFreeCameraController> freeCameraController;
@@ -63,6 +67,7 @@ private:
 	shared_ptr<ObjectsMap> objectsMap;
 	shared_ptr<Objects> enemies;
 	shared_ptr<StickController> stickController;
+	shared_ptr<SkyboxController> skyboxController;
 
 	void shooterObjectHitObject(shared_ptr<Object> shooterObject, shared_ptr<Object> hitObject);
 

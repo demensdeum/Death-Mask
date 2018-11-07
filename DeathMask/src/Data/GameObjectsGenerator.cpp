@@ -12,6 +12,8 @@
 #include <iostream>
 #include <FlameSteelEngineGameToolkitAlgorithms/Algorithms/MazeObjectGenerator/FSGTAMazeObjectGenerator.h>
 #include <DeathMask/src/Const/Const.h>
+#include <FlameSteelEngineGameToolkit/Const/FSEGTConst.h>
+#include <FlameSteelEngineGameToolkit/Data/Components/Text/FSEGTText.h>
 
 using namespace FlameSteelCore::Utils;
 using namespace DeathMaskGame;
@@ -138,6 +140,37 @@ shared_ptr<SurfaceMaterial> GameObjectsGenerator::makeSurfaceMaterialWeaponHUD(s
 
 	return surfaceMaterial;
 
+}
+
+shared_ptr<Object> GameObjectsGenerator::generateSkybox() {
+
+	auto skyboxSerializedModel = FSGTAMazeObjectGenerator::generateSkybox(make_shared<string>("com.demensdeum.testenvironment.skybox.png"));
+
+      auto skybox = FSEGTFactory::makeOnSceneObject(
+													            make_shared<string>("dummy"),
+													            make_shared<string>("dummy"),
+													            shared_ptr<string>(),
+													            shared_ptr<string>(),
+															skyboxSerializedModel->serializedModelString(),
+													            0, 0, 0,
+													            1, 1, 1,
+													            0, 0, 0,
+													            0);   	
+
+	skybox->setClassIdentifier(make_shared<string>("skybox"));
+	skybox->setInstanceIdentifier(make_shared<string>(skybox->uuid));
+
+	auto flagSkybox = FSEGTFactory::makeBooleanComponent();
+	flagSkybox->setInstanceIdentifier(make_shared<string>(FSEGTConstComponentsFlagSkybox));
+	flagSkybox->setClassIdentifier(make_shared<string>(FSEGTConstComponentsFlagSkybox));
+
+	skybox->addComponent(flagSkybox);
+
+	auto text = make_shared<FSEGTText>(make_shared<string>("Skybox"));
+	text->setClassIdentifier(make_shared<string>(DMConstClassIdentifierLabel.c_str()));
+	skybox->addComponent(text);
+
+	return skybox;
 }
 
 shared_ptr<Object> GameObjectsGenerator::makeObject(ItemType type, 

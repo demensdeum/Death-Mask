@@ -68,14 +68,9 @@ void DMInGameController::generateMap() {
 	enemies = make_shared<Objects>();
 	auto mapParametersEnemies = make_shared<Objects>();
 
-	/*auto flag2D = FSEGTFactory::makeBooleanComponent();
-	flag2D->setInstanceIdentifier(make_shared<string>(FSEGTConstComponentsFlag2D));
-	flag2D->setClassIdentifier(make_shared<string>(FSEGTConstComponentsFlag2D));*/
-
 	for (auto i = 0; i < 20; i ++)
 	{
 		auto enemy = objectsGenerator->generateEnemy(easy, ioSystem->materialLibrary);
-		//enemy->addComponent(flag2D);
 
 		enemies->addObject(enemy);
 		mapParametersEnemies->addObject(enemy);
@@ -187,6 +182,18 @@ void DMInGameController::generateMap() {
 	uiObject = inGameUserInterfaceController->uiObject;
 
 	objectsContext->addObject(inGameUserInterfaceController->uiObject);
+
+	auto skybox = GameObjectsGenerator::generateSkybox();
+	objectsContext->addObject(skybox);
+
+	skyboxController = make_shared<SkyboxController>(mainCharacter, skybox, shared_from_this());
+
+}
+
+void DMInGameController::skyboxControllerDidUpdateSkybox(shared_ptr<SkyboxController> skyboxController, shared_ptr<Object> skybox) {
+
+	objectsContext->updateObject(skybox);
+
 }
 
 void DMInGameController::showMessage(shared_ptr<string> message) {
@@ -357,6 +364,7 @@ void DMInGameController::objectsContextAllObjectsRemoved(shared_ptr<FSEGTObjects
 void DMInGameController::step() {
 
 	stickController->step();
+	skyboxController->step();
 
     if (handleMessagesAndStopIfNeeded()) {
         return;
