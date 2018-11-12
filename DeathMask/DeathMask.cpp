@@ -8,7 +8,7 @@ using namespace std;
 
 int main()
 {
-	//cout << "Death Mask - Cyber Fantasy Adventure in Endless Techno-Maze\nPrepare to die!\n" << endl;
+	cout << "Death Mask - Cyber Fantasy Adventure in Endless Techno-Maze\nPrepare to die!\n" << endl;
 
 #ifdef __EMSCRIPTEN__
 try
@@ -20,7 +20,7 @@ try
 }
 catch (const std::exception &exc)
 {
-	//cout << exc.what();
+	cout << exc.what();
 }
 #endif
 
